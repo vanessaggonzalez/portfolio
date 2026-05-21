@@ -85,6 +85,37 @@ export default function Home() {
                 Resume
               </a>
             </div>
+            <div className="mt-10 rounded-[28px] border border-black/5 bg-white/45 p-4 shadow-[0_16px_40px_rgba(68,44,29,0.04)] backdrop-blur-sm">
+              <div className="flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+                <span className="h-px w-8 bg-[#c8bdb2]" />
+                selected fragments
+              </div>
+
+              <div className="mt-4 flex flex-wrap gap-3 text-sm text-[#5f554f]">
+                {[
+                  "Harry Potter edits",
+                  "editorial moodboards",
+                  "late-night editing",
+                  "storytelling + taste",
+                  "soft luxury",
+                  "fandom archives",
+                  "adobe after effects"
+                ].map((item, index) => (
+                  <span
+                    key={item}
+                    className={`rounded-full border border-black/8 bg-white/70 px-4 py-2 tracking-[0.04em] shadow-sm backdrop-blur-sm ${
+                      index % 3 === 0
+                        ? "-rotate-1"
+                        : index % 3 === 1
+                          ? "rotate-1"
+                          : "rotate-0"
+                    }`}
+                  >
+                    {item}
+                  </span>
+                ))}
+              </div>
+            </div>
 
             {/* COLLAGE */}
             <div className="relative mt-20 min-h-[900px]">
