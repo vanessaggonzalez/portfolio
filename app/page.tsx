@@ -138,14 +138,19 @@ export default function Home() {
               </p>
 
               <div className="relative mx-auto flex max-w-[1100px] justify-center">
+                {/* BOKEH / LIGHT TEXTURE */}
                 <div
                   aria-hidden="true"
-                  className="absolute left-1/2 top-[44%] h-[170%] w-[92%] -translate-x-1/2 -translate-y-1/2 rounded-full bg-[#f6eee7]/90 blur-[90px]"
-                />
-                <div
-                  aria-hidden="true"
-                  className="absolute inset-x-20 top-1/2 h-px -translate-y-1/2 bg-gradient-to-r from-transparent via-black/10 to-transparent"
-                />
+                  className="pointer-events-none absolute inset-0 overflow-hidden rounded-[48px]"
+                >
+                  <div className="absolute left-[8%] top-[6%] h-64 w-64 rounded-full bg-white/95 blur-[120px] animate-bokehOne" />
+                  <div className="absolute right-[14%] top-[10%] h-80 w-80 rounded-full bg-[#e2c1a7]/90 blur-[140px] animate-bokehTwo" />
+                  <div className="absolute left-[42%] top-[40%] h-60 w-60 rounded-full bg-[#fffdfb]/95 blur-[125px] animate-bokehThree" />
+                  <div className="absolute left-[8%] bottom-[8%] h-40 w-40 rounded-full bg-white/70 blur-[90px] animate-bokehFour" />
+                  <div className="absolute right-[6%] bottom-[10%] h-44 w-44 rounded-full bg-[#f0ded1]/80 blur-[105px] animate-bokehFive" />
+                </div>
+
+                {/* SIGNATURE */}
                 <div className="relative z-10 w-full max-w-[860px]">
                   <span className="sr-only">Vanessa Gonzalez</span>
                   <Signature aria-hidden="true" />
@@ -153,7 +158,7 @@ export default function Home() {
               </div>
 
               <div className="mx-auto mt-6 max-w-2xl text-center">
-                <p className="text-[1.02rem] leading-8 text-[#4c413b] sm:text-[1.12rem]">
+                <p className="text-[1.02rem] leading-8 text-[#433833] sm:text-[1.12rem]">
                   A portfolio built like an archive of things I keep coming back
                   to — edits, details, stories, and products that feel
                   collectible.
@@ -200,7 +205,7 @@ export default function Home() {
               </div>
 
               {/* COLLAGE */}
-              <div className="mt-16 grid gap-4 lg:relative lg:mt-[4.5rem] lg:block lg:min-h-[1200px]">
+              <div className="mt-16 grid gap-4 lg:relative lg:mt-[4.5rem] lg:block lg:min-h-[1100px]">
 
                 {/* MAIN PORTRAIT */}
                 <div className="reveal-item group h-[420px] overflow-hidden rounded-[36px] border border-[#201c1a]/6 shadow-[0_22px_65px_rgba(45,29,18,0.08)] transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-[0_30px_80px_rgba(45,29,18,0.14)] animate-floatSlow lg:absolute lg:left-[2%] lg:top-[20px] lg:h-[610px] lg:w-[36%]" style={{ animationDelay: "0ms" }}>
@@ -215,8 +220,8 @@ export default function Home() {
                 </div>
 
                 {/* QUOTE CARD */}
-                  <div className="reveal-item rounded-[26px] border border-black/5 bg-white/80 px-7 py-6 shadow-[0_18px_50px_rgba(68,44,29,0.06)] backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.09)] lg:absolute lg:left-[3%] lg:top-[660px] lg:w-[30%] lg:rotate-[-1.5deg]" style={{ animationDelay: "60ms" }}>
-                    <p className="font-[family-name:var(--font-cormorant)] text-[1.45rem] italic leading-8 text-[#342d29]">
+                <div className="reveal-item rounded-[26px] border border-black/5 bg-white/80 px-7 py-6 shadow-[0_18px_50px_rgba(68,44,29,0.06)] backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.09)] lg:absolute lg:left-[3%] lg:top-[660px] lg:w-[30%] lg:rotate-[-1.5deg]" style={{ animationDelay: "60ms" }}>
+                    <p className="font-serif font-semibold text-[1.45rem] italic leading-8 text-[#342d29]">
                      "collecting moments, tattoos on my mind"
                     </p>
                     <p className="mt-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
@@ -225,8 +230,8 @@ export default function Home() {
                   </div>
 
                 {/* ALWAYS OPEN — TOOLS */}
-                                <div className="reveal-item rounded-[26px] border border-black/5 bg-white/75 p-5 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] lg:absolute lg:left-[2%] lg:top-[980px] lg:w-[34%] lg:rotate-[0.5deg]" style={{ animationDelay: "120ms" }}>
-                                  <p className="font-[family-name:var(--font-cormorant)] text-sm uppercase tracking-[0.24em] text-[#7c7068]">
+                <div className="reveal-item rounded-[26px] border border-black/5 bg-white/75 p-5 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] lg:absolute lg:left-[3%] lg:top-[860px] lg:w-[30%] lg:rotate-[0.5deg]" style={{ animationDelay: "120ms" }}>
+                                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
                                     always open
                                   </p>
                                   <div className="mt-4 flex flex-wrap gap-2">
@@ -265,12 +270,12 @@ export default function Home() {
 
                  {/* LITTLE NOTE */}
                                 <div className="reveal-item rounded-[30px] border border-black/5 bg-white/78 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] lg:absolute lg:right-[2%] lg:top-[30px] lg:w-[36%]" style={{ animationDelay: "100ms" }}>
-                                  <p className="font-[family-name:var(--font-cormorant)] text-sm uppercase tracking-[0.24em] text-[#7c7068]">
+                                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
                                     a little note
                                   </p>
                                   <p className="mt-4 text-[1.03rem] leading-8 text-[#342d29] sm:text-[1.08rem]">
                                     I like things that feel edited, emotional, and a little
-                                    nostalgic — like a page torn from a diary and styled for a
+                                    nostalgic; like a page torn from a diary and styled for a
                                     gallery wall.
                                   </p>
                                   <p className="mt-4 text-xs uppercase tracking-[0.28em] text-[#8a7d75]">
@@ -290,8 +295,8 @@ export default function Home() {
                                 </div>
 
                  {/* CURRENTLY INSPIRING ME */}
-                                <div className="reveal-item rounded-[26px] border border-black/5 bg-white/82 p-5 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] lg:absolute lg:right-[2%] lg:top-[540px] lg:w-[24%] lg:rotate-[1.5deg]" style={{ animationDelay: "280ms" }}>
-                                  <p className="font-[family-name:var(--font-cormorant)] text-sm uppercase tracking-[0.24em] text-[#7c7068]">
+                 <div className="reveal-item rounded-[26px] border border-black/5 bg-white/82 p-5 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] lg:absolute lg:right-[2%] lg:top-[520px] lg:w-[24%] lg:rotate-[1.5deg]" style={{ animationDelay: "280ms" }}>
+                                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
                                     currently inspiring me
                                   </p>
                                   <div className="mt-4 grid gap-2 text-sm leading-6 text-[#342d29]">
@@ -302,8 +307,8 @@ export default function Home() {
                                 </div>
 
                 {/* CURRENTLY OBSESSED WITH */}
-                                <div className="reveal-item rounded-[30px] border border-black/5 bg-white/75 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] lg:absolute lg:right-[2%] lg:top-[920px] lg:w-[38%]" style={{ animationDelay: "320ms" }}>
-                                  <p className="font-[family-name:var(--font-cormorant)] text-sm uppercase tracking-[0.24em] text-[#7c7068]">
+                <div className="reveal-item rounded-[30px] border border-black/5 bg-white/75 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] lg:absolute lg:right-[2%] lg:top-[820px] lg:w-[36%]" style={{ animationDelay: "320ms" }}>
+                                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
                                     currently obsessed with
                                   </p>
                                   <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3">
@@ -318,8 +323,8 @@ export default function Home() {
 
 
                 {/* THREADS */}
-                                <div className="reveal-item rounded-[30px] border border-black/5 bg-white/75 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] lg:absolute lg:left-[37%] lg:top-[700px] lg:w-[28%]" style={{ animationDelay: "340ms" }}>
-                                  <p className="font-[family-name:var(--font-cormorant)] text-sm uppercase tracking-[0.24em] text-[#7c7068]">
+                <div className="reveal-item rounded-[30px] border border-black/5 bg-white/75 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] lg:absolute lg:left-[33.5%] lg:top-[700px] lg:w-[28%]" style={{ animationDelay: "340ms" }}>
+                                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
                                     current threads
                                   </p>
                                   <div className="mt-5 flex flex-wrap gap-2">
@@ -415,10 +420,10 @@ export default function Home() {
                   className="reveal-item relative overflow-hidden rounded-[30px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)]"
                   style={{ animationDelay: `${(index + 1) * 120}ms` }}
                 >
-                  <span className="absolute right-6 top-6 font-[family-name:var(--font-cormorant)] text-[2.2rem] leading-none text-[#e8ddd6] select-none">
+                  <span className="absolute right-6 top-6 font-serif font-semibold text-[2.2rem] leading-none text-[#e8ddd6] select-none">
                     0{index + 2}
                   </span>
-                  <p className="font-[family-name:var(--font-cormorant)] text-sm uppercase tracking-[0.24em] text-[#7c7068]">
+                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
                     {project.category}
                   </p>
                   <p className="mt-4 pr-8 text-sm leading-7 text-[#4d413b]">
@@ -450,7 +455,7 @@ export default function Home() {
               className="reveal-item rounded-[30px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]"
               style={{ animationDelay: "0ms" }}
             >
-              <p className="font-[family-name:var(--font-cormorant)] text-sm uppercase tracking-[0.24em] text-[#7c7068]">
+              <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
                 about
               </p>
               <h2 className="mt-4 max-w-2xl text-2xl leading-tight text-[#1f1a18] sm:text-[1.9rem]">
@@ -492,7 +497,7 @@ export default function Home() {
                 className="reveal-item rounded-[30px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]"
                 style={{ animationDelay: "80ms" }}
               >
-                <p className="font-[family-name:var(--font-cormorant)] text-sm uppercase tracking-[0.24em] text-[#7c7068]">
+                <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
                   what I bring
                 </p>
                 <div className="mt-4 grid gap-3 text-sm leading-7 text-[#4d413b]">
@@ -509,7 +514,7 @@ export default function Home() {
                 className="reveal-item rounded-[30px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]"
                 style={{ animationDelay: "160ms" }}
               >
-                <p className="font-[family-name:var(--font-cormorant)] text-sm uppercase tracking-[0.24em] text-[#7c7068]">
+                <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
                   current direction
                 </p>
                 <p className="mt-4 text-sm leading-7 text-[#4d413b]">
@@ -519,14 +524,14 @@ export default function Home() {
                 </p>
                 <div className="mt-6 flex flex-col gap-2">
                   <a
-                    href="mailto:your@email.com"
+                    href="mailto:vcnessaggonzalez@gmail.com"
                     className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]"
                   >
                     <span className="h-px w-4 bg-[#c8bdb2] transition-all duration-200 group-hover:w-6" />
-                    your@email.com
+                    vcnessaggonzalez@gmail.com
                   </a>
                   <a
-                    href="https://linkedin.com/in/yourhandle"
+                    href="https://linkedin.com/in/vanessa-g-gonzalez"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]"
@@ -572,6 +577,37 @@ export default function Home() {
             to { opacity: 1; transform: translateY(0); }
           }
 
+          @keyframes bokehOne {
+            0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.65; }
+            50% { transform: translate(8px, -10px) scale(1.05); opacity: 0.85; }
+          }
+
+          @keyframes bokehTwo {
+            0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.5; }
+            50% { transform: translate(-10px, 8px) scale(1.08); opacity: 0.72; }
+          }
+
+          @keyframes bokehThree {
+            0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.45; }
+            50% { transform: translate(6px, 6px) scale(1.06); opacity: 0.65; }
+          }
+
+          @keyframes bokehFour {
+            0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.4; }
+            50% { transform: translate(-6px, -8px) scale(1.04); opacity: 0.55; }
+          }
+
+          @keyframes bokehFive {
+            0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.35; }
+            50% { transform: translate(10px, -6px) scale(1.05); opacity: 0.52; }
+          }
+
+          .animate-bokehOne { animation: bokehOne 14s ease-in-out infinite; }
+          .animate-bokehTwo { animation: bokehTwo 18s ease-in-out infinite; }
+          .animate-bokehThree { animation: bokehThree 16s ease-in-out infinite; }
+          .animate-bokehFour { animation: bokehFour 20s ease-in-out infinite; }
+          .animate-bokehFive { animation: bokehFive 22s ease-in-out infinite; }
+
           .animate-floatSlow {
             animation: floatSlow 8s ease-in-out infinite;
           }
@@ -587,7 +623,7 @@ export default function Home() {
           .grain-overlay {
             opacity: 0.06;
             mix-blend-mode: multiply;
-            background-image: ur("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
+            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
             background-size: 280px 280px;
             background-repeat: repeat;
           }
