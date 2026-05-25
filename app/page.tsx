@@ -268,7 +268,7 @@ export default function Home() {
 
                 <div className="mt-7 flex flex-wrap justify-center gap-3">
                   <a
-                    href="#work"
+                    href="/work"
                     className="magnetic-btn rounded-full border border-[#201c1a] bg-[#201c1a] px-6 py-3 text-sm text-white transition hover:-translate-y-0.5 hover:shadow-lg"
                   >
                     View Work
