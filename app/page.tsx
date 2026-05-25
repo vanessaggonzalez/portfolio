@@ -48,21 +48,21 @@ function useReveal() {
   }, []);
 }
 
-// ─── Scroll parallax: each card drifts at its own speed ──────────────────────
+// ─── Scroll parallax: offset is relative to each card's own start position ───
 function useParallax() {
   useEffect(() => {
     const speeds: Record<string, number> = {
-      portrait:       0.04,
-      magazine:       0.09,
-      lace:           0.12,
-      "quote-card":   0.06,
-      "tools-card":   0.07,
-      "note-card":    0.05,
-      "inspire-card": 0.10,
-      obsessed:       0.03,
-      threads:        0.08,
-      "second-photo": 0.06,
-      "fragments-tag":0.04,
+      portrait:        0.04,
+      magazine:        0.09,
+      lace:            0.12,
+      "quote-card":    0.06,
+      "tools-card":    0.07,
+      "note-card":     0.05,
+      "inspire-card":  0.10,
+      obsessed:        0.03,
+      threads:         0.08,
+      "second-photo":  0.06,
+      "fragments-tag": 0.04,
     };
 
     let ticking = false;
@@ -75,12 +75,9 @@ function useParallax() {
           const key = card.dataset.parallax ?? "";
           const speed = speeds[key] ?? 0.06;
 
-          // Get the card's position relative to the page
+          // Offset relative to the card's own top — zero when card first appears
           const rect = card.getBoundingClientRect();
           const cardTop = rect.top + scrollY;
-
-          // Only apply offset relative to where the card starts,
-          // so at scrollY = cardTop the offset is 0
           const offset = (scrollY - cardTop) * speed;
           card.style.transform = `translateY(${offset}px)`;
         });
@@ -226,16 +223,33 @@ export default function Home() {
               </p>
 
               <div className="relative mx-auto flex max-w-[1100px] justify-center">
-                {/* BOKEH / LIGHT TEXTURE */}
+
+                {/* ── BLACK + PINK POLKA DOT TEXTURE ── */}
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-0 overflow-hidden rounded-[48px]"
                 >
-                  <div className="absolute left-[8%] top-[6%] h-64 w-64 rounded-full bg-white/95 blur-[120px] animate-bokehOne" />
-                  <div className="absolute right-[14%] top-[10%] h-80 w-80 rounded-full bg-[#e2c1a7]/90 blur-[140px] animate-bokehTwo" />
-                  <div className="absolute left-[42%] top-[40%] h-60 w-60 rounded-full bg-[#fffdfb]/95 blur-[125px] animate-bokehThree" />
-                  <div className="absolute left-[8%] bottom-[8%] h-40 w-40 rounded-full bg-white/70 blur-[90px] animate-bokehFour" />
-                  <div className="absolute right-[6%] bottom-[10%] h-44 w-44 rounded-full bg-[#f0ded1]/80 blur-[105px] animate-bokehFive" />
+                  {/* Black dots layer */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage: `radial-gradient(circle, #201c1a 1px, transparent 1px)`,
+                      backgroundSize: "32px 32px",
+                      opacity: 0.97,
+                    }}
+                  />
+                  {/* Pink dots layer — offset by half a cell so they interleave */}
+                  <div
+                    className="absolute inset-0"
+                    style={{
+                      backgroundImage: `radial-gradient(circle, #e8a0b0 1.5px, transparent 1.5px)`,
+                      backgroundSize: "32px 32px",
+                      backgroundPosition: "16px 16px",
+                      opacity: 0.98,
+                    }}
+                  />
+                  {/* Soft center wash so the signature stays readable */}
+                  <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[340px] w-[680px] rounded-full bg-white/85 blur-[80px]" />
                 </div>
 
                 {/* SIGNATURE */}
@@ -460,7 +474,7 @@ export default function Home() {
                   <div className="tilt-gloss pointer-events-none absolute inset-0 rounded-[28px]" />
                 </div>
 
-                {/* SAVED FRAGMENTS TAG — no tilt, too small */}
+                {/* SAVED FRAGMENTS TAG */}
                 <div
                   className="collage-card reveal-item absolute rounded-full border border-black/5 bg-white/80 px-4 py-2 text-[0.72rem] uppercase tracking-[0.3em] text-[#7c7068] shadow-[0_10px_26px_rgba(68,44,29,0.05)]"
                   style={{ left: "36%", top: "678px" }}
@@ -768,37 +782,6 @@ export default function Home() {
           @keyframes drawStroke {
             to { stroke-dashoffset: 0; }
           }
-
-          @keyframes bokehOne {
-            0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.65; }
-            50% { transform: translate(8px, -10px) scale(1.05); opacity: 0.85; }
-          }
-
-          @keyframes bokehTwo {
-            0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.5; }
-            50% { transform: translate(-10px, 8px) scale(1.08); opacity: 0.72; }
-          }
-
-          @keyframes bokehThree {
-            0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.45; }
-            50% { transform: translate(6px, 6px) scale(1.06); opacity: 0.65; }
-          }
-
-          @keyframes bokehFour {
-            0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.4; }
-            50% { transform: translate(-6px, -8px) scale(1.04); opacity: 0.55; }
-          }
-
-          @keyframes bokehFive {
-            0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.35; }
-            50% { transform: translate(10px, -6px) scale(1.05); opacity: 0.52; }
-          }
-
-          .animate-bokehOne { animation: bokehOne 14s ease-in-out infinite; }
-          .animate-bokehTwo { animation: bokehTwo 18s ease-in-out infinite; }
-          .animate-bokehThree { animation: bokehThree 16s ease-in-out infinite; }
-          .animate-bokehFour { animation: bokehFour 20s ease-in-out infinite; }
-          .animate-bokehFive { animation: bokehFive 22s ease-in-out infinite; }
 
           .animate-floatSlow { animation: floatSlow 8s ease-in-out infinite; }
           .animate-floatMedium { animation: floatMedium 10s ease-in-out infinite; }
