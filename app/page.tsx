@@ -20,6 +20,7 @@ import Image from "next/image";
 import { useEffect } from "react";
 import Signature from "@/components/Signature";
 import NowPlaying from "@/components/NowPlaying";
+import MarqueeTicker from "@/components/MarqueeTicker";
 
 // ─── Staggered reveal: fires when each card scrolls into view ─────────────────
 function useReveal() {
@@ -649,6 +650,8 @@ export default function Home() {
             </div>
           </div>
         </section>
+
+        <MarqueeTicker />
 
         {/* ABOUT */}
         <section id="about" className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-10">
