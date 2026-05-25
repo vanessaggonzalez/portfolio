@@ -2,18 +2,90 @@
 PENDING IDEAS
 
 - refine grain opacity
-- delayed collage reveal
+- delayed collage reveal ✅
 - cursor glow effect
 - imported typography refinements
 - hover tilt interactions
 - project detail pages
 - cinematic transitions
+- now playing widget ✅
+- scroll parallax ✅
+- marquee ticker strip
+- magnetic buttons
 */
 
+"use client";
+
 import Image from "next/image";
+import { useEffect } from "react";
 import Signature from "@/components/Signature";
+import NowPlaying from "@/components/NowPlaying";
+
+// ─── Staggered reveal: fires when each card scrolls into view ─────────────────
+function useReveal() {
+  useEffect(() => {
+    const items = document.querySelectorAll<HTMLElement>(".reveal-item");
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const el = entry.target as HTMLElement;
+          const delay = Number(el.dataset.delay ?? 0);
+          setTimeout(() => el.classList.add("revealed"), delay);
+          observer.unobserve(el);
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -40px 0px" }
+    );
+
+    items.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, []);
+}
+
+// ─── Scroll parallax: each card drifts at its own speed ──────────────────────
+function useParallax() {
+  useEffect(() => {
+    const speeds: Record<string, number> = {
+      portrait:     0.04,  // main photo — barely moves
+      magazine:     0.09,  // tilted photo — drifts a bit
+      lace:         0.12,  // small photo — floats the most
+      "quote-card": 0.06,
+      "tools-card": 0.07,
+      "note-card":  0.05,
+      "inspire-card": 0.10,
+      obsessed:     0.03,
+      threads:      0.08,
+      "second-photo": 0.06,
+      "fragments-tag": 0.04,
+    };
+
+    let ticking = false;
+
+    const onScroll = () => {
+      if (ticking) return;
+      requestAnimationFrame(() => {
+        const scrollY = window.scrollY;
+        document.querySelectorAll<HTMLElement>(".collage-card").forEach((card) => {
+          const key = card.dataset.parallax ?? "";
+          const speed = speeds[key] ?? 0.06;
+          card.style.transform = `translateY(${scrollY * speed}px)`;
+        });
+        ticking = false;
+      });
+      ticking = true;
+    };
+
+    window.addEventListener("scroll", onScroll, { passive: true });
+    return () => window.removeEventListener("scroll", onScroll);
+  }, []);
+}
 
 export default function Home() {
+  useReveal();
+  useParallax();
+
   const navLinks = [
     { label: "Work", href: "#work" },
     { label: "About", href: "#about" },
@@ -24,7 +96,7 @@ export default function Home() {
   const currentThreads = [
     "fandom + emotional memory",
     "product taste + storytelling",
-    "elevated girlhood + visual mood",
+    "elevated + visual mood",
   ];
 
   const featuredProjects = [
@@ -74,7 +146,7 @@ export default function Home() {
     { label: "la la land", sub: "damien chazelle" },
     { label: "gossip girl", sub: "tv" },
     { label: "one tree hill", sub: "tv" },
-    { label: "perfect", sub: "selena gomez"}
+    { label: "perfect", sub: "selena gomez" },
   ];
 
   const tools = [
@@ -116,6 +188,7 @@ export default function Home() {
       <div className="relative z-10">
         <section className="px-4 py-4 sm:px-6 lg:px-10">
           <div className="mx-auto min-h-[92vh] max-w-7xl rounded-[34px] border border-black/5 bg-white/42 px-5 py-5 shadow-[0_30px_120px_rgba(54,36,24,0.06)] backdrop-blur-[2px] sm:px-8 sm:py-8">
+
             {/* NAV */}
             <header className="flex items-center justify-end gap-4 text-sm tracking-[0.22em] uppercase text-[#5f554f]">
               <nav className="flex flex-wrap justify-end gap-4 sm:gap-6">
@@ -134,7 +207,7 @@ export default function Home() {
             {/* HERO */}
             <div className="mt-8 lg:mt-10">
               <p className="mb-6 text-xs uppercase tracking-[0.35em] text-[#7c7068]">
-                saved fragments / elevated girlhood / cinematic taste
+                saved fragments / elevated / cinematic
               </p>
 
               <div className="relative mx-auto flex max-w-[1100px] justify-center">
@@ -160,7 +233,7 @@ export default function Home() {
               <div className="mx-auto mt-6 max-w-2xl text-center">
                 <p className="text-[1.02rem] leading-8 text-[#433833] sm:text-[1.12rem]">
                   A portfolio built like an archive of things I keep coming back
-                  to — edits, details, stories, and products that feel
+                  to: edits, details, stories, and products that feel
                   collectible.
                 </p>
 
@@ -180,7 +253,12 @@ export default function Home() {
                 </div>
               </div>
 
-              <div className="mt-10 rounded-[28px] border border-black/5 bg-white/45 p-4 shadow-[0_16px_40px_rgba(68,44,29,0.04)] backdrop-blur-sm">
+              {/* NOW PLAYING */}
+              <div className="mx-auto mt-6 flex max-w-xs justify-center">
+                <NowPlaying />
+              </div>
+
+              <div className="mt-6 rounded-[28px] border border-black/5 bg-white/45 p-4 shadow-[0_16px_40px_rgba(68,44,29,0.04)] backdrop-blur-sm">
                 <div className="flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
                   <span className="h-px w-8 bg-[#c8bdb2]" />
                   selected fragments
@@ -205,144 +283,268 @@ export default function Home() {
               </div>
 
               {/* COLLAGE */}
-              <div className="mt-16 grid gap-4 lg:relative lg:mt-[4.5rem] lg:block lg:min-h-[1100px]">
+              {/*
+                Layout strategy:
+                - Mobile/tablet: 2-column CSS grid, cards flow naturally, images have fixed heights
+                - Desktop (lg): absolute positioning collage with 3 columns carefully spaced:
+                    Left col  (0–34%):   portrait, quote, tools
+                    Center col (34–62%): magazine, lace, threads, fragments-tag
+                    Right col (62–100%): note, second-photo, inspiring, obsessed
+                  Each column's cards are vertically spaced so nothing overlaps.
+              */}
+
+              {/* ── MOBILE / TABLET: clean 2-col grid ── */}
+              <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:hidden">
+
+                {/* portrait — spans both cols on very small screens, 1 col otherwise */}
+                <div
+                  className="collage-card reveal-item col-span-2 sm:col-span-1 group h-[340px] overflow-hidden rounded-[28px] border border-[#201c1a]/6 shadow-[0_18px_50px_rgba(45,29,18,0.08)] transition-shadow duration-300"
+                  data-parallax="portrait" data-delay={0}
+                >
+                  <Image src="/images/vanessa1.jpg" alt="Vanessa portrait" fill priority sizes="(max-width: 640px) 100vw, 50vw" className="object-cover object-top" />
+                </div>
+
+                {/* note card */}
+                <div
+                  className="collage-card reveal-item col-span-2 sm:col-span-1 rounded-[24px] border border-black/5 bg-white/80 p-5 shadow-[0_14px_40px_rgba(68,44,29,0.06)] backdrop-blur-sm"
+                  data-parallax="note-card" data-delay={80}
+                >
+                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">a little note</p>
+                  <p className="mt-3 text-[0.95rem] leading-7 text-[#342d29]">I like things that feel edited, emotional, and a little nostalgic; like a page torn from a diary and styled for a gallery wall.</p>
+                  <p className="mt-3 text-[0.65rem] uppercase tracking-[0.28em] text-[#8a7d75]">anqclic / creative archive</p>
+                </div>
+
+                {/* magazine photo */}
+                <div
+                  className="collage-card reveal-item group h-[200px] overflow-hidden rounded-[24px] border border-[#201c1a]/6 shadow-[0_14px_40px_rgba(45,29,18,0.08)] transition-shadow duration-300"
+                  data-parallax="magazine" data-delay={120}
+                >
+                  <Image src="/images/ariana-audrey.jpg" alt="Ariana and Audrey inspiration" fill sizes="50vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                </div>
+
+                {/* lace photo */}
+                <div
+                  className="collage-card reveal-item group h-[200px] overflow-hidden rounded-[24px] border border-[#201c1a]/6 shadow-[0_14px_40px_rgba(45,29,18,0.08)] transition-shadow duration-300"
+                  data-parallax="lace" data-delay={160}
+                >
+                  <Image src="/images/lace.jpg" alt="Lace detail" fill sizes="50vw" className="object-cover transition-transform duration-500 group-hover:scale-[1.03]" />
+                </div>
+
+                {/* quote */}
+                <div
+                  className="collage-card reveal-item col-span-2 rounded-[24px] border border-black/5 bg-white/80 px-6 py-5 shadow-[0_14px_40px_rgba(68,44,29,0.06)] backdrop-blur-sm"
+                  data-parallax="quote-card" data-delay={200}
+                >
+                  <p className="font-serif font-semibold text-[1.25rem] italic leading-8 text-[#342d29]">"collecting moments, tattoos on my mind"</p>
+                  <p className="mt-2 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">ariana grande — sometimes</p>
+                </div>
+
+                {/* second photo */}
+                <div
+                  className="collage-card reveal-item col-span-2 group h-[220px] overflow-hidden rounded-[24px] border border-[#201c1a]/6 shadow-[0_14px_40px_rgba(45,29,18,0.08)] transition-shadow duration-300"
+                  data-parallax="second-photo" data-delay={240}
+                >
+                  <Image src="/images/vanessa2.jpg" alt="Vanessa at the Huntington" fill sizes="100vw" className="object-cover object-top transition-transform duration-500 group-hover:scale-[1.03]" />
+                </div>
+
+                {/* tools */}
+                <div
+                  className="collage-card reveal-item rounded-[24px] border border-black/5 bg-white/75 p-4 shadow-[0_14px_40px_rgba(68,44,29,0.05)] backdrop-blur-sm"
+                  data-parallax="tools-card" data-delay={280}
+                >
+                  <p className="font-serif font-semibold text-xs uppercase tracking-[0.24em] text-[#7c7068]">always open</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {tools.map((tool) => (
+                      <span key={tool} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#5f554f]">{tool}</span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* currently inspiring */}
+                <div
+                  className="collage-card reveal-item rounded-[24px] border border-black/5 bg-white/82 p-4 shadow-[0_14px_40px_rgba(68,44,29,0.05)] backdrop-blur-sm"
+                  data-parallax="inspire-card" data-delay={300}
+                >
+                  <p className="font-serif font-semibold text-xs uppercase tracking-[0.24em] text-[#7c7068]">currently inspiring me</p>
+                  <div className="mt-3 grid gap-1.5 text-[0.82rem] leading-5 text-[#342d29]">
+                    {inspirationItems.map((item) => <p key={item}>• {item}</p>)}
+                  </div>
+                </div>
+
+                {/* threads */}
+                <div
+                  className="collage-card reveal-item col-span-2 rounded-[24px] border border-black/5 bg-white/75 p-5 shadow-[0_14px_40px_rgba(68,44,29,0.05)]"
+                  data-parallax="threads" data-delay={320}
+                >
+                  <p className="font-serif font-semibold text-xs uppercase tracking-[0.24em] text-[#7c7068]">current threads</p>
+                  <div className="mt-3 flex flex-wrap gap-2">
+                    {currentThreads.map((item) => (
+                      <span key={item} className="rounded-full border border-black/5 bg-[#fffaf6] px-4 py-2 text-sm text-[#1f1a18]">{item}</span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* obsessed with */}
+                <div
+                  className="collage-card reveal-item col-span-2 rounded-[24px] border border-black/5 bg-white/75 p-5 shadow-[0_14px_40px_rgba(68,44,29,0.05)]"
+                  data-parallax="obsessed" data-delay={340}
+                >
+                  <p className="font-serif font-semibold text-xs uppercase tracking-[0.24em] text-[#7c7068]">currently obsessed with</p>
+                  <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
+                    {obsessedWith.map((item) => (
+                      <div key={item.label} className="flex flex-col">
+                        <span className="text-sm text-[#342d29]">{item.label}</span>
+                        <span className="text-[0.68rem] uppercase tracking-[0.18em] text-[#a89d96]">{item.sub}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* ── DESKTOP: absolute collage, 3 columns, no overlaps ── */}
+              {/*
+                Column widths (of the container):
+                  Left:   0% → 34%   (portrait 32w, quote 30w, tools 30w)
+                  Centre: 34% → 62%  (magazine 20w, lace 20w, threads 26w)
+                  Right:  62% → 100% (note 36w, second-photo 28w, inspiring 24w, obsessed 36w)
+
+                Vertical rhythm per column (px, approximate card heights):
+                  Left:   portrait 0–640, quote 660–800, tools 820–1000
+                  Centre: magazine 60–400, lace 420–700, threads 720–860
+                  Right:  note 0–180, second-photo 200–490, inspiring 510–800, obsessed 820–1060
+
+                Container min-height: 1080px
+              */}
+              <div className="relative mt-[4.5rem] hidden lg:block" style={{ minHeight: "1100px" }}>
+
+                {/* ── LEFT COLUMN ── */}
 
                 {/* MAIN PORTRAIT */}
-                <div className="reveal-item group h-[420px] overflow-hidden rounded-[36px] border border-[#201c1a]/6 shadow-[0_22px_65px_rgba(45,29,18,0.08)] transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-[0_30px_80px_rgba(45,29,18,0.14)] animate-floatSlow lg:absolute lg:left-[2%] lg:top-[20px] lg:h-[610px] lg:w-[36%]" style={{ animationDelay: "0ms" }}>
-                  <Image
-                    src="/images/vanessa1.jpg"
-                    alt="Vanessa portrait"
-                    fill
-                    priority
-                    sizes="(max-width: 768px) 100vw, 36vw"
-                    className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                  />
+                <div
+                  className="collage-card reveal-item group absolute overflow-hidden rounded-[36px] border border-[#201c1a]/6 shadow-[0_22px_65px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_30px_80px_rgba(45,29,18,0.14)] animate-floatSlow"
+                  style={{ left: "0%", top: "0px", width: "32%", height: "620px" }}
+                  data-parallax="portrait" data-delay={0}
+                >
+                  <Image src="/images/vanessa1.jpg" alt="Vanessa portrait" fill priority sizes="32vw" className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
                 </div>
 
                 {/* QUOTE CARD */}
-                <div className="reveal-item rounded-[26px] border border-black/5 bg-white/80 px-7 py-6 shadow-[0_18px_50px_rgba(68,44,29,0.06)] backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.09)] lg:absolute lg:left-[3%] lg:top-[660px] lg:w-[30%] lg:rotate-[-1.5deg]" style={{ animationDelay: "60ms" }}>
-                    <p className="font-serif font-semibold text-[1.45rem] italic leading-8 text-[#342d29]">
-                     "collecting moments, tattoos on my mind"
-                    </p>
-                    <p className="mt-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                     ariana grande — sometimes
-                    </p>
-                  </div>
+                <div
+                  className="collage-card reveal-item absolute rounded-[26px] border border-black/5 bg-white/80 px-7 py-6 shadow-[0_18px_50px_rgba(68,44,29,0.06)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.09)] rotate-[-1.5deg]"
+                  style={{ left: "1%", top: "648px", width: "31%" }}
+                  data-parallax="quote-card" data-delay={60}
+                >
+                  <p className="font-serif font-semibold text-[1.45rem] italic leading-8 text-[#342d29]">"collecting moments, tattoos on my mind"</p>
+                  <p className="mt-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">ariana grande — sometimes</p>
+                </div>
 
                 {/* ALWAYS OPEN — TOOLS */}
-                <div className="reveal-item rounded-[26px] border border-black/5 bg-white/75 p-5 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] lg:absolute lg:left-[3%] lg:top-[860px] lg:w-[30%] lg:rotate-[0.5deg]" style={{ animationDelay: "120ms" }}>
-                                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
-                                    always open
-                                  </p>
-                                  <div className="mt-4 flex flex-wrap gap-2">
-                                    {tools.map((tool) => (
-                                      <span
-                                        key={tool}
-                                        className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.72rem] uppercase tracking-[0.18em] text-[#5f554f] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-white hover:shadow-sm"
-                                      >
-                                        {tool}
-                                      </span>
-                                    ))}
-                                  </div>
-                                </div>
+                <div
+                  className="collage-card reveal-item absolute rounded-[26px] border border-black/5 bg-white/75 p-5 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] rotate-[0.5deg]"
+                  style={{ left: "1%", top: "840px", width: "31%" }}
+                  data-parallax="tools-card" data-delay={120}
+                >
+                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">always open</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {tools.map((tool) => (
+                      <span key={tool} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.72rem] uppercase tracking-[0.18em] text-[#5f554f] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-white hover:shadow-sm">{tool}</span>
+                    ))}
+                  </div>
+                </div>
+
+                {/* ── CENTRE COLUMN ── */}
 
                 {/* MAGAZINE */}
-                                <div className="reveal-item group h-[280px] overflow-hidden rounded-[28px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] rotate-[2deg] transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatMedium lg:absolute lg:left-[33%] lg:top-[95px] lg:h-[300px] lg:w-[22%] lg:rotate-[6deg]" style={{ animationDelay: "80ms" }}>
-                                  <Image
-                                    src="/images/ariana-audrey.jpg"
-                                    alt="Ariana and Audrey inspiration"
-                                    fill
-                                    sizes="(max-width: 768px) 100vw, 22vw"
-                                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                                  />
-                                </div>
+                <div
+                  className="collage-card reveal-item group absolute overflow-hidden rounded-[28px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatMedium"
+                  style={{ left: "34%", top: "40px", width: "24%", height: "320px", rotate: "6deg" }}
+                  data-parallax="magazine" data-delay={80}
+                >
+                  <Image src="/images/ariana-audrey.jpg" alt="Ariana and Audrey inspiration" fill sizes="24vw" className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
+                </div>
 
                 {/* LACE */}
-                                <div className="reveal-item group h-[240px] overflow-hidden rounded-[28px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] rotate-[-2deg] transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatSlow lg:absolute lg:left-[41%] lg:top-[382px] lg:h-[245px] lg:w-[20%] lg:rotate-[-5deg]" style={{ animationDelay: "160ms" }}>
-                                  <Image
-                                    src="/images/lace.jpg"
-                                    alt="Lace detail"
-                                    fill
-                                    sizes="(max-width: 768px) 100vw, 20vw"
-                                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                                  />
-                                </div>
+                <div
+                  className="collage-card reveal-item group absolute overflow-hidden rounded-[28px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatSlow"
+                  style={{ left: "36%", top: "400px", width: "22%", height: "250px", rotate: "-5deg" }}
+                  data-parallax="lace" data-delay={160}
+                >
+                  <Image src="/images/lace.jpg" alt="Lace detail" fill sizes="22vw" className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
+                </div>
 
-                 {/* LITTLE NOTE */}
-                                <div className="reveal-item rounded-[30px] border border-black/5 bg-white/78 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] lg:absolute lg:right-[2%] lg:top-[30px] lg:w-[36%]" style={{ animationDelay: "100ms" }}>
-                                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
-                                    a little note
-                                  </p>
-                                  <p className="mt-4 text-[1.03rem] leading-8 text-[#342d29] sm:text-[1.08rem]">
-                                    I like things that feel edited, emotional, and a little
-                                    nostalgic; like a page torn from a diary and styled for a
-                                    gallery wall.
-                                  </p>
-                                  <p className="mt-4 text-xs uppercase tracking-[0.28em] text-[#8a7d75]">
-                                    anqclic / creative archive
-                                  </p>
-                                </div>
-
-                {/* SECOND PHOTO */}
-                                <div className="reveal-item group h-[280px] overflow-hidden rounded-[30px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] rotate-[2deg] transition-all duration-300 ease-out hover:-translate-y-2 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatMedium lg:absolute lg:right-[6%] lg:top-[236px] lg:h-[258px] lg:w-[27%] lg:rotate-[3deg]" style={{ animationDelay: "200ms" }}>
-                                  <Image
-                                    src="/images/vanessa2.jpg"
-                                    alt="Vanessa at the Huntington"
-                                    fill
-                                    sizes="(max-width: 768px) 100vw, 27vw"
-                                    className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]"
-                                  />
-                                </div>
-
-                 {/* CURRENTLY INSPIRING ME */}
-                 <div className="reveal-item rounded-[26px] border border-black/5 bg-white/82 p-5 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] lg:absolute lg:right-[2%] lg:top-[520px] lg:w-[24%] lg:rotate-[1.5deg]" style={{ animationDelay: "280ms" }}>
-                                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
-                                    currently inspiring me
-                                  </p>
-                                  <div className="mt-4 grid gap-2 text-sm leading-6 text-[#342d29]">
-                                    {inspirationItems.map((item) => (
-                                      <p key={item}>• {item}</p>
-                                    ))}
-                                  </div>
-                                </div>
-
-                {/* CURRENTLY OBSESSED WITH */}
-                <div className="reveal-item rounded-[30px] border border-black/5 bg-white/75 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] lg:absolute lg:right-[2%] lg:top-[820px] lg:w-[36%]" style={{ animationDelay: "320ms" }}>
-                                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
-                                    currently obsessed with
-                                  </p>
-                                  <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3">
-                                    {obsessedWith.map((item) => (
-                                      <div key={item.label} className="flex flex-col">
-                                        <span className="text-sm text-[#342d29]">{item.label}</span>
-                                        <span className="text-[0.68rem] uppercase tracking-[0.18em] text-[#a89d96]">{item.sub}</span>
-                                      </div>
-                                    ))}
-                                  </div>
-                                </div>
-
+                {/* SAVED FRAGMENTS TAG */}
+                <div
+                  className="collage-card reveal-item absolute rounded-full border border-black/5 bg-white/80 px-4 py-2 text-[0.72rem] uppercase tracking-[0.3em] text-[#7c7068] shadow-[0_10px_26px_rgba(68,44,29,0.05)]"
+                  style={{ left: "36%", top: "678px" }}
+                  data-parallax="fragments-tag" data-delay={280}
+                >
+                  saved fragments
+                </div>
 
                 {/* THREADS */}
-                <div className="reveal-item rounded-[30px] border border-black/5 bg-white/75 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 ease-out hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] lg:absolute lg:left-[33.5%] lg:top-[700px] lg:w-[28%]" style={{ animationDelay: "340ms" }}>
-                                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
-                                    current threads
-                                  </p>
-                                  <div className="mt-5 flex flex-wrap gap-2">
-                                    {currentThreads.map((item) => (
-                                      <span
-                                        key={item}
-                                        className="rounded-full border border-black/5 bg-[#fffaf6] px-4 py-2 text-sm text-[#1f1a18] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-white hover:shadow-md"
-                                      >
-                                        {item}
-                                      </span>
-                                    ))}
-                                  </div>
-                                </div>
+                <div
+                  className="collage-card reveal-item absolute rounded-[30px] border border-black/5 bg-white/75 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)]"
+                  style={{ left: "34%", top: "720px", width: "27%" }}
+                  data-parallax="threads" data-delay={340}
+                >
+                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">current threads</p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {currentThreads.map((item) => (
+                      <span key={item} className="rounded-full border border-black/5 bg-[#fffaf6] px-4 py-2 text-sm text-[#1f1a18] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-white hover:shadow-md">{item}</span>
+                    ))}
+                  </div>
+                </div>
 
-                 {/* SAVED FRAGMENTS TAG */}
-                                <div className="reveal-item hidden rounded-full border border-black/5 bg-white/80 px-4 py-2 text-[0.72rem] uppercase tracking-[0.3em] text-[#7c7068] shadow-[0_10px_26px_rgba(68,44,29,0.05)] lg:absolute lg:left-[37%] lg:top-[648px] lg:block" style={{ animationDelay: "360ms" }}>
-                                  saved fragments
-                                </div>
+                {/* ── RIGHT COLUMN ── */}
+
+                {/* LITTLE NOTE */}
+                <div
+                  className="collage-card reveal-item absolute rounded-[30px] border border-black/5 bg-white/78 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)]"
+                  style={{ right: "0%", top: "0px", width: "37%" }}
+                  data-parallax="note-card" data-delay={100}
+                >
+                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">a little note</p>
+                  <p className="mt-4 text-[1.03rem] leading-8 text-[#342d29] sm:text-[1.08rem]">I like things that feel edited, emotional, and a little nostalgic; like a page torn from a diary and styled for a gallery wall.</p>
+                  <p className="mt-4 text-xs uppercase tracking-[0.28em] text-[#8a7d75]">anqclic / creative archive</p>
+                </div>
+
+                {/* SECOND PHOTO */}
+                <div
+                  className="collage-card reveal-item group absolute overflow-hidden rounded-[30px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatMedium"
+                  style={{ right: "4%", top: "210px", width: "30%", height: "280px", rotate: "3deg" }}
+                  data-parallax="second-photo" data-delay={200}
+                >
+                  <Image src="/images/vanessa2.jpg" alt="Vanessa at the Huntington" fill sizes="30vw" className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
+                </div>
+
+                {/* CURRENTLY INSPIRING ME */}
+                <div
+                  className="collage-card reveal-item absolute rounded-[26px] border border-black/5 bg-white/82 p-5 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] rotate-[1.5deg]"
+                  style={{ right: "1%", top: "520px", width: "26%" }}
+                  data-parallax="inspire-card" data-delay={280}
+                >
+                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">currently inspiring me</p>
+                  <div className="mt-4 grid gap-2 text-sm leading-6 text-[#342d29]">
+                    {inspirationItems.map((item) => <p key={item}>• {item}</p>)}
+                  </div>
+                </div>
+
+                {/* CURRENTLY OBSESSED WITH */}
+                <div
+                  className="collage-card reveal-item absolute rounded-[30px] border border-black/5 bg-white/75 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)]"
+                  style={{ right: "0%", top: "810px", width: "37%" }}
+                  data-parallax="obsessed" data-delay={320}
+                >
+                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">currently obsessed with</p>
+                  <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3">
+                    {obsessedWith.map((item) => (
+                      <div key={item.label} className="flex flex-col">
+                        <span className="text-sm text-[#342d29]">{item.label}</span>
+                        <span className="text-[0.68rem] uppercase tracking-[0.18em] text-[#a89d96]">{item.sub}</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
 
               </div>
             </div>
@@ -363,7 +565,7 @@ export default function Home() {
             {/* FEATURED AUDIBLE */}
             <article
               className="reveal-item overflow-hidden rounded-[34px] border border-black/5 bg-white/72 shadow-[0_24px_70px_rgba(68,44,29,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(68,44,29,0.09)]"
-              style={{ animationDelay: "0ms" }}
+              data-delay={0}
             >
               <div className="relative h-[260px] overflow-hidden border-b border-black/5">
                 <Image
@@ -418,7 +620,7 @@ export default function Home() {
                 <article
                   key={project.title}
                   className="reveal-item relative overflow-hidden rounded-[30px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)]"
-                  style={{ animationDelay: `${(index + 1) * 120}ms` }}
+                  data-delay={(index + 1) * 120}
                 >
                   <span className="absolute right-6 top-6 font-serif font-semibold text-[2.2rem] leading-none text-[#e8ddd6] select-none">
                     0{index + 2}
@@ -453,7 +655,7 @@ export default function Home() {
           <div className="grid gap-4 lg:grid-cols-[1.25fr_0.95fr]">
             <div
               className="reveal-item rounded-[30px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]"
-              style={{ animationDelay: "0ms" }}
+              data-delay={0}
             >
               <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
                 about
@@ -495,7 +697,7 @@ export default function Home() {
               <div
                 id="resume"
                 className="reveal-item rounded-[30px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]"
-                style={{ animationDelay: "80ms" }}
+                data-delay={80}
               >
                 <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
                   what I bring
@@ -512,7 +714,7 @@ export default function Home() {
               <div
                 id="contact"
                 className="reveal-item rounded-[30px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]"
-                style={{ animationDelay: "160ms" }}
+                data-delay={160}
               >
                 <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
                   current direction
@@ -572,11 +774,6 @@ export default function Home() {
             to { stroke-dashoffset: 0; }
           }
 
-          @keyframes revealUp {
-            from { opacity: 0; transform: translateY(12px); }
-            to { opacity: 1; transform: translateY(0); }
-          }
-
           @keyframes bokehOne {
             0%, 100% { transform: translate(0px, 0px) scale(1); opacity: 0.65; }
             50% { transform: translate(8px, -10px) scale(1.05); opacity: 0.85; }
@@ -616,8 +813,33 @@ export default function Home() {
             animation: floatMedium 10s ease-in-out infinite;
           }
 
+          /* ── Staggered reveal ── */
           .reveal-item {
-            animation: revealUp 700ms ease both;
+            opacity: 0;
+            transform: translateY(16px);
+            transition:
+              opacity  700ms cubic-bezier(0.22, 1, 0.36, 1),
+              transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
+          }
+
+          .reveal-item.revealed {
+            opacity: 1;
+            transform: translateY(0);
+          }
+
+          /* ── Parallax ── */
+          .collage-card {
+            will-change: transform;
+          }
+
+          /* Respect reduced motion */
+          @media (prefers-reduced-motion: reduce) {
+            .collage-card { will-change: auto; }
+            .reveal-item {
+              opacity: 1;
+              transform: none;
+              transition: none;
+            }
           }
 
           .grain-overlay {
