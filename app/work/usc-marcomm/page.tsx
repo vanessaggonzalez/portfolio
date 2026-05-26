@@ -37,8 +37,46 @@ const tags = [
 const stats = [
   { value: "15%", label: "increase in weekly traffic" },
   { value: "10K+", label: "weekly users reached" },
+  { value: "4", label: "websites maintained" },
   { value: "1 yr 9 mos", label: "and counting" },
-  { value: "multi-channel", label: "campaigns managed" },
+];
+
+const toolGroups = [
+  {
+    category: "Web & CMS",
+    tools: ["WordPress", "Elementor", "HTML", "CSS"],
+  },
+  {
+    category: "Data & Analytics",
+    tools: ["Google Analytics", "Slate", "Campaign Monitor"],
+  },
+  {
+    category: "Marketing",
+    tools: ["Email Campaigns", "Digital Advertising", "SEO", "A/B Testing"],
+  },
+];
+
+const websites = [
+  {
+    name: "USC Undergraduate Admissions",
+    desc: "Primary enrollment site — redesigned for mobile responsiveness and accessibility.",
+    stat: "10K+ weekly users",
+  },
+  {
+    name: "USC Graduate Admissions",
+    desc: "Updated content architecture and improved cross-device rendering.",
+    stat: "Multi-program reach",
+  },
+  {
+    name: "USC ARR",
+    desc: "Maintained and optimized page structure and messaging consistency.",
+    stat: "Enrollment-critical",
+  },
+  {
+    name: "USC Financial Aid",
+    desc: "Improved accessibility and ensured accurate, up-to-date content for prospective students.",
+    stat: "High-traffic resource",
+  },
 ];
 
 const sections = [
@@ -54,14 +92,14 @@ The scope was broader than a typical intern role. I wasn't just executing tasks;
     heading: "Web, content, and campaigns",
     body: `A big part of my time went into redesigning undergraduate enrollment websites using HTML, CSS, WordPress, and Elementor — improving both the visual experience and the accessibility of pages that 10,000+ users visited every week. Mobile responsiveness was a consistent focus; a lot of prospective students are navigating these pages on their phones.
 
-On the campaign side, I produced data-informed multimedia content that contributed to a 15% increase in weekly traffic to the Undergraduate Admissions homepage. That number mattered, but so did the process behind it — using Google Analytics and campaign performance metrics to actually understand what was resonating and what wasn't, then adjusting accordingly.`,
+On the campaign side, I produced data-informed multimedia content that contributed to a 15% increase in weekly traffic to the Undergraduate Admissions homepage. That number mattered, but so did the process behind it — using Google Analytics and Campaign Monitor to actually understand what was resonating and what wasn't, then adjusting accordingly.`,
   },
   {
     label: "my approach",
     heading: "Analytics as a creative tool",
-    body: `What I found most interesting about this role was learning to treat data as a creative input, not just a report card. Audience behavior told a story — which pages people dropped off on, which headlines pulled them in, which formats they actually engaged with — and I tried to let that story shape the work rather than just validate it after the fact.
+    body: `What I found most interesting about this role was learning to treat data as a creative input, not just a report card. I used Google Analytics week-over-week to track how individual pages were performing — comparing current stats against the previous week to spot what was working and what needed attention.
 
-I also collaborated cross-functionally with other interns and leadership to streamline project handoffs and improve how campaigns moved from concept to execution. That operational layer — making sure things actually shipped cleanly — ended up being just as important as the creative work itself.`,
+Slate and Campaign Monitor added another layer: I filed and managed email campaigns, tracked open rates and engagement, and fed those insights back into how we framed content. Audience behavior told a story, and I tried to let that story shape the work rather than just validate it after the fact.`,
   },
   {
     label: "what I took from it",
@@ -140,15 +178,51 @@ export default function USCMarCommPage() {
               by the numbers
             </div>
 
-            {/* STATS BLOCK */}
+            {/* STATS */}
             <div className="reveal-item grid grid-cols-2 gap-4 sm:grid-cols-4" data-delay={80}>
               {stats.map((stat) => (
-                <div
-                  key={stat.label}
-                  className="rounded-[24px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] text-center"
-                >
+                <div key={stat.label} className="rounded-[24px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] text-center">
                   <p className="font-serif text-[2rem] font-semibold text-[#1f1a18]">{stat.value}</p>
                   <p className="mt-2 text-[0.68rem] uppercase tracking-[0.2em] text-[#8a7d75]">{stat.label}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* DIVIDER */}
+            <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+              <span className="h-px w-8 bg-[#c8bdb2]" />
+              websites
+            </div>
+
+            {/* WEBSITE CARDS */}
+            <div className="reveal-item grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-delay={80}>
+              {websites.map((site) => (
+                <div key={site.name} className="rounded-[24px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]">
+                  <p className="font-serif text-[1rem] font-semibold leading-snug text-[#1f1a18]">{site.name}</p>
+                  <p className="mt-3 text-[0.85rem] leading-7 text-[#4d413b]">{site.desc}</p>
+                  <p className="mt-3 text-[0.68rem] uppercase tracking-[0.2em] text-[#a89d96]">✦ {site.stat}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* DIVIDER */}
+            <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+              <span className="h-px w-8 bg-[#c8bdb2]" />
+              tools & platforms
+            </div>
+
+            {/* TOOLS */}
+            <div className="reveal-item grid gap-4 sm:grid-cols-3" data-delay={80}>
+              {toolGroups.map((group) => (
+                <div key={group.category} className="rounded-[24px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]">
+                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{group.category}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {group.tools.map((tool) => (
+                      <span key={tool} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1.5 text-[0.72rem] uppercase tracking-[0.18em] text-[#7c7068]">
+                        {tool}
+                      </span>
+                    ))}
+                  </div>
                 </div>
               ))}
             </div>
@@ -167,12 +241,8 @@ export default function USCMarCommPage() {
                   className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]"
                   data-delay={i * 80}
                 >
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                    {section.label}
-                  </p>
-                  <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">
-                    {section.heading}
-                  </h2>
+                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{section.label}</p>
+                  <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{section.heading}</h2>
                   <div className="mt-4 space-y-4 text-[0.95rem] leading-8 text-[#4d413b]">
                     {section.body.split("\n\n").map((para, j) => (
                       <p key={j}>{para}</p>
@@ -184,17 +254,11 @@ export default function USCMarCommPage() {
 
             {/* BOTTOM NAV */}
             <div className="reveal-item mt-10 flex items-center justify-between border-t border-black/5 pt-8" data-delay={0}>
-              <Link
-                href="/work"
-                className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]"
-              >
+              <Link href="/work" className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]">
                 <span className="h-px w-4 bg-[#c8bdb2] transition-all duration-200 group-hover:w-6" />
                 all work
               </Link>
-              <Link
-                href="/work/ama"
-                className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]"
-              >
+              <Link href="/work/ama" className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]">
                 next: AMA
                 <span className="h-px w-4 bg-[#c8bdb2] transition-all duration-200 group-hover:w-6" />
               </Link>
