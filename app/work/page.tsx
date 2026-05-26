@@ -110,7 +110,7 @@ export default function WorkPage() {
 
   const navLinks = [
     { label: "Work",    href: "/work" },
-    { label: "About",   href: "/#about" },
+    { label: "About",   href: "/about" },
     { label: "Resume",  href: "/resume" },
     { label: "Contact", href: "/contact" },
   ];

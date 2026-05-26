@@ -59,9 +59,9 @@ export default function ResumePage() {
 
   const navLinks = [
     { label: "Work",    href: "/work" },
-    { label: "About",   href: "/#about" },
-    { label: "Resume",  href: "/#resume" },
-    { label: "Contact", href: "/#contact" },
+    { label: "About",   href: "/about" },
+    { label: "Resume",  href: "/resume" },
+    { label: "Contact", href: "/contact" },
   ];
 
   return (
@@ -195,7 +195,7 @@ export default function ResumePage() {
                   download resume →
                 </a>
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   className="rounded-full border border-black/10 bg-white/72 px-5 py-2.5 text-[0.72rem] uppercase tracking-[0.22em] text-[#5f554f] shadow-[0_8px_24px_rgba(68,44,29,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:text-[#201c1a] hover:shadow-[0_12px_32px_rgba(68,44,29,0.10)]"
                 >
                   get in touch →

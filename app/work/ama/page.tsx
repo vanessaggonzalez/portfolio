@@ -102,9 +102,9 @@ export default function AMAPage() {
 
   const navLinks = [
     { label: "Work",    href: "/work" },
-    { label: "About",   href: "/#about" },
-    { label: "Resume",  href: "/#resume" },
-    { label: "Contact", href: "/#contact" },
+    { label: "About",   href: "/about" },
+    { label: "Resume",  href: "/resume" },
+    { label: "Contact", href: "/contact" },
   ];
 
   // Google Slides embed URLs (using /embed instead of /edit)
