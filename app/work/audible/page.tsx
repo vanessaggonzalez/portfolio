@@ -59,7 +59,7 @@ The part I found myself most drawn to was the "why does this matter to a real pe
   {
     label: "the outcome",
     heading: "First place",
-    body: `We won. Which still feels good to say.
+    body: `We won!!!
 
 Beyond the result, what I took away was a much clearer sense of how to move fast on a product problem without losing the craft of it. The constraints were real — limited time, a platform we didn't work at, an audience we had to understand quickly — and I think the work was better for it. It confirmed something I already suspected: I like working on things where emotional behavior and product strategy overlap. That's the space I want to keep building in.`,
   },
