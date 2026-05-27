@@ -60,12 +60,12 @@ const stats = [
 
 const timeline = [
   { year: "2015", note: "Downloaded Vine. Saw an edit. Had to make one." },
-  { year: "2016–17", note: "Video Star era — Harry Potter, Selena, Twenty One Pilots." },
+  { year: "2016–17", note: "Video Star era; Harry Potter, Selena, Twenty One Pilots, etc." },
   { year: "2018", note: "Saved up for a MacBook. Begged for After Effects. Everything changed." },
   { year: "2019", note: "First edit that made it feel real. The hard work actually showed." },
   { year: "2021", note: "Funimate brand partnership. The account started meaning something." },
-  { year: "2023", note: "Collab era. 3D work. Pushing the craft." },
-  { year: "2025", note: "Birthday edit. This is who I am now." },
+  { year: "2023", note: "Collab era. 3D work. Pushing the craft while managing school." },
+  { year: "2025", note: "Birthday edit!! Last major edit I've made but poured my heart into it." },
 ];
 
 const embeds = [
