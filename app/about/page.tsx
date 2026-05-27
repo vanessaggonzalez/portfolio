@@ -208,7 +208,7 @@ const watchingShows = [
 
 const makingItems = [
   { title: "Ariana Grande edit", note: "eternal sunshine world tour" },
-  { title: "this website", note: "that's where I've been" },
+  { title: "this website", note: "where I've been" },
 ];
 
 const listeningItems = [
@@ -229,12 +229,12 @@ const smallFacts = [
   "learned to code with a Taylor Swift quiz",
   "i will watch a show just for a ship",
   "fashion is documentation",
-  "ron & hermione quizzed my mom before bed",
+  "ron & hermione are my favorite depiction of romance",
   "anqclic = misspelling of angelic, intentionally",
-  "The Neighbourhood in december 🖤",
+  "The Neighbourhood in december!!",
   "dangerous woman 10th anniversary on repeat",
   "business club president in high school",
-  "vinyl > everything",
+  "vinyl > any other form of streaming",
 ];
 
 // ── SHIP CARD with gif ─────────────────────────────────────────────────────────
@@ -434,8 +434,8 @@ export default function AboutPage() {
                 <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">how i got here</p>
                 <h2 className="mt-3 font-serif text-[1.2rem] font-semibold leading-snug text-[#1f1a18]">It started with a free app and Harry Potter</h2>
                 <div className="mt-4 space-y-4 text-[0.95rem] leading-8 text-[#4d413b]">
-                  <p>I was 10 years old when I found fan edits on Vine — clips of Ariana Grande and Harry Potter cut together in ways that felt almost too beautiful. Like someone had distilled exactly why they loved something and put it in 15 seconds. I needed to learn how to do that.</p>
-                  <p>I started on Video Star because it was free. Harry Potter mostly. Then Selena. Then Twenty One Pilots. In 2018 I saved up for a MacBook and begged my mom for After Effects. Growing up without a lot, that felt enormous — like I was finally getting tools that matched the ambition I'd had for years.</p>
+                  <p>I was 10 years old when I found fan edits on Vine; clips of Ariana Grande and Harry Potter cut together in ways that felt almost too beautiful. Like someone had distilled exactly why they loved something and put it in 15 seconds. I needed to learn how to do that.</p>
+                  <p>I started on Video Star because it was free. Harry Potter mostly. Then Selena. Then Twenty One Pilots. In 2018 I saved up for a MacBook and begged my mom for After Effects. Growing up without a lot, that felt enormous; like I was finally getting tools that matched the ambition I'd had for years.</p>
                   <p>That account became <span className="font-medium text-[#342d29]">anqclic</span> — a misspelling of angelic, because I wanted to make things that were beautiful. It set the tone for everything.</p>
                 </div>
               </div>

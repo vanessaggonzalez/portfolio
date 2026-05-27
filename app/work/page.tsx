@@ -150,7 +150,7 @@ export default function WorkPage() {
                 Selected Work
               </h1>
               <p className="mt-5 text-[1.02rem] leading-8 text-[#4d413b]">
-                I've spent the last few years moving between creative work, product thinking, and marketing strategy — and honestly the through-line is always the same: I'm drawn to the details that make people care. Whether that's a feature concept for a case competition, a campaign that actually moved numbers, or a content platform I've been building since I was 10, I want everything I touch to feel intentional and a little bit collectible.
+                I've spent the last few years moving between creative work, product thinking, and marketing strategy, and honestly the through-line is always the same: I'm drawn to the details that make people care. Whether that's a feature concept for a case competition, a campaign that actually moved numbers, or a content platform I've been building since I was 10, I want everything I touch to feel intentional and a little bit collectible.
               </p>
               <div className="mt-5 flex flex-wrap gap-2 text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
                 <span className="rounded-full border border-black/5 bg-white/70 px-3 py-1">USC CS + Business</span>
