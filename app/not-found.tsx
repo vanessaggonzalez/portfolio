@@ -30,8 +30,8 @@ export default function NotFound() {
               </Link>
               <nav className="flex flex-wrap justify-end gap-4 sm:gap-6 text-[0.72rem]">
                 <Link href="/work" className="transition hover:text-[#201c1a]">Work</Link>
-                <Link href="/#about" className="transition hover:text-[#201c1a]">About</Link>
-                <Link href="/#contact" className="transition hover:text-[#201c1a]">Contact</Link>
+                <Link href="/about" className="transition hover:text-[#201c1a]">About</Link>
+                <Link href="/contact" className="transition hover:text-[#201c1a]">Contact</Link>
               </nav>
             </header>
 
@@ -107,7 +107,7 @@ export default function NotFound() {
                   work
                 </Link>
                 <Link
-                  href="/#contact"
+                  href="/contact"
                   className="rounded-full border border-black/8 bg-white/72 px-5 py-2.5 text-[0.75rem] uppercase tracking-[0.22em] text-[#5f554f] shadow-[0_8px_24px_rgba(68,44,29,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(68,44,29,0.10)] hover:text-[#201c1a]"
                 >
                   contact
