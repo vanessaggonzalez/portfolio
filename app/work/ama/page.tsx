@@ -70,30 +70,29 @@ const sections = [
   {
     label: "the role",
     heading: "Project manager, internal marketing",
-    body: `AMA USC is a student-run non-profit marketing agency — one of the most active orgs at USC. I came in as project manager for the internal marketing team, which meant I was responsible for everything that touched AMA's own brand: the Instagram presence, the GM graphics, the event recaps, the website.
-
-My job was less about doing the work myself and more about making sure the right people could do their best work. I managed a team of five across graphic design, media, and social content — and the through-line across both semesters was figuring out how to give people ownership while keeping everything cohesive.`,
+    pull: "My job was less about doing the work myself and more about making sure the right people could do their best work.",
+    body: "AMA USC is one of the most active student orgs at USC. I came in as PM for internal marketing — responsible for everything touching AMA's brand: Instagram, GM graphics, event recaps, the website. I managed a team of five across graphic design, media, and social content across two semesters.",
+    tags: ["leadership", "content strategy", "instagram", "short-form video"],
   },
   {
     label: "fall 2025",
     heading: "Finding the structure",
-    body: `Fall was about getting the foundations right. We redesigned the Figma brand pack after the original got deleted, cleaned up the AMA Instagram (updated captions, highlights, and formatting), and established a rhythm for weekly GM graphics and recap posts.
-
-I focused a lot on workflows that semester — streamlining communication between design, media, and social content so things didn't fall through the cracks. Slack channels, a deliverables tracker, clearer handoffs. Not glamorous, but it made everything downstream easier.`,
+    pull: "Workflows that semester were the whole job. Streamlined handoffs, cleaner comms, fewer things falling through the cracks.",
+    body: "We rebuilt the Figma brand pack after the original got deleted, cleaned up the Instagram (captions, highlights, formatting), and established a weekly rhythm for GM graphics and recaps. Not glamorous, but it made everything downstream easier.",
   },
   {
     label: "spring 2026",
     heading: "Leaning into short-form",
-    body: `By spring I had my footing as a leader, and it showed in the output. We went from 1 reel in fall to 4 in spring, added 6 dump posts, and grew stories from 72 to 96. The goal was to make AMA's social presence feel more dynamic — less polished-announcement-account, more actual community.
-
-We introduced member takeovers, covered bigger events like Gala and Retreat, and started tracking metrics properly. The numbers reflected it: 120K+ views in the last 60 days, 14,358 accounts reached, a 47% increase from the previous period. The highest engagement post was the Gala recap — 9,855 views and 100+ profile visits from a single post.`,
+    pull: "The goal: less polished-announcement-account, more actual community.",
+    body: "We went from 1 reel in fall to 4 in spring, added 6 dump posts, grew stories from 72 to 96. Introduced member takeovers, covered Gala and Retreat, and started tracking metrics. The result: 120K+ views in 60 days, 14,358 accounts reached, 47% increase from the prior period.",
   },
   {
     label: "what's next",
     heading: "Incoming VP of Marketing",
-    body: `I'm stepping into the VP of Marketing role next semester, which feels like a natural next chapter. A lot of what I built as PM — the workflows, the content rhythms, the team culture — I get to carry forward at a higher level now.
-
-What I'm most interested in is pushing the creative bar further. We proved we could hit the numbers; now I want to make content that people actually care about, not just content that performs. That's the challenge I'm excited to take on.`,
+    stat: "VP",
+    statLabel: "of Marketing · next semester",
+    body: "A lot of what I built as PM — the workflows, the content rhythms, the team culture — I get to carry forward at a higher level. What I'm most excited about is pushing the creative bar further. We proved we can hit the numbers. Now I want to make content people actually care about.",
+    stamp: "AMA USC · Fall 25 to Spring 26",
   },
 ];
 
@@ -260,22 +259,72 @@ export default function AMAPage() {
             </div>
 
             {/* WRITTEN SECTIONS */}
-            <div className="grid gap-5 lg:grid-cols-2">
-              {sections.map((section, i) => (
-                <div
-                  key={section.label}
-                  className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]"
-                  data-delay={i * 80}
-                >
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{section.label}</p>
-                  <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{section.heading}</h2>
-                  <div className="mt-4 space-y-4 text-[0.95rem] leading-8 text-[#4d413b]">
-                    {section.body.split("\n\n").map((para, j) => (
-                      <p key={j}>{para}</p>
+            <div className="grid gap-4 lg:grid-cols-2" style={{ gridTemplateRows: "auto auto auto" }}>
+
+              {/* TALL LEFT — card 0 */}
+              <div
+                className="reveal-item row-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
+                data-delay={0}
+              >
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">01</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[0].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[0].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">{sections[0].pull}</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[0].body}</p>
+                {sections[0].tags && (
+                  <div className="mt-auto pt-5 flex flex-wrap gap-2">
+                    {sections[0].tags.map((tag: string) => (
+                      <span key={tag} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-[#7c7068]">{tag}</span>
                     ))}
                   </div>
+                )}
+              </div>
+
+              {/* TOP RIGHT — card 1 */}
+              <div
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
+                data-delay={80}
+              >
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">02</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[1].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[1].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-3">{sections[1].pull}</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[1].body}</p>
+              </div>
+
+              {/* BOTTOM RIGHT — card 2 */}
+              <div
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
+                data-delay={160}
+              >
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">03</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[2].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[2].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-3">{sections[2].pull}</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[2].body}</p>
+              </div>
+
+              {/* FULL WIDTH BOTTOM — card 3 (outcome/final) */}
+              <div
+                className="reveal-item lg:col-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col sm:flex-row items-start gap-6"
+                data-delay={240}
+              >
+                <div className="shrink-0">
+                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[3].label}</p>
+                  <p className="mt-2 font-serif text-[2.4rem] font-semibold leading-none text-[#1f1a18]">{sections[3].stat}</p>
+                  <p className="mt-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#a89d96]">{sections[3].statLabel}</p>
                 </div>
-              ))}
+                <div className="hidden sm:block w-px self-stretch bg-black/5" />
+                <div className="flex-1">
+                  <h2 className="font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[3].heading}</h2>
+                  <p className="mt-3 text-[0.88rem] leading-7 text-[#5e5048]">{sections[3].body}</p>
+                  <span className="mt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75]">{sections[3].stamp}</span>
+                </div>
+              </div>
+
             </div>
 
             {/* BOTTOM NAV */}

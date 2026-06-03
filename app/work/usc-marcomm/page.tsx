@@ -83,30 +83,29 @@ const sections = [
   {
     label: "the role",
     heading: "What I was brought in to do",
-    body: `I joined USC's Marketing Communications team as a part-time intern, embedded within the Undergraduate Admissions office. The work was real from day one — redesigning enrollment websites, producing campaigns, and making sure the digital experience actually served the students trying to find their way to USC.
-
-The scope was broader than a typical intern role. I wasn't just executing tasks; I was thinking through messaging, accessibility, and how all the pieces connected across channels. That kind of ownership early on shaped how I approach marketing work now.`,
+    pull: "Real work from day one — not executing tasks, but thinking through how all the pieces connected.",
+    body: "I joined USC's Marketing Communications team embedded within Undergraduate Admissions, redesigning enrollment websites and managing campaigns that served 10,000+ weekly users. The scope was broader than a typical intern role, and that kind of ownership early shaped how I approach this work now.",
+    tags: ["web", "analytics", "branding", "campaigns"],
   },
   {
     label: "the work",
     heading: "Web, content, and campaigns",
-    body: `A big part of my time went into redesigning undergraduate enrollment websites using HTML, CSS, WordPress, and Elementor — improving both the visual experience and the accessibility of pages that 10,000+ users visited every week. Mobile responsiveness was a consistent focus; a lot of prospective students are navigating these pages on their phones.
-
-On the campaign side, I produced data-informed multimedia content that contributed to a 15% increase in weekly traffic to the Undergraduate Admissions homepage. That number mattered, but so did the process behind it — using Google Analytics and Campaign Monitor to actually understand what was resonating and what wasn't, then adjusting accordingly.`,
+    pull: "Mobile responsiveness was a consistent focus. A lot of prospective students are on their phones.",
+    body: "I redesigned undergraduate enrollment sites in HTML, CSS, WordPress, and Elementor, improving accessibility and visual experience. On the campaign side, data-informed content contributed to a 15% increase in weekly traffic to the Admissions homepage.",
   },
   {
     label: "my approach",
     heading: "Analytics as a creative tool",
-    body: `What I found most interesting about this role was learning to treat data as a creative input, not just a report card. I used Google Analytics week-over-week to track how individual pages were performing — comparing current stats against the previous week to spot what was working and what needed attention.
-
-Slate and Campaign Monitor added another layer: I filed and managed email campaigns, tracked open rates and engagement, and fed those insights back into how we framed content. Audience behavior told a story, and I tried to let that story shape the work rather than just validate it after the fact.`,
+    pull: "I used data as a creative input, not just a report card.",
+    body: "Google Analytics week-over-week to track what was working. Slate and Campaign Monitor to understand open rates and audience behavior. The goal was to let those insights shape the work rather than just validate it after the fact.",
   },
   {
     label: "what I took from it",
-    heading: "Building the habit of intentionality",
-    body: `This role reinforced something I keep coming back to: good marketing isn't about doing more, it's about doing the right things with enough care that people actually notice. Every page edit, every campaign tweak, every analytics deep-dive was practice in that.
-
-Working within a university context also taught me how to communicate across very different audiences — prospective students, parents, faculty — and how to make messaging feel personal even at scale. That's a skill I carry into every project now.`,
+    heading: "The habit of intentionality",
+    stat: "15%",
+    statLabel: "increase in weekly traffic",
+    body: "Good marketing isn't about doing more. It's about doing the right things with enough care that people notice. Every page edit and every analytics dive was practice in that. Working across audiences at USC also taught me how to make messaging feel personal even at scale.",
+    stamp: "USC MarComm · 1 yr 9 mos",
   },
 ];
 
@@ -234,22 +233,72 @@ export default function USCMarCommPage() {
             </div>
 
             {/* WRITTEN SECTIONS */}
-            <div className="grid gap-5 lg:grid-cols-2">
-              {sections.map((section, i) => (
-                <div
-                  key={section.label}
-                  className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]"
-                  data-delay={i * 80}
-                >
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{section.label}</p>
-                  <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{section.heading}</h2>
-                  <div className="mt-4 space-y-4 text-[0.95rem] leading-8 text-[#4d413b]">
-                    {section.body.split("\n\n").map((para, j) => (
-                      <p key={j}>{para}</p>
+            <div className="grid gap-4 lg:grid-cols-2" style={{ gridTemplateRows: "auto auto auto" }}>
+
+              {/* TALL LEFT — card 0 */}
+              <div
+                className="reveal-item row-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
+                data-delay={0}
+              >
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">01</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[0].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[0].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">{sections[0].pull}</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[0].body}</p>
+                {sections[0].tags && (
+                  <div className="mt-auto pt-5 flex flex-wrap gap-2">
+                    {sections[0].tags.map((tag: string) => (
+                      <span key={tag} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-[#7c7068]">{tag}</span>
                     ))}
                   </div>
+                )}
+              </div>
+
+              {/* TOP RIGHT — card 1 */}
+              <div
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
+                data-delay={80}
+              >
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">02</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[1].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[1].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-3">{sections[1].pull}</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[1].body}</p>
+              </div>
+
+              {/* BOTTOM RIGHT — card 2 */}
+              <div
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
+                data-delay={160}
+              >
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">03</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[2].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[2].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-3">{sections[2].pull}</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[2].body}</p>
+              </div>
+
+              {/* FULL WIDTH BOTTOM — card 3 (outcome/final) */}
+              <div
+                className="reveal-item lg:col-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col sm:flex-row items-start gap-6"
+                data-delay={240}
+              >
+                <div className="shrink-0">
+                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[3].label}</p>
+                  <p className="mt-2 font-serif text-[2.4rem] font-semibold leading-none text-[#1f1a18]">{sections[3].stat}</p>
+                  <p className="mt-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#a89d96]">{sections[3].statLabel}</p>
                 </div>
-              ))}
+                <div className="hidden sm:block w-px self-stretch bg-black/5" />
+                <div className="flex-1">
+                  <h2 className="font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[3].heading}</h2>
+                  <p className="mt-3 text-[0.88rem] leading-7 text-[#5e5048]">{sections[3].body}</p>
+                  <span className="mt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75]">{sections[3].stamp}</span>
+                </div>
+              </div>
+
             </div>
 
             {/* BOTTOM NAV */}

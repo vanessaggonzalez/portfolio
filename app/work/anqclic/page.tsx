@@ -111,30 +111,29 @@ const sections = [
   {
     label: "the origin",
     heading: "It started with Vine",
-    body: `I was 10 years old when I found fan edits. I was on Vine, watching clips of Ariana Grande and Harry Potter and Marvel cut together in ways that felt almost too beautiful — like someone had distilled exactly why they loved something and put it in 15 seconds. I knew immediately that I needed to learn how to do that.
-
-I didn't have money for proper software. I downloaded Video Star because it was free and spent a couple years making the best edits I could with what I had. Harry Potter mostly. Selena Gomez. Twenty One Pilots. The fandoms I lived in.`,
+    pull: "I was 10. I saw a fan edit on Vine and knew immediately I needed to learn how to do that.",
+    body: "I didn't have money for software so I downloaded Video Star because it was free and spent years making the best edits I could with what I had. Harry Potter, Selena Gomez, Twenty One Pilots. The fandoms I lived in.",
+    tags: ["after effects", "photoshop", "storytelling", "fan community"],
   },
   {
     label: "the turning point",
     heading: "A MacBook and After Effects",
-    body: `In 2018 I saved up enough for a MacBook Pro and begged my mom to cover my After Effects subscription. Growing up without a lot of money, that felt enormous — like I was finally getting the tools that matched the ambition I'd had for years. It completely changed what I could make.
-
-After Effects opened up a whole new layer of craft: masking, 3D, motion blur, typographic sequences. I started spending hours — genuinely hours — on single edits, obsessing over the timing, the font choices, the way a clip landed on a beat.`,
+    pull: "Growing up without a lot of money, finally having the right tools felt enormous.",
+    body: "In 2018 I saved up for a MacBook Pro and got After Effects. It completely changed what I could make: masking, 3D, motion blur, typographic sequences. I started spending hours on single edits, obsessing over timing, font choices, the way a clip landed on a beat.",
   },
   {
     label: "the community",
     heading: "The people made it real",
-    body: `One of the best parts of the editing community is that it's genuinely collaborative. I've done collabs with other editors, learned from people I met through shared fandoms, and built relationships through a very niche shared language — the language of caring deeply about fictional characters and wanting to make something beautiful about them.
-
-I also did freelance work through the account, and in 2021 secured a brand partnership with Funimate — they reached out because of the audience I'd built and the quality of the work. That was the first time someone outside the community treated it like a professional credential.`,
+    pull: "A niche shared language: caring deeply about fictional characters and wanting to make something beautiful about them.",
+    body: "Collabs, freelance work, and in 2021 a brand partnership with Funimate — they reached out because of the audience I'd built and the quality of the work. That was the first time someone outside the community treated it like a professional credential.",
   },
   {
     label: "what it's taught me",
     heading: "Everything I know about craft",
-    body: `After Effects, Photoshop, Media Encoder, audio editing, typography, color grading — I learned all of it here, on my own, because I wanted the thing I was making to be better than the last one. No class, no tutorial curriculum. Just iteration.
-
-More than the technical skills, anqclic taught me something about attention. About what it means to care about details that most people won't even notice — the half-second pause before a cut, the way a font weight changes the feeling of a frame. That sensibility lives in everything I do now, even when I'm writing a campaign brief or building a slide deck. I learned to make things that feel intentional.`,
+    stat: "10+",
+    statLabel: "years editing",
+    body: "After Effects, Photoshop, audio editing, typography, color grading — all self-taught through iteration. More than the tools, anqclic taught me to care about the details most people won't notice. That sensibility lives in everything I make now, even when it's a campaign brief or a slide deck.",
+    stamp: "anqclic · 2015 to present",
   },
 ];
 
@@ -280,22 +279,72 @@ export default function AnqclicPage() {
             </div>
 
             {/* WRITTEN SECTIONS */}
-            <div className="grid gap-5 lg:grid-cols-2">
-              {sections.map((section, i) => (
-                <div
-                  key={section.label}
-                  className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]"
-                  data-delay={i * 80}
-                >
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{section.label}</p>
-                  <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{section.heading}</h2>
-                  <div className="mt-4 space-y-4 text-[0.95rem] leading-8 text-[#4d413b]">
-                    {section.body.split("\n\n").map((para, j) => (
-                      <p key={j}>{para}</p>
+            <div className="grid gap-4 lg:grid-cols-2" style={{ gridTemplateRows: "auto auto auto" }}>
+
+              {/* TALL LEFT — card 0 */}
+              <div
+                className="reveal-item row-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
+                data-delay={0}
+              >
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">01</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[0].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[0].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">{sections[0].pull}</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[0].body}</p>
+                {sections[0].tags && (
+                  <div className="mt-auto pt-5 flex flex-wrap gap-2">
+                    {sections[0].tags.map((tag: string) => (
+                      <span key={tag} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-[#7c7068]">{tag}</span>
                     ))}
                   </div>
+                )}
+              </div>
+
+              {/* TOP RIGHT — card 1 */}
+              <div
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
+                data-delay={80}
+              >
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">02</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[1].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[1].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-3">{sections[1].pull}</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[1].body}</p>
+              </div>
+
+              {/* BOTTOM RIGHT — card 2 */}
+              <div
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
+                data-delay={160}
+              >
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">03</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[2].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[2].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-3">{sections[2].pull}</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[2].body}</p>
+              </div>
+
+              {/* FULL WIDTH BOTTOM — card 3 (outcome/final) */}
+              <div
+                className="reveal-item lg:col-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col sm:flex-row items-start gap-6"
+                data-delay={240}
+              >
+                <div className="shrink-0">
+                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[3].label}</p>
+                  <p className="mt-2 font-serif text-[2.4rem] font-semibold leading-none text-[#1f1a18]">{sections[3].stat}</p>
+                  <p className="mt-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#a89d96]">{sections[3].statLabel}</p>
                 </div>
-              ))}
+                <div className="hidden sm:block w-px self-stretch bg-black/5" />
+                <div className="flex-1">
+                  <h2 className="font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[3].heading}</h2>
+                  <p className="mt-3 text-[0.88rem] leading-7 text-[#5e5048]">{sections[3].body}</p>
+                  <span className="mt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75]">{sections[3].stamp}</span>
+                </div>
+              </div>
+
             </div>
 
             {/* BOTTOM NAV */}

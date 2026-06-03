@@ -38,30 +38,29 @@ const sections = [
   {
     label: "the brief",
     heading: "What we were solving for",
-    body: `This was a product case competition run through ProductSC and sponsored by Amazon — the challenge was to design a new feature for Audible that would meaningfully increase Gen Z engagement on the platform. We had a limited window to go from research to a fully pitched concept, and we treated it like a real product sprint.
-
-The insight we kept coming back to was that Gen Z doesn't just consume content — they collect it, share it, and build identity around it. Audiobooks had all the raw material for that kind of emotional resonance, but no real way to surface those moments socially. That gap became our starting point.`,
+    pull: "Gen Z doesn't just consume content. They collect it, share it, and build identity around it.",
+    body: "Audible had all the raw material for emotional resonance but no way to surface those moments socially. A ProductSC x Amazon case competition gave us the sprint window to fix that.",
+    tags: ["gen z behavior", "audience research", "social interaction", "product thinking"],
   },
   {
     label: "the concept",
     heading: "Clip & Share",
-    body: `Clip & Share is a feature that lets users save short, meaningful moments from audiobooks — a line that hit differently, a chapter that made them cry, a quote they wanted to remember — and share them across Instagram, TikTok, and other platforms as styled audio cards.
-
-The idea was rooted in how fan communities already behave: people screenshot passages, quote books in their bios, post aesthetic reading content. We were just giving Audible a native way to be part of that ecosystem rather than outside of it. The shareable cards would include the book cover, a waveform clip, and the listener's handle — keeping Audible in the frame every time something got shared.`,
+    pull: "Save a line that hit differently. Share it as a styled audio card on Instagram or TikTok.",
+    body: "Rooted in how fan communities already behave: screenshotting passages, quoting books in bios, posting aesthetic reading content. We gave Audible a native way into that ecosystem instead of sitting outside it.",
   },
   {
     label: "my approach",
     heading: "How I showed up to this",
-    body: `This was a fully collaborative project — four of us contributed across every part of it, from the initial research phase through the final pitch. I wasn't leading it so much as I was deeply in it: helping shape the research questions, pushing on the narrative arc of the deck, thinking through the user flows, and making sure the story we were telling felt cohesive and emotionally grounded, not just technically complete.
-
-The part I found myself most drawn to was the "why does this matter to a real person" layer — making sure every slide answered that question, not just the feature mechanics. I care a lot about products that feel human, and I think that came through in how we positioned the concept.`,
+    pull: "Four of us across every part of it, from research through the final pitch.",
+    body: "I kept asking: why does this matter to a real person? That question shaped how we positioned every slide. I care about products that feel human, and I think that came through in how the concept landed.",
   },
   {
     label: "the outcome",
     heading: "First place",
-    body: `We won!!!
-
-Beyond the result, what I took away was a much clearer sense of how to move fast on a product problem without losing the craft of it. The constraints were real — limited time, a platform we didn't work at, an audience we had to understand quickly — and I think the work was better for it. It confirmed something I already suspected: I like working on things where emotional behavior and product strategy overlap. That's the space I want to keep building in.`,
+    stat: "1st",
+    statLabel: "Amazon-sponsored · ProductSC",
+    body: "Constraints made it better. Limited time, a platform we didn't work at, an audience we had to understand fast. It confirmed something I already suspected: I want to keep working where emotional behavior and product strategy overlap.",
+    stamp: "case competition · 2024",
   },
 ];
 
@@ -157,26 +156,72 @@ export default function AudiblePage() {
             </div>
 
             {/* WRITTEN SECTIONS */}
-            <div className="grid gap-5 lg:grid-cols-2">
-              {sections.map((section, i) => (
-                <div
-                  key={section.label}
-                  className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]"
-                  data-delay={i * 80}
-                >
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                    {section.label}
-                  </p>
-                  <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">
-                    {section.heading}
-                  </h2>
-                  <div className="mt-4 space-y-4 text-[0.95rem] leading-8 text-[#4d413b]">
-                    {section.body.split("\n\n").map((para, j) => (
-                      <p key={j}>{para}</p>
+            <div className="grid gap-4 lg:grid-cols-2" style={{ gridTemplateRows: "auto auto auto" }}>
+
+              {/* TALL LEFT — card 0 */}
+              <div
+                className="reveal-item row-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
+                data-delay={0}
+              >
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">01</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[0].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[0].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">{sections[0].pull}</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[0].body}</p>
+                {sections[0].tags && (
+                  <div className="mt-auto pt-5 flex flex-wrap gap-2">
+                    {sections[0].tags.map((tag: string) => (
+                      <span key={tag} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-[#7c7068]">{tag}</span>
                     ))}
                   </div>
+                )}
+              </div>
+
+              {/* TOP RIGHT — card 1 */}
+              <div
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
+                data-delay={80}
+              >
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">02</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[1].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[1].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-3">{sections[1].pull}</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[1].body}</p>
+              </div>
+
+              {/* BOTTOM RIGHT — card 2 */}
+              <div
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
+                data-delay={160}
+              >
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">03</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[2].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[2].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-3">{sections[2].pull}</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[2].body}</p>
+              </div>
+
+              {/* FULL WIDTH BOTTOM — card 3 (outcome/final) */}
+              <div
+                className="reveal-item lg:col-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col sm:flex-row items-start gap-6"
+                data-delay={240}
+              >
+                <div className="shrink-0">
+                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[3].label}</p>
+                  <p className="mt-2 font-serif text-[2.4rem] font-semibold leading-none text-[#1f1a18]">{sections[3].stat}</p>
+                  <p className="mt-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#a89d96]">{sections[3].statLabel}</p>
                 </div>
-              ))}
+                <div className="hidden sm:block w-px self-stretch bg-black/5" />
+                <div className="flex-1">
+                  <h2 className="font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[3].heading}</h2>
+                  <p className="mt-3 text-[0.88rem] leading-7 text-[#5e5048]">{sections[3].body}</p>
+                  <span className="mt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75]">{sections[3].stamp}</span>
+                </div>
+              </div>
+
             </div>
 
             {/* BOTTOM NAV */}

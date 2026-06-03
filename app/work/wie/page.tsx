@@ -97,30 +97,29 @@ const sections = [
   {
     label: "the role",
     heading: "Marketing Director, not just a marketer",
-    body: `I came into this role as Director of Marketing and Development — which in practice means I'm both leading the team and doing the work. I manage three Associate Directors, but I'm also designing graphics, building out the website, and making sure every piece of content we put out actually reflects what WIE is trying to do.
-
-WIE isn't a club with a membership list. It's a resource — for any student in USC Viterbi's School of Engineering who wants community, mentorship, or just a room full of people who get it. That changes how we think about marketing. There's no captive audience. Every event we promote has to earn its attendance.`,
+    pull: "WIE has no captive audience. Every event we promote has to earn its attendance.",
+    body: "I manage three Associate Directors but I'm also designing the graphics, building the website, and making sure every piece of content reflects what WIE is actually trying to do. It's a resource for any student in USC Viterbi who wants community or mentorship — and if people don't know it exists, it doesn't matter that it does.",
+    tags: ["leadership", "brand guidelines", "community building", "women in STEM"],
   },
   {
     label: "how we work",
     heading: "Cross-team, request-driven design",
-    body: `Our marketing workflow is collaborative by design. Other WIE departments — mentorship, professional development, community — come to us with event requests: a deadline, a vibe, sometimes a color palette or a photo they want included. From there, we have creative control over the execution.
-
-That means every graphic I design is a translation problem: taking someone else's vision and making it feel cohesive, on-brand, and actually compelling enough for someone to stop scrolling. I work primarily in Canva and coordinate with the team to get approvals and incorporate feedback before anything goes live.`,
+    pull: "Every graphic is a translation problem: taking someone else's vision and making it feel cohesive and compelling.",
+    body: "Other WIE departments bring us event requests with deadlines, vibes, sometimes a photo they want included. From there we have creative control. I work primarily in Canva, coordinate with the team on approvals, and incorporate feedback before anything goes live.",
   },
   {
     label: "the website",
     heading: "Building within constraints",
-    body: `I worked on the WIE website through USC Viterbi's web infrastructure — which came with real limitations. Without full admin access, I was working within a base template I didn't fully control, focusing on content architecture, copy, and making the structure as accessible and navigable as possible.
-
-It's not my best technical work and I'll say that plainly. But it taught me something about how to do good work inside systems that aren't built for what you're trying to do — which is a skill in itself.`,
+    pull: "Without full admin access, I focused on content architecture and making the structure as navigable as possible.",
+    body: "Working within USC Viterbi's web infrastructure taught me something about doing good work inside systems that aren't built for what you're trying to do. It's not my most polished technical output. But it's honest, and it works for the people using it.",
   },
   {
     label: "what I'm building",
     heading: "Brand consistency as infrastructure",
-    body: `One of the first things I did in this role was establish brand guidelines — because consistent visual identity is how an organization starts to feel real and trustworthy to the people it's trying to reach. When every post looks like it belongs together, when the tone is the same across Instagram and email, when the website feels like an extension of the same thing — that's when marketing stops being noise and starts being trust.
-
-I manage digital communications across WordPress and Canvas as well as Instagram, and I coordinate with executive leadership on events, workshops, and community initiatives. The goal has always been the same: make sure the people WIE is for actually know WIE exists.`,
+    stat: "2,295",
+    statLabel: "students reached",
+    body: "When every post looks like it belongs together, when the tone is consistent across Instagram and email, when the website feels like an extension of the same thing — that's when marketing stops being noise and starts being trust. That's what I'm trying to build here.",
+    stamp: "USC WIE · Director of Marketing",
   },
 ];
 
@@ -272,22 +271,72 @@ export default function WIEPage() {
             </div>
 
             {/* WRITTEN SECTIONS */}
-            <div className="grid gap-5 lg:grid-cols-2">
-              {sections.map((section, i) => (
-                <div
-                  key={section.label}
-                  className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]"
-                  data-delay={i * 80}
-                >
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{section.label}</p>
-                  <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{section.heading}</h2>
-                  <div className="mt-4 space-y-4 text-[0.95rem] leading-8 text-[#4d413b]">
-                    {section.body.split("\n\n").map((para, j) => (
-                      <p key={j}>{para}</p>
+            <div className="grid gap-4 lg:grid-cols-2" style={{ gridTemplateRows: "auto auto auto" }}>
+
+              {/* TALL LEFT — card 0 */}
+              <div
+                className="reveal-item row-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
+                data-delay={0}
+              >
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">01</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[0].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[0].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">{sections[0].pull}</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[0].body}</p>
+                {sections[0].tags && (
+                  <div className="mt-auto pt-5 flex flex-wrap gap-2">
+                    {sections[0].tags.map((tag: string) => (
+                      <span key={tag} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-[#7c7068]">{tag}</span>
                     ))}
                   </div>
+                )}
+              </div>
+
+              {/* TOP RIGHT — card 1 */}
+              <div
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
+                data-delay={80}
+              >
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">02</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[1].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[1].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-3">{sections[1].pull}</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[1].body}</p>
+              </div>
+
+              {/* BOTTOM RIGHT — card 2 */}
+              <div
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
+                data-delay={160}
+              >
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">03</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[2].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[2].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-3">{sections[2].pull}</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[2].body}</p>
+              </div>
+
+              {/* FULL WIDTH BOTTOM — card 3 (outcome/final) */}
+              <div
+                className="reveal-item lg:col-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col sm:flex-row items-start gap-6"
+                data-delay={240}
+              >
+                <div className="shrink-0">
+                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[3].label}</p>
+                  <p className="mt-2 font-serif text-[2.4rem] font-semibold leading-none text-[#1f1a18]">{sections[3].stat}</p>
+                  <p className="mt-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#a89d96]">{sections[3].statLabel}</p>
                 </div>
-              ))}
+                <div className="hidden sm:block w-px self-stretch bg-black/5" />
+                <div className="flex-1">
+                  <h2 className="font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[3].heading}</h2>
+                  <p className="mt-3 text-[0.88rem] leading-7 text-[#5e5048]">{sections[3].body}</p>
+                  <span className="mt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75]">{sections[3].stamp}</span>
+                </div>
+              </div>
+
             </div>
 
             {/* BOTTOM NAV */}
