@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useRef } from "react";
 
 function useReveal() {
   useEffect(() => {
@@ -125,37 +125,68 @@ const ships = [
     pair: "Ron & Hermione",
     from: "Harry Potter",
     note: "the original. always.",
-    gifId: "tQ0USPyQfN1xm",
+    isOG: true,
+    // drop your 3 image paths/URLs here:
+    images: [
+      "/images/ships/ronhermione1.jpg",
+      "/images/ships/ronhermione2.jpg",
+      "/images/ships/ronhermione3.jpg",
+    ],
   },
   {
     pair: "Han & Leia",
     from: "Star Wars",
     note: "enemies to lovers before it had a name",
-    gifId: "lBIvtWjqWseLC",
+    isOG: false,
+    images: [
+      "/images/ships/hanleia1.jpg",
+      "/images/ships/hanleia2.jpg",
+      "/images/ships/hanleia3.jpg",
+    ],
   },
   {
     pair: "Dan & Blair",
     from: "Gossip Girl",
     note: "unexpected and that's the point",
-    gifId: "p4gPC9wMVLfG0",
+    isOG: false,
+    images: [
+      "/images/ships/danblair1.jpg",
+      "/images/ships/danblair2.jpg",
+      "/images/ships/danblair3.jpg",
+    ],
   },
   {
     pair: "Nancy & Jonathan",
     from: "Stranger Things",
     note: "soft and steady",
-    gifId: "3o7aDbX8g5rNzOzfyw",
+    isOG: false,
+    images: [
+      "/images/ships/nancyjonathan1.jpg",
+      "/images/ships/nancyjonathan2.jpg",
+      "/images/ships/nancyjonathan3.jpg",
+    ],
   },
   {
     pair: "Jake & Amy",
     from: "Brooklyn 99",
     note: "titles are hard but they try",
-    gifId: "3osxY4WQT34ONC60XC",
+    isOG: false,
+    images: [
+      "/images/ships/jakeamy1.jpg",
+      "/images/ships/jakeamy2.jpg",
+      "/images/ships/jakeamy3.jpg",
+    ],
   },
   {
     pair: "Chandler & Monica",
     from: "Friends",
     note: "best friends first, always",
-    gifId: "105C2a2ieQtW00",
+    isOG: false,
+    images: [
+      "/images/ships/chandlermonica1.jpg",
+      "/images/ships/chandlermonica2.jpg",
+      "/images/ships/chandlermonica3.jpg",
+    ],
   },
 ];
 
@@ -261,45 +292,126 @@ const smallFacts = [
   "ive seen twenty one pilots more than any other artist",
 ];
 
-// ── SHIP CARD ─────────────────────────────────────────────────────────────────
+// ── SHIP CARD (polaroid stack) ────────────────────────────────────────────────
+// Fallback palette colours shown when an image path is still empty.
+const shipPalettes: [string, string][] = [
+  ["#2a1f3d", "#3d2520"],
+  ["#1a2a1f", "#1c1a2a"],
+  ["#2a1f1a", "#1a1f2a"],
+  ["#1a2020", "#2a1a1f"],
+  ["#1f2a20", "#2a2a1f"],
+  ["#2a2015", "#1f1f2a"],
+];
+
+// ── Drop-in replacement for ShipCard in about/page.tsx ───────────────────────
+//
+// 1. Update your `ships` data array to use `images` instead of `gifId`:
+//
+//   const ships = [
+//     {
+//       pair: "Ron & Hermione",
+//       from: "Harry Potter",
+//       note: "the original. always.",
+//       isOG: true,
+//       images: [
+//         "/images/ships/ronhermione1.jpg",
+//         "/images/ships/ronhermione2.jpg",
+//         "/images/ships/ronhermione3.jpg",
+//       ],
+//     },
+//     // ... rest of ships
+//   ];
+//
+// 2. Change the grid in the JSX from lg:grid-cols-3 to lg:grid-cols-3 (keep 3-col):
+//
+//   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+//
+// ─────────────────────────────────────────────────────────────────────────────
+
 function ShipCard({ ship, index }: { ship: typeof ships[0]; index: number }) {
-  const [gifLoaded, setGifLoaded] = useState(false);
-  const rotation = index % 3 === 0 ? "rotate-[-0.5deg]" : index % 3 === 1 ? "rotate-[0.4deg]" : "rotate-0";
+  const [current, setCurrent] = useState(0);
+  const total = ship.images.length;
+  const [palette] = useState(shipPalettes[index % shipPalettes.length]);
+
+  const prev = () => setCurrent((c) => (c - 1 + total) % total);
+  const next = () => setCurrent((c) => (c + 1) % total);
 
   return (
-    <div className={`group relative overflow-hidden rounded-[22px] border border-black/5 bg-white/72 shadow-[0_14px_40px_rgba(68,44,29,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(68,44,29,0.10)] ${rotation}`}>
-      <div className="relative h-[180px] w-full overflow-hidden bg-[#ede5dc]">
-        <iframe
-          src={`https://giphy.com/embed/${ship.gifId}`}
-          style={{
-            border: "none",
-            pointerEvents: "none",
-            position: "absolute",
-            top: "50%",
-            left: "50%",
-            width: "160%",
-            height: "160%",
-            transform: "translate(-50%, -50%)",
-          }}
-          allowFullScreen
-          title={`${ship.pair} gif`}
-          onLoad={() => setGifLoaded(true)}
-        />
-        <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#f7f1eb]/80 via-transparent to-transparent" />
-        {!gifLoaded && (
-          <div className="pointer-events-none absolute inset-0 animate-pulse bg-gradient-to-r from-[#ede5dc] via-[#f5ede4] to-[#ede5dc]" />
+    <div className="flex flex-col gap-2">
+      {/* Poster — same aspect ratio + shape as PosterCard */}
+      <div
+        className="group relative overflow-hidden rounded-[14px] border border-black/5 shadow-[0_10px_28px_rgba(68,44,29,0.07)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(68,44,29,0.12)]"
+        style={{ aspectRatio: "2/3", background: `linear-gradient(160deg, ${palette[0]}, ${palette[1]})` }}
+      >
+        {/* Images */}
+        {ship.images.map((src, i) => (
+          <img
+            key={i}
+            src={src}
+            alt={`${ship.pair} still ${i + 1}`}
+            className={`absolute inset-0 h-full w-full object-cover transition-opacity duration-300 ${
+              i === current ? "opacity-100" : "opacity-0"
+            }`}
+          />
+        ))}
+
+        {/* Fallback label shown when no image loaded */}
+        <div className="absolute inset-0 flex items-end p-2 pointer-events-none">
+          <span className="text-[0.5rem] uppercase tracking-[0.12em] text-white/30 leading-tight">
+            {ship.pair.slice(0, 14)}
+          </span>
+        </div>
+
+        {/* Prev / Next — visible on hover */}
+        {total > 1 && (
+          <>
+            <button
+              onClick={prev}
+              aria-label="previous image"
+              className="absolute left-1.5 top-1/2 -translate-y-1/2 flex h-6 w-6 items-center justify-center rounded-full border border-black/8 bg-white/80 text-[#5f554f] text-[13px] leading-none opacity-0 shadow-sm transition-all duration-150 group-hover:opacity-100 hover:bg-white hover:scale-105 z-10"
+            >
+              ‹
+            </button>
+            <button
+              onClick={next}
+              aria-label="next image"
+              className="absolute right-1.5 top-1/2 -translate-y-1/2 flex h-6 w-6 items-center justify-center rounded-full border border-black/8 bg-white/80 text-[#5f554f] text-[13px] leading-none opacity-0 shadow-sm transition-all duration-150 group-hover:opacity-100 hover:bg-white hover:scale-105 z-10"
+            >
+              ›
+            </button>
+          </>
+        )}
+
+        {/* Dots */}
+        {total > 1 && (
+          <div className="absolute bottom-1.5 left-1/2 flex -translate-x-1/2 gap-1 z-10">
+            {ship.images.map((_, i) => (
+              <button
+                key={i}
+                onClick={() => setCurrent(i)}
+                aria-label={`image ${i + 1}`}
+                className={`rounded-full transition-all duration-200 ${
+                  i === current
+                    ? "w-3 h-1.5 bg-white"
+                    : "w-1.5 h-1.5 bg-white/45 hover:bg-white/70"
+                }`}
+              />
+            ))}
+          </div>
         )}
       </div>
-      <div className="p-5">
-        <div className="flex items-start justify-between gap-2">
-          <p className="font-serif font-semibold text-[1rem] leading-snug text-[#1f1a18]">{ship.pair}</p>
-          {index === 0 && (
-            <span className="shrink-0 rounded-full border border-black/5 bg-[#fffaf6] px-2 py-0.5 text-[0.6rem] uppercase tracking-[0.18em] text-[#a89d96]">og</span>
-          )}
-        </div>
-        <p className="mt-1 text-[0.68rem] uppercase tracking-[0.2em] text-[#a89d96]">{ship.from}</p>
-        <p className="mt-2 text-[0.82rem] italic leading-6 text-[#4d413b]">{ship.note}</p>
-      </div>
+
+      {/* Text below — same style as PosterCard */}
+      <p className="text-center text-[0.72rem] font-medium leading-tight text-[#1f1a18]">
+        {ship.pair}
+        {ship.isOG && (
+          <span className="ml-1.5 rounded-full border border-black/5 bg-[#fffaf6] px-1.5 py-0.5 text-[0.55rem] uppercase tracking-[0.16em] text-[#a89d96] align-middle">
+            og
+          </span>
+        )}
+      </p>
+      <p className="text-center text-[0.6rem] uppercase tracking-[0.16em] text-[#a89d96]">{ship.from}</p>
+      <p className="text-center text-[0.6rem] italic text-[#7c7068] leading-snug">{ship.note}</p>
     </div>
   );
 }
@@ -308,9 +420,16 @@ function ShipCard({ ship, index }: { ship: typeof ships[0]; index: number }) {
 const posterFallbacks = ["#e8d5c4", "#d4c4b8", "#c8b8ac", "#ddd0c6", "#e2d4ca"];
 
 function PosterCard({
-  title, note, poster, index, size = "film",
+  title,
+  note,
+  poster,
+  index,
 }: {
-  title: string; note: string; poster: string; index: number; size?: "film" | "tv";
+  title: string;
+  note: string;
+  poster: string;
+  index: number;
+  size?: "film" | "tv";
 }) {
   const [loaded, setLoaded] = useState(false);
   const bg = posterFallbacks[index % posterFallbacks.length];
@@ -330,7 +449,9 @@ function PosterCard({
           />
         ) : (
           <div className="absolute inset-0 flex items-end p-2">
-            <span className="text-[0.5rem] uppercase tracking-[0.12em] text-[#8a7d75]/70 leading-tight">{title.slice(0, 14)}</span>
+            <span className="text-[0.5rem] uppercase tracking-[0.12em] text-[#8a7d75]/70 leading-tight">
+              {title.slice(0, 14)}
+            </span>
           </div>
         )}
       </div>
@@ -442,7 +563,7 @@ export default function AboutPage() {
               how i got here
             </div>
 
-            {/* ORIGIN — wide, film strip on right */}
+            {/* ORIGIN */}
             <div className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden" data-delay={0}>
               <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[5rem] font-semibold leading-none text-black/[0.025]">01</span>
               <div className="grid gap-6 lg:grid-cols-[1fr_120px]">
@@ -453,7 +574,6 @@ export default function AboutPage() {
                   <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">I was 10. I saw a fan edit on Vine and knew immediately I needed to learn how to do that.</p>
                   <p className="text-[0.88rem] leading-7 text-[#5e5048]">Started on Video Star because it was free. Harry Potter, Selena, Twenty One Pilots. In 2018 I saved up for a MacBook and begged my mom for After Effects — growing up without a lot, that felt enormous. That account became anqclic, a misspelling of angelic, because I wanted to make things that were beautiful.</p>
                 </div>
-                {/* film era strip */}
                 <div className="hidden lg:flex flex-col gap-2">
                   {[
                     { label: "vine era", bg: "linear-gradient(160deg,#1a0a2e,#2d1b4e)" },
@@ -558,7 +678,12 @@ export default function AboutPage() {
               <p className="mb-6 max-w-lg text-[0.88rem] leading-7 text-[#4d413b]">
                 I will watch an entire series for a ship. I love love — the slow burn, the tension, the tiny moments before everything clicks. Here are the ones that live in me permanently.
               </p>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
+              {/*
+                Changed: was sm:grid-cols-2 lg:grid-cols-3 (3-col, very wide).
+                Now 2-col max — cards are taller with the polaroid stack so 2-col
+                gives them more room to breathe and matches the compact layout goal.
+              */}
+              <div className="grid grid-cols-3 gap-4 sm:grid-cols-6">
                 {ships.map((ship, i) => (
                   <ShipCard key={ship.pair} ship={ship} index={i} />
                 ))}
