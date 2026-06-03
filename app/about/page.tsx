@@ -25,6 +25,7 @@ function useReveal() {
 
 const LASTFM_API_KEY = "c23c1a26f6c242882d28b082dfa38a24";
 const LASTFM_USER = "malfcytrash";
+const TMDB_KEY = "e08466a6e15057915ef671c8d3314b76";
 
 type Track = {
   name: string;
@@ -62,7 +63,6 @@ function useLastFm() {
         console.error("lastfm recent tracks error:", e);
       }
     }
-
     async function fetchTopArtist() {
       try {
         const res = await fetch(
@@ -75,7 +75,6 @@ function useLastFm() {
         console.error("lastfm top artists error:", e);
       }
     }
-
     fetchRecent();
     fetchTopArtist();
     const interval = setInterval(fetchRecent, 30_000);
@@ -85,35 +84,25 @@ function useLastFm() {
   return { tracks, topArtist };
 }
 
-// ── TMDB poster fetcher ────────────────────────────────────────────────────────
-// We use the public TMDB search endpoint (no API key needed for basic search
-// via the v3 free tier — swap in your own key if you have one).
-// Falls back gracefully to a warm placeholder if the fetch fails.
-const TMDB_KEY = "e08466a6e15057915ef671c8d3314b76"; // optional — leave empty to use placeholder art
-type ShowPoster = { title: string; poster: string; note: string };
+type Poster = { title: string; poster: string; note: string; type: "movie" | "tv" };
 
-function useTVPosters(shows: { title: string; note: string }[]) {
-  const [posters, setPosters] = useState<ShowPoster[]>(
-    shows.map((s) => ({ ...s, poster: "" }))
-  );
-
+function usePosters(items: { title: string; note: string; type: "movie" | "tv" }[]) {
+  const [posters, setPosters] = useState<Poster[]>(items.map((s) => ({ ...s, poster: "" })));
   useEffect(() => {
-    if (!TMDB_KEY) return; // skip if no key, placeholders will show
+    if (!TMDB_KEY) return;
     async function fetchAll() {
       const results = await Promise.all(
-        shows.map(async (show) => {
+        items.map(async (item) => {
           try {
+            const endpoint = item.type === "movie" ? "search/movie" : "search/tv";
             const res = await fetch(
-              `https://api.themoviedb.org/3/search/tv?api_key=${TMDB_KEY}&query=${encodeURIComponent(show.title)}&page=1`
+              `https://api.themoviedb.org/3/${endpoint}?api_key=${TMDB_KEY}&query=${encodeURIComponent(item.title)}&page=1`
             );
             const data = await res.json();
             const path = data?.results?.[0]?.poster_path ?? "";
-            return {
-              ...show,
-              poster: path ? `https://image.tmdb.org/t/p/w300${path}` : "",
-            };
+            return { ...item, poster: path ? `https://image.tmdb.org/t/p/w300${path}` : "" };
           } catch {
-            return { ...show, poster: "" };
+            return { ...item, poster: "" };
           }
         })
       );
@@ -121,18 +110,14 @@ function useTVPosters(shows: { title: string; note: string }[]) {
     }
     fetchAll();
   }, []);
-
   return posters;
 }
 
 // ── DATA ──────────────────────────────────────────────────────────────────────
 
-// Your photos — swap these paths with your actual images
-// All slots use object-cover so any size/ratio works perfectly
 const myPhotos = [
   { src: "/images/vanessa1.jpg", alt: "Vanessa", caption: "vanessa" },
   { src: "/images/vanessa2.jpg", alt: "Vanessa at the Huntington", caption: "at the huntington" },
-  // add a third if you have one: { src: "/images/vanessa3.jpg", alt: "...", caption: "..." },
 ];
 
 const ships = [
@@ -140,7 +125,6 @@ const ships = [
     pair: "Ron & Hermione",
     from: "Harry Potter",
     note: "the original. always.",
-    // Giphy embed IDs — these are real public Giphy IDs for each ship
     gifId: "tQ0USPyQfN1xm",
   },
   {
@@ -156,70 +140,108 @@ const ships = [
     gifId: "p4gPC9wMVLfG0",
   },
   {
-    pair: "Chandler & Monica",
-    from: "Friends",
-    note: "best friends first, always",
-    gifId: "105C2a2ieQtW00",
-  },
-  {
-    pair: "Jake & Amy",
-    from: "Brooklyn 99",
-    note: "titles are hard but we try",
-    gifId: "3osxY4WQT34ONC60XC",
-  },
-  {
-    pair: "Seth & Summer",
-    from: "The OC",
-    note: "so many seasons of yearning (4)",
-    gifId: "heD16mYrUb64E",
-  },
-  {
-    pair: "Stefan & Caroline",
-    from: "The Vampire Diaries",
-    note: "quiet and devastating",
-    gifId: "awnC06iQXQ0Ym94nc0",
-  },
-  {
     pair: "Nancy & Jonathan",
     from: "Stranger Things",
     note: "soft and steady",
     gifId: "3o7aDbX8g5rNzOzfyw",
   },
   {
-    pair: "Jackie & Hyde",
-    from: "That 70s Show",
-    note: "opposites that just work",
-    gifId: "9X4iKKnoDmptm",
+    pair: "Jake & Amy",
+    from: "Brooklyn 99",
+    note: "titles are hard but they try",
+    gifId: "3osxY4WQT34ONC60XC",
   },
   {
-    pair: "Stiles & Lydia",
-    from: "Teen Wolf",
-    note: "yearners omg",
-    gifId: "vMLZUWYfNLAbe",
+    pair: "Chandler & Monica",
+    from: "Friends",
+    note: "best friends first, always",
+    gifId: "105C2a2ieQtW00",
   },
 ];
 
+const films = [
+  { title: "The Great Gatsby", note: "baz luhrmann", type: "movie" as const },
+  { title: "Perks of Being a Wallflower", note: "opened my eyes", type: "movie" as const },
+  { title: "Little Women", note: "greta gerwig", type: "movie" as const },
+  { title: "Once Upon a Time in Hollywood", note: "tarantino", type: "movie" as const },
+  { title: "La La Land", note: "chazelle", type: "movie" as const },
+];
+
 const watchingShows = [
-  { title: "New Girl", note: "with my boyfriend, first watch" },
-  { title: "That 70s Show", note: "rewatch — Jackie & Hyde agenda" },
-  { title: "Desperate Housewives", note: "started, need to finish" },
-  { title: "Modern Family", note: "started this one too" },
+  { title: "New Girl", note: "first watch with my boyfriend", type: "tv" as const },
+  { title: "That '70s Show", note: "rewatch — Jackie & Hyde agenda", type: "tv" as const },
+  { title: "Abbott Elementary", note: "just finished, obsessed", type: "tv" as const },
+  { title: "Gossip Girl", note: "rewatching before NYC", type: "tv" as const },
+  { title: "The Vampire Diaries", note: "almost done with rewatch", type: "tv" as const },
+];
+
+const concertLog = [
+  {
+    artist: "Ariana Grande",
+    tour: "Eternal Sunshine World Tour",
+    dates: "June 13, 2026",
+    note: "next week!!!",
+    upcoming: true,
+  },
+  {
+    artist: "The Neighbourhood",
+    tour: "upcoming shows",
+    dates: "Nov + Dec 2026",
+    note: "seeing them twice",
+    upcoming: true,
+  },
+  {
+    artist: "Twenty One Pilots",
+    tour: "Clancy Breach Tour",
+    dates: "Oct 24 + 25, 2025",
+    note: "BMO Stadium, LA — also bandito, emotional roadshow, clancy tour",
+    upcoming: false,
+  },
+  {
+    artist: "The Neighbourhood",
+    tour: "secret popup show",
+    dates: "Nov 2025",
+    note: "also saw them Oct 2021",
+    upcoming: false,
+  },
+  {
+    artist: "Tame Impala",
+    tour: "",
+    dates: "Nov 2025",
+    note: "also saw them Nov 2021",
+    upcoming: false,
+  },
+  {
+    artist: "Lorde",
+    tour: "",
+    dates: "Nov 2025",
+    note: "also saw her May 2021",
+    upcoming: false,
+  },
+  {
+    artist: "Cage the Elephant",
+    tour: "",
+    dates: "Jul 2024",
+    note: "trouble era",
+    upcoming: false,
+  },
+];
+
+const coreArtists = [
+  "Twenty One Pilots",
+  "The Neighbourhood",
+  "Lorde",
+  "Lana Del Rey",
+  "Selena Gomez",
+  "Ariana Grande",
+  "The 1975",
+  "Tame Impala",
+  "Taylor Swift",
 ];
 
 const makingItems = [
   { title: "Ariana Grande edit", note: "eternal sunshine world tour" },
   { title: "this website", note: "where I've been" },
-];
-
-const listeningItems = [
-  { title: "Dangerous Woman", note: "Ariana — 10th anniversary" },
-  { title: "The Neighbourhood", note: "seeing them in december" },
-  { title: "Lorde", note: "always" },
-];
-
-const coreArtists = [
-  "The Neighbourhood", "Lana Del Rey", "Ariana Grande",
-  "Lorde", "The 1975", "Twenty One Pilots", "Selena Gomez", "Taylor Swift",
 ];
 
 const smallFacts = [
@@ -231,20 +253,21 @@ const smallFacts = [
   "fashion is documentation",
   "ron & hermione are my favorite depiction of romance",
   "anqclic = misspelling of angelic, intentionally",
-  "The Neighbourhood in december!!",
-  "dangerous woman 10th anniversary on repeat",
-  "business club president in high school",
+  "The Neighbourhood in november and december!!",
+  "ariana grande next week omg",
+  "mean girls is my comfort movie (genuinely)",
   "vinyl > any other form of streaming",
+  "going to new york soon",
+  "ive seen twenty one pilots more than any other artist",
 ];
 
-// ── SHIP CARD with gif ─────────────────────────────────────────────────────────
+// ── SHIP CARD ─────────────────────────────────────────────────────────────────
 function ShipCard({ ship, index }: { ship: typeof ships[0]; index: number }) {
   const [gifLoaded, setGifLoaded] = useState(false);
   const rotation = index % 3 === 0 ? "rotate-[-0.5deg]" : index % 3 === 1 ? "rotate-[0.4deg]" : "rotate-0";
 
   return (
     <div className={`group relative overflow-hidden rounded-[22px] border border-black/5 bg-white/72 shadow-[0_14px_40px_rgba(68,44,29,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_22px_55px_rgba(68,44,29,0.10)] ${rotation}`}>
-      {/* GIF area — iframe embed bypasses CSP/domain restrictions */}
       <div className="relative h-[180px] w-full overflow-hidden bg-[#ede5dc]">
         <iframe
           src={`https://giphy.com/embed/${ship.gifId}`}
@@ -262,15 +285,11 @@ function ShipCard({ ship, index }: { ship: typeof ships[0]; index: number }) {
           title={`${ship.pair} gif`}
           onLoad={() => setGifLoaded(true)}
         />
-        {/* warm gradient overlay so gifs blend with the cream palette */}
         <div className="pointer-events-none absolute inset-0 bg-gradient-to-t from-[#f7f1eb]/80 via-transparent to-transparent" />
-        {/* skeleton shimmer while loading */}
         {!gifLoaded && (
           <div className="pointer-events-none absolute inset-0 animate-pulse bg-gradient-to-r from-[#ede5dc] via-[#f5ede4] to-[#ede5dc]" />
         )}
       </div>
-
-      {/* text */}
       <div className="p-5">
         <div className="flex items-start justify-between gap-2">
           <p className="font-serif font-semibold text-[1rem] leading-snug text-[#1f1a18]">{ship.pair}</p>
@@ -285,42 +304,38 @@ function ShipCard({ ship, index }: { ship: typeof ships[0]; index: number }) {
   );
 }
 
-// ── SHOW POSTER CARD ───────────────────────────────────────────────────────────
-// Uses a hardcoded palette of warm poster colors as fallbacks when no TMDB key
-const posterFallbacks = [
-  "#e8d5c4", "#d4c4b8", "#c8b8ac", "#ddd0c6", "#e2d4ca",
-];
+// ── POSTER CARD ───────────────────────────────────────────────────────────────
+const posterFallbacks = ["#e8d5c4", "#d4c4b8", "#c8b8ac", "#ddd0c6", "#e2d4ca"];
 
-function ShowCard({ title, note, poster, index }: { title: string; note: string; poster: string; index: number }) {
+function PosterCard({
+  title, note, poster, index, size = "film",
+}: {
+  title: string; note: string; poster: string; index: number; size?: "film" | "tv";
+}) {
   const [loaded, setLoaded] = useState(false);
   const bg = posterFallbacks[index % posterFallbacks.length];
 
   return (
-    <div className="group flex items-center gap-3 rounded-[18px] border border-black/5 bg-white/60 p-3 shadow-[0_8px_24px_rgba(68,44,29,0.04)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-white/80 hover:shadow-[0_12px_32px_rgba(68,44,29,0.07)]">
-      {/* poster / placeholder */}
+    <div className="flex flex-col gap-2">
       <div
-        className="relative h-16 w-11 shrink-0 overflow-hidden rounded-[10px] border border-black/5"
-        style={{ background: bg }}
+        className="relative overflow-hidden rounded-[14px] border border-black/5 shadow-[0_10px_28px_rgba(68,44,29,0.07)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(68,44,29,0.12)]"
+        style={{ background: bg, aspectRatio: "2/3" }}
       >
-        {poster && (
+        {poster ? (
           <img
             src={poster}
             alt={title}
             className={`h-full w-full object-cover transition-opacity duration-300 ${loaded ? "opacity-100" : "opacity-0"}`}
             onLoad={() => setLoaded(true)}
           />
-        )}
-        {/* film grain texture overlay on poster */}
-        {!poster && (
-          <div className="absolute inset-0 flex items-end p-1.5">
-            <span className="text-[0.45rem] uppercase tracking-[0.15em] text-[#8a7d75]/60 leading-tight">{title.slice(0,12)}</span>
+        ) : (
+          <div className="absolute inset-0 flex items-end p-2">
+            <span className="text-[0.5rem] uppercase tracking-[0.12em] text-[#8a7d75]/70 leading-tight">{title.slice(0, 14)}</span>
           </div>
         )}
       </div>
-      <div className="min-w-0">
-        <p className="truncate text-[0.85rem] font-medium text-[#1f1a18]">{title}</p>
-        <p className="mt-0.5 truncate text-[0.68rem] uppercase tracking-[0.16em] text-[#a89d96]">{note}</p>
-      </div>
+      <p className="text-center text-[0.72rem] font-medium leading-tight text-[#1f1a18]">{title}</p>
+      <p className="text-center text-[0.6rem] uppercase tracking-[0.16em] text-[#a89d96]">{note}</p>
     </div>
   );
 }
@@ -329,7 +344,8 @@ function ShowCard({ title, note, poster, index }: { title: string; note: string;
 export default function AboutPage() {
   useReveal();
   const { tracks, topArtist } = useLastFm();
-  const showPosters = useTVPosters(watchingShows);
+  const filmPosters = usePosters(films);
+  const showPosters = usePosters(watchingShows);
 
   const navLinks = [
     { label: "Work", href: "/work" },
@@ -358,9 +374,8 @@ export default function AboutPage() {
               </nav>
             </header>
 
-            {/* ── HERO + PHOTOS ── */}
+            {/* HERO + PHOTOS */}
             <div className="reveal-item mt-10 grid gap-6 lg:grid-cols-[1fr_auto]" data-delay={0}>
-              {/* text */}
               <div>
                 <p className="text-[0.72rem] uppercase tracking-[0.35em] text-[#7c7068]">about / vanessa gonzalez</p>
                 <h1 className="mt-5 max-w-2xl font-serif text-[2.4rem] font-semibold leading-[1.15] text-[#1f1a18] sm:text-[3.2rem]">
@@ -375,8 +390,6 @@ export default function AboutPage() {
                   ))}
                 </div>
               </div>
-
-              {/* photos — collage stack */}
               <div className="relative hidden lg:flex shrink-0 items-end" style={{ width: "280px", height: "340px" }}>
                 {myPhotos.slice(0, 2).map((photo, i) => (
                   <div
@@ -400,25 +413,20 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* mobile photos — horizontal scroll strip */}
-            <div className="reveal-item mt-6 flex gap-3 overflow-x-auto pb-2 lg:hidden" data-delay={40}
-              style={{ scrollbarWidth: "none" }}>
+            {/* mobile photos */}
+            <div className="reveal-item mt-6 flex gap-3 overflow-x-auto pb-2 lg:hidden" data-delay={40} style={{ scrollbarWidth: "none" }}>
               {myPhotos.map((photo, i) => (
                 <div
                   key={photo.src}
                   className="relative shrink-0 overflow-hidden rounded-[18px] border border-black/6 shadow-[0_12px_32px_rgba(45,29,18,0.10)]"
-                  style={{
-                    width: "160px",
-                    height: "220px",
-                    transform: i % 2 === 0 ? "rotate(-1.5deg)" : "rotate(1.5deg)",
-                  }}
+                  style={{ width: "160px", height: "220px", transform: i % 2 === 0 ? "rotate(-1.5deg)" : "rotate(1.5deg)" }}
                 >
                   <img src={photo.src} alt={photo.alt} className="h-full w-full object-cover object-top" />
                 </div>
               ))}
             </div>
 
-            {/* ── PULL QUOTE ── */}
+            {/* PULL QUOTE */}
             <div className="reveal-item my-10 overflow-hidden rounded-[28px] border border-black/5 bg-white/72 px-8 py-8 shadow-[0_18px_50px_rgba(68,44,29,0.06)] sm:px-10 rotate-[-0.4deg]" data-delay={80}>
               <p className="font-serif text-[1.5rem] font-semibold italic leading-9 text-[#342d29] sm:text-[1.75rem]">
                 "we accept the love we think we deserve."
@@ -428,55 +436,119 @@ export default function AboutPage() {
               </p>
             </div>
 
-            {/* ── 2-COL: ORIGIN + TASTE ── */}
-            <div className="grid gap-4 lg:grid-cols-2">
-              <div className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={0}>
-                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">how i got here</p>
-                <h2 className="mt-3 font-serif text-[1.2rem] font-semibold leading-snug text-[#1f1a18]">It started with a free app and Harry Potter</h2>
-                <div className="mt-4 space-y-4 text-[0.95rem] leading-8 text-[#4d413b]">
-                  <p>I was 10 years old when I found fan edits on Vine; clips of Ariana Grande and Harry Potter cut together in ways that felt almost too beautiful. Like someone had distilled exactly why they loved something and put it in 15 seconds. I needed to learn how to do that.</p>
-                  <p>I started on Video Star because it was free. Harry Potter mostly. Then Selena. Then Twenty One Pilots. In 2018 I saved up for a MacBook and begged my mom for After Effects. Growing up without a lot, that felt enormous; like I was finally getting tools that matched the ambition I'd had for years.</p>
-                  <p>That account became <span className="font-medium text-[#342d29]">anqclic</span> — a misspelling of angelic, because I wanted to make things that were beautiful. It set the tone for everything.</p>
+            {/* ORIGIN + TASTE + CODING */}
+            <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+              <span className="h-px w-8 bg-[#c8bdb2]" />
+              how i got here
+            </div>
+
+            {/* ORIGIN — wide, film strip on right */}
+            <div className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden" data-delay={0}>
+              <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[5rem] font-semibold leading-none text-black/[0.025]">01</span>
+              <div className="grid gap-6 lg:grid-cols-[1fr_120px]">
+                <div>
+                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">the origin</p>
+                  <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">It started with a free app and Harry Potter</h2>
+                  <div className="my-4 h-px bg-black/5" />
+                  <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">I was 10. I saw a fan edit on Vine and knew immediately I needed to learn how to do that.</p>
+                  <p className="text-[0.88rem] leading-7 text-[#5e5048]">Started on Video Star because it was free. Harry Potter, Selena, Twenty One Pilots. In 2018 I saved up for a MacBook and begged my mom for After Effects — growing up without a lot, that felt enormous. That account became anqclic, a misspelling of angelic, because I wanted to make things that were beautiful.</p>
+                </div>
+                {/* film era strip */}
+                <div className="hidden lg:flex flex-col gap-2">
+                  {[
+                    { label: "vine era", bg: "linear-gradient(160deg,#1a0a2e,#2d1b4e)" },
+                    { label: "video star", bg: "linear-gradient(160deg,#0d1f3c,#1a3a6e)" },
+                    { label: "after effects", bg: "linear-gradient(160deg,#1a1a1a,#2d2d2d)" },
+                  ].map((era) => (
+                    <div key={era.label} className="flex-1 rounded-[12px] border border-black/6 overflow-hidden" style={{ background: era.bg }}>
+                      <div className="h-full flex items-center justify-center p-2">
+                        <span className="text-[0.5rem] uppercase tracking-[0.2em] text-white/60 text-center leading-relaxed">{era.label}</span>
+                      </div>
+                    </div>
+                  ))}
+                  <p className="text-center text-[0.55rem] uppercase tracking-[0.2em] text-[#a89d96] mt-1">2015 → now</p>
+                </div>
+              </div>
+            </div>
+
+            {/* AESTHETIC + WHAT I CARE ABOUT */}
+            <div className="mt-4 grid gap-4 lg:grid-cols-2">
+              <div className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden" data-delay={0}>
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[5rem] font-semibold leading-none text-black/[0.025]">02</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">my aesthetic</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">Daisy in Gatsby's mansion</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">Looking up at the ceiling, enamored by the beauty around her.</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">I've always had an eye for the luxurious and editorial — things made with intention — even when I didn't have access to them growing up. That hunger is what made me an editor.</p>
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {["lana del rey", "baz luhrmann", "lace details", "editorial campaigns", "selena's revival era"].map((t) => (
+                    <span key={t} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]">{t}</span>
+                  ))}
                 </div>
               </div>
 
-              <div className="flex flex-col gap-4">
-                <div className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={80}>
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">my aesthetic in a frame</p>
-                  <h2 className="mt-3 font-serif text-[1.2rem] font-semibold leading-snug text-[#1f1a18]">Daisy in Gatsby's mansion</h2>
-                  <p className="mt-4 text-[0.95rem] leading-8 text-[#4d413b]">Looking up at the ceiling, just enamored by the beauty around her. I've always had an eye for the luxurious, the editorial, the things that feel like they were made with intention — even when I didn't have access to them growing up. That hunger is what made me an editor.</p>
+              <div className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden" data-delay={80}>
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[5rem] font-semibold leading-none text-black/[0.025]">03</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">what I actually care about</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">The details most people skip past</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <div className="flex flex-wrap gap-2 mb-4">
+                  {[
+                    "why people keep coming back",
+                    "storytelling that feels seen",
+                    "the half-second before a cut",
+                    "fashion as documentation",
+                    "love in its fictional forms",
+                    "things made with intention",
+                  ].map((t) => (
+                    <span key={t} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]">{t}</span>
+                  ))}
                 </div>
-                <div className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={120}>
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">what I actually care about</p>
-                  <div className="mt-4 space-y-3 text-[0.95rem] leading-7 text-[#4d413b]">
-                    <p>— the systems behind why people keep coming back to things</p>
-                    <p>— storytelling that makes you feel seen</p>
-                    <p>— the half-second before a cut lands on a beat</p>
-                    <p>— fashion as documentation of a moment</p>
-                    <p>— love, in all its fictional forms</p>
-                    <p>— building things that feel intentional</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">The systems behind emotional attachment. The details that make someone return to a story, a product, an experience. That's the space I want to keep building in.</p>
+              </div>
+            </div>
+
+            {/* CODING */}
+            <div className="reveal-item mt-4 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden" data-delay={60}>
+              <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[5rem] font-semibold leading-none text-black/[0.025]">04</span>
+              <div className="grid gap-6 lg:grid-cols-[auto_1fr]">
+                <div
+                  className="hidden lg:flex h-16 w-16 shrink-0 items-center justify-center rounded-[16px] border border-black/8 text-[0.75rem] font-medium tracking-[0.05em] text-white/70"
+                  style={{ background: "#1a1a2e", fontFamily: "monospace" }}
+                >&lt;/&gt;</div>
+                <div>
+                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">the other side of the brain</p>
+                  <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">My first project was a Taylor Swift song quiz</h2>
+                  <div className="my-4 h-px bg-black/5" />
+                  <p className="text-[0.88rem] leading-7 text-[#5e5048]">On code.org in high school — you answered questions and got assigned a Taylor Swift song. Very me. That's when I realized there was a creative side to coding I genuinely loved. I was already president of my school's Business and Technology Academy. USC let me have both and I've never had to choose.</p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {["CS + Business", "USC · May 2027", "incoming @ BofA", "built this site"].map((t) => (
+                      <span key={t} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]">{t}</span>
+                    ))}
                   </div>
                 </div>
               </div>
             </div>
 
-            {/* ── CODING ORIGIN ── */}
-            <div className="reveal-item mt-4 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={60}>
-              <div className="grid gap-6 lg:grid-cols-[1fr_auto]">
-                <div>
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">the other side of the brain</p>
-                  <h2 className="mt-3 font-serif text-[1.2rem] font-semibold leading-snug text-[#1f1a18]">My first project was a Taylor Swift song quiz</h2>
-                  <p className="mt-4 text-[0.95rem] leading-8 text-[#4d413b]">On code.org, in high school — you answered a quiz and got assigned a Taylor Swift song. Very me. That's when I realized there was a creative side to coding I genuinely loved. I was already president of my school's Business & Technology Academy and had always been drawn to the breadth of business. USC let me have both, and I've never had to choose.</p>
-                </div>
-                <div className="flex shrink-0 flex-col justify-center gap-2 lg:items-end">
-                  {["CS + Business", "USC · May 2027", "Incoming @ BofA"].map((tag) => (
-                    <span key={tag} className="rounded-full border border-black/5 bg-[#fffaf6] px-4 py-2 text-[0.72rem] uppercase tracking-[0.18em] text-[#7c7068]">{tag}</span>
-                  ))}
-                </div>
-              </div>
+            {/* FAVORITE FILMS */}
+            <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+              <span className="h-px w-8 bg-[#c8bdb2]" />
+              favorite films
             </div>
 
-            {/* ── SHIPS ── */}
+            <div className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={0}>
+              <p className="mb-6 text-[0.72rem] uppercase tracking-[0.28em] text-[#a89d96]">letterboxd top 5 · in order</p>
+              <div className="grid grid-cols-5 gap-4 sm:gap-6">
+                {filmPosters.map((film, i) => (
+                  <PosterCard key={film.title} title={film.title} note={film.note} poster={film.poster} index={i} />
+                ))}
+              </div>
+              <p className="mt-6 text-[0.78rem] leading-7 text-[#5e5048]">
+                Baz Luhrmann's color world, Greta Gerwig's warmth, Tarantino's LA — films that feel like they were made for people who notice everything. Mean Girls is my comfort movie. I've seen it more times than I can count.
+              </p>
+            </div>
+
+            {/* SHIPS */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
               top ships
@@ -484,137 +556,146 @@ export default function AboutPage() {
 
             <div className="reveal-item" data-delay={0}>
               <p className="mb-6 max-w-lg text-[0.88rem] leading-7 text-[#4d413b]">
-                I will watch an entire series for a ship. I love love — the friends-to-lovers arc, the tension, the tiny moments. Here are the ones that live in me permanently.
+                I will watch an entire series for a ship. I love love — the slow burn, the tension, the tiny moments before everything clicks. Here are the ones that live in me permanently.
               </p>
-              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-5">
+              <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
                 {ships.map((ship, i) => (
                   <ShipCard key={ship.pair} ship={ship} index={i} />
                 ))}
               </div>
             </div>
 
-            {/* ── CURRENTLY ── */}
+            {/* CURRENTLY */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
               currently
             </div>
 
-            <div className="grid gap-4 lg:grid-cols-3">
-              {/* WATCHING — with poster thumbnails */}
+            <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-4">
+
+              {/* WATCHING */}
               <div className="reveal-item rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={0}>
-                <p className="mb-4 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">watching</p>
-                <div className="flex flex-col gap-3">
+                <p className="mb-5 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">watching</p>
+                <div className="grid grid-cols-3 gap-3 mb-4">
+                  {showPosters.slice(0, 3).map((show, i) => (
+                    <PosterCard key={show.title} title={show.title} note="" poster={show.poster} index={i} />
+                  ))}
+                </div>
+                <div className="flex flex-col gap-2">
                   {showPosters.map((show, i) => (
-                    <ShowCard key={show.title} title={show.title} note={show.note} poster={show.poster} index={i} />
+                    <div key={show.title} className="flex items-center gap-2 py-1">
+                      <div className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#c8bdb2]" />
+                      <div className="min-w-0">
+                        <p className="truncate text-[0.8rem] text-[#1f1a18]">{show.title}</p>
+                        <p className="text-[0.62rem] uppercase tracking-[0.14em] text-[#a89d96]">{show.note}</p>
+                      </div>
+                    </div>
                   ))}
                 </div>
               </div>
 
-              {/* LISTENING — with last.fm album art */}
+              {/* LISTENING */}
               <div className="reveal-item rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={80}>
-                <p className="mb-4 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">listening</p>
+                <div className="mb-4 flex items-center justify-between">
+                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">on rotation</p>
+                  {tracks.length > 0 && tracks[0].isNowPlaying && (
+                    <span className="flex items-end gap-[2px]" aria-label="now playing">
+                      <span className="w-[3px] rounded-full bg-[#7c7068] animate-bar1" style={{ height: "8px" }} />
+                      <span className="w-[3px] rounded-full bg-[#7c7068] animate-bar2" style={{ height: "12px" }} />
+                      <span className="w-[3px] rounded-full bg-[#7c7068] animate-bar3" style={{ height: "6px" }} />
+                    </span>
+                  )}
+                </div>
+                {tracks.length === 0 ? (
+                  <div className="flex flex-col gap-3">
+                    {[1, 2, 3].map((n) => (
+                      <div key={n} className="flex items-center gap-3 px-2 py-2">
+                        <div className="h-10 w-10 rounded-[10px] bg-[#ede5dc] shrink-0" />
+                        <div className="flex-1 flex flex-col gap-1.5">
+                          <div className="h-2.5 w-3/4 rounded-full bg-[#ede5dc]" />
+                          <div className="h-2 w-1/2 rounded-full bg-[#f0e8e0]" />
+                        </div>
+                      </div>
+                    ))}
+                  </div>
+                ) : (
+                  <div className="flex flex-col gap-1">
+                    {tracks.slice(0, 4).map((track, i) => (
+                      <a key={i} href={track.url} target="_blank" rel="noopener noreferrer"
+                        className="flex items-center gap-3 rounded-[12px] px-2 py-2 transition-all duration-150 hover:bg-[#f7f1eb]">
+                        <div className="h-9 w-9 rounded-[8px] border border-black/5 overflow-hidden shrink-0 bg-[#ede5dc]">
+                          {track.image && <img src={track.image} alt={track.name} className="h-full w-full object-cover" />}
+                        </div>
+                        <div className="min-w-0 flex-1">
+                          <p className="truncate text-[0.75rem] font-medium text-[#201c1a]">{track.name}</p>
+                          <p className="truncate text-[0.62rem] uppercase tracking-[0.12em] text-[#a89d96]">{track.artist}</p>
+                        </div>
+                        {i === 0 && track.isNowPlaying && (
+                          <span className="shrink-0 text-[0.58rem] uppercase tracking-[0.16em] text-[#c8bdb2]">live</span>
+                        )}
+                      </a>
+                    ))}
+                  </div>
+                )}
+                {topArtist && (
+                  <p className="mt-3 border-t border-black/5 pt-3 text-[0.6rem] uppercase tracking-[0.2em] text-[#c8bdb2]">
+                    this week: <span className="text-[#8a7d75]">{topArtist.name}</span>
+                  </p>
+                )}
+                <div className="mt-4 border-t border-black/5 pt-4">
+                  <p className="mb-3 text-[0.62rem] uppercase tracking-[0.24em] text-[#a89d96]">core artists</p>
+                  <div className="flex flex-wrap gap-1.5">
+                    {coreArtists.map((a) => (
+                      <span key={a} className="rounded-full border border-black/5 bg-[#fffaf6] px-2.5 py-1 text-[0.62rem] uppercase tracking-[0.14em] text-[#5f554f]">{a}</span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* CONCERT LOG */}
+              <div className="reveal-item rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={120}>
+                <p className="mb-5 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">concert log</p>
                 <div className="flex flex-col gap-3">
-                  {listeningItems.map((item, i) => (
-                    <div key={item.title} className="flex items-center gap-3 rounded-[18px] border border-black/5 bg-white/60 p-3 shadow-[0_8px_24px_rgba(68,44,29,0.04)]">
-                      <div className="relative h-12 w-12 shrink-0 overflow-hidden rounded-[10px] border border-black/5 bg-[#ede5dc]">
-                        {/* album art placeholder — warm gradient */}
-                        <div className="h-full w-full" style={{
-                          background: i === 0 ? "linear-gradient(135deg,#e8c4c4,#d4a0b0)" :
-                                      i === 1 ? "linear-gradient(135deg,#1a1a2e,#2d2d44)" :
-                                               "linear-gradient(135deg,#c8d8b4,#a8c494)",
-                        }} />
+                  {concertLog.map((show) => (
+                    <div key={show.artist + show.dates} className="flex items-start gap-3">
+                      <div className={`mt-1 h-1.5 w-1.5 shrink-0 rounded-full ${show.upcoming ? "bg-[#342d29]" : "bg-[#c8bdb2]"}`} />
+                      <div className="min-w-0">
+                        <div className="flex items-center gap-2 flex-wrap">
+                          <p className="text-[0.82rem] font-medium text-[#1f1a18]">{show.artist}</p>
+                          {show.upcoming && (
+                            <span className="rounded-full bg-[#342d29] px-2 py-0.5 text-[0.55rem] uppercase tracking-[0.16em] text-white/80">upcoming</span>
+                          )}
+                        </div>
+                        {show.tour && <p className="text-[0.65rem] text-[#5e5048] mt-0.5">{show.tour}</p>}
+                        <p className="text-[0.62rem] uppercase tracking-[0.14em] text-[#a89d96] mt-0.5">{show.dates}</p>
+                        <p className="text-[0.68rem] italic text-[#7c7068] mt-0.5">{show.note}</p>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </div>
+
+              {/* MAKING */}
+              <div className="reveal-item rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={160}>
+                <p className="mb-5 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">making</p>
+                <div className="flex flex-col gap-3">
+                  {makingItems.map((item, i) => (
+                    <div key={item.title} className="flex items-center gap-3 rounded-[16px] border border-black/5 bg-white/60 p-3 shadow-[0_8px_24px_rgba(68,44,29,0.04)]">
+                      <div className="h-10 w-10 shrink-0 overflow-hidden rounded-[10px] bg-[#ede5dc] flex items-center justify-center">
+                        <span className="text-[0.62rem] uppercase tracking-[0.1em] text-[#8a7d75]">{i === 0 ? "edit" : "web"}</span>
                       </div>
                       <div className="min-w-0">
-                        <p className="truncate text-[0.85rem] font-medium text-[#1f1a18]">{item.title}</p>
-                        <p className="mt-0.5 truncate text-[0.68rem] uppercase tracking-[0.16em] text-[#a89d96]">{item.note}</p>
+                        <p className="truncate text-[0.82rem] font-medium text-[#1f1a18]">{item.title}</p>
+                        <p className="mt-0.5 truncate text-[0.65rem] uppercase tracking-[0.14em] text-[#a89d96]">{item.note}</p>
                       </div>
                     </div>
                   ))}
                 </div>
-                <div className="mt-5 border-t border-black/5 pt-4">
-                  <p className="mb-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">core artists</p>
-                  <div className="flex flex-wrap gap-2">
-                    {coreArtists.map((a) => (
-                      <span key={a} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#5f554f]">{a}</span>
-                    ))}
-                  </div>
-                </div>
               </div>
 
-              {/* MAKING + LIVE LAST.FM */}
-              <div className="flex flex-col gap-4">
-                <div className="reveal-item rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={120}>
-                  <p className="mb-4 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">making</p>
-                  <div className="flex flex-col gap-3">
-                    {makingItems.map((item, i) => (
-                      <div key={item.title} className="flex items-center gap-3 rounded-[18px] border border-black/5 bg-white/60 p-3 shadow-[0_8px_24px_rgba(68,44,29,0.04)]">
-                        <div className="h-10 w-10 shrink-0 overflow-hidden rounded-[10px] bg-[#ede5dc] flex items-center justify-center">
-                          <span className="text-[0.7rem] uppercase tracking-[0.1em] text-[#8a7d75]">{i === 0 ? "edit" : "web"}</span>
-                        </div>
-                        <div className="min-w-0">
-                          <p className="truncate text-[0.85rem] font-medium text-[#1f1a18]">{item.title}</p>
-                          <p className="mt-0.5 truncate text-[0.68rem] uppercase tracking-[0.16em] text-[#a89d96]">{item.note}</p>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </div>
-
-                {/* LIVE LAST.FM */}
-                <div className="reveal-item rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={160}>
-                  <div className="mb-3 flex items-center justify-between">
-                    <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">on rotation right now</p>
-                    {tracks.length > 0 && tracks[0].isNowPlaying && (
-                      <span className="flex items-end gap-[2px]" aria-label="now playing">
-                        <span className="w-[3px] rounded-full bg-[#7c7068] animate-bar1" style={{ height: "8px" }} />
-                        <span className="w-[3px] rounded-full bg-[#7c7068] animate-bar2" style={{ height: "12px" }} />
-                        <span className="w-[3px] rounded-full bg-[#7c7068] animate-bar3" style={{ height: "6px" }} />
-                      </span>
-                    )}
-                  </div>
-                  {tracks.length === 0 ? (
-                    <div className="flex flex-col gap-3">
-                      {[1, 2, 3].map((n) => (
-                        <div key={n} className="flex items-center gap-3 px-2 py-2">
-                          <div className="h-10 w-10 rounded-[10px] bg-[#ede5dc] shrink-0" />
-                          <div className="flex-1 flex flex-col gap-1.5">
-                            <div className="h-2.5 w-3/4 rounded-full bg-[#ede5dc]" />
-                            <div className="h-2 w-1/2 rounded-full bg-[#f0e8e0]" />
-                          </div>
-                        </div>
-                      ))}
-                    </div>
-                  ) : (
-                    <div className="flex flex-col gap-2">
-                      {tracks.slice(0, 3).map((track, i) => (
-                        <a key={i} href={track.url} target="_blank" rel="noopener noreferrer"
-                          className="flex items-center gap-3 rounded-[14px] px-2 py-2 transition-all duration-150 hover:bg-[#f7f1eb]">
-                          <div className="h-10 w-10 rounded-[10px] border border-black/5 overflow-hidden shrink-0 bg-[#ede5dc]">
-                            {track.image && <img src={track.image} alt={track.name} className="h-full w-full object-cover" />}
-                          </div>
-                          <div className="min-w-0 flex-1">
-                            <p className="truncate text-[0.78rem] font-medium text-[#201c1a]">{track.name}</p>
-                            <p className="truncate text-[0.65rem] uppercase tracking-[0.14em] text-[#a89d96]">{track.artist}</p>
-                          </div>
-                          {i === 0 && track.isNowPlaying && (
-                            <span className="shrink-0 text-[0.6rem] uppercase tracking-[0.18em] text-[#c8bdb2]">live</span>
-                          )}
-                        </a>
-                      ))}
-                    </div>
-                  )}
-                  {topArtist && (
-                    <div className="mt-3 border-t border-black/5 pt-3">
-                      <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#c8bdb2]">
-                        most played this week: <span className="text-[#8a7d75]">{topArtist.name}</span>
-                      </p>
-                    </div>
-                  )}
-                </div>
-              </div>
             </div>
 
-            {/* ── SMALL FACTS ── */}
+            {/* SMALL FACTS */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
               small facts
@@ -622,14 +703,17 @@ export default function AboutPage() {
             <div className="reveal-item" data-delay={0}>
               <div className="flex flex-wrap gap-3">
                 {smallFacts.map((fact, i) => (
-                  <span key={fact} className={`rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm text-[#5f554f] tracking-[0.03em] shadow-sm backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-white hover:shadow-md ${i % 3 === 0 ? "-rotate-1" : i % 3 === 1 ? "rotate-1" : "rotate-0"}`}>
+                  <span
+                    key={fact}
+                    className={`rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm text-[#5f554f] tracking-[0.03em] shadow-sm backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-white hover:shadow-md ${i % 3 === 0 ? "-rotate-1" : i % 3 === 1 ? "rotate-1" : "rotate-0"}`}
+                  >
                     {fact}
                   </span>
                 ))}
               </div>
             </div>
 
-            {/* ── DAD NOTE ── */}
+            {/* DAD NOTE */}
             <div className="reveal-item mt-10 overflow-hidden rounded-[28px] border border-black/5 bg-white/72 p-8 shadow-[0_18px_50px_rgba(68,44,29,0.06)] rotate-[0.3deg]" data-delay={60}>
               <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">a little note</p>
               <p className="mt-4 max-w-2xl text-[1rem] leading-8 text-[#4d413b]">
@@ -638,7 +722,7 @@ export default function AboutPage() {
               <p className="mt-4 text-xs uppercase tracking-[0.28em] text-[#a89d96]">anqclic / creative archive</p>
             </div>
 
-            {/* ── BOTTOM CTA ── */}
+            {/* BOTTOM CTA */}
             <div className="reveal-item mt-10 flex flex-col items-center gap-4 border-t border-black/5 pt-8" data-delay={0}>
               <p className="text-[0.82rem] uppercase tracking-[0.28em] text-[#7c7068]">want to know more?</p>
               <div className="flex flex-wrap justify-center gap-3">
