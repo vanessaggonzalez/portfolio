@@ -59,21 +59,25 @@ const toolGroups = [
 const websites = [
   {
     name: "USC Undergraduate Admissions",
+    href: "https://admission.usc.edu/",
     desc: "Primary enrollment site — redesigned for mobile responsiveness and accessibility.",
     stat: "10K+ weekly users",
   },
   {
     name: "USC Graduate Admissions",
+    href: "https://gradadm.usc.edu/",
     desc: "Updated content architecture and improved cross-device rendering.",
     stat: "Multi-program reach",
   },
   {
     name: "USC ARR",
+    href: "https://arr.usc.edu/",
     desc: "Maintained and optimized page structure and messaging consistency.",
     stat: "Enrollment-critical",
   },
   {
     name: "USC Financial Aid",
+    href: "https://financialaid.usc.edu/",
     desc: "Improved accessibility and ensured accurate, up-to-date content for prospective students.",
     stat: "High-traffic resource",
   },
@@ -196,11 +200,30 @@ export default function USCMarCommPage() {
             {/* WEBSITE CARDS */}
             <div className="reveal-item grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-delay={80}>
               {websites.map((site) => (
-                <div key={site.name} className="rounded-[24px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]">
-                  <p className="font-serif text-[1rem] font-semibold leading-snug text-[#1f1a18]">{site.name}</p>
+                <a
+                  key={site.name}
+                  href={site.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="group rounded-[24px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(68,44,29,0.08)]"
+                >
+                  <p className="font-serif text-[1rem] font-semibold leading-snug text-[#1f1a18] group-hover:underline">
+                    {site.name}
+                  </p>
+
                   <p className="mt-3 text-[0.85rem] leading-7 text-[#4d413b]">{site.desc}</p>
-                  <p className="mt-3 text-[0.68rem] uppercase tracking-[0.2em] text-[#a89d96]">✦ {site.stat}</p>
-                </div>
+
+                  <p className="mt-3 text-[0.68rem] uppercase tracking-[0.2em] text-[#a89d96]">
+                    ✦ {site.stat}
+                  </p>
+
+                  <div className="mt-5 flex items-center gap-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75] transition-all group-hover:text-[#201c1a]">
+                    <span>Visit site</span>
+                    <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
+                      ↗
+                    </span>
+                  </div>
+                </a>
               ))}
             </div>
 
