@@ -35,6 +35,24 @@ const featuredProject = {
   tags: ["gen z behavior", "feature strategy", "audience research", "social interaction", "product thinking"],
 };
 
+// In-progress work — text-only, full-width cards (no hero image required).
+// Lives between "featured" and "experience" since these are active, not finished,
+// so they shouldn't compete with the Audible case study for the top slot.
+// Each entry has a `placeholder: true` flag — swap in real specifics as projects
+// wrap, then drop the flag once the copy reflects an actual outcome.
+const inProgressProjects = [
+  {
+    slug: "bofa-ai-efficiency",
+    title: "Bank of America — AI Efficiency Project",
+    org: "Global Technology, Business Analyst Intern",
+    category: "AI / process design / internal tooling",
+    blurb:
+      "Currently scoping a project focused on how business analysts use AI day-to-day, with the goal of making their workflows faster and less repetitive — possibly through a trained model or a more structured internal tool. Two additional projects are still being assigned.",
+    tags: ["AI/ML", "process improvement", "internal tooling"],
+    placeholder: true,
+  },
+];
+
 const mainProjects = [
   {
     slug: "usc-marcomm",
@@ -154,7 +172,7 @@ export default function WorkPage() {
               </p>
               <div className="mt-5 flex flex-wrap gap-2 text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
                 <span className="rounded-full border border-black/5 bg-white/70 px-3 py-1">USC CS + Business</span>
-                <span className="rounded-full border border-black/5 bg-white/70 px-3 py-1">Incoming @ BofA</span>
+                <span className="rounded-full border border-black/5 bg-white/70 px-3 py-1">BofA Intern</span>
                 <span className="rounded-full border border-black/5 bg-white/70 px-3 py-1">Product + creative</span>
               </div>
             </div>
@@ -210,6 +228,43 @@ export default function WorkPage() {
                 </div>
               </article>
             </Link>
+
+            {/* CURRENTLY BUILDING */}
+            <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+              <span className="h-px w-8 bg-[#c8bdb2]" />
+              currently building
+            </div>
+
+            <div className="grid gap-4">
+              {inProgressProjects.map((project, i) => (
+                <article
+                  key={project.slug}
+                  className="reveal-item relative overflow-hidden rounded-[30px] border border-black/5 bg-white/60 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] lg:p-10"
+                  data-delay={i * 80}
+                >
+                  <div className="flex flex-wrap items-center gap-2">
+                    <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">{project.org}</p>
+                    {project.placeholder && (
+                      <span className="rounded-full border border-black/10 bg-[#fffaf6] px-2.5 py-0.5 text-[0.6rem] uppercase tracking-[0.2em] text-[#a89d96]">
+                        in progress · details coming soon
+                      </span>
+                    )}
+                  </div>
+                  <h3 className="mt-3 max-w-2xl font-serif text-[1.3rem] font-semibold leading-snug text-[#1f1a18] sm:text-[1.5rem]">
+                    {project.title}
+                  </h3>
+                  <p className="mt-1 text-[0.68rem] uppercase tracking-[0.2em] text-[#8a7d75]">{project.category}</p>
+                  <p className="mt-5 max-w-2xl text-[0.95rem] leading-8 text-[#4d413b]">{project.blurb}</p>
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {project.tags.map((tag) => (
+                      <span key={tag} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.72rem] uppercase tracking-[0.18em] text-[#7c7068]">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </article>
+              ))}
+            </div>
 
             {/* MAIN PROJECTS */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
