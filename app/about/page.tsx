@@ -199,60 +199,95 @@ const films = [
 ];
 
 const watchingShows = [
+  { title: "Harry Potter", note: "full rewatch, in progress", type: "movie" as const },
   { title: "New Girl", note: "first watch with my boyfriend", type: "tv" as const },
-  { title: "That '70s Show", note: "rewatch — Jackie & Hyde agenda", type: "tv" as const },
-  { title: "Abbott Elementary", note: "just finished, obsessed", type: "tv" as const },
-  { title: "Gossip Girl", note: "rewatching before NYC", type: "tv" as const },
-  { title: "The Vampire Diaries", note: "almost done with rewatch", type: "tv" as const },
+  { title: "Gossip Girl", note: "comfort rewatch", type: "tv" as const },
+  { title: "Brooklyn Nine-Nine", note: "Jake & Amy agenda", type: "tv" as const },
+  { title: "The Vampire Diaries", note: "the yearly return", type: "tv" as const },
 ];
 
-const concertLog = [
+// Personal memory wall — concerts + milestones, doesn't need a rewrite every semester.
+// upcoming: true bumps it to the top with the dark dot + "upcoming" pill.
+// kind: short tag shown for non-upcoming entries ("concert" / "milestone" / etc).
+// subtitle: optional secondary line (tour name, etc) — omit if not needed.
+const memoryLog = [
   {
-    artist: "Ariana Grande",
-    tour: "Eternal Sunshine World Tour",
-    dates: "June 13, 2026",
-    note: "next week!!!",
-    upcoming: true,
-  },
-  {
-    artist: "The Neighbourhood",
-    tour: "upcoming shows",
-    dates: "Nov + Dec 2026",
+    title: "The Neighbourhood",
+    subtitle: "upcoming shows",
+    kind: "concert",
+    date: "Nov + Dec 2026",
     note: "seeing them twice",
     upcoming: true,
   },
   {
-    artist: "Twenty One Pilots",
-    tour: "Clancy Breach Tour",
-    dates: "Oct 24 + 25, 2025",
+    title: "New York",
+    subtitle: "BofA orientation",
+    kind: "trip",
+    date: "June 2026",
+    note: "first time out there for work, not vacation",
+    upcoming: false,
+  },
+  {
+    title: "Ariana Grande",
+    subtitle: "Eternal Sunshine World Tour",
+    kind: "concert",
+    date: "June 2026",
+    note: "finally saw her after waiting years",
+    upcoming: false,
+  },
+  {
+    title: "Harry Potter rewatch",
+    subtitle: "",
+    kind: "milestone",
+    date: "2026",
+    note: "tiny daily escape, full emotional ecosystem",
+    upcoming: false,
+  },
+  {
+    title: "San Francisco",
+    subtitle: "trip with friends",
+    kind: "trip",
+    date: "summer 2025",
+    note: "good weather, better company",
+    upcoming: false,
+  },
+  {
+    title: "Twenty One Pilots",
+    subtitle: "Clancy Breach Tour",
+    kind: "concert",
+    date: "Oct 24 + 25, 2025",
     note: "BMO Stadium, LA — also bandito, emotional roadshow, clancy tour",
     upcoming: false,
   },
   {
-    artist: "The Neighbourhood",
-    tour: "secret popup show",
-    dates: "Nov 2025",
+    title: "The Neighbourhood",
+    subtitle: "secret popup show",
+    kind: "concert",
+    date: "Nov 2025",
     note: "also saw them Oct 2021",
     upcoming: false,
   },
   {
-    artist: "Tame Impala",
-    tour: "",
-    dates: "Nov 2025",
+    title: "Tame Impala",
+    subtitle: "",
+    kind: "concert",
+    date: "Nov 2025",
     note: "also saw them Nov 2021",
     upcoming: false,
   },
   {
-    artist: "Lorde",
-    tour: "",
-    dates: "Nov 2025",
+    title: "Lorde",
+    subtitle: "",
+    kind: "concert",
+    date: "Nov 2025",
     note: "also saw her May 2021",
     upcoming: false,
   },
   {
-    artist: "Cage the Elephant",
-    tour: "",
-    dates: "Jul 2024",
+    title: "Cage the Elephant",
+    subtitle: "",
+    kind: "concert",
+    date: "Jul 2024",
     note: "trouble era",
     upcoming: false,
   },
@@ -271,7 +306,7 @@ const coreArtists = [
 ];
 
 const makingItems = [
-  { title: "Ariana Grande edit", note: "eternal sunshine world tour" },
+  { title: "personal archive", note: "turning this site into a scrapbook" },
   { title: "this website", note: "where I've been" },
 ];
 
@@ -285,10 +320,10 @@ const smallFacts = [
   "ron & hermione are my favorite depiction of romance",
   "anqclic = misspelling of angelic, intentionally",
   "The Neighbourhood in november and december!!",
-  "ariana grande next week omg",
+  "currently mid Harry Potter rewatch",
   "mean girls is my comfort movie (genuinely)",
   "vinyl > any other form of streaming",
-  "going to new york soon",
+  "i organize memories like playlists",
   "ive seen twenty one pilots more than any other artist",
 ];
 
@@ -302,31 +337,6 @@ const shipPalettes: [string, string][] = [
   ["#1f2a20", "#2a2a1f"],
   ["#2a2015", "#1f1f2a"],
 ];
-
-// ── Drop-in replacement for ShipCard in about/page.tsx ───────────────────────
-//
-// 1. Update your `ships` data array to use `images` instead of `gifId`:
-//
-//   const ships = [
-//     {
-//       pair: "Ron & Hermione",
-//       from: "Harry Potter",
-//       note: "the original. always.",
-//       isOG: true,
-//       images: [
-//         "/images/ships/ronhermione1.jpg",
-//         "/images/ships/ronhermione2.jpg",
-//         "/images/ships/ronhermione3.jpg",
-//       ],
-//     },
-//     // ... rest of ships
-//   ];
-//
-// 2. Change the grid in the JSX from lg:grid-cols-3 to lg:grid-cols-3 (keep 3-col):
-//
-//   <div className="grid gap-4 sm:grid-cols-2 lg:grid-cols-3">
-//
-// ─────────────────────────────────────────────────────────────────────────────
 
 function ShipCard({ ship, index }: { ship: typeof ships[0]; index: number }) {
   const [current, setCurrent] = useState(0);
@@ -503,10 +513,10 @@ export default function AboutPage() {
                   built from edits, ships, and things that feel collectible.
                 </h1>
                 <p className="mt-6 max-w-lg text-[1.02rem] leading-8 text-[#4d413b]">
-                  I'm Vanessa — a USC CS + Business student from the 626, incoming at Bank of America, and someone who has always had an eye for beautiful things even without the means to have them growing up. I've been making edits since I was 10, falling for ships since before I knew what a ship was, and collecting moments ever since.
+                  I'm Vanessa — a USC CS + Business student from the 626, currently interning at Bank of America, and someone who has always had an eye for beautiful things even without the means to have them growing up. I've been making edits since I was 10, falling for ships since before I knew what a ship was, and collecting moments ever since.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-2 text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                  {["USC CS + Business", "626 → LA", "Incoming @ BofA", "editor since 2015", "anqclic"].map((tag) => (
+                  {["USC CS + Business", "626 → LA", "BofA Intern", "editor since 2015", "anqclic"].map((tag) => (
                     <span key={tag} className="rounded-full border border-black/5 bg-white/70 px-3 py-1">{tag}</span>
                   ))}
                 </div>
@@ -642,7 +652,7 @@ export default function AboutPage() {
                   <div className="my-4 h-px bg-black/5" />
                   <p className="text-[0.88rem] leading-7 text-[#5e5048]">On code.org in high school — you answered questions and got assigned a Taylor Swift song. Very me. That's when I realized there was a creative side to coding I genuinely loved. I was already president of my school's Business and Technology Academy. USC let me have both and I've never had to choose.</p>
                   <div className="mt-5 flex flex-wrap gap-2">
-                    {["CS + Business", "USC · May 2027", "incoming @ BofA", "built this site"].map((t) => (
+                    {["CS + Business", "USC · May 2027", "BofA Intern", "built this site"].map((t) => (
                       <span key={t} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]">{t}</span>
                     ))}
                   </div>
@@ -678,11 +688,6 @@ export default function AboutPage() {
               <p className="mb-6 max-w-lg text-[0.88rem] leading-7 text-[#4d413b]">
                 I will watch an entire series for a ship. I love love — the slow burn, the tension, the tiny moments before everything clicks. Here are the ones that live in me permanently.
               </p>
-              {/*
-                Changed: was sm:grid-cols-2 lg:grid-cols-3 (3-col, very wide).
-                Now 2-col max — cards are taller with the polaroid stack so 2-col
-                gives them more room to breathe and matches the compact layout goal.
-              */}
               <div className="grid grid-cols-3 gap-4 sm:grid-cols-6">
                 {ships.map((ship, i) => (
                   <ShipCard key={ship.pair} ship={ship} index={i} />
@@ -777,23 +782,25 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              {/* CONCERT LOG */}
+              {/* MEMORY LOG */}
               <div className="reveal-item rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={120}>
-                <p className="mb-5 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">concert log</p>
+                <p className="mb-5 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">memory log</p>
                 <div className="flex flex-col gap-3">
-                  {concertLog.map((show) => (
-                    <div key={show.artist + show.dates} className="flex items-start gap-3">
-                      <div className={`mt-1 h-1.5 w-1.5 shrink-0 rounded-full ${show.upcoming ? "bg-[#342d29]" : "bg-[#c8bdb2]"}`} />
+                  {memoryLog.map((item) => (
+                    <div key={item.title + item.date} className="flex items-start gap-3">
+                      <div className={`mt-1 h-1.5 w-1.5 shrink-0 rounded-full ${item.upcoming ? "bg-[#342d29]" : "bg-[#c8bdb2]"}`} />
                       <div className="min-w-0">
                         <div className="flex items-center gap-2 flex-wrap">
-                          <p className="text-[0.82rem] font-medium text-[#1f1a18]">{show.artist}</p>
-                          {show.upcoming && (
+                          <p className="text-[0.82rem] font-medium text-[#1f1a18]">{item.title}</p>
+                          {item.upcoming ? (
                             <span className="rounded-full bg-[#342d29] px-2 py-0.5 text-[0.55rem] uppercase tracking-[0.16em] text-white/80">upcoming</span>
+                          ) : (
+                            <span className="rounded-full bg-[#fffaf6] px-2 py-0.5 text-[0.55rem] uppercase tracking-[0.16em] text-[#a89d96]">{item.kind}</span>
                           )}
                         </div>
-                        {show.tour && <p className="text-[0.65rem] text-[#5e5048] mt-0.5">{show.tour}</p>}
-                        <p className="text-[0.62rem] uppercase tracking-[0.14em] text-[#a89d96] mt-0.5">{show.dates}</p>
-                        <p className="text-[0.68rem] italic text-[#7c7068] mt-0.5">{show.note}</p>
+                        {item.subtitle && <p className="text-[0.65rem] text-[#5e5048] mt-0.5">{item.subtitle}</p>}
+                        <p className="text-[0.62rem] uppercase tracking-[0.14em] text-[#a89d96] mt-0.5">{item.date}</p>
+                        {item.note && <p className="text-[0.68rem] italic text-[#7c7068] mt-0.5">{item.note}</p>}
                       </div>
                     </div>
                   ))}

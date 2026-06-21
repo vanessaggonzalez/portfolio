@@ -17,7 +17,7 @@ PENDING IDEAS
 "use client";
 
 import Image from "next/image";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import Signature from "@/components/Signature";
 import NowPlaying from "@/components/NowPlaying";
 import MarqueeTicker from "@/components/MarqueeTicker";
@@ -91,6 +91,48 @@ function useParallax() {
   }, []);
 }
 
+// ─── Album art fetch via iTunes Search API (no key required) ─────────────────
+type ObsessedItem = { label: string; sub: string };
+type ObsessedWithArt = ObsessedItem & { art: string };
+
+function useAlbumArt(items: ObsessedItem[]) {
+  const [withArt, setWithArt] = useState<ObsessedWithArt[]>(
+    items.map((item) => ({ ...item, art: "" }))
+  );
+
+  useEffect(() => {
+    let cancelled = false;
+
+    async function fetchAll() {
+      const results = await Promise.all(
+        items.map(async (item) => {
+          try {
+            const term = encodeURIComponent(`${item.label} ${item.sub}`);
+            const res = await fetch(
+              `https://itunes.apple.com/search?term=${term}&media=music&limit=1`
+            );
+            const data = await res.json();
+            const artworkUrl = data?.results?.[0]?.artworkUrl100 ?? "";
+            // bump iTunes' 100x100 default up to a sharper size
+            const art = artworkUrl ? artworkUrl.replace("100x100", "300x300") : "";
+            return { ...item, art };
+          } catch {
+            return { ...item, art: "" };
+          }
+        })
+      );
+      if (!cancelled) setWithArt(results);
+    }
+
+    fetchAll();
+    return () => {
+      cancelled = true;
+    };
+  }, [items]);
+
+  return withArt;
+}
+
 export default function Home() {
   useReveal();
   useParallax();
@@ -150,15 +192,16 @@ export default function Home() {
     "beautiful interfaces",
   ];
 
-  const obsessedWith = [
-    { label: "the cure",          sub: "olivia rodrigo" },
-    { label: "wiped out!",        sub: "the neighbourhood" },
-    { label: "david",             sub: "lorde" },
-    { label: "the great gatsby",  sub: "baz luhrmann" },
-    { label: "la la land",        sub: "damien chazelle" },
-    { label: "gossip girl",       sub: "tv" },
-    { label: "one tree hill",     sub: "tv" },
-    { label: "perfect",           sub: "selena gomez" },
+  // Music rotation — movies/shows already live on /about, so this stays song/album-only.
+  const obsessedWith: ObsessedItem[] = [
+    { label: "cry baby",        sub: "the neighbourhood" },
+    { label: "robbers",         sub: "the 1975" },
+    { label: "hometown",        sub: "twenty one pilots" },
+    { label: "perfect",         sub: "selena gomez" },
+    { label: "ultraviolence",   sub: "lana del rey" },
+    { label: "a world alone",   sub: "lorde" },
+    { label: "sometimes",           sub: "ariana grande" },
+    { label: "call it what you want",           sub: "taylor swift" },
   ];
 
   const tools = [
@@ -181,6 +224,8 @@ export default function Home() {
     "lace + collage",
     "adobe after effects",
   ];
+
+  const obsessedWithArt = useAlbumArt(obsessedWith);
 
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#f7f1eb] text-[#201c1a]">
@@ -400,11 +445,23 @@ export default function Home() {
                   data-parallax="obsessed" data-delay={340}
                 >
                   <p className="font-serif font-semibold text-xs uppercase tracking-[0.24em] text-[#7c7068]">currently obsessed with</p>
-                  <div className="mt-3 grid grid-cols-2 gap-x-4 gap-y-3">
-                    {obsessedWith.map((item) => (
-                      <div key={item.label} className="flex flex-col">
-                        <span className="text-sm text-[#342d29]">{item.label}</span>
-                        <span className="text-[0.68rem] uppercase tracking-[0.18em] text-[#a89d96]">{item.sub}</span>
+                  <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+                    {obsessedWithArt.map((item) => (
+                      <div key={item.label} className="flex flex-col gap-1.5">
+                        <div className="relative aspect-square w-full overflow-hidden rounded-[10px] border border-black/5 bg-[#ede5dc]">
+                          {item.art && (
+                            <Image
+                              src={item.art}
+                              alt={`${item.label} by ${item.sub}`}
+                              fill
+                              sizes="120px"
+                              className="object-cover"
+                              unoptimized
+                            />
+                          )}
+                        </div>
+                        <span className="text-[0.78rem] leading-tight text-[#342d29]">{item.label}</span>
+                        <span className="text-[0.62rem] uppercase tracking-[0.14em] text-[#a89d96]">{item.sub}</span>
                       </div>
                     ))}
                   </div>
@@ -542,11 +599,23 @@ export default function Home() {
                   data-parallax="obsessed" data-delay={320}
                 >
                   <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">currently obsessed with</p>
-                  <div className="mt-4 grid grid-cols-2 gap-x-4 gap-y-3">
-                    {obsessedWith.map((item) => (
-                      <div key={item.label} className="flex flex-col">
-                        <span className="text-sm text-[#342d29]">{item.label}</span>
-                        <span className="text-[0.68rem] uppercase tracking-[0.18em] text-[#a89d96]">{item.sub}</span>
+                  <div className="mt-4 grid grid-cols-4 gap-3">
+                    {obsessedWithArt.map((item) => (
+                      <div key={item.label} className="flex flex-col gap-1.5">
+                        <div className="relative aspect-square w-full overflow-hidden rounded-[10px] border border-black/5 bg-[#ede5dc]">
+                          {item.art && (
+                            <Image
+                              src={item.art}
+                              alt={`${item.label} by ${item.sub}`}
+                              fill
+                              sizes="100px"
+                              className="object-cover"
+                              unoptimized
+                            />
+                          )}
+                        </div>
+                        <span className="text-[0.72rem] leading-tight text-[#342d29]">{item.label}</span>
+                        <span className="text-[0.58rem] uppercase tracking-[0.14em] text-[#a89d96]">{item.sub}</span>
                       </div>
                     ))}
                   </div>
@@ -676,28 +745,27 @@ export default function Home() {
 
               <div className="mt-6 flex flex-wrap gap-2 text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
                 <span className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1">USC CS + Business</span>
-                <span className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1">Incoming @ BofA</span>
+                <span className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1">BofA Intern</span>
                 <span className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1">Product + media</span>
               </div>
 
               <div className="mt-5 space-y-4 text-[1rem] leading-8 text-[#4d413b]">
                 <p>
-                  I have been video editing since I was 10, and I still love the process
-                  of turning fragments into feeling — whether that is a ship edit, a
-                  soundtrack moment, a visual era, or a product experience that makes
-                  something memorable.
+                  I've been editing video since I was 10, and I still chase that
+                  same feeling — turning fragments into something that hits.
+                  A ship edit, a soundtrack moment, a product detail that
+                  makes something memorable.
                 </p>
                 <p>
-                  I am especially interested in the systems behind emotional attachment —
-                  the details that make people return to a story, product, or experience.
-                  I like building things that are thoughtful and emotionally resonant,
-                  but also structured, technically sound, and useful.
+                  I'm drawn to why people come back to things — a story,
+                  a product, an experience. I want what I build to feel
+                  thoughtful and emotionally resonant, but also structured
+                  and genuinely useful.
                 </p>
                 <p>
-                  My goal is to keep working in creative spaces where I can combine
-                  analytical thinking with taste, audience understanding, and visual
-                  intuition — whether that is in product, business, strategy, or even
-                  software.
+                  My goal is to keep working where taste meets strategy —
+                  product, business, or software — anywhere I can pair
+                  analytical thinking with visual instinct.
                 </p>
               </div>
             </div>
