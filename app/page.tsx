@@ -439,37 +439,10 @@ export default function Home() {
                     ))}
                   </div>
                 </div>
-
-                <div
-                  className="collage-card reveal-item col-span-2 rounded-[24px] border border-black/5 bg-white/75 p-5 shadow-[0_14px_40px_rgba(68,44,29,0.05)]"
-                  data-parallax="obsessed" data-delay={340}
-                >
-                  <p className="font-serif font-semibold text-xs uppercase tracking-[0.24em] text-[#7c7068]">currently obsessed with</p>
-                  <div className="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
-                    {obsessedWithArt.map((item) => (
-                      <div key={item.label} className="flex flex-col gap-1.5">
-                        <div className="relative aspect-square w-full overflow-hidden rounded-[10px] border border-black/5 bg-[#ede5dc]">
-                          {item.art && (
-                            <Image
-                              src={item.art}
-                              alt={`${item.label} by ${item.sub}`}
-                              fill
-                              sizes="120px"
-                              className="object-cover"
-                              unoptimized
-                            />
-                          )}
-                        </div>
-                        <span className="text-[0.78rem] leading-tight text-[#342d29]">{item.label}</span>
-                        <span className="text-[0.62rem] uppercase tracking-[0.14em] text-[#a89d96]">{item.sub}</span>
-                      </div>
-                    ))}
-                  </div>
-                </div>
               </div>
 
               {/* ── DESKTOP: absolute collage, 3 columns, no overlaps ── */}
-              <div className="relative mt-[4.5rem] hidden lg:block" style={{ minHeight: "1100px" }}>
+              <div className="relative mt-[4.5rem] hidden lg:block" style={{ minHeight: "980px" }}>
 
                 {/* ── LEFT COLUMN ── */}
 
@@ -572,7 +545,7 @@ export default function Home() {
                 {/* SECOND PHOTO */}
                 <div
                   className="tilt-card collage-card reveal-item group absolute overflow-hidden rounded-[30px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatMedium"
-                  style={{ right: "4%", top: "210px", width: "30%", height: "280px", rotate: "3deg" }}
+                  style={{ right: "4%", top: "230px", width: "30%", height: "300px", rotate: "3deg" }}
                   data-parallax="second-photo" data-delay={200}
                 >
                   <Image src="/images/vanessa2.jpg" alt="Vanessa at the Huntington" fill sizes="30vw" className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
@@ -581,49 +554,48 @@ export default function Home() {
 
                 {/* CURRENTLY INSPIRING ME */}
                 <div
-                  className="tilt-card collage-card reveal-item absolute rounded-[26px] border border-black/5 bg-white/82 p-5 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] rotate-[1.5deg]"
-                  style={{ right: "1%", top: "520px", width: "26%" }}
+                  className="tilt-card collage-card reveal-item absolute rounded-[26px] border border-black/5 bg-white/82 p-7 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] rotate-[1.5deg]"
+                  style={{ right: "0%", top: "570px", width: "37%" }}
                   data-parallax="inspire-card" data-delay={280}
                 >
                   <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">currently inspiring me</p>
-                  <div className="mt-4 grid gap-2 text-sm leading-6 text-[#342d29]">
+                  <div className="mt-5 grid gap-3 text-sm leading-6 text-[#342d29]">
                     {inspirationItems.map((item) => <p key={item}>• {item}</p>)}
                   </div>
                   <div className="tilt-gloss pointer-events-none absolute inset-0 rounded-[26px]" />
                 </div>
 
-                {/* CURRENTLY OBSESSED WITH */}
-                <div
-                  className="tilt-card collage-card reveal-item absolute rounded-[30px] border border-black/5 bg-white/75 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)]"
-                  style={{ right: "0%", top: "810px", width: "37%" }}
-                  data-parallax="obsessed" data-delay={320}
-                >
-                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">currently obsessed with</p>
-                  <div className="mt-4 grid grid-cols-4 gap-3">
-                    {obsessedWithArt.map((item) => (
-                      <div key={item.label} className="flex flex-col gap-1.5">
-                        <div className="relative aspect-square w-full overflow-hidden rounded-[10px] border border-black/5 bg-[#ede5dc]">
-                          {item.art && (
-                            <Image
-                              src={item.art}
-                              alt={`${item.label} by ${item.sub}`}
-                              fill
-                              sizes="100px"
-                              className="object-cover"
-                              unoptimized
-                            />
-                          )}
-                        </div>
-                        <span className="text-[0.72rem] leading-tight text-[#342d29]">{item.label}</span>
-                        <span className="text-[0.58rem] uppercase tracking-[0.14em] text-[#a89d96]">{item.sub}</span>
-                      </div>
-                    ))}
-                  </div>
-                  <div className="tilt-gloss pointer-events-none absolute inset-0 rounded-[30px]" />
-                </div>
-
               </div>
             </div>
+
+            {/* CURRENTLY OBSESSED WITH — full-width strip, not stacked into a column */}
+            <div className="reveal-item mt-8 lg:mt-12" data-delay={320}>
+              <div className="flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+                <span className="h-px w-8 bg-[#c8bdb2]" />
+                currently obsessed with
+              </div>
+              <div className="mt-5 grid grid-cols-4 gap-3 sm:grid-cols-8">
+                {obsessedWithArt.map((item) => (
+                  <div key={item.label} className="flex flex-col gap-1.5">
+                    <div className="relative aspect-square w-full overflow-hidden rounded-[12px] border border-black/5 bg-[#ede5dc] shadow-[0_10px_26px_rgba(68,44,29,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(68,44,29,0.10)]">
+                      {item.art && (
+                        <Image
+                          src={item.art}
+                          alt={`${item.label} by ${item.sub}`}
+                          fill
+                          sizes="120px"
+                          className="object-cover"
+                          unoptimized
+                        />
+                      )}
+                    </div>
+                    <span className="text-[0.7rem] leading-tight text-[#342d29]">{item.label}</span>
+                    <span className="text-[0.58rem] uppercase tracking-[0.14em] text-[#a89d96]">{item.sub}</span>
+                  </div>
+                ))}
+              </div>
+            </div>
+
           </div>
         </section>
 

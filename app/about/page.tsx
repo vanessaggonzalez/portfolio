@@ -207,7 +207,7 @@ const watchingShows = [
 ];
 
 // Personal memory wall — concerts + milestones, doesn't need a rewrite every semester.
-// upcoming: true bumps it to the top with the dark dot + "upcoming" pill.
+// upcoming: true bumps it to the front with the dark dot + "upcoming" pill.
 // kind: short tag shown for non-upcoming entries ("concert" / "milestone" / etc).
 // subtitle: optional secondary line (tour name, etc) — omit if not needed.
 const memoryLog = [
@@ -471,6 +471,27 @@ function PosterCard({
   );
 }
 
+// ── MEMORY CARD (timeline) ────────────────────────────────────────────────────
+function MemoryCard({ item }: { item: typeof memoryLog[0] }) {
+  return (
+    <div
+      className="flex w-[230px] shrink-0 flex-col gap-2 rounded-[20px] border border-black/5 bg-white/80 p-5 shadow-[0_14px_36px_rgba(68,44,29,0.06)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_20px_46px_rgba(68,44,29,0.10)]"
+    >
+      <div className="flex items-center gap-2 flex-wrap">
+        {item.upcoming ? (
+          <span className="rounded-full bg-[#342d29] px-2 py-0.5 text-[0.55rem] uppercase tracking-[0.16em] text-white/85">upcoming</span>
+        ) : (
+          <span className="rounded-full bg-[#fffaf6] border border-black/5 px-2 py-0.5 text-[0.55rem] uppercase tracking-[0.16em] text-[#a89d96]">{item.kind}</span>
+        )}
+      </div>
+      <p className="mt-1 font-serif text-[1rem] font-semibold leading-snug text-[#1f1a18]">{item.title}</p>
+      {item.subtitle && <p className="text-[0.68rem] text-[#5e5048]">{item.subtitle}</p>}
+      <p className="text-[0.62rem] uppercase tracking-[0.14em] text-[#a89d96]">{item.date}</p>
+      {item.note && <p className="text-[0.7rem] italic leading-snug text-[#7c7068]">{item.note}</p>}
+    </div>
+  );
+}
+
 // ── PAGE ──────────────────────────────────────────────────────────────────────
 export default function AboutPage() {
   useReveal();
@@ -701,7 +722,7 @@ export default function AboutPage() {
               currently
             </div>
 
-            <div className="grid gap-4 lg:grid-cols-2 xl:grid-cols-4">
+            <div className="grid gap-4 lg:grid-cols-3">
 
               {/* WATCHING */}
               <div className="reveal-item rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={0}>
@@ -782,31 +803,6 @@ export default function AboutPage() {
                 </div>
               </div>
 
-              {/* MEMORY LOG */}
-              <div className="reveal-item rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={120}>
-                <p className="mb-5 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">memory log</p>
-                <div className="flex flex-col gap-3">
-                  {memoryLog.map((item) => (
-                    <div key={item.title + item.date} className="flex items-start gap-3">
-                      <div className={`mt-1 h-1.5 w-1.5 shrink-0 rounded-full ${item.upcoming ? "bg-[#342d29]" : "bg-[#c8bdb2]"}`} />
-                      <div className="min-w-0">
-                        <div className="flex items-center gap-2 flex-wrap">
-                          <p className="text-[0.82rem] font-medium text-[#1f1a18]">{item.title}</p>
-                          {item.upcoming ? (
-                            <span className="rounded-full bg-[#342d29] px-2 py-0.5 text-[0.55rem] uppercase tracking-[0.16em] text-white/80">upcoming</span>
-                          ) : (
-                            <span className="rounded-full bg-[#fffaf6] px-2 py-0.5 text-[0.55rem] uppercase tracking-[0.16em] text-[#a89d96]">{item.kind}</span>
-                          )}
-                        </div>
-                        {item.subtitle && <p className="text-[0.65rem] text-[#5e5048] mt-0.5">{item.subtitle}</p>}
-                        <p className="text-[0.62rem] uppercase tracking-[0.14em] text-[#a89d96] mt-0.5">{item.date}</p>
-                        {item.note && <p className="text-[0.68rem] italic text-[#7c7068] mt-0.5">{item.note}</p>}
-                      </div>
-                    </div>
-                  ))}
-                </div>
-              </div>
-
               {/* MAKING */}
               <div className="reveal-item rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={160}>
                 <p className="mb-5 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">making</p>
@@ -825,6 +821,30 @@ export default function AboutPage() {
                 </div>
               </div>
 
+            </div>
+
+            {/* MEMORY LOG — full-width horizontal timeline */}
+            <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+              <span className="h-px w-8 bg-[#c8bdb2]" />
+              memory log
+            </div>
+
+            <div className="reveal-item" data-delay={0}>
+              <p className="mb-5 max-w-lg text-[0.85rem] leading-7 text-[#4d413b]">
+                concerts, trips, and the small milestones that ended up mattering more than I expected.
+              </p>
+              <div className="relative">
+                {/* connecting line under the cards */}
+                <div className="pointer-events-none absolute left-0 right-0 top-[2.6rem] h-px bg-black/5" />
+                <div
+                  className="flex gap-4 overflow-x-auto pb-3"
+                  style={{ scrollbarWidth: "thin" }}
+                >
+                  {memoryLog.map((item) => (
+                    <MemoryCard key={item.title + item.date} item={item} />
+                  ))}
+                </div>
+              </div>
             </div>
 
             {/* SMALL FACTS */}
