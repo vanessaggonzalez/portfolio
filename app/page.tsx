@@ -23,7 +23,6 @@ import NowPlaying from "@/components/NowPlaying";
 import MarqueeTicker from "@/components/MarqueeTicker";
 import { useMagneticButton } from "@/hooks/useMagneticButton";
 import { useCursorGlow } from "@/hooks/useCursorGlow";
-import { useTilt } from "@/hooks/useTilt";
 
 // ─── Staggered reveal: fires when each card scrolls into view ─────────────────
 function useReveal() {
@@ -49,6 +48,9 @@ function useReveal() {
 }
 
 // ─── Scroll parallax: offset is relative to each card's own start position ───
+// Card top positions are measured once (on mount + resize), not on every
+// scroll frame — getBoundingClientRect() forces a layout reflow, and doing
+// that for every .collage-card on every tick was the main lag source.
 function useParallax() {
   useEffect(() => {
     const speeds: Record<string, number> = {
@@ -65,29 +67,50 @@ function useParallax() {
       "fragments-tag": 0.04,
     };
 
+    let cards: { el: HTMLElement; speed: number; baseTop: number }[] = [];
     let ticking = false;
+
+    const measure = () => {
+      const scrollY = window.scrollY;
+      cards = Array.from(
+        document.querySelectorAll<HTMLElement>(".collage-card")
+      ).map((el) => {
+        const key = el.dataset.parallax ?? "";
+        const speed = speeds[key] ?? 0.06;
+        const rect = el.getBoundingClientRect();
+        const baseTop = rect.top + scrollY;
+        return { el, speed, baseTop };
+      });
+    };
 
     const onScroll = () => {
       if (ticking) return;
       requestAnimationFrame(() => {
         const scrollY = window.scrollY;
-        document.querySelectorAll<HTMLElement>(".collage-card").forEach((card) => {
-          const key = card.dataset.parallax ?? "";
-          const speed = speeds[key] ?? 0.06;
-
-          // Offset relative to the card's own top — zero when card first appears
-          const rect = card.getBoundingClientRect();
-          const cardTop = rect.top + scrollY;
-          const offset = (scrollY - cardTop) * speed;
-          card.style.transform = `translateY(${offset}px)`;
-        });
+        for (const { el, speed, baseTop } of cards) {
+          const offset = (scrollY - baseTop) * speed;
+          el.style.transform = `translateY(${offset}px)`;
+        }
         ticking = false;
       });
       ticking = true;
     };
 
+    // Re-measure on resize (debounced) since layout/positions can shift
+    let resizeTimer: ReturnType<typeof setTimeout>;
+    const onResize = () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(measure, 150);
+    };
+
+    measure();
     window.addEventListener("scroll", onScroll, { passive: true });
-    return () => window.removeEventListener("scroll", onScroll);
+    window.addEventListener("resize", onResize);
+    return () => {
+      window.removeEventListener("scroll", onScroll);
+      window.removeEventListener("resize", onResize);
+      clearTimeout(resizeTimer);
+    };
   }, []);
 }
 
@@ -138,7 +161,6 @@ export default function Home() {
   useParallax();
   useMagneticButton();
   useCursorGlow();
-  useTilt();
 
   const navLinks = [
     { label: "Work",    href: "/work" },
@@ -365,7 +387,7 @@ export default function Home() {
                   className="collage-card reveal-item col-span-2 sm:col-span-1 group h-[340px] overflow-hidden rounded-[28px] border border-[#201c1a]/6 shadow-[0_18px_50px_rgba(45,29,18,0.08)] transition-shadow duration-300"
                   data-parallax="portrait" data-delay={0}
                 >
-                  <Image src="/images/vanessa1.jpg" alt="Vanessa portrait" fill priority sizes="(max-width: 640px) 100vw, 50vw" className="object-cover object-top" />
+                  <Image src="/images/Vanessa_Gonzalez_MET.jpg" alt="Vanessa on the MET steps" fill priority sizes="(max-width: 640px) 100vw, 50vw" className="object-cover object-top" />
                 </div>
 
                 <div
@@ -448,28 +470,26 @@ export default function Home() {
 
                 {/* MAIN PORTRAIT */}
                 <div
-                  className="tilt-card collage-card reveal-item group absolute overflow-hidden rounded-[36px] border border-[#201c1a]/6 shadow-[0_22px_65px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_30px_80px_rgba(45,29,18,0.14)] animate-floatSlow"
+                  className="collage-card reveal-item group absolute overflow-hidden rounded-[36px] border border-[#201c1a]/6 shadow-[0_22px_65px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_30px_80px_rgba(45,29,18,0.14)] animate-floatSlow"
                   style={{ left: "0%", top: "0px", width: "32%", height: "620px" }}
                   data-parallax="portrait" data-delay={0}
                 >
-                  <Image src="/images/vanessa1.jpg" alt="Vanessa portrait" fill priority sizes="32vw" className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
-                  <div className="tilt-gloss pointer-events-none absolute inset-0 rounded-[36px]" />
+                  <Image src="/images/VanessaG.jpg" alt="Vanessa on the MET steps" fill priority sizes="32vw" className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
                 </div>
 
                 {/* QUOTE CARD */}
                 <div
-                  className="tilt-card collage-card reveal-item absolute rounded-[26px] border border-black/5 bg-white/80 px-7 py-6 shadow-[0_18px_50px_rgba(68,44,29,0.06)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.09)] rotate-[-1.5deg]"
+                  className="collage-card reveal-item absolute rounded-[26px] border border-black/5 bg-white/80 px-7 py-6 shadow-[0_18px_50px_rgba(68,44,29,0.06)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.09)] rotate-[-1.5deg]"
                   style={{ left: "1%", top: "648px", width: "31%" }}
                   data-parallax="quote-card" data-delay={60}
                 >
                   <p className="font-serif font-semibold text-[1.45rem] italic leading-8 text-[#342d29]">"collecting moments, tattoos on my mind"</p>
                   <p className="mt-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">ariana grande — sometimes</p>
-                  <div className="tilt-gloss pointer-events-none absolute inset-0 rounded-[26px]" />
                 </div>
 
                 {/* ALWAYS OPEN — TOOLS */}
                 <div
-                  className="tilt-card collage-card reveal-item absolute rounded-[26px] border border-black/5 bg-white/75 p-5 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] rotate-[0.5deg]"
+                  className="collage-card reveal-item absolute rounded-[26px] border border-black/5 bg-white/75 p-5 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] rotate-[0.5deg]"
                   style={{ left: "1%", top: "840px", width: "31%" }}
                   data-parallax="tools-card" data-delay={120}
                 >
@@ -479,29 +499,26 @@ export default function Home() {
                       <span key={tool} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.72rem] uppercase tracking-[0.18em] text-[#5f554f] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-white hover:shadow-sm">{tool}</span>
                     ))}
                   </div>
-                  <div className="tilt-gloss pointer-events-none absolute inset-0 rounded-[26px]" />
                 </div>
 
                 {/* ── CENTRE COLUMN ── */}
 
                 {/* MAGAZINE */}
                 <div
-                  className="tilt-card collage-card reveal-item group absolute overflow-hidden rounded-[28px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatMedium"
+                  className="collage-card reveal-item group absolute overflow-hidden rounded-[28px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatMedium"
                   style={{ left: "34%", top: "40px", width: "24%", height: "320px", rotate: "6deg" }}
                   data-parallax="magazine" data-delay={80}
                 >
                   <Image src="/images/ariana-audrey.jpg" alt="Ariana and Audrey inspiration" fill sizes="24vw" className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
-                  <div className="tilt-gloss pointer-events-none absolute inset-0 rounded-[28px]" />
                 </div>
 
                 {/* LACE */}
                 <div
-                  className="tilt-card collage-card reveal-item group absolute overflow-hidden rounded-[28px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatSlow"
+                  className="collage-card reveal-item group absolute overflow-hidden rounded-[28px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatSlow"
                   style={{ left: "36%", top: "400px", width: "22%", height: "250px", rotate: "-5deg" }}
                   data-parallax="lace" data-delay={160}
                 >
                   <Image src="/images/lace.jpg" alt="Lace detail" fill sizes="22vw" className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
-                  <div className="tilt-gloss pointer-events-none absolute inset-0 rounded-[28px]" />
                 </div>
 
                 {/* SAVED FRAGMENTS TAG */}
@@ -515,7 +532,7 @@ export default function Home() {
 
                 {/* THREADS */}
                 <div
-                  className="tilt-card collage-card reveal-item absolute rounded-[30px] border border-black/5 bg-white/75 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)]"
+                  className="collage-card reveal-item absolute rounded-[30px] border border-black/5 bg-white/75 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)]"
                   style={{ left: "34%", top: "720px", width: "27%" }}
                   data-parallax="threads" data-delay={340}
                 >
@@ -525,36 +542,33 @@ export default function Home() {
                       <span key={item} className="rounded-full border border-black/5 bg-[#fffaf6] px-4 py-2 text-sm text-[#1f1a18] transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-white hover:shadow-md">{item}</span>
                     ))}
                   </div>
-                  <div className="tilt-gloss pointer-events-none absolute inset-0 rounded-[30px]" />
                 </div>
 
                 {/* ── RIGHT COLUMN ── */}
 
                 {/* LITTLE NOTE */}
                 <div
-                  className="tilt-card collage-card reveal-item absolute rounded-[30px] border border-black/5 bg-white/78 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)]"
+                  className="collage-card reveal-item absolute rounded-[30px] border border-black/5 bg-white/78 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)]"
                   style={{ right: "0%", top: "0px", width: "37%" }}
                   data-parallax="note-card" data-delay={100}
                 >
                   <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">a little note</p>
                   <p className="mt-4 text-[1.03rem] leading-8 text-[#342d29] sm:text-[1.08rem]">I like things that feel edited, emotional, and a little nostalgic; like a page torn from a diary and styled for a gallery wall.</p>
                   <p className="mt-4 text-xs uppercase tracking-[0.28em] text-[#8a7d75]">anqclic / creative archive</p>
-                  <div className="tilt-gloss pointer-events-none absolute inset-0 rounded-[30px]" />
                 </div>
 
                 {/* SECOND PHOTO */}
                 <div
-                  className="tilt-card collage-card reveal-item group absolute overflow-hidden rounded-[30px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatMedium"
+                  className="collage-card reveal-item group absolute overflow-hidden rounded-[30px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatMedium"
                   style={{ right: "4%", top: "230px", width: "30%", height: "300px", rotate: "3deg" }}
                   data-parallax="second-photo" data-delay={200}
                 >
                   <Image src="/images/vanessa2.jpg" alt="Vanessa at the Huntington" fill sizes="30vw" className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
-                  <div className="tilt-gloss pointer-events-none absolute inset-0 rounded-[30px]" />
                 </div>
 
                 {/* CURRENTLY INSPIRING ME */}
                 <div
-                  className="tilt-card collage-card reveal-item absolute rounded-[26px] border border-black/5 bg-white/82 p-7 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] rotate-[1.5deg]"
+                  className="collage-card reveal-item absolute rounded-[26px] border border-black/5 bg-white/82 p-7 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] rotate-[1.5deg]"
                   style={{ right: "0%", top: "570px", width: "37%" }}
                   data-parallax="inspire-card" data-delay={280}
                 >
@@ -562,7 +576,6 @@ export default function Home() {
                   <div className="mt-5 grid gap-3 text-sm leading-6 text-[#342d29]">
                     {inspirationItems.map((item) => <p key={item}>• {item}</p>)}
                   </div>
-                  <div className="tilt-gloss pointer-events-none absolute inset-0 rounded-[26px]" />
                 </div>
 
               </div>
