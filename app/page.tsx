@@ -387,7 +387,7 @@ export default function Home() {
                   className="collage-card reveal-item col-span-2 sm:col-span-1 group h-[340px] overflow-hidden rounded-[28px] border border-[#201c1a]/6 shadow-[0_18px_50px_rgba(45,29,18,0.08)] transition-shadow duration-300"
                   data-parallax="portrait" data-delay={0}
                 >
-                  <Image src="/images/Vanessa_Gonzalez_MET.jpg" alt="Vanessa on the MET steps" fill priority sizes="(max-width: 640px) 100vw, 50vw" className="object-cover object-top" />
+                  <Image src="/images/VanessaG.jpg" alt="Vanessa on the MET steps" fill priority sizes="(max-width: 640px) 100vw, 50vw" className="object-cover object-top" />
                 </div>
 
                 <div
