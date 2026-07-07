@@ -23,14 +23,14 @@ function useReveal() {
   }, []);
 }
 
-const RESUME_FILE_ID = "11DqOy3xDl43M3p3GnzbAreNiny16SDfa";
+const RESUME_FILE_ID = "1P-3PXeIT3ytRu82no42MjeEPNBx_0KVf";
 const RESUME_EMBED_URL = `https://drive.google.com/file/d/${RESUME_FILE_ID}/preview`;
 const RESUME_DOWNLOAD_URL = `https://drive.google.com/uc?export=download&id=${RESUME_FILE_ID}`;
 const RESUME_VIEW_URL = `https://drive.google.com/file/d/${RESUME_FILE_ID}/view?usp=sharing`;
 
 const highlights = [
   { value: "USC", label: "CS + Business · May 2027" },
-  { value: "BofA", label: "Incoming · Global Tech & Ops" },
+  { value: "BofA", label: "Global Tech & Ops" },
   { value: "4+", label: "years of experience" },
   { value: "630K+", label: "views built from scratch" },
 ];
@@ -46,7 +46,7 @@ const skills = [
   },
   {
     category: "Web & Technical",
-    items: ["Next.js", "React", "HTML / CSS", "WordPress", "Elementor", "Google Analytics"],
+    items: ["Next.js", "React", "HTML / CSS", "WordPress", "Elementor", "Google Analytics", "C++", "JavaScript", "Python"],
   },
   {
     category: "Tools & Platforms",
