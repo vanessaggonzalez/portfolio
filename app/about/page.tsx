@@ -534,7 +534,7 @@ export default function AboutPage() {
                   built from edits, ships, and things that feel collectible.
                 </h1>
                 <p className="mt-6 max-w-lg text-[1.02rem] leading-8 text-[#4d413b]">
-                  I'm Vanessa — a USC CS + Business student from the 626, currently interning at Bank of America, and someone who has always had an eye for beautiful things even without the means to have them growing up. I've been making edits since I was 10, falling for ships since before I knew what a ship was, and collecting moments ever since.
+                  I'm Vanessa, a USC CS + Business student from the 626, currently interning at Bank of America, and someone who has always had an eye for beautiful things even without the means to have them growing up. I've been making edits since I was 10, falling for ships since before I knew what a ship was, and collecting moments ever since.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-2 text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
                   {["USC CS + Business", "626 → LA", "BofA Intern", "editor since 2015", "anqclic"].map((tag) => (
@@ -584,7 +584,7 @@ export default function AboutPage() {
                 "we accept the love we think we deserve."
               </p>
               <p className="mt-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                perks of being a wallflower — the film that opened my eyes
+                perks of being a wallflower — the film that changed my life
               </p>
             </div>
 
@@ -603,7 +603,7 @@ export default function AboutPage() {
                   <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">It started with a free app and Harry Potter</h2>
                   <div className="my-4 h-px bg-black/5" />
                   <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">I was 10. I saw a fan edit on Vine and knew immediately I needed to learn how to do that.</p>
-                  <p className="text-[0.88rem] leading-7 text-[#5e5048]">Started on Video Star because it was free. Harry Potter, Selena, Twenty One Pilots. In 2018 I saved up for a MacBook and begged my mom for After Effects — growing up without a lot, that felt enormous. That account became anqclic, a misspelling of angelic, because I wanted to make things that were beautiful.</p>
+                  <p className="text-[0.88rem] leading-7 text-[#5e5048]">Started on Video Star because it was free. Harry Potter, Selena, Twenty One Pilots. In 2018 I saved up for a MacBook and begged my mom for After Effects; growing up without a lot, that felt enormous. That account became anqclic, a misspelling of angelic, because I wanted to make things that were beautiful.</p>
                 </div>
                 <div className="hidden lg:flex flex-col gap-2">
                   {[
@@ -630,7 +630,7 @@ export default function AboutPage() {
                 <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">Daisy in Gatsby's mansion</h2>
                 <div className="my-4 h-px bg-black/5" />
                 <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">Looking up at the ceiling, enamored by the beauty around her.</p>
-                <p className="text-[0.88rem] leading-7 text-[#5e5048]">I've always had an eye for the luxurious and editorial — things made with intention — even when I didn't have access to them growing up. That hunger is what made me an editor.</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">I've always had an eye for the luxurious and editorial, things made with intention, even when I didn't have access to them growing up. That hunger is what made me an editor.</p>
                 <div className="mt-5 flex flex-wrap gap-2">
                   {["lana del rey", "baz luhrmann", "lace details", "editorial campaigns", "selena's revival era"].map((t) => (
                     <span key={t} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]">{t}</span>
@@ -671,7 +671,7 @@ export default function AboutPage() {
                   <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">the other side of the brain</p>
                   <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">My first project was a Taylor Swift song quiz</h2>
                   <div className="my-4 h-px bg-black/5" />
-                  <p className="text-[0.88rem] leading-7 text-[#5e5048]">On code.org in high school — you answered questions and got assigned a Taylor Swift song. Very me. That's when I realized there was a creative side to coding I genuinely loved. I was already president of my school's Business and Technology Academy. USC let me have both and I've never had to choose.</p>
+                  <p className="text-[0.88rem] leading-7 text-[#5e5048]">On code.org in high school, you answered questions and got assigned a Taylor Swift song. Very me. That's when I realized there was a creative side to coding I genuinely loved. I was already president of my school's Business and Technology Academy. USC let me have both and I've never had to choose.</p>
                   <div className="mt-5 flex flex-wrap gap-2">
                     {["CS + Business", "USC · May 2027", "BofA Intern", "built this site"].map((t) => (
                       <span key={t} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]">{t}</span>
@@ -869,7 +869,7 @@ export default function AboutPage() {
             <div className="reveal-item mt-10 overflow-hidden rounded-[28px] border border-black/5 bg-white/72 p-8 shadow-[0_18px_50px_rgba(68,44,29,0.06)] rotate-[0.3deg]" data-delay={60}>
               <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">a little note</p>
               <p className="mt-4 max-w-2xl text-[1rem] leading-8 text-[#4d413b]">
-                I grew up all around the 626, but my dad worked across Los Angeles — so the city always felt like mine too. He passed in December. I think a lot of what drives me, this need to build something that means something, comes from him. I want to contribute to something bigger than myself. I want to keep learning, keep making, and do work that feels intentional. That's the goal. That's always been the goal.
+                I grew up all around the 626, but my dad worked across Los Angeles, so the city always felt like mine too. He passed in December. I think a lot of what drives me, this need to build something that means something, comes from him. I want to contribute to something bigger than myself. I want to keep learning, keep making, and do work that feels intentional. That's the goal. That's always been the goal.
               </p>
               <p className="mt-4 text-xs uppercase tracking-[0.28em] text-[#a89d96]">anqclic / creative archive</p>
             </div>
