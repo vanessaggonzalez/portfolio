@@ -666,17 +666,37 @@ export default function AboutPage() {
                 <div
                   className="hidden lg:flex h-16 w-16 shrink-0 items-center justify-center rounded-[16px] border border-black/8 text-[0.75rem] font-medium tracking-[0.05em] text-white/70"
                   style={{ background: "#1a1a2e", fontFamily: "monospace" }}
-                >&lt;/&gt;</div>
+                >
+                  &lt;/&gt;
+                </div>
                 <div>
                   <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">the other side of the brain</p>
-                  <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">My first project was a Taylor Swift song quiz</h2>
+                  <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">
+                    My first app is still online
+                  </h2>
                   <div className="my-4 h-px bg-black/5" />
-                  <p className="text-[0.88rem] leading-7 text-[#5e5048]">On code.org in high school, you answered questions and got assigned a Taylor Swift song. Very me. That's when I realized there was a creative side to coding I genuinely loved. I was already president of my school's Business and Technology Academy. USC let me have both and I've never had to choose.</p>
+                  <p className="text-[0.88rem] leading-7 text-[#5e5048]">
+                    I built this in high school on Code.org: a Taylor Swift song quiz that asked a series of questions and matched you with a song. Looking back, the logic is basically a mountain of if and else if statements because my friend and I wanted every possible answer combination to have its own song. It's definitely not the most sophisticated code I've ever written, but it was the first time programming felt creative instead of intimidating. I still keep it around because it reminds me where all of this started.
+                  </p>
                   <div className="mt-5 flex flex-wrap gap-2">
-                    {["CS + Business", "USC · May 2027", "BofA Intern", "built this site"].map((t) => (
-                      <span key={t} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]">{t}</span>
+                    {["high school", "Code.org", "first project", "creative coding", "still live"].map((t) => (
+                      <span
+                        key={t}
+                        className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]"
+                      >
+                        {t}
+                      </span>
                     ))}
                   </div>
+
+                  <a
+                    href="https://studio.code.org/projects/applab/UjzuxRowfB3RcT0DDziGpsX4uci2CGe7ZdsjWtmwuvY"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="mt-5 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-[0.68rem] uppercase tracking-[0.18em] text-[#5f554f] transition hover:-translate-y-0.5 hover:text-[#201c1a] hover:bg-white"
+                  >
+                    play the original ↗
+                  </a>
                 </div>
               </div>
             </div>
