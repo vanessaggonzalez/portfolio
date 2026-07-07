@@ -47,8 +47,8 @@ const inProgressProjects = [
     org: "Global Technology, Business Analyst Intern",
     category: "AI / process design / internal tooling",
     blurb:
-      "Currently scoping a project focused on how business analysts use AI day-to-day, with the goal of making their workflows faster and less repetitive — possibly through a trained model or a more structured internal tool. Two additional projects are still being assigned.",
-    tags: ["AI/ML", "process improvement", "internal tooling"],
+      "Working across three projects spanning legacy system modernization, AI workflow optimization, and internal innovation. Analyzing a COBOL-based 401(k) platform to develop phased modernization recommendations, conducting user research with Business Analysts to identify high-impact AI opportunities, and leveraging Microsoft Copilot to streamline legacy documentation analysis within enterprise security constraints.",
+    tags: ["AI/ML", "process improvement", "internal tooling", "user research", "mainframe modernization"],
     placeholder: true,
   },
 ];
