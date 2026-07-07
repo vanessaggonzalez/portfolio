@@ -43,7 +43,7 @@ const featuredProject = {
 const inProgressProjects = [
   {
     slug: "bofa-ai-efficiency",
-    title: "Bank of America — AI Efficiency Project",
+    title: "Bank of America — Business Analysis & AI Modernization",
     org: "Global Technology, Business Analyst Intern",
     category: "AI / process design / internal tooling",
     blurb:
