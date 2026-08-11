@@ -40,23 +40,28 @@ const featuredProject = {
 // so they shouldn't compete with the Audible case study for the top slot.
 // Each entry has a `placeholder: true` flag — swap in real specifics as projects
 // wrap, then drop the flag once the copy reflects an actual outcome.
-const inProgressProjects = [
-  {
-    slug: "bofa-ai-efficiency",
-    title: "Bank of America — Business Analysis & AI Modernization",
-    org: "Global Technology, Business Analyst Intern",
-    category: "AI / process design / internal tooling",
-    blurb:
-      "Working across three projects spanning legacy system modernization, AI workflow optimization, and internal innovation. Analyzing a COBOL-based 401(k) platform to develop phased modernization recommendations, conducting user research with Business Analysts to identify high-impact AI opportunities, and leveraging Microsoft Copilot to streamline legacy documentation analysis within enterprise security constraints.",
-    tags: ["AI/ML", "process improvement", "internal tooling", "user research", "mainframe modernization"],
-    placeholder: true,
-  },
-];
+const spotlightExperience = {
+  slug: "bofa",
+  title: "Bank of America — Global Technology",
+  org: "Business Analyst Intern",
+  category: "Business analysis / AI systems / enterprise modernization",
+  blurb:
+    "Worked across three AI-focused projects spanning legacy modernization, Business Analyst workflows, and employee onboarding. Built an AI documentation system to analyze 600+ files within a legacy COBOL/mainframe application and co-developed an AI-enabled BA workflow informed by interviews with 15 Business Analysts.",
+  impact:
+    "600+ legacy files analyzed · 15 BA interviews · internal patent filing · 2 projects transitioned for continued development",
+  tags: [
+    "AI agents",
+    "COBOL / mainframe",
+    "user research",
+    "Jira",
+    "Copilot Studio",
+  ],
+};
 
 const mainProjects = [
   {
     slug: "usc-marcomm",
-    num: "02",
+    num: "03",
     title: "USC Marketing Communications",
     org: "University of Southern California",
     category: "Brand / content / analytics",
@@ -67,7 +72,7 @@ const mainProjects = [
   },
   {
     slug: "ama",
-    num: "03",
+    num: "04",
     title: "American Marketing Association",
     org: "VP of Marketing & Project Manager",
     category: "Leadership / content / strategy",
@@ -78,7 +83,7 @@ const mainProjects = [
   },
   {
     slug: "anqclic",
-    num: "04",
+    num: "05",
     title: "Anqclic — Content Creator",
     org: "Self-employed · 8 years",
     category: "Creative / storytelling / platform growth",
@@ -89,7 +94,7 @@ const mainProjects = [
   },
   {
     slug: "wie",
-    num: "05",
+    num: "06",
     title: "USC Women in Engineering",
     org: "Director of Marketing & Development",
     category: "Leadership / digital strategy / community",
@@ -103,7 +108,7 @@ const mainProjects = [
 const additionalProjects = [
   {
     slug: "techsalerator",
-    num: "06",
+    num: "07",
     title: "Techsalerator — Data Intelligence",
     org: "Sales Intern",
     category: "B2B / research / product positioning",
@@ -113,7 +118,7 @@ const additionalProjects = [
   },
   {
     slug: "scope-cais",
-    num: "07",
+    num: "08",
     title: "Scope + CAIS++",
     org: "Cohort Member",
     category: "Engineering / AI / full-stack",
@@ -229,42 +234,66 @@ export default function WorkPage() {
               </article>
             </Link>
 
-            {/* CURRENTLY BUILDING */}
+            {/* SPOTLIGHT EXPERIENCE */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              currently building
+              selected experience
             </div>
 
-            <div className="grid gap-4">
-              {inProgressProjects.map((project, i) => (
-                <article
-                  key={project.slug}
-                  className="reveal-item relative overflow-hidden rounded-[30px] border border-black/5 bg-white/60 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] lg:p-10"
-                  data-delay={i * 80}
-                >
-                  <div className="flex flex-wrap items-center gap-2">
-                    <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">{project.org}</p>
-                    {project.placeholder && (
-                      <span className="rounded-full border border-black/10 bg-[#fffaf6] px-2.5 py-0.5 text-[0.6rem] uppercase tracking-[0.2em] text-[#a89d96]">
-                        in progress · details coming soon
-                      </span>
-                    )}
-                  </div>
-                  <h3 className="mt-3 max-w-2xl font-serif text-[1.3rem] font-semibold leading-snug text-[#1f1a18] sm:text-[1.5rem]">
-                    {project.title}
-                  </h3>
-                  <p className="mt-1 text-[0.68rem] uppercase tracking-[0.2em] text-[#8a7d75]">{project.category}</p>
-                  <p className="mt-5 max-w-2xl text-[0.95rem] leading-8 text-[#4d413b]">{project.blurb}</p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
-                      <span key={tag} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.72rem] uppercase tracking-[0.18em] text-[#7c7068]">
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </article>
-              ))}
-            </div>
+            <Link
+              href={`/work/${spotlightExperience.slug}`}
+              className="reveal-item block"
+              data-delay={120}
+            >
+              <article className="group relative overflow-hidden rounded-[30px] border border-black/5 bg-white/65 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 hover:-translate-y-1 hover:bg-white/80 hover:shadow-[0_26px_70px_rgba(68,44,29,0.09)] lg:p-10">
+
+                {/* NUMBER */}
+                <span className="absolute right-7 top-6 select-none font-serif text-[3rem] font-semibold leading-none text-[#e8ddd6]">
+                  02
+                </span>
+
+                <div className="flex flex-wrap items-center gap-2">
+                  <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">
+                    {spotlightExperience.org}
+                  </p>
+
+                  <span className="rounded-full border border-black/5 bg-[#fffaf6] px-2.5 py-0.5 text-[0.6rem] uppercase tracking-[0.2em] text-[#a89d96]">
+                    summer 2026
+                  </span>
+                </div>
+
+                <h3 className="mt-3 max-w-2xl pr-12 font-serif text-[1.5rem] font-semibold leading-snug text-[#1f1a18] sm:text-[1.75rem]">
+                  {spotlightExperience.title}
+                </h3>
+
+                <p className="mt-1 text-[0.68rem] uppercase tracking-[0.2em] text-[#8a7d75]">
+                  {spotlightExperience.category}
+                </p>
+
+                <p className="mt-5 max-w-3xl text-[0.95rem] leading-8 text-[#4d413b]">
+                  {spotlightExperience.blurb}
+                </p>
+
+                <p className="mt-4 text-[0.72rem] uppercase tracking-[0.2em] text-[#8a7d75]">
+                  ✦ {spotlightExperience.impact}
+                </p>
+
+                <div className="mt-5 flex flex-wrap gap-2">
+                  {spotlightExperience.tags.map((tag) => (
+                    <span
+                      key={tag}
+                      className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.72rem] uppercase tracking-[0.18em] text-[#7c7068]"
+                    >
+                      {tag}
+                    </span>
+                  ))}
+                </div>
+
+                <p className="mt-6 text-[0.68rem] uppercase tracking-[0.28em] text-[#c8bdb2] transition-all duration-200 group-hover:text-[#7c7068]">
+                  explore the work →
+                </p>
+              </article>
+            </Link>
 
             {/* MAIN PROJECTS */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">

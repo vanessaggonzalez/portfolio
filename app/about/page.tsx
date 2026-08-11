@@ -195,7 +195,6 @@ const films = [
   { title: "Perks of Being a Wallflower", note: "opened my eyes", type: "movie" as const },
   { title: "Little Women", note: "greta gerwig", type: "movie" as const },
   { title: "Once Upon a Time in Hollywood", note: "tarantino", type: "movie" as const },
-  { title: "La La Land", note: "chazelle", type: "movie" as const },
 ];
 
 const watchingShows = [
@@ -220,11 +219,19 @@ const memoryLog = [
     upcoming: true,
   },
   {
-    title: "New York",
-    subtitle: "BofA orientation",
-    kind: "trip",
-    date: "June 2026",
-    note: "first time out there for work, not vacation",
+    title: "New Jersey",
+    subtitle: "Wealth Management Technology",
+    kind: "presentation",
+    date: "Aug 2026",
+    note: "flew out to present my project after the internship",
+    upcoming: false,
+  },
+  {
+    title: "Texas",
+    subtitle: "BofA Global Technology",
+    kind: "work",
+    date: "Summer 2026",
+    note: "three projects, a lot of AI, and a very different kind of learning",
     upcoming: false,
   },
   {
@@ -534,10 +541,10 @@ export default function AboutPage() {
                   built from edits, ships, and things that feel collectible.
                 </h1>
                 <p className="mt-6 max-w-lg text-[1.02rem] leading-8 text-[#4d413b]">
-                  I'm Vanessa, a USC CS + Business student from the 626, currently interning at Bank of America, and someone who has always had an eye for beautiful things even without the means to have them growing up. I've been making edits since I was 10, falling for ships since before I knew what a ship was, and collecting moments ever since.
+                  I'm Vanessa, a USC CS + Business student from the 626, and someone who has always had an eye for beautiful things even without the means to have them growing up. I've been making edits since I was 10, falling for ships since before I knew what a ship was, and collecting moments ever since. This summer, that same curiosity took me from Texas to New Jersey through Bank of America's Global Technology program — where I built AI workflows, worked through a legacy mainframe system, interviewed Business Analysts, and eventually flew out to present my project to Wealth Management Technology.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-2 text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                  {["USC CS + Business", "626 → LA", "BofA Intern", "editor since 2015", "anqclic"].map((tag) => (
+                  {["USC CS + Business", "626 → LA", "BofA alum", "editor since 2015", "anqclic"].map((tag) => (
                     <span key={tag} className="rounded-full border border-black/5 bg-white/70 px-3 py-1">{tag}</span>
                   ))}
                 </div>
@@ -604,6 +611,7 @@ export default function AboutPage() {
                   <div className="my-4 h-px bg-black/5" />
                   <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">I was 10. I saw a fan edit on Vine and knew immediately I needed to learn how to do that.</p>
                   <p className="text-[0.88rem] leading-7 text-[#5e5048]">Started on Video Star because it was free. Harry Potter, Selena, Twenty One Pilots. In 2018 I saved up for a MacBook and begged my mom for After Effects; growing up without a lot, that felt enormous. That account became anqclic, a misspelling of angelic, because I wanted to make things that were beautiful.</p>
+                  <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">That same instinct eventually followed me into more technical spaces — from building websites to studying computer science, and most recently into Global Technology at Bank of America, where I found myself applying that curiosity to legacy systems and AI workflows.</p>
                 </div>
                 <div className="hidden lg:flex flex-col gap-2">
                   {[
@@ -708,7 +716,7 @@ export default function AboutPage() {
             </div>
 
             <div className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={0}>
-              <p className="mb-6 text-[0.72rem] uppercase tracking-[0.28em] text-[#a89d96]">letterboxd top 5 · in order</p>
+              <p className="mb-6 text-[0.72rem] uppercase tracking-[0.28em] text-[#a89d96]">letterboxd top 4 · in order</p>
               <div className="grid grid-cols-5 gap-4 sm:gap-6">
                 {filmPosters.map((film, i) => (
                   <PosterCard key={film.title} title={film.title} note={film.note} poster={film.poster} index={i} />

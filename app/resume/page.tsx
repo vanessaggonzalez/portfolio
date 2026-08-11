@@ -30,27 +30,59 @@ const RESUME_VIEW_URL = `https://drive.google.com/file/d/${RESUME_FILE_ID}/view?
 
 const highlights = [
   { value: "USC", label: "CS + Business · May 2027" },
-  { value: "BofA", label: "Global Tech & Ops" },
-  { value: "4+", label: "years of experience" },
-  { value: "630K+", label: "views built from scratch" },
+  { value: "BofA", label: "Global Technology · Summer 2026" },
+  { value: "600+", label: "legacy files analyzed" },
+  { value: "630K+", label: "creative views built from scratch" },
 ];
 
 const skills = [
   {
-    category: "Marketing & Strategy",
-    items: ["Content strategy", "Campaign management", "Analytics", "A/B testing", "Brand guidelines", "SEO"],
+    category: "Product & Strategy",
+    items: [
+      "Business analysis",
+      "User research",
+      "Product strategy",
+      "Process improvement",
+      "A/B testing",
+      "Analytics",
+    ],
+  },
+  {
+    category: "AI & Technical",
+    items: [
+      "AI agents",
+      "Copilot Studio",
+      "Next.js",
+      "React",
+      "HTML / CSS",
+      "JavaScript",
+      "Python",
+      "C++",
+    ],
   },
   {
     category: "Design & Creative",
-    items: ["Canva", "Adobe After Effects", "Photoshop", "Media Encoder", "Figma", "Typography"],
-  },
-  {
-    category: "Web & Technical",
-    items: ["Next.js", "React", "HTML / CSS", "WordPress", "Elementor", "Google Analytics", "C++", "JavaScript", "Python"],
+    items: [
+      "Figma",
+      "Adobe After Effects",
+      "Photoshop",
+      "Media Encoder",
+      "Canva",
+      "Typography",
+    ],
   },
   {
     category: "Tools & Platforms",
-    items: ["Slate", "Campaign Monitor", "Canvas LMS", "Instagram", "Google Suite", "AI/ML basics"],
+    items: [
+      "Jira",
+      "Confluence",
+      "WordPress",
+      "Elementor",
+      "Google Analytics",
+      "Slate",
+      "Campaign Monitor",
+      "Canvas LMS",
+    ],
   },
 ];
 
@@ -99,7 +131,11 @@ export default function ResumePage() {
                 The one-pager.
               </h1>
               <p className="mt-5 text-[1.02rem] leading-8 text-[#4d413b]">
-                USC CS + Business, graduating May 2027. I'm incoming at Bank of America's Global Tech & Ops group — and I've spent the last few years building things at the intersection of creative work, marketing strategy, and product thinking. The resume is below. Download it if you need it.
+                USC CS + Business, graduating May 2027. I spent this summer in Bank of
+                America's Global Technology program, working across AI systems, business
+                analysis, and legacy modernization. Outside of that, my experience spans
+                product thinking, marketing strategy, creative technology, and a decade of
+                digital storytelling. The one-page version is below.
               </p>
               {/* CTA BUTTONS */}
               <div className="mt-6 flex flex-wrap gap-3">

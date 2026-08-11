@@ -1,3 +1,4 @@
+
 /*
 PENDING IDEAS
 
@@ -177,31 +178,52 @@ export default function Home() {
 
   const featuredProjects = [
     {
-      title: "Audible case competition",
+      slug: "audible",
+      number: "01",
+      title: "Audible — Clip & Share",
       category: "Product strategy / UX / storytelling",
       blurb:
-        "Designed Clip & Share, a feature concept that helps users save and share meaningful audiobook moments across social platforms.",
+        "Co-developed a social sharing feature concept that helps users save and share emotionally resonant audiobook moments across platforms like Instagram and TikTok.",
       impact:
         "First-place winning concept for an Amazon-sponsored product case competition.",
-      tags: ["gen z behavior", "feature strategy", "audience research", "social interaction", "product thinking"],
+      tags: [
+        "gen z behavior",
+        "feature strategy",
+        "audience research",
+        "social interaction",
+      ],
     },
     {
-      title: "Marketing + communications",
-      category: "Brand / content / analytics",
+      slug: "bofa",
+      number: "02",
+      title: "Bank of America — Global Technology",
+      category: "Business analysis / AI systems / enterprise modernization",
       blurb:
-        "Redesigned enrollment websites, managed multimedia campaigns, and used analytics + audience behavior to improve messaging and accessibility.",
+        "Worked across three AI-focused projects spanning legacy modernization, Business Analyst workflows, and employee onboarding. Built an AI documentation system for a 600+ file COBOL/mainframe codebase and co-developed an AI workflow informed by interviews with 15 Business Analysts.",
       impact:
-        "Improved accessibility, mobile responsiveness, and weekly traffic across digital campaigns.",
-      tags: ["web", "analytics", "branding"],
+        "600+ files analyzed · 15 BA interviews · internal patent filing · 2 projects transitioned for continued development.",
+      tags: [
+        "AI agents",
+        "systems thinking",
+        "user research",
+        "enterprise AI",
+      ],
     },
     {
-      title: "Creative systems + leadership",
-      category: "Leadership / systems / execution",
+      slug: "anqclic",
+      number: "03",
+      title: "Anqclic — Creative Archive",
+      category: "Creative / storytelling / platform growth",
       blurb:
-        "Built workflows, led creative teams, and managed digital content strategy across organizations, balancing visual storytelling with structured execution.",
+        "A decade-long video editing practice that grew from fandom edits into a digital platform with 5,000+ followers, 630K+ views, 116K+ likes, and a brand partnership with Funimate.",
       impact:
-        "Experience spanning team leadership, process design, and creative execution in structured environments.",
-      tags: ["leadership", "operations", "execution"],
+        "10+ years editing · 630K+ views · 116K+ likes · brand partnership.",
+      tags: [
+        "video editing",
+        "storytelling",
+        "audience strategy",
+        "brand partnership",
+      ],
     },
   ];
 
@@ -617,101 +639,227 @@ export default function Home() {
           id="work"
           className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-10"
         >
-          <div className="mb-5 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
-            <span className="h-px w-8 bg-[#c8bdb2]" />
-            selected work
+          <div className="mb-5 flex items-center justify-between gap-4">
+            <div className="flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+              <span className="h-px w-8 bg-[#c8bdb2]" />
+              selected work
+            </div>
+
+            <a
+              href="/work"
+              className="group flex items-center gap-2 text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96] transition hover:text-[#201c1a]"
+            >
+              all work
+              <span className="transition-transform duration-200 group-hover:translate-x-1">
+                →
+              </span>
+            </a>
           </div>
 
           <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
-            {/* FEATURED AUDIBLE */}
-            <article
-              className="reveal-item overflow-hidden rounded-[34px] border border-black/5 bg-white/72 shadow-[0_24px_70px_rgba(68,44,29,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_28px_80px_rgba(68,44,29,0.09)]"
+            {/* AUDIBLE */}
+            <a
+              href="/work/audible"
+              className="reveal-item group block"
               data-delay={0}
             >
-              <div className="relative h-[260px] overflow-hidden border-b border-black/5">
-                <Image
-                  src="/images/clip-and-share.png"
-                  alt="Audible case competition"
-                  fill
-                  className="object-cover"
-                />
-                <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent" />
-                <div className="absolute bottom-5 left-5">
-                  <p className="text-[0.72rem] uppercase tracking-[0.24em] text-white/80">
-                    featured case study
-                  </p>
-                  <h3 className="mt-2 text-2xl text-white">
-                    Audible — Clip & Share
-                  </h3>
-                </div>
-              </div>
+              <article className="h-full overflow-hidden rounded-[34px] border border-black/5 bg-white/72 shadow-[0_24px_70px_rgba(68,44,29,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_85px_rgba(68,44,29,0.10)]">
+                <div className="relative h-[260px] overflow-hidden border-b border-black/5">
+                  <Image
+                    src="/images/clip-and-share.png"
+                    alt="Audible Clip and Share case study"
+                    fill
+                    className="object-cover transition-transform duration-500 group-hover:scale-[1.02]"
+                  />
 
-              <div className="p-7">
-                <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                  product strategy / storytelling / ux
-                </p>
-                <p className="mt-4 max-w-2xl text-[1rem] leading-8 text-[#4d413b]">
-                  Co-developed a social sharing feature concept designed to help users
-                  save and share emotionally resonant audiobook moments across platforms
-                  like Instagram and TikTok.
-                </p>
-                <p className="mt-4 text-[1rem] leading-8 text-[#4d413b]">
-                  The project explored how fandom behavior, collectibility, and replayable
-                  moments could increase Gen Z engagement on Audible.
-                </p>
-                <p className="mt-5 text-[0.78rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                  ✦ {featuredProjects[0].impact}
-                </p>
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {featuredProjects[0].tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.72rem] uppercase tracking-[0.18em] text-[#7c7068]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-              </div>
-            </article>
+                  <div className="absolute inset-0 bg-gradient-to-t from-black/35 via-black/5 to-transparent" />
 
-            {/* SIDE CARDS */}
-            <div className="grid gap-4">
-              {featuredProjects.slice(1).map((project, index) => (
-                <article
-                  key={project.title}
-                  className="reveal-item relative overflow-hidden rounded-[30px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)]"
-                  data-delay={(index + 1) * 120}
-                >
-                  <span className="absolute right-6 top-6 font-serif font-semibold text-[2.2rem] leading-none text-[#e8ddd6] select-none">
-                    0{index + 2}
-                  </span>
-                  <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
-                    {project.category}
+                  <div className="absolute bottom-5 left-5">
+                    <p className="text-[0.68rem] uppercase tracking-[0.24em] text-white/75">
+                      01 · featured case study
+                    </p>
+                    <h3 className="mt-2 font-serif text-[1.65rem] font-semibold text-white">
+                      Audible — Clip & Share
+                    </h3>
+                  </div>
+                </div>
+
+                <div className="p-7">
+                  <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
+                    Product strategy / UX / storytelling
                   </p>
-                  <p className="mt-4 pr-8 text-sm leading-7 text-[#4d413b]">
-                    {project.blurb}
+
+                  <p className="mt-4 max-w-2xl text-[0.97rem] leading-8 text-[#4d413b]">
+                    Co-developed a social sharing feature concept that helps users save
+                    and share emotionally resonant audiobook moments across platforms
+                    like Instagram and TikTok.
                   </p>
-                  <p className="mt-3 text-[0.72rem] uppercase tracking-[0.2em] text-[#a89d96]">
-                    ✦ {project.impact}
+
+                  <p className="mt-5 text-[0.76rem] uppercase tracking-[0.2em] text-[#8a7d75]">
+                    ✦ First-place winning concept · Amazon-sponsored case competition
                   </p>
+
                   <div className="mt-5 flex flex-wrap gap-2">
-                    {project.tags.map((tag) => (
+                    {[
+                      "gen z behavior",
+                      "feature strategy",
+                      "audience research",
+                      "social interaction",
+                    ].map((tag) => (
                       <span
                         key={tag}
-                        className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.72rem] uppercase tracking-[0.18em] text-[#7c7068]"
+                        className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]"
                       >
                         {tag}
                       </span>
                     ))}
                   </div>
+
+                  <p className="mt-6 text-[0.68rem] uppercase tracking-[0.28em] text-[#c8bdb2] transition group-hover:text-[#7c7068]">
+                    view case study →
+                  </p>
+                </div>
+              </article>
+            </a>
+
+            {/* RIGHT COLUMN */}
+            <div className="grid gap-4">
+              {/* BOFA */}
+              <a
+                href="/work/bofa"
+                className="reveal-item group block"
+                data-delay={100}
+              >
+                <article className="relative h-full overflow-hidden rounded-[30px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.09)]">
+                  <span className="absolute right-6 top-5 select-none font-serif text-[2.5rem] font-semibold leading-none text-[#e8ddd6]">
+                    02
+                  </span>
+
+                  <p className="pr-12 text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">
+                    Business analysis / AI systems / enterprise modernization
+                  </p>
+
+                  <h3 className="mt-3 pr-12 font-serif text-[1.35rem] font-semibold leading-snug text-[#1f1a18]">
+                    Bank of America — Global Technology
+                  </h3>
+
+                  <p className="mt-4 text-[0.9rem] leading-7 text-[#4d413b]">
+                    Worked across three AI-focused projects spanning legacy
+                    modernization, Business Analyst workflows, and employee onboarding.
+                  </p>
+
+                  <div className="mt-5 rounded-[18px] border border-black/5 bg-[#fffaf6] p-4">
+                    <div className="grid grid-cols-3 gap-2 text-center">
+                      <div>
+                        <p className="font-serif text-[1.15rem] font-semibold text-[#1f1a18]">
+                          600+
+                        </p>
+                        <p className="mt-1 text-[0.58rem] uppercase tracking-[0.14em] text-[#a89d96]">
+                          files
+                        </p>
+                      </div>
+
+                      <div className="border-x border-black/5">
+                        <p className="font-serif text-[1.15rem] font-semibold text-[#1f1a18]">
+                          15
+                        </p>
+                        <p className="mt-1 text-[0.58rem] uppercase tracking-[0.14em] text-[#a89d96]">
+                          BA interviews
+                        </p>
+                      </div>
+
+                      <div>
+                        <p className="font-serif text-[1.15rem] font-semibold text-[#1f1a18]">
+                          01
+                        </p>
+                        <p className="mt-1 text-[0.58rem] uppercase tracking-[0.14em] text-[#a89d96]">
+                          patent filing
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <p className="mt-5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75]">
+                    ✦ 2 projects transitioned for continued development
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {[
+                      "AI agents",
+                      "systems thinking",
+                      "user research",
+                      "enterprise AI",
+                    ].map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <p className="mt-5 text-[0.68rem] uppercase tracking-[0.28em] text-[#c8bdb2] transition group-hover:text-[#7c7068]">
+                    explore the work →
+                  </p>
                 </article>
-              ))}
+              </a>
+
+              {/* ANQCLIC */}
+              <a
+                href="/work/anqclic"
+                className="reveal-item group block"
+                data-delay={200}
+              >
+                <article className="relative h-full overflow-hidden rounded-[30px] border border-black/5 bg-white/62 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.045)] transition-all duration-300 hover:-translate-y-1 hover:bg-white/75 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)]">
+                  <span className="absolute right-6 top-5 select-none font-serif text-[2.5rem] font-semibold leading-none text-[#ede5df]">
+                    03
+                  </span>
+
+                  <p className="pr-12 text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">
+                    Creative / storytelling / platform growth
+                  </p>
+
+                  <h3 className="mt-3 pr-12 font-serif text-[1.3rem] font-semibold leading-snug text-[#1f1a18]">
+                    Anqclic — Creative Archive
+                  </h3>
+
+                  <p className="mt-4 text-[0.9rem] leading-7 text-[#4d413b]">
+                    A decade-long video editing practice that grew from fandom edits
+                    into a digital platform with 5,000+ followers, 630K+ views,
+                    116K+ likes, and a brand partnership with Funimate.
+                  </p>
+
+                  <p className="mt-4 text-[0.72rem] uppercase tracking-[0.2em] text-[#a89d96]">
+                    ✦ 10+ years editing · 630K+ views · 116K+ likes
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {[
+                      "video editing",
+                      "storytelling",
+                      "audience strategy",
+                      "brand partnership",
+                    ].map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <p className="mt-5 text-[0.68rem] uppercase tracking-[0.28em] text-[#c8bdb2] transition group-hover:text-[#7c7068]">
+                    view archive →
+                  </p>
+                </article>
+              </a>
             </div>
           </div>
         </section>
 
-        <MarqueeTicker />
+            <MarqueeTicker />
 
         {/* ABOUT */}
         <section id="about" className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-10">
