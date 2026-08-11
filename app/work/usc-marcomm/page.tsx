@@ -117,10 +117,15 @@ export default function USCMarCommPage() {
   useReveal();
 
   const navLinks = [
-    { label: "Work",    href: "/work" },
-    { label: "About",   href: "/about" },
-    { label: "Resume",  href: "/resume" },
+    { label: "Work", href: "/work" },
+    { label: "About", href: "/about" },
+    { label: "Resume", href: "/resume" },
     { label: "Contact", href: "/contact" },
+    {
+      label: "LinkedIn ↗",
+      href: "https://linkedin.com/in/vanessa-g-gonzalez",
+      external: true,
+    },
   ];
 
   return (
