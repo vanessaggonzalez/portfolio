@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 
 function useReveal() {
   useEffect(() => {
@@ -23,28 +23,29 @@ function useReveal() {
   }, []);
 }
 
-const RESUME_FILE_ID = "1P-3PXeIT3ytRu82no42MjeEPNBx_0KVf";
+// Drive ID from updated link
+const RESUME_FILE_ID = "17g0oVao4KjBlYx_6EWgEKClY48EI9o-6";
 const RESUME_EMBED_URL = `https://drive.google.com/file/d/${RESUME_FILE_ID}/preview`;
 const RESUME_DOWNLOAD_URL = `https://drive.google.com/uc?export=download&id=${RESUME_FILE_ID}`;
 const RESUME_VIEW_URL = `https://drive.google.com/file/d/${RESUME_FILE_ID}/view?usp=sharing`;
 
 const highlights = [
   { value: "USC", label: "CS + Business · May 2027" },
-  { value: "BofA", label: "Global Technology · Summer 2026" },
+  { value: "BofA", label: "Global Tech Return Offer" },
   { value: "600+", label: "legacy files analyzed" },
-  { value: "630K+", label: "creative views built from scratch" },
+  { value: "630K+", label: "organic views built from scratch" },
 ];
 
 const skills = [
   {
     category: "Product & Strategy",
     items: [
-      "Business analysis",
+      "Product discovery",
       "User research",
-      "Product strategy",
-      "Process improvement",
+      "Backlog prioritization",
+      "User journey mapping",
       "A/B testing",
-      "Analytics",
+      "GTM analytics",
     ],
   },
   {
@@ -54,10 +55,10 @@ const skills = [
       "Copilot Studio",
       "Next.js",
       "React",
-      "HTML / CSS",
-      "JavaScript",
       "Python",
+      "Java",
       "C++",
+      "HTML / CSS",
     ],
   },
   {
@@ -66,9 +67,9 @@ const skills = [
       "Figma",
       "Adobe After Effects",
       "Photoshop",
+      "Premiere Pro",
       "Media Encoder",
       "Canva",
-      "Typography",
     ],
   },
   {
@@ -81,7 +82,7 @@ const skills = [
       "Google Analytics",
       "Slate",
       "Campaign Monitor",
-      "Canvas LMS",
+      "Salesforce",
     ],
   },
 ];
@@ -116,7 +117,7 @@ export default function ResumePage() {
             {/* NAV */}
             <header className="flex items-center justify-between gap-4 text-sm tracking-[0.22em] uppercase text-[#5f554f]">
               <Link href="/" className="text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068] transition hover:text-[#201c1a]">
-                ← back
+                ← back home
               </Link>
               <nav className="flex flex-wrap justify-end gap-4 sm:gap-6">
                 {navLinks.map((link) => (
@@ -136,12 +137,9 @@ export default function ResumePage() {
                 The one-pager.
               </h1>
               <p className="mt-5 text-[1.02rem] leading-8 text-[#4d413b]">
-                USC CS + Business, graduating May 2027. I spent this summer in Bank of
-                America's Global Technology program, working across AI systems, business
-                analysis, and legacy modernization. Outside of that, my experience spans
-                product thinking, marketing strategy, creative technology, and a decade of
-                digital storytelling. The one-page version is below.
+                USC CS + Business senior graduating May 2027 with a full-time return offer from Bank of America Global Technology. My experience spans AI product discovery, legacy system modernization, web operations, team leadership, and a decade of independent video production.
               </p>
+
               {/* CTA BUTTONS */}
               <div className="mt-6 flex flex-wrap gap-3">
                 <a
@@ -203,7 +201,7 @@ export default function ResumePage() {
             {/* DIVIDER */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              the full thing
+              the full document
             </div>
 
             {/* PDF EMBED */}
@@ -220,7 +218,7 @@ export default function ResumePage() {
                 />
               </div>
               <p className="mt-3 text-center text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">
-                vanessa gonzalez · resume · 2026
+                vanessa gonzalez · official resume
               </p>
             </div>
 

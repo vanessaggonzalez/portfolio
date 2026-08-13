@@ -1,7 +1,7 @@
 "use client";
 
 import Link from "next/link";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState } from "react";
 
 function useReveal() {
   useEffect(() => {
@@ -109,7 +109,7 @@ function usePosters(items: { title: string; note: string; type: "movie" | "tv" }
       setPosters(results);
     }
     fetchAll();
-  }, []);
+  }, [items]);
   return posters;
 }
 
@@ -126,7 +126,6 @@ const ships = [
     from: "Harry Potter",
     note: "the original. always.",
     isOG: true,
-    // drop your 3 image paths/URLs here:
     images: [
       "/images/ships/ronhermione1.jpg",
       "/images/ships/ronhermione2.jpg",
@@ -198,17 +197,12 @@ const films = [
 ];
 
 const watchingShows = [
-  { title: "Harry Potter", note: "full rewatch, in progress", type: "movie" as const },
-  { title: "New Girl", note: "first watch with my boyfriend", type: "tv" as const },
-  { title: "Gossip Girl", note: "comfort rewatch", type: "tv" as const },
+  { title: "Gossip Girl", note: "comfort show #1 forever", type: "tv" as const },
+  { title: "The O.C.", note: "active rewatch era", type: "tv" as const },
+  { title: "New Girl", note: "watching with my boyfriend", type: "tv" as const },
   { title: "Brooklyn Nine-Nine", note: "Jake & Amy agenda", type: "tv" as const },
-  { title: "The Vampire Diaries", note: "the yearly return", type: "tv" as const },
 ];
 
-// Personal memory wall — concerts + milestones, doesn't need a rewrite every semester.
-// upcoming: true bumps it to the front with the dark dot + "upcoming" pill.
-// kind: short tag shown for non-upcoming entries ("concert" / "milestone" / etc).
-// subtitle: optional secondary line (tour name, etc) — omit if not needed.
 const memoryLog = [
   {
     title: "The Neighbourhood",
@@ -227,11 +221,19 @@ const memoryLog = [
     upcoming: false,
   },
   {
-    title: "Texas",
-    subtitle: "BofA Global Technology",
+    title: "Dallas, Texas",
+    subtitle: "BofA Global Technology Base",
     kind: "work",
     date: "Summer 2026",
     note: "three projects, a lot of AI, and a very different kind of learning",
+    upcoming: false,
+  },
+  {
+    title: "New York City",
+    subtitle: "BofA National Intern Orientation",
+    kind: "milestone",
+    date: "June 2026",
+    note: "kicked off the summer in NYC before heading to Texas",
     upcoming: false,
   },
   {
@@ -263,39 +265,7 @@ const memoryLog = [
     subtitle: "Clancy Breach Tour",
     kind: "concert",
     date: "Oct 24 + 25, 2025",
-    note: "BMO Stadium, LA — also bandito, emotional roadshow, clancy tour",
-    upcoming: false,
-  },
-  {
-    title: "The Neighbourhood",
-    subtitle: "secret popup show",
-    kind: "concert",
-    date: "Nov 2025",
-    note: "also saw them Oct 2021",
-    upcoming: false,
-  },
-  {
-    title: "Tame Impala",
-    subtitle: "",
-    kind: "concert",
-    date: "Nov 2025",
-    note: "also saw them Nov 2021",
-    upcoming: false,
-  },
-  {
-    title: "Lorde",
-    subtitle: "",
-    kind: "concert",
-    date: "Nov 2025",
-    note: "also saw her May 2021",
-    upcoming: false,
-  },
-  {
-    title: "Cage the Elephant",
-    subtitle: "",
-    kind: "concert",
-    date: "Jul 2024",
-    note: "trouble era",
+    note: "BMO Stadium, LA",
     upcoming: false,
   },
 ];
@@ -314,7 +284,7 @@ const coreArtists = [
 
 const makingItems = [
   { title: "personal archive", note: "turning this site into a scrapbook" },
-  { title: "this website", note: "where I've been" },
+  { title: "this website", note: "built with next.js + react" },
 ];
 
 const smallFacts = [
@@ -327,15 +297,12 @@ const smallFacts = [
   "ron & hermione are my favorite depiction of romance",
   "anqclic = misspelling of angelic, intentionally",
   "The Neighbourhood in november and december!!",
-  "currently mid Harry Potter rewatch",
+  "rewatching the o.c. & new girl",
   "mean girls is my comfort movie (genuinely)",
   "vinyl > any other form of streaming",
   "i organize memories like playlists",
-  "ive seen twenty one pilots more than any other artist",
 ];
 
-// ── SHIP CARD (polaroid stack) ────────────────────────────────────────────────
-// Fallback palette colours shown when an image path is still empty.
 const shipPalettes: [string, string][] = [
   ["#2a1f3d", "#3d2520"],
   ["#1a2a1f", "#1c1a2a"],
@@ -355,12 +322,10 @@ function ShipCard({ ship, index }: { ship: typeof ships[0]; index: number }) {
 
   return (
     <div className="flex flex-col gap-2">
-      {/* Poster — same aspect ratio + shape as PosterCard */}
       <div
         className="group relative overflow-hidden rounded-[14px] border border-black/5 shadow-[0_10px_28px_rgba(68,44,29,0.07)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(68,44,29,0.12)]"
         style={{ aspectRatio: "2/3", background: `linear-gradient(160deg, ${palette[0]}, ${palette[1]})` }}
       >
-        {/* Images */}
         {ship.images.map((src, i) => (
           <img
             key={i}
@@ -372,14 +337,12 @@ function ShipCard({ ship, index }: { ship: typeof ships[0]; index: number }) {
           />
         ))}
 
-        {/* Fallback label shown when no image loaded */}
         <div className="absolute inset-0 flex items-end p-2 pointer-events-none">
           <span className="text-[0.5rem] uppercase tracking-[0.12em] text-white/30 leading-tight">
             {ship.pair.slice(0, 14)}
           </span>
         </div>
 
-        {/* Prev / Next — visible on hover */}
         {total > 1 && (
           <>
             <button
@@ -399,7 +362,6 @@ function ShipCard({ ship, index }: { ship: typeof ships[0]; index: number }) {
           </>
         )}
 
-        {/* Dots */}
         {total > 1 && (
           <div className="absolute bottom-1.5 left-1/2 flex -translate-x-1/2 gap-1 z-10">
             {ship.images.map((_, i) => (
@@ -418,7 +380,6 @@ function ShipCard({ ship, index }: { ship: typeof ships[0]; index: number }) {
         )}
       </div>
 
-      {/* Text below — same style as PosterCard */}
       <p className="text-center text-[0.72rem] font-medium leading-tight text-[#1f1a18]">
         {ship.pair}
         {ship.isOG && (
@@ -433,7 +394,6 @@ function ShipCard({ ship, index }: { ship: typeof ships[0]; index: number }) {
   );
 }
 
-// ── POSTER CARD ───────────────────────────────────────────────────────────────
 const posterFallbacks = ["#e8d5c4", "#d4c4b8", "#c8b8ac", "#ddd0c6", "#e2d4ca"];
 
 function PosterCard({
@@ -446,7 +406,6 @@ function PosterCard({
   note: string;
   poster: string;
   index: number;
-  size?: "film" | "tv";
 }) {
   const [loaded, setLoaded] = useState(false);
   const bg = posterFallbacks[index % posterFallbacks.length];
@@ -473,12 +432,11 @@ function PosterCard({
         )}
       </div>
       <p className="text-center text-[0.72rem] font-medium leading-tight text-[#1f1a18]">{title}</p>
-      <p className="text-center text-[0.6rem] uppercase tracking-[0.16em] text-[#a89d96]">{note}</p>
+      {note && <p className="text-center text-[0.6rem] uppercase tracking-[0.16em] text-[#a89d96]">{note}</p>}
     </div>
   );
 }
 
-// ── MEMORY CARD (timeline) ────────────────────────────────────────────────────
 function MemoryCard({ item }: { item: typeof memoryLog[0] }) {
   return (
     <div
@@ -499,7 +457,6 @@ function MemoryCard({ item }: { item: typeof memoryLog[0] }) {
   );
 }
 
-// ── PAGE ──────────────────────────────────────────────────────────────────────
 export default function AboutPage() {
   useReveal();
   const { tracks, topArtist } = useLastFm();
@@ -530,7 +487,7 @@ export default function AboutPage() {
 
             {/* NAV */}
             <header className="flex items-center justify-between gap-4 text-sm tracking-[0.22em] uppercase text-[#5f554f]">
-              <Link href="/" className="text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068] transition hover:text-[#201c1a]">← back</Link>
+              <Link href="/" className="text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068] transition hover:text-[#201c1a]">← back home</Link>
               <nav className="flex flex-wrap justify-end gap-4 sm:gap-6">
                 {navLinks.map((link) => (
                   <Link key={link.label} href={link.href} className="transition hover:text-[#201c1a]">{link.label}</Link>
@@ -546,10 +503,10 @@ export default function AboutPage() {
                   built from edits, ships, and things that feel collectible.
                 </h1>
                 <p className="mt-6 max-w-lg text-[1.02rem] leading-8 text-[#4d413b]">
-                  I'm Vanessa, a USC CS + Business student from the 626, and someone who has always had an eye for beautiful things even without the means to have them growing up. I've been making edits since I was 10, falling for ships since before I knew what a ship was, and collecting moments ever since. This summer, that same curiosity took me from Texas to New Jersey through Bank of America's Global Technology program — where I built AI workflows, worked through a legacy mainframe system, interviewed Business Analysts, and eventually flew out to present my project to Wealth Management Technology.
+                  I'm Vanessa, an LA native and USC senior studying Computer Science and Business Administration with a pending full-time return offer from Bank of America Global Technology. I'm fascinated by consumer behavior, digital fandom, and why people build emotional connections to products, stories, and visual media.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-2 text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                  {["USC CS + Business", "626 → LA", "BofA alum", "editor since 2015", "anqclic"].map((tag) => (
+                  {["USC CS + Business", "626 → LA", "BofA Return Offer", "Editor Since 2015", "Product & GTM"].map((tag) => (
                     <span key={tag} className="rounded-full border border-black/5 bg-white/70 px-3 py-1">{tag}</span>
                   ))}
                 </div>
@@ -577,30 +534,17 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* mobile photos */}
-            <div className="reveal-item mt-6 flex gap-3 overflow-x-auto pb-2 lg:hidden" data-delay={40} style={{ scrollbarWidth: "none" }}>
-              {myPhotos.map((photo, i) => (
-                <div
-                  key={photo.src}
-                  className="relative shrink-0 overflow-hidden rounded-[18px] border border-black/6 shadow-[0_12px_32px_rgba(45,29,18,0.10)]"
-                  style={{ width: "160px", height: "220px", transform: i % 2 === 0 ? "rotate(-1.5deg)" : "rotate(1.5deg)" }}
-                >
-                  <img src={photo.src} alt={photo.alt} className="h-full w-full object-cover object-top" />
-                </div>
-              ))}
-            </div>
-
             {/* PULL QUOTE */}
             <div className="reveal-item my-10 overflow-hidden rounded-[28px] border border-black/5 bg-white/72 px-8 py-8 shadow-[0_18px_50px_rgba(68,44,29,0.06)] sm:px-10 rotate-[-0.4deg]" data-delay={80}>
               <p className="font-serif text-[1.5rem] font-semibold italic leading-9 text-[#342d29] sm:text-[1.75rem]">
                 "we accept the love we think we deserve."
               </p>
               <p className="mt-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                perks of being a wallflower — the film that changed my life
+                perks of being a wallflower — the film that opened my eyes
               </p>
             </div>
 
-            {/* ORIGIN + TASTE + CODING */}
+            {/* ORIGIN + ENTERTAINMENT MOTIVATION */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
               how i got here
@@ -615,8 +559,8 @@ export default function AboutPage() {
                   <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">It started with a free app and Harry Potter</h2>
                   <div className="my-4 h-px bg-black/5" />
                   <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">I was 10. I saw a fan edit on Vine and knew immediately I needed to learn how to do that.</p>
-                  <p className="text-[0.88rem] leading-7 text-[#5e5048]">Started on Video Star because it was free. Harry Potter, Selena, Twenty One Pilots. In 2018 I saved up for a MacBook and begged my mom for After Effects; growing up without a lot, that felt enormous. That account became anqclic, a misspelling of angelic, because I wanted to make things that were beautiful.</p>
-                  <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">That same instinct eventually followed me into more technical spaces — from building websites to studying computer science, and most recently into Global Technology at Bank of America, where I found myself applying that curiosity to legacy systems and AI workflows.</p>
+                  <p className="text-[0.88rem] leading-7 text-[#5e5048]">Started on Video Star because it was free. In 2018, I saved up for a MacBook Pro and got After Effects. That editing account became anqclic, generating 630K+ views and teaching me everything I know about pacing, typography, and audience drop-off.</p>
+                  <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">That curiosity eventually led me to study Computer Science and Business Administration at USC, bridging my technical analytical background with my creative instincts for digital culture.</p>
                 </div>
                 <div className="hidden lg:flex flex-col gap-2">
                   {[
@@ -635,17 +579,17 @@ export default function AboutPage() {
               </div>
             </div>
 
-            {/* AESTHETIC + WHAT I CARE ABOUT */}
+            {/* AESTHETIC + ENTERTAINMENT INTEREST */}
             <div className="mt-4 grid gap-4 lg:grid-cols-2">
               <div className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden" data-delay={0}>
                 <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[5rem] font-semibold leading-none text-black/[0.025]">02</span>
-                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">my aesthetic</p>
-                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">Daisy in Gatsby's mansion</h2>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">why entertainment tech</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">The intersection of tech, fandom, and media</h2>
                 <div className="my-4 h-px bg-black/5" />
-                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">Looking up at the ceiling, enamored by the beauty around her.</p>
-                <p className="text-[0.88rem] leading-7 text-[#5e5048]">I've always had an eye for the luxurious and editorial, things made with intention, even when I didn't have access to them growing up. That hunger is what made me an editor.</p>
+                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">Entertainment isn't just content—it's how modern communities form identity.</p>
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">Growing up in Los Angeles, I’ve always been drawn to the entertainment ecosystem. I want to build at the intersection of creative tech, digital marketing, and product strategy—creating platforms, features, and campaigns that make users feel deeply connected to the stories they love.</p>
                 <div className="mt-5 flex flex-wrap gap-2">
-                  {["lana del rey", "baz luhrmann", "lace details", "editorial campaigns", "selena's revival era"].map((t) => (
+                  {["product strategy", "digital fandom", "creative tech", "la ecosystem", "gtm analytics"].map((t) => (
                     <span key={t} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]">{t}</span>
                   ))}
                 </div>
@@ -653,26 +597,25 @@ export default function AboutPage() {
 
               <div className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden" data-delay={80}>
                 <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[5rem] font-semibold leading-none text-black/[0.025]">03</span>
-                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">what I actually care about</p>
-                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">The details most people skip past</h2>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">my aesthetic</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">Intentionality in the details</h2>
                 <div className="my-4 h-px bg-black/5" />
-                <div className="flex flex-wrap gap-2 mb-4">
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">I appreciate editorial campaigns, thoughtful typography, and interfaces built with real care. Whether I'm building a multi-agent AI system or keyframing an edit in After Effects, my goal is always to make complex work feel obvious and collectible.</p>
+                <div className="mt-5 flex flex-wrap gap-2">
                   {[
-                    "why people keep coming back",
-                    "storytelling that feels seen",
-                    "the half-second before a cut",
-                    "fashion as documentation",
-                    "love in its fictional forms",
-                    "things made with intention",
+                    "lana del rey",
+                    "baz luhrmann",
+                    "editorial campaigns",
+                    "selena's revival era",
+                    "lace details",
                   ].map((t) => (
                     <span key={t} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]">{t}</span>
                   ))}
                 </div>
-                <p className="text-[0.88rem] leading-7 text-[#5e5048]">The systems behind emotional attachment. The details that make someone return to a story, a product, an experience. That's the space I want to keep building in.</p>
               </div>
             </div>
 
-            {/* CODING */}
+            {/* CODING STORY */}
             <div className="reveal-item mt-4 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden" data-delay={60}>
               <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[5rem] font-semibold leading-none text-black/[0.025]">04</span>
               <div className="grid gap-6 lg:grid-cols-[auto_1fr]">
@@ -683,32 +626,21 @@ export default function AboutPage() {
                   &lt;/&gt;
                 </div>
                 <div>
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">the other side of the brain</p>
+                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">the early builder</p>
                   <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">
                     My first app is still online
                   </h2>
                   <div className="my-4 h-px bg-black/5" />
                   <p className="text-[0.88rem] leading-7 text-[#5e5048]">
-                    I built this in high school on Code.org: a Taylor Swift song quiz that asked a series of questions and matched you with a song. Looking back, the logic is basically a mountain of if and else if statements because my friend and I wanted every possible answer combination to have its own song. It's definitely not the most sophisticated code I've ever written, but it was the first time programming felt creative instead of intimidating. I still keep it around because it reminds me where all of this started.
+                    I built this in high school on Code.org: a Taylor Swift song quiz that matched your answers to a song. Looking back, the logic is a giant mountain of nested if-else statements, but it was the first time programming felt creative instead of intimidating. I keep it around as a reminder of where my CS path started.
                   </p>
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {["high school", "Code.org", "first project", "creative coding", "still live"].map((t) => (
-                      <span
-                        key={t}
-                        className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]"
-                      >
-                        {t}
-                      </span>
-                    ))}
-                  </div>
-
                   <a
                     href="https://studio.code.org/projects/applab/UjzuxRowfB3RcT0DDziGpsX4uci2CGe7ZdsjWtmwuvY"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="mt-5 inline-flex items-center gap-2 rounded-full border border-black/10 bg-white/70 px-4 py-2 text-[0.68rem] uppercase tracking-[0.18em] text-[#5f554f] transition hover:-translate-y-0.5 hover:text-[#201c1a] hover:bg-white"
                   >
-                    play the original ↗
+                    play the original quiz ↗
                   </a>
                 </div>
               </div>
@@ -722,13 +654,13 @@ export default function AboutPage() {
 
             <div className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={0}>
               <p className="mb-6 text-[0.72rem] uppercase tracking-[0.28em] text-[#a89d96]">letterboxd top 4 · in order</p>
-              <div className="grid grid-cols-5 gap-4 sm:gap-6">
+              <div className="grid grid-cols-2 gap-4 sm:grid-cols-4">
                 {filmPosters.map((film, i) => (
                   <PosterCard key={film.title} title={film.title} note={film.note} poster={film.poster} index={i} />
                 ))}
               </div>
               <p className="mt-6 text-[0.78rem] leading-7 text-[#5e5048]">
-                Baz Luhrmann's color world, Greta Gerwig's warmth, Tarantino's LA — films that feel like they were made for people who notice everything. Mean Girls is my comfort movie. I've seen it more times than I can count.
+                Baz Luhrmann's color world, Greta Gerwig's warmth, Tarantino's LA—films made for people who notice details. Mean Girls is my comfort movie; I've lost count of how many times I've rewatched it.
               </p>
             </div>
 
@@ -740,7 +672,7 @@ export default function AboutPage() {
 
             <div className="reveal-item" data-delay={0}>
               <p className="mb-6 max-w-lg text-[0.88rem] leading-7 text-[#4d413b]">
-                I will watch an entire series for a ship. I love love — the slow burn, the tension, the tiny moments before everything clicks. Here are the ones that live in me permanently.
+                I will watch an entire series for a ship. I love the slow burn, the character dynamics, and the storytelling tension. Here are the ones that live in my head permanently.
               </p>
               <div className="grid grid-cols-3 gap-4 sm:grid-cols-6">
                 {ships.map((ship, i) => (
@@ -760,13 +692,13 @@ export default function AboutPage() {
               {/* WATCHING */}
               <div className="reveal-item rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={0}>
                 <p className="mb-5 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">watching</p>
-                <div className="grid grid-cols-3 gap-3 mb-4">
-                  {showPosters.slice(0, 3).map((show, i) => (
+                <div className="grid grid-cols-2 gap-3 mb-4">
+                  {showPosters.slice(0, 2).map((show, i) => (
                     <PosterCard key={show.title} title={show.title} note="" poster={show.poster} index={i} />
                   ))}
                 </div>
                 <div className="flex flex-col gap-2">
-                  {showPosters.map((show, i) => (
+                  {showPosters.map((show) => (
                     <div key={show.title} className="flex items-center gap-2 py-1">
                       <div className="h-1.5 w-1.5 shrink-0 rounded-full bg-[#c8bdb2]" />
                       <div className="min-w-0">
@@ -856,7 +788,7 @@ export default function AboutPage() {
 
             </div>
 
-            {/* MEMORY LOG — full-width horizontal timeline */}
+            {/* MEMORY LOG */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
               memory log
@@ -864,10 +796,9 @@ export default function AboutPage() {
 
             <div className="reveal-item" data-delay={0}>
               <p className="mb-5 max-w-lg text-[0.85rem] leading-7 text-[#4d413b]">
-                concerts, trips, and the small milestones that ended up mattering more than I expected.
+                concerts, trips, and small milestones that ended up mattering more than expected.
               </p>
               <div className="relative">
-                {/* connecting line under the cards */}
                 <div className="pointer-events-none absolute left-0 right-0 top-[2.6rem] h-px bg-black/5" />
                 <div
                   className="flex gap-4 overflow-x-auto pb-3"
@@ -902,14 +833,14 @@ export default function AboutPage() {
             <div className="reveal-item mt-10 overflow-hidden rounded-[28px] border border-black/5 bg-white/72 p-8 shadow-[0_18px_50px_rgba(68,44,29,0.06)] rotate-[0.3deg]" data-delay={60}>
               <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">a little note</p>
               <p className="mt-4 max-w-2xl text-[1rem] leading-8 text-[#4d413b]">
-                I grew up all around the 626, but my dad worked across Los Angeles, so the city always felt like mine too. He passed in December. I think a lot of what drives me, this need to build something that means something, comes from him. I want to contribute to something bigger than myself. I want to keep learning, keep making, and do work that feels intentional. That's the goal. That's always been the goal.
+                I grew up all around the 626, but my dad worked across Los Angeles, so the city always felt like mine too. He passed in December. A lot of what drives me—the desire to build things with intention and leave something meaningful behind—comes from him.
               </p>
               <p className="mt-4 text-xs uppercase tracking-[0.28em] text-[#a89d96]">anqclic / creative archive</p>
             </div>
 
             {/* BOTTOM CTA */}
             <div className="reveal-item mt-10 flex flex-col items-center gap-4 border-t border-black/5 pt-8" data-delay={0}>
-              <p className="text-[0.82rem] uppercase tracking-[0.28em] text-[#7c7068]">want to know more?</p>
+              <p className="text-[0.82rem] uppercase tracking-[0.28em] text-[#7c7068]">want to connect?</p>
               <div className="flex flex-wrap justify-center gap-3">
                 <Link href="/work" className="rounded-full bg-[#201c1a] px-5 py-2.5 text-[0.72rem] uppercase tracking-[0.22em] text-[#f7f1eb] shadow-[0_8px_24px_rgba(32,28,26,0.18)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(32,28,26,0.28)]">see my work →</Link>
                 <Link href="/resume" className="rounded-full border border-black/10 bg-white/72 px-5 py-2.5 text-[0.72rem] uppercase tracking-[0.22em] text-[#5f554f] shadow-[0_8px_24px_rgba(68,44,29,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:text-[#201c1a] hover:shadow-[0_12px_32px_rgba(68,44,29,0.10)]">resume →</Link>
