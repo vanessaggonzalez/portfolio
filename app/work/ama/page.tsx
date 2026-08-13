@@ -24,21 +24,21 @@ function useReveal() {
 }
 
 const tags = [
-  "leadership",
+  "vp of marketing",
+  "team leadership",
+  "30-member org",
+  "client consulting",
   "content strategy",
-  "instagram",
-  "short-form video",
-  "team management",
-  "brand identity",
-  "campaigns",
-  "operations",
+  "instagram growth",
+  "brand ops",
+  "recruitment",
 ];
 
 const stats = [
-  { value: "120K+", label: "views in 60 days" },
-  { value: "47%", label: "increase in accounts reached" },
-  { value: "14,358", label: "accounts reached" },
-  { value: "5", label: "person team led" },
+  { value: "VP", label: "of Marketing & Co-Lead" },
+  { value: "30", label: "active org members" },
+  { value: "03", label: "client & internal tracks" },
+  { value: "120K+", label: "organic views (60 days)" },
 ];
 
 const growth = [
@@ -50,49 +50,49 @@ const growth = [
 
 const teamRoles = [
   {
-    role: "Graphic Design",
-    desc: "Designed all promotional content and shaped AMA's visual identity — GM graphics, branded assets, and consistent Instagram layout.",
-    members: "2 in Fall '25 · 1 in Spring '26",
+    role: "Internal Marketing Track",
+    desc: "Overseeing AMA's primary brand identity, recruitment campaigns, social content, and campus event coverage.",
+    members: "1 Internal PM Team",
   },
   {
-    role: "Media",
-    desc: "Captured photos and video at events like Kickback, Gala, and Retreat — the raw material behind every recap post and reel.",
-    members: "1 in Fall '25 · 2 in Spring '26",
+    role: "Client Consulting Group 01",
+    desc: "Directing student strategy teams on external marketing deliverables and brand partnerships, including client work with butcute.",
+    members: "1 Client Team",
   },
   {
-    role: "Social Content",
-    desc: "Wrote captions, developed reel concepts, and introduced member takeovers to make the feed feel more personal and community-driven.",
-    members: "2 each semester",
+    role: "Client Consulting Group 02",
+    desc: "Managing client outreach and campaign execution for secondary consumer brand collaborations.",
+    members: "1 Client Team",
   },
 ];
 
 const sections = [
   {
-    label: "the role",
-    heading: "Project manager, internal marketing",
-    pull: "My job was less about doing the work myself and more about making sure the right people could do their best work.",
-    body: "AMA USC is one of the most active student orgs at USC. I came in as PM for internal marketing — responsible for everything touching AMA's brand: Instagram, GM graphics, event recaps, the website. I managed a team of five across graphic design, media, and social content across two semesters.",
-    tags: ["leadership", "content strategy", "instagram", "short-form video"],
+    label: "the evolution",
+    heading: "From Internal PM to VP of Marketing",
+    pull: "Building internal content workflows that drove real growth—then taking the helm to scale the entire marketing division.",
+    body: "Started as Project Manager for Internal Marketing, managing a 5-person team across graphic design, media, and social content. Focused on brand consistency and short-form video. Promoted to VP of Marketing, co-leading a 30-member marketing organization divided into internal branding and two external client consulting groups.",
+    tags: ["leadership", "vp role", "content strategy", "brand ops"],
   },
   {
-    label: "fall 2025",
-    heading: "Finding the structure",
-    pull: "Workflows that semester were the whole job. Streamlined handoffs, cleaner comms, fewer things falling through the cracks.",
-    body: "We rebuilt the Figma brand pack after the original got deleted, cleaned up the Instagram (captions, highlights, formatting), and established a weekly rhythm for GM graphics and recaps. Not glamorous, but it made everything downstream easier.",
+    label: "internal pm foundation",
+    heading: "Structuring the Content Engine",
+    pull: "Clean handoffs, standardized Figma brand assets, and a consistent weekly content cadence.",
+    body: "As Internal PM, rebuilt the chapter's Figma design kit, streamlined GM event announcements, and established weekly social content workflows. Shifted focus toward community-focused video content, resulting in 120K+ views within 60 days, 14,358 accounts reached, and a 47% increase in overall account engagement.",
   },
   {
-    label: "spring 2026",
-    heading: "Leaning into short-form",
-    pull: "The goal: less polished-announcement-account, more actual community.",
-    body: "We went from 1 reel in fall to 4 in spring, added 6 dump posts, grew stories from 72 to 96. Introduced member takeovers, covered Gala and Retreat, and started tracking metrics. The result: 120K+ views in 60 days, 14,358 accounts reached, 47% increase from the prior period.",
+    label: "vp leadership",
+    heading: "Scaling Teams & Client Engagements",
+    pull: "Co-leading 30 members, managing recruitment, and directing both internal brand and client strategy teams.",
+    body: "As VP of Marketing, co-manage executive operations for the division—overseeing recruitment, member placement, and strategic direction across three teams: one internal branding group and two external client project teams (including client collaborations with brands like butcute).",
   },
   {
-    label: "what's next",
-    heading: "Incoming VP of Marketing",
-    stat: "VP",
-    statLabel: "of Marketing · next semester",
-    body: "A lot of what I built as PM — the workflows, the content rhythms, the team culture — I get to carry forward at a higher level. What I'm most excited about is pushing the creative bar further. We proved we can hit the numbers. Now I want to make content people actually care about.",
-    stamp: "AMA USC · Fall 25 to Spring 26",
+    label: "leadership takeaways",
+    heading: "Building Culture & Creative Authority",
+    stat: "30",
+    statLabel: "members co-managed",
+    body: "Leadership in student organizations is about setting clear creative direction and building systems where members can execute confidently. Moving from hands-on PM work to executive division management reinforced how to scale quality without micromanaging.",
+    stamp: "AMA USC · Internal PM to VP of Marketing",
   },
 ];
 
@@ -111,7 +111,6 @@ export default function AMAPage() {
     },
   ];
 
-  // Google Slides embed URLs (using /embed instead of /edit)
   const fall2025Embed = "https://docs.google.com/presentation/d/1papHnsv3kCHD2-InhZBpUl5sQwaGRkLLhkwzgTNHzo4/embed?start=false&loop=false&delayms=3000";
   const spring2026Embed = "https://docs.google.com/presentation/d/11KYnDoGkceYtF8tPn1Vrx6AC6VZ-MJzmkavsYSlDf4A/embed?start=false&loop=false&delayms=3000";
 
@@ -144,19 +143,19 @@ export default function AMAPage() {
             {/* TITLE BLOCK */}
             <div className="reveal-item mt-10 max-w-3xl" data-delay={0}>
               <p className="text-[0.72rem] uppercase tracking-[0.35em] text-[#7c7068]">
-                03 · experience · american marketing association at USC
+                04 · experience · american marketing association at USC
               </p>
               <h1 className="mt-4 font-serif text-[2.4rem] font-semibold leading-tight text-[#1f1a18] sm:text-[3rem]">
                 American Marketing Association
               </h1>
               <p className="mt-3 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                Leadership / content / strategy
+                VP of Marketing / Team Leadership / Client Strategy
               </p>
               <p className="mt-5 max-w-xl text-[1rem] leading-8 text-[#4d413b]">
-                Project manager for AMA USC's internal marketing team — leading a five-person team across graphic design, media, and social content to build and maintain the chapter's brand presence across two semesters.
+                Co-leading 30 members across internal marketing and client consulting groups. Formerly Internal Marketing PM, overseeing a 5-person team across graphic design, media, and short-form video.
               </p>
               <p className="mt-4 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                ✦ Incoming VP of Marketing · Spring 2026
+                ✦ Promoted to VP of Marketing
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {tags.map((tag) => (
@@ -186,7 +185,7 @@ export default function AMAPage() {
             {/* DIVIDER */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              fall '25 → spring '26
+              pm content growth track
             </div>
 
             {/* GROWTH TABLE */}
@@ -208,7 +207,7 @@ export default function AMAPage() {
             {/* DIVIDER */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              the team
+              vp division structure
             </div>
 
             {/* TEAM ROLES */}
@@ -225,12 +224,11 @@ export default function AMAPage() {
             {/* DIVIDER */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              the decks
+              pm portfolio decks
             </div>
 
             {/* SLIDES EMBEDS */}
             <div className="reveal-item space-y-6" data-delay={80}>
-              {/* Fall 2025 */}
               <div>
                 <p className="mb-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">Fall 2025 — semester recap</p>
                 <div className="overflow-hidden rounded-[28px] border border-black/8 shadow-[0_24px_70px_rgba(68,44,29,0.08)]" style={{ aspectRatio: "16/9", width: "100%" }}>
@@ -243,7 +241,6 @@ export default function AMAPage() {
                 </div>
               </div>
 
-              {/* Spring 2026 */}
               <div>
                 <p className="mb-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">Spring 2026 — end-of-semester portfolio</p>
                 <div className="overflow-hidden rounded-[28px] border border-black/8 shadow-[0_24px_70px_rgba(68,44,29,0.08)]" style={{ aspectRatio: "16/9", width: "100%" }}>
@@ -264,11 +261,11 @@ export default function AMAPage() {
             </div>
 
             {/* WRITTEN SECTIONS */}
-            <div className="grid gap-4 lg:grid-cols-2" style={{ gridTemplateRows: "auto auto auto" }}>
+            <div className="grid gap-4 lg:grid-cols-2">
 
-              {/* TALL LEFT — card 0 */}
+              {/* SECTION 01 */}
               <div
-                className="reveal-item row-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
                 data-delay={0}
               >
                 <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">01</span>
@@ -286,7 +283,7 @@ export default function AMAPage() {
                 )}
               </div>
 
-              {/* TOP RIGHT — card 1 */}
+              {/* SECTION 02 */}
               <div
                 className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
                 data-delay={80}
@@ -299,10 +296,10 @@ export default function AMAPage() {
                 <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[1].body}</p>
               </div>
 
-              {/* BOTTOM RIGHT — card 2 */}
+              {/* SECTION 03 */}
               <div
                 className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
-                data-delay={160}
+                data-delay={120}
               >
                 <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">03</span>
                 <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[2].label}</p>
@@ -312,22 +309,17 @@ export default function AMAPage() {
                 <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[2].body}</p>
               </div>
 
-              {/* FULL WIDTH BOTTOM — card 3 (outcome/final) */}
+              {/* SECTION 04 */}
               <div
-                className="reveal-item lg:col-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col sm:flex-row items-start gap-6"
-                data-delay={240}
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
+                data-delay={160}
               >
-                <div className="shrink-0">
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[3].label}</p>
-                  <p className="mt-2 font-serif text-[2.4rem] font-semibold leading-none text-[#1f1a18]">{sections[3].stat}</p>
-                  <p className="mt-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#a89d96]">{sections[3].statLabel}</p>
-                </div>
-                <div className="hidden sm:block w-px self-stretch bg-black/5" />
-                <div className="flex-1">
-                  <h2 className="font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[3].heading}</h2>
-                  <p className="mt-3 text-[0.88rem] leading-7 text-[#5e5048]">{sections[3].body}</p>
-                  <span className="mt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75]">{sections[3].stamp}</span>
-                </div>
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">04</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[3].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[3].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[3].body}</p>
+                <span className="mt-auto pt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75] self-start">{sections[3].stamp}</span>
               </div>
 
             </div>

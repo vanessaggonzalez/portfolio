@@ -60,7 +60,7 @@ const sections = [
     stat: "1st",
     statLabel: "Amazon-sponsored · ProductSC",
     body: "Constraints made it better. Limited time, a platform we didn't work at, an audience we had to understand fast. It confirmed something I already suspected: I want to keep working where emotional behavior and product strategy overlap.",
-    stamp: "case competition · 2024",
+    stamp: "case competition · 2025",
   },
 ];
 

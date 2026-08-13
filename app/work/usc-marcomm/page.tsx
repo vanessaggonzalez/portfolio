@@ -24,35 +24,35 @@ function useReveal() {
 }
 
 const tags = [
-  "digital marketing",
-  "web development",
-  "analytics",
-  "branding",
-  "wordpress",
-  "html / css",
+  "wordpress cms",
+  "web migrations",
+  "email operations",
+  "slate & campaign monitor",
+  "web analytics",
+  "salesforce CRM",
   "content strategy",
-  "campaign management",
+  "data visualization",
 ];
 
 const stats = [
-  { value: "15%", label: "increase in weekly traffic" },
-  { value: "10K+", label: "weekly users reached" },
-  { value: "4", label: "websites maintained" },
-  { value: "1 yr 9 mos", label: "and counting" },
+  { value: "4", label: "core web portals" },
+  { value: "10K+", label: "weekly active users" },
+  { value: "15%", label: "homepage traffic growth" },
+  { value: "2 yrs", label: "experience" },
 ];
 
 const toolGroups = [
   {
     category: "Web & CMS",
-    tools: ["WordPress", "Elementor", "HTML", "CSS"],
+    tools: ["WordPress", "Elementor", "HTML", "CSS", "Site Migrations"],
   },
   {
-    category: "Data & Analytics",
-    tools: ["Google Analytics", "Slate", "Campaign Monitor"],
+    category: "Email & CRM",
+    tools: ["Slate", "Campaign Monitor", "Salesforce (In Progress)"],
   },
   {
-    category: "Marketing",
-    tools: ["Email Campaigns", "Digital Advertising", "SEO", "A/B Testing"],
+    category: "Data & Reporting",
+    tools: ["Google Analytics", "Email Telemetry", "Data Visualization", "SEO Tracking"],
   },
 ];
 
@@ -60,56 +60,56 @@ const websites = [
   {
     name: "USC Undergraduate Admissions",
     href: "https://admission.usc.edu/",
-    desc: "Primary enrollment site — redesigned for mobile responsiveness and accessibility.",
+    desc: "Primary prospective student portal—managed routine content deployments, layout updates, and mobile optimization.",
     stat: "10K+ weekly users",
   },
   {
     name: "USC Graduate Admissions",
     href: "https://gradadm.usc.edu/",
-    desc: "Updated content architecture and improved cross-device rendering.",
-    stat: "Multi-program reach",
+    desc: "Updated page structures, program requirements, and cross-device display consistency.",
+    stat: "Multi-program hub",
   },
   {
-    name: "USC ARR",
+    name: "USC ARR (Registrar)",
     href: "https://arr.usc.edu/",
-    desc: "Maintained and optimized page structure and messaging consistency.",
+    desc: "Executed full web migration from legacy site to align with unified USC enrollment site architecture.",
     stat: "Enrollment-critical",
   },
   {
     name: "USC Financial Aid",
     href: "https://financialaid.usc.edu/",
-    desc: "Improved accessibility and ensured accurate, up-to-date content for prospective students.",
+    desc: "Maintained financial resources, application deadlines, and student aid documentation.",
     stat: "High-traffic resource",
   },
 ];
 
 const sections = [
   {
-    label: "the role",
-    heading: "What I was brought in to do",
-    pull: "Real work from day one — not executing tasks, but thinking through how all the pieces connected.",
-    body: "I joined USC's Marketing Communications team embedded within Undergraduate Admissions, redesigning enrollment websites and managing campaigns that served 10,000+ weekly users. The scope was broader than a typical intern role, and that kind of ownership early shaped how I approach this work now.",
-    tags: ["web", "analytics", "branding", "campaigns"],
+    label: "web operations",
+    heading: "Managing 4 High-Traffic USC Web Portals",
+    pull: "Translating PM requirements into live, accessible web updates across USC's primary enrollment ecosystems.",
+    body: "Work directly with Project Managers to execute site edits, feature updates, and content migrations across four primary web properties: Undergraduate Admissions, Graduate Admissions, Financial Aid, and Academic Records & Registrar (ARR). Recently supported the complete site migration of the new ARR portal to standardize design and navigation with core enrollment sites.",
+    tags: ["wordpress", "site migrations", "html/css", "web maintenance"],
   },
   {
-    label: "the work",
-    heading: "Web, content, and campaigns",
-    pull: "Mobile responsiveness was a consistent focus. A lot of prospective students are on their phones.",
-    body: "I redesigned undergraduate enrollment sites in HTML, CSS, WordPress, and Elementor, improving accessibility and visual experience. On the campaign side, data-informed content contributed to a 15% increase in weekly traffic to the Admissions homepage.",
+    label: "email & CRM ops",
+    heading: "Email Campaign Dispatch & Tracking",
+    pull: "Executing multi-channel prospective student emails while managing CRM system transitions.",
+    body: "Manage end-to-end email campaign logistics using Slate and Campaign Monitor—formatting communications, auditing mailing lists, and executing student dispatches. Currently assisting with the departmental migration to Salesforce to streamline audience segmentation and email automation.",
   },
   {
-    label: "my approach",
-    heading: "Analytics as a creative tool",
-    pull: "I used data as a creative input, not just a report card.",
-    body: "Google Analytics week-over-week to track what was working. Slate and Campaign Monitor to understand open rates and audience behavior. The goal was to let those insights shape the work rather than just validate it after the fact.",
+    label: "analytics & reporting",
+    heading: "Performance Tracking & Data Visualization",
+    pull: "Turning web telemetry and email delivery metrics into visual dashboards for leadership.",
+    body: "Responsible for aggregating site-wide analytics—tracking search rankings, page visits, and referral channels to build clear visual charts for department heads. Simultaneously track email performance metrics (open rates, bounce rates, and delivery errors) to diagnose delivery issues and improve outreach efficiency.",
   },
   {
-    label: "what I took from it",
-    heading: "The habit of intentionality",
+    label: "impact & growth",
+    heading: "Data-Informed Content Strategy",
     stat: "15%",
-    statLabel: "increase in weekly traffic",
-    body: "Good marketing isn't about doing more. It's about doing the right things with enough care that people notice. Every page edit and every analytics dive was practice in that. Working across audiences at USC also taught me how to make messaging feel personal even at scale.",
-    stamp: "USC MarComm · 1 yr 9 mos",
+    statLabel: "increase in homepage traffic",
+    body: "Combining hands-on web management with consistent analytics reporting helped identify drop-off points, contributing to a 15% increase in weekly traffic across Admissions channels. The role balances technical implementation with direct communication strategy for thousands of prospective students.",
+    stamp: "USC MarComm · 2 yrs",
   },
 ];
 
@@ -157,19 +157,19 @@ export default function USCMarCommPage() {
             {/* TITLE BLOCK */}
             <div className="reveal-item mt-10 max-w-3xl" data-delay={0}>
               <p className="text-[0.72rem] uppercase tracking-[0.35em] text-[#7c7068]">
-                02 · experience · university of southern california
+                03 · experience · university of southern california
               </p>
               <h1 className="mt-4 font-serif text-[2.4rem] font-semibold leading-tight text-[#1f1a18] sm:text-[3rem]">
                 USC Marketing Communications
               </h1>
               <p className="mt-3 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                Brand / content / analytics
+                Web Operations / CRM & Email / Data Analytics
               </p>
               <p className="mt-5 max-w-xl text-[1rem] leading-8 text-[#4d413b]">
-                Redesigned undergraduate enrollment websites, managed multimedia campaigns, and used analytics and audience behavior to improve messaging and accessibility for 10,000+ weekly users.
+                Managing WordPress development, email campaign operations (Slate & Campaign Monitor), and web performance reporting across four major USC enrollment and registrar portals serving 10,000+ weekly users.
               </p>
               <p className="mt-4 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                ✦ 15% increase in weekly traffic across digital campaigns
+                ✦ 15% increase in weekly traffic across primary enrollment pages
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {tags.map((tag) => (
@@ -199,7 +199,7 @@ export default function USCMarCommPage() {
             {/* DIVIDER */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              websites
+              managed web portals
             </div>
 
             {/* WEBSITE CARDS */}
@@ -235,7 +235,7 @@ export default function USCMarCommPage() {
             {/* DIVIDER */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              tools & platforms
+              tools & software
             </div>
 
             {/* TOOLS */}
@@ -257,15 +257,15 @@ export default function USCMarCommPage() {
             {/* DIVIDER */}
             <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              the story
+              responsibilities & breakdown
             </div>
 
             {/* WRITTEN SECTIONS */}
-            <div className="grid gap-4 lg:grid-cols-2" style={{ gridTemplateRows: "auto auto auto" }}>
+            <div className="grid gap-4 lg:grid-cols-2">
 
-              {/* TALL LEFT — card 0 */}
+              {/* SECTION 01: WEB OPS */}
               <div
-                className="reveal-item row-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
                 data-delay={0}
               >
                 <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">01</span>
@@ -283,7 +283,7 @@ export default function USCMarCommPage() {
                 )}
               </div>
 
-              {/* TOP RIGHT — card 1 */}
+              {/* SECTION 02: EMAIL & CRM */}
               <div
                 className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
                 data-delay={80}
@@ -296,10 +296,10 @@ export default function USCMarCommPage() {
                 <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[1].body}</p>
               </div>
 
-              {/* BOTTOM RIGHT — card 2 */}
+              {/* SECTION 03: ANALYTICS */}
               <div
                 className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
-                data-delay={160}
+                data-delay={120}
               >
                 <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">03</span>
                 <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[2].label}</p>
@@ -309,34 +309,29 @@ export default function USCMarCommPage() {
                 <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[2].body}</p>
               </div>
 
-              {/* FULL WIDTH BOTTOM — card 3 (outcome/final) */}
+              {/* SECTION 04: OUTCOME */}
               <div
-                className="reveal-item lg:col-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col sm:flex-row items-start gap-6"
-                data-delay={240}
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
+                data-delay={160}
               >
-                <div className="shrink-0">
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[3].label}</p>
-                  <p className="mt-2 font-serif text-[2.4rem] font-semibold leading-none text-[#1f1a18]">{sections[3].stat}</p>
-                  <p className="mt-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#a89d96]">{sections[3].statLabel}</p>
-                </div>
-                <div className="hidden sm:block w-px self-stretch bg-black/5" />
-                <div className="flex-1">
-                  <h2 className="font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[3].heading}</h2>
-                  <p className="mt-3 text-[0.88rem] leading-7 text-[#5e5048]">{sections[3].body}</p>
-                  <span className="mt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75]">{sections[3].stamp}</span>
-                </div>
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">04</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[3].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[3].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[3].body}</p>
+                <span className="mt-auto pt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75] self-start">{sections[3].stamp}</span>
               </div>
 
             </div>
 
             {/* BOTTOM NAV */}
             <div className="reveal-item mt-10 flex items-center justify-between border-t border-black/5 pt-8" data-delay={0}>
-              <Link href="/work" className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]">
+              <Link href="/work/bofa" className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]">
                 <span className="h-px w-4 bg-[#c8bdb2] transition-all duration-200 group-hover:w-6" />
-                all work
+                prev: bank of america
               </Link>
-              <Link href="/work/ama" className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]">
-                next: AMA
+              <Link href="/work/anqclic" className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]">
+                next: anqclic
                 <span className="h-px w-4 bg-[#c8bdb2] transition-all duration-200 group-hover:w-6" />
               </Link>
             </div>

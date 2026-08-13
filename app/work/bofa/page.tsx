@@ -47,7 +47,7 @@ const stats = [
   { value: "03", label: "AI-focused projects" },
   { value: "600+", label: "legacy files analyzed" },
   { value: "15", label: "Business Analysts interviewed" },
-  { value: "01", label: "internal patent filing" },
+  { value: "01", label: "patent pending" },
 ];
 
 const projects = [
@@ -55,39 +55,39 @@ const projects = [
     number: "01",
     label: "legacy modernization",
     title: "5500 Documentation",
-    subtitle: "Understanding a system built long before I arrived.",
+    subtitle: "Automating system discovery across undocumented legacy code.",
     pull:
-      "How do you document hundreds of files when the system itself has become the documentation problem?",
+      "How do you document 600+ mainframe files when the only existing context is a 2010 PowerPoint slide deck?",
     body:
-      "I was given a legacy 401(k) system containing 600+ COBOL files alongside a small set of outdated documentation. The goal was to understand how the system worked, identify its current pain points, and develop a path toward modernization.",
+      "Assigned to a legacy 401(k) mainframe system containing 600+ COBOL and VSAM files with minimal active documentation. Conducted technical analysis to map data flows, identify system dependencies, and establish a framework for enterprise modernization.",
     outcome:
-      "Built an AI documentation agent that analyzes the codebase at both a system level and an individual-file level, surfacing file purpose, relationships, and system behavior while supporting a longer-term modernization roadmap.",
+      "Engineered an AI documentation agent that analyzes the codebase at both system-wide and file-by-file levels, surfacing function logic and dependencies while creating a reusable documentation model for other legacy systems.",
     tags: ["COBOL", "VSAM", "mainframe", "AI documentation"],
   },
   {
     number: "02",
     label: "user research + workflow design",
     title: "Mosaic",
-    subtitle: "Designing AI around the context people actually need.",
+    subtitle: "Designing AI workflows around real Business Analyst pain points.",
     pull:
-      "The problem wasn't that Business Analysts needed more AI. It was that AI didn't know enough about what they were doing.",
+      "The issue wasn't a lack of AI tools—it was that existing AI lacked the contextual knowledge required for BA workflows.",
     body:
-      "Working with two other Business Analyst interns, I helped interview 15 Business Analysts across their day-to-day workflows, including user stories, epics, acceptance criteria, Jira administration, and existing AI usage.",
+      "Collaborated with two Business Analyst interns to conduct 15 semi-structured user research interviews across BA teams. Mapped daily workflows spanning epic creation, user stories, acceptance criteria, and Jira ticket management.",
     outcome:
-      "The research pointed to context as the underlying problem. We co-developed Mosaic, a knowledge-centered AI workflow with specialized agents for codebase documentation, story creation, workflow support, and Jira handoff.",
-    tags: ["15 interviews", "context", "knowledge base", "Jira"],
+      "Identified context loss as the primary friction point and co-developed Mosaic: a multi-agent AI system featuring dedicated tools for codebase parsing, story creation, and direct Jira handoffs. Co-filed an internal patent for the architecture.",
+    tags: ["15 interviews", "user discovery", "multi-agent system", "Jira"],
   },
   {
     number: "03",
     label: "cross-functional codeathon",
-    title: "AI Onboarding",
-    subtitle: "Making team-specific onboarding less overwhelming.",
+    title: "AI Onboarding Agent",
+    subtitle: "Streamlining team-specific developer and analyst onboarding.",
     pull:
-      "New hires shouldn't need to rely on a dozen people to figure out where to start.",
+      "New hires lost days navigating fragmented team documentation and requesting senior staff guidance.",
     body:
-      "For an internal Codeathon, I worked with software engineers, Business Analysts, and finance team members to design a targeted onboarding solution for team-specific new hires.",
+      "Partnered with software engineers, BAs, and finance team members during an internal Codeathon to solve team-level onboarding friction.",
     outcome:
-      "We created the concept and mockups for an onboarding agent in Copilot Studio, designed to give new hires more structured guidance while reducing repetitive onboarding support for managers and senior employees.",
+      "Designed the UX workflow and agent persona for a team-specific Copilot Studio onboarding assistant, reducing repetitive onboarding support requests for senior team members.",
     tags: ["Copilot Studio", "onboarding", "cross-functional", "product design"],
   },
 ];
@@ -95,21 +95,21 @@ const projects = [
 const handoffItems = [
   {
     label: "01",
-    title: "Documentation",
+    title: "Reusable Documentation Model",
     body:
-      "The legacy-system work evolved from a one-off analysis into a more reusable documentation model that can be generalized beyond a single codebase.",
+      "Generalized the 5500 documentation approach from a single-codebase fix into a scalable framework for analyzing other legacy COBOL/mainframe applications.",
   },
   {
     label: "02",
-    title: "Mosaic",
+    title: "Mosaic Handoff & Patent",
     body:
-      "The Mosaic workflow and supporting documentation were prepared for continued use and development after the internship.",
+      "Prepared full system documentation and workflow architecture for Mosaic, resulting in an official internal patent filing (Pending).",
   },
   {
     label: "03",
-    title: "Enablement",
+    title: "BA Enablement & Office Hours",
     body:
-      "I also began hosting office hours so Business Analysts could learn how to use the tools and understand the workflow behind them.",
+      "Hosted weekly office hours to train Business Analysts on effective prompt structure, AI workflow integration, and tool navigation.",
   },
 ];
 
@@ -186,25 +186,19 @@ export default function BofaPage() {
               </h1>
 
               <p className="mt-3 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                Business analysis / AI systems / enterprise modernization
+                Business Analyst Intern — AI Strategy & Product Discovery
               </p>
 
               <p className="mt-5 max-w-2xl text-[1rem] leading-8 text-[#4d413b]">
-                During my Global Technology internship, I worked across three
-                AI-focused projects spanning legacy-system modernization,
-                Business Analyst workflows, and employee onboarding.
+                During my Global Technology internship, I led product discovery and technical analysis across three enterprise AI initiatives: legacy mainframe modernization, BA workflow optimization, and internal employee onboarding.
               </p>
 
               <p className="mt-4 max-w-2xl text-[0.95rem] leading-8 text-[#5e5048]">
-                The work moved between technical investigation, user research,
-                workflow design, and cross-functional product thinking — often
-                starting with an ambiguous problem and ending with something
-                tangible enough for another team to continue.
+                My work connected technical discovery, 15 user research interviews, and multi-agent system design—culminating in an official U.S. Patent filing (Pending) and a full-time Corporate Technology return offer.
               </p>
 
               <p className="mt-4 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                ✦ 600+ files analyzed · 15 BA interviews · patent filing ·
-                internal handoff
+                ✦ 600+ files analyzed · 15 BA interviews · patent pending · return offer received
               </p>
 
               <div className="mt-5 flex flex-wrap gap-2">
@@ -312,28 +306,21 @@ export default function BofaPage() {
                   </p>
 
                   <h2 className="mt-3 font-serif text-[1.45rem] font-semibold leading-snug text-[#1f1a18]">
-                    600+ files. Very little context.
+                    600+ Files. Minimal System Documentation.
                   </h2>
 
                   <div className="my-4 h-px bg-black/5" />
 
                   <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3">
-                    I was handed a legacy 401(k) system built around COBOL,
-                    VSAM files, and mainframe infrastructure — plus a handful
-                    of documents, including a PowerPoint from 2010.
+                    Assigned to analyze a legacy 401(k) system built on COBOL, VSAM files, and mainframe infrastructure—supported only by a single outdated deck from 2010.
                   </p>
 
                   <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">
-                    The assignment was deliberately broad: understand how the
-                    system works, document it, identify current pain points, and
-                    propose a roadmap for modernization.
+                    The objective was to decode system logic, map data relationships across files, identify architectural bottlenecks, and establish a clear technical foundation for modernization.
                   </p>
 
                   <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">
-                    I had never worked with COBOL or mainframe systems before.
-                    That meant the first challenge wasn't simply analyzing the
-                    code — it was figuring out how to make the system legible in
-                    the first place.
+                    With no prior COBOL background, the core challenge was creating an automated, structured process to translate raw legacy code into understandable functional requirements.
                   </p>
                 </div>
 
@@ -346,21 +333,17 @@ export default function BofaPage() {
                   </p>
 
                   <h2 className="mt-3 font-serif text-[1.45rem] font-semibold leading-snug text-[#1f1a18]">
-                    5500 Documentation
+                    5500 AI Documentation Agent
                   </h2>
 
                   <div className="my-4 h-px bg-black/5" />
 
                   <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3">
-                    An AI-powered documentation workflow that reads through
-                    the codebase and creates structure where the source
-                    material doesn't provide enough of it.
+                    An automated AI documentation agent that ingests legacy files and generates structured system documentation where manual records were missing.
                   </p>
 
                   <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">
-                    It analyzes the system at a high level while also drilling
-                    down into the purpose of individual files and how those
-                    files interact with one another.
+                    The system evaluates high-level module architecture down to individual file responsibilities and cross-file dependencies, producing a comprehensive technical system map.
                   </p>
 
                   <div className="mt-5 flex flex-wrap gap-2">
@@ -388,13 +371,12 @@ export default function BofaPage() {
                     </p>
 
                     <h3 className="mt-2 font-serif text-[1.3rem] font-semibold text-[#1f1a18]">
-                      From a codebase to a usable system map
+                      Legacy Analysis Pipeline
                     </h3>
                   </div>
 
                   <p className="max-w-sm text-[0.78rem] leading-6 text-[#8a7d75]">
-                    Conceptualized for the portfolio — no internal code or
-                    proprietary system details shown.
+                    Simplified for portfolio presentation & confidentiality; proprietary system details omitted.
                   </p>
                 </div>
 
@@ -404,10 +386,10 @@ export default function BofaPage() {
                       input
                     </p>
                     <p className="mt-3 font-serif text-[1rem] font-semibold text-[#1f1a18]">
-                      600+ files
+                      600+ Files
                     </p>
                     <p className="mt-2 text-[0.75rem] leading-5 text-[#6b5d55]">
-                      legacy code + docs
+                      COBOL & VSAM codebase
                     </p>
                   </div>
 
@@ -420,10 +402,10 @@ export default function BofaPage() {
                       agent
                     </p>
                     <p className="mt-3 font-serif text-[1rem] font-semibold text-[#1f1a18]">
-                      5500 Documentation
+                      5500 Agent
                     </p>
                     <p className="mt-2 text-[0.75rem] leading-5 text-[#6b5d55]">
-                      parses + synthesizes
+                      parses & synthesizes logic
                     </p>
                   </div>
 
@@ -436,10 +418,10 @@ export default function BofaPage() {
                       outputs
                     </p>
                     <p className="mt-3 font-serif text-[1rem] font-semibold text-[#1f1a18]">
-                      System map
+                      System Map
                     </p>
                     <p className="mt-2 text-[0.75rem] leading-5 text-[#6b5d55]">
-                      overview + file-level detail
+                      file relationships & roadmap
                     </p>
                   </div>
 
@@ -449,7 +431,7 @@ export default function BofaPage() {
                         layer 01
                       </p>
                       <p className="mt-2 text-[0.8rem] font-medium text-[#342d29]">
-                        System overview
+                        System Overview & Logic
                       </p>
                     </div>
 
@@ -458,7 +440,7 @@ export default function BofaPage() {
                         layer 02
                       </p>
                       <p className="mt-2 text-[0.8rem] font-medium text-[#342d29]">
-                        File-level documentation
+                        File-Level Relationships
                       </p>
                     </div>
 
@@ -467,7 +449,7 @@ export default function BofaPage() {
                         layer 03
                       </p>
                       <p className="mt-2 text-[0.8rem] font-medium text-[#342d29]">
-                        Pain points + modernization roadmap
+                        Modernization Roadmap
                       </p>
                     </div>
                   </div>
@@ -480,46 +462,42 @@ export default function BofaPage() {
                 data-delay={240}
               >
                 <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                  what changed in my thinking
+                  scalability & impact
                 </p>
 
                 <h3 className="mt-3 max-w-3xl font-serif text-[1.35rem] font-semibold leading-snug text-[#1f1a18]">
-                  I stopped thinking of it as a one-system solution.
+                  From a single codebase fix to a generalized documentation engine.
                 </h3>
 
                 <p className="mt-4 max-w-3xl text-[0.9rem] leading-7 text-[#5e5048]">
-                  Once the workflow worked for the 5500 system, I started
-                  generalizing the model so the same approach could be applied
-                  to other codebases and documentation sets. The interesting
-                  problem wasn't the specific legacy system anymore — it was
-                  the repeatable pattern underneath it.
+                  After validating the model on the 5500 system, I generalized the architecture so it could be deployed across other enterprise codebases. The resulting framework turned unstructured legacy systems into searchable, documented assets.
                 </p>
 
                 <div className="mt-6 grid gap-3 sm:grid-cols-3">
                   <div className="rounded-[18px] border border-black/5 bg-[#fffaf6] p-4">
                     <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
-                      before
+                      initial state
                     </p>
                     <p className="mt-2 text-[0.8rem] leading-6 text-[#342d29]">
-                      One unfamiliar codebase
+                      Unmapped 600+ COBOL codebase
                     </p>
                   </div>
 
                   <div className="rounded-[18px] border border-black/5 bg-[#fffaf6] p-4">
                     <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
-                      insight
+                      innovation
                     </p>
                     <p className="mt-2 text-[0.8rem] leading-6 text-[#342d29]">
-                      Documentation can be systematized
+                      Systematized AI code-parsing agent
                     </p>
                   </div>
 
                   <div className="rounded-[18px] border border-black/5 bg-[#fffaf6] p-4">
                     <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
-                      after
+                      outcome
                     </p>
                     <p className="mt-2 text-[0.8rem] leading-6 text-[#342d29]">
-                      A reusable documentation model
+                      Reusable enterprise-wide model
                     </p>
                   </div>
                 </div>
@@ -543,17 +521,15 @@ export default function BofaPage() {
                 <div className="grid gap-8 lg:grid-cols-[0.85fr_1.15fr]">
                   <div>
                     <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                      the research question
+                      user research phase
                     </p>
 
                     <h2 className="mt-3 font-serif text-[1.55rem] font-semibold leading-snug text-[#1f1a18]">
-                      How are BAs actually using AI?
+                      Understanding Business Analyst AI Workflows
                     </h2>
 
                     <p className="mt-4 text-[0.9rem] leading-7 text-[#5e5048]">
-                      I worked with two other Business Analyst interns and we
-                      each interviewed roughly five Business Analysts, for 15
-                      interviews total.
+                      Collaborated with two BA interns to conduct 15 in-depth user research interviews across cross-functional Business Analyst teams.
                     </p>
 
                     <div className="mt-5 flex flex-wrap gap-2">
@@ -561,10 +537,10 @@ export default function BofaPage() {
                         15 interviews
                       </span>
                       <span className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-[#7c7068]">
-                        3 interns
+                        3 BA interns
                       </span>
                       <span className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-[#7c7068]">
-                        workflow research
+                        workflow discovery
                       </span>
                     </div>
                   </div>
@@ -572,21 +548,19 @@ export default function BofaPage() {
                   <div className="grid gap-3 sm:grid-cols-2">
                     <div className="rounded-[20px] border border-black/5 bg-[#fffaf6] p-5">
                       <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#a89d96]">
-                        workflow pain points
+                        workflow bottlenecks
                       </p>
                       <p className="mt-3 text-[0.82rem] leading-6 text-[#342d29]">
-                        User stories, epics, acceptance criteria, Jira
-                        administration, and repetitive documentation work.
+                        Manual drafting of user stories, epics, acceptance criteria, Jira tracking, and repetitive documentation.
                       </p>
                     </div>
 
                     <div className="rounded-[20px] border border-black/5 bg-white p-5">
                       <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#a89d96]">
-                        AI pain points
+                        AI tool friction
                       </p>
                       <p className="mt-3 text-[0.82rem] leading-6 text-[#342d29]">
-                        Outputs lacked enough context, forcing BAs to maintain
-                        and refine what AI produced.
+                        Generative outputs lacked project-specific context, forcing BAs to spend excess time editing generated drafts.
                       </p>
                     </div>
                   </div>
@@ -599,22 +573,19 @@ export default function BofaPage() {
                 data-delay={80}
               >
                 <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                  the key insight
+                  core discovery insight
                 </p>
 
                 <p className="mt-4 max-w-4xl font-serif text-[1.8rem] font-semibold leading-tight text-[#1f1a18] sm:text-[2.3rem]">
-                  The problem wasn't a lack of AI.
+                  The problem wasn't a lack of AI tools.
                   <br />
                   <span className="text-[#8a7d75]">
-                    It was a lack of context.
+                    It was a lack of workflow context.
                   </span>
                 </p>
 
                 <p className="mt-5 max-w-3xl text-[0.92rem] leading-7 text-[#5e5048]">
-                  Instead of building isolated agents for every individual
-                  pain point, we focused on the underlying reason the AI wasn't
-                  consistently useful: it didn't know enough about the
-                  environment, workflow, and history surrounding the task.
+                  Instead of building generic standalone AI assistants, we designed a context-aware framework that connects directly into the BA codebase, background documentation, and Jira ticket infrastructure.
                 </p>
               </div>
 
@@ -626,17 +597,16 @@ export default function BofaPage() {
                 <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
                   <div>
                     <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                      the solution
+                      the architecture
                     </p>
 
                     <h3 className="mt-2 font-serif text-[1.35rem] font-semibold text-[#1f1a18]">
-                      Mosaic
+                      Mosaic Multi-Agent System
                     </h3>
                   </div>
 
                   <p className="max-w-sm text-[0.78rem] leading-6 text-[#8a7d75]">
-                    A knowledge-centered workflow with specialized agents
-                    layered around the context BAs actually need.
+                    Simplified workflow model for portfolio presentation; confidential details omitted.
                   </p>
                 </div>
 
@@ -646,7 +616,7 @@ export default function BofaPage() {
                       context layer
                     </p>
                     <p className="mt-2 font-serif text-[1rem] font-semibold text-[#1f1a18]">
-                      Mosaic knowledge base
+                      Mosaic Knowledge Base
                     </p>
                   </div>
 
@@ -656,10 +626,10 @@ export default function BofaPage() {
 
                   <div className="grid gap-3 sm:grid-cols-2 lg:col-span-3">
                     {[
-                      "Codebase scraper",
-                      "Story creator",
-                      "Workflow support",
-                      "Jira story handoff",
+                      "Codebase Agent",
+                      "Story Agent",
+                      "Workflow Agent",
+                      "Jira Agent",
                     ].map((agent) => (
                       <div
                         key={agent}
@@ -678,10 +648,10 @@ export default function BofaPage() {
 
                   <div className="rounded-[18px] border border-black/5 bg-[#fffaf6] p-5 text-center lg:col-span-1">
                     <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
-                      output
+                      destination
                     </p>
                     <p className="mt-2 font-serif text-[0.95rem] font-semibold text-[#1f1a18]">
-                      Jira
+                      Jira Integration
                     </p>
                   </div>
                 </div>
@@ -692,28 +662,25 @@ export default function BofaPage() {
                       my ownership
                     </p>
                     <p className="mt-2 text-[0.8rem] leading-6 text-[#342d29]">
-                      I worked on the codebase documentation component, building
-                      on the same ideas developed through 5500 Documentation.
+                      Led product discovery and engineered the codebase documentation component using insights from the 5500 project.
                     </p>
                   </div>
 
                   <div className="rounded-[18px] border border-black/5 bg-[#fffaf6] p-4">
                     <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
-                      team
+                      team collaboration
                     </p>
                     <p className="mt-2 text-[0.8rem] leading-6 text-[#342d29]">
-                      Two other Business Analyst interns owned the other agents
-                      and workflow components.
+                      Co-developed story creation and Jira handoff components alongside two BA intern peers.
                     </p>
                   </div>
 
                   <div className="rounded-[18px] border border-black/5 bg-[#fffaf6] p-4">
                     <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
-                      next step
+                      transition
                     </p>
                     <p className="mt-2 text-[0.8rem] leading-6 text-[#342d29]">
-                      The workflow was documented for handoff and continued
-                      development beyond the internship.
+                      Documented full system architecture for seamless internal team handoff after internship conclusion.
                     </p>
                   </div>
                 </div>
@@ -730,12 +697,11 @@ export default function BofaPage() {
                   </p>
 
                   <p className="mt-3 font-serif text-[1.45rem] font-semibold leading-snug text-[#1f1a18]">
-                    Internal patent filing
+                    U.S. Patent Filing (Pending)
                   </p>
 
                   <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">
-                    Our group filed an internal patent within Bank of America
-                    to recognize the Mosaic concept and the work behind it.
+                    Co-filed an internal U.S. patent within Bank of America recognizing the Mosaic architecture and knowledge-centered agent workflow.
                   </p>
                 </div>
 
@@ -745,13 +711,11 @@ export default function BofaPage() {
                   </p>
 
                   <p className="mt-3 font-serif text-[1.45rem] font-semibold leading-snug text-[#1f1a18]">
-                    Office hours
+                    Weekly BA Office Hours
                   </p>
 
                   <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">
-                    I began hosting office hours and helping Business Analysts
-                    understand the workflow and how the tools fit into their
-                    day-to-day process.
+                    Hosted weekly office hours to train active Business Analysts on prompt engineering, workflow integration, and tool navigation.
                   </p>
                 </div>
               </div>
@@ -777,21 +741,15 @@ export default function BofaPage() {
                   </p>
 
                   <h2 className="mt-3 font-serif text-[1.5rem] font-semibold leading-snug text-[#1f1a18]">
-                    Make onboarding feel less overwhelming.
+                    Streamlining Team-Specific Onboarding
                   </h2>
 
                   <p className="mt-4 text-[0.9rem] leading-7 text-[#5e5048]">
-                    For an internal Codeathon, I worked alongside software
-                    engineers, Business Analysts, and finance team members to
-                    rethink how team-specific onboarding could work for new
-                    hires.
+                    Participated in an internal Codeathon alongside software engineers, Business Analysts, and finance team members to rethink developer onboarding.
                   </p>
 
                   <p className="mt-4 text-[0.9rem] leading-7 text-[#5e5048]">
-                    We designed the experience around reducing repetitive
-                    questions and helping new hires understand what matters to
-                    their specific team rather than receiving the same generic
-                    onboarding information.
+                    Designed a solution focused on delivering team-specific technical context to new hires, reducing repetitive onboarding overhead for managers and senior engineers.
                   </p>
                 </div>
 
@@ -800,17 +758,15 @@ export default function BofaPage() {
                   data-delay={80}
                 >
                   <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                    what we made
+                    what we created
                   </p>
 
                   <h2 className="mt-3 font-serif text-[1.5rem] font-semibold leading-snug text-[#1f1a18]">
-                    A targeted onboarding agent
+                    Copilot Studio Onboarding Assistant
                   </h2>
 
                   <p className="mt-4 text-[0.9rem] leading-7 text-[#5e5048]">
-                    We created the concept and mockups for a team-specific
-                    onboarding experience in Copilot Studio. The software team
-                    then developed the solution from the design.
+                    Designed the UX workflows and conversational architecture for a Copilot Studio onboarding agent, which was subsequently implemented by engineering.
                   </p>
 
                   <div className="mt-5 flex flex-wrap gap-2">
@@ -832,7 +788,7 @@ export default function BofaPage() {
                 data-delay={160}
               >
                 <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                  experience flow
+                  onboarding flow
                 </p>
 
                 <div className="mt-6 grid gap-3 sm:grid-cols-3">
@@ -841,11 +797,10 @@ export default function BofaPage() {
                       01
                     </p>
                     <p className="mt-3 font-serif text-[1rem] font-semibold text-[#1f1a18]">
-                      New hire arrives
+                      Role & Team Context
                     </p>
                     <p className="mt-2 text-[0.78rem] leading-6 text-[#5e5048]">
-                      Team and role context shape what the person actually
-                      needs.
+                      New hires receive targeted codebase and team-specific guidance.
                     </p>
                   </div>
 
@@ -854,10 +809,10 @@ export default function BofaPage() {
                       02
                     </p>
                     <p className="mt-3 font-serif text-[1rem] font-semibold text-[#1f1a18]">
-                      AI guides
+                      AI Guided Q&A
                     </p>
                     <p className="mt-2 text-[0.78rem] leading-6 text-[#5e5048]">
-                      The agent surfaces relevant information and next steps.
+                      Agent answers common technical and workflow setup questions.
                     </p>
                   </div>
 
@@ -866,11 +821,10 @@ export default function BofaPage() {
                       03
                     </p>
                     <p className="mt-3 font-serif text-[1rem] font-semibold text-[#1f1a18]">
-                      Manager load decreases
+                      Reduced Manager Friction
                     </p>
                     <p className="mt-2 text-[0.78rem] leading-6 text-[#5e5048]">
-                      Less repetitive onboarding support is required from
-                      senior team members.
+                      Senior team members spend less time answering repetitive setup queries.
                     </p>
                   </div>
                 </div>
@@ -880,7 +834,7 @@ export default function BofaPage() {
             {/* HANDOFF */}
             <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              what happens after the internship
+              project handoff & impact
             </div>
 
             <div
@@ -918,7 +872,7 @@ export default function BofaPage() {
             {/* REFLECTION */}
             <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              what I took from it
+              key takeaway
             </div>
 
             <div
@@ -926,25 +880,19 @@ export default function BofaPage() {
               data-delay={80}
             >
               <p className="max-w-4xl font-serif text-[1.65rem] font-semibold leading-tight text-[#1f1a18] sm:text-[2.1rem]">
-                I came in thinking business analysis was about understanding
-                requirements. I left much more interested in understanding the
-                systems around them.
+                Product discovery in enterprise AI is about identifying structural context gaps, not just building chatbots.
               </p>
 
               <p className="mt-5 max-w-3xl text-[0.92rem] leading-7 text-[#5e5048]">
-                The most valuable part of the internship wasn't just learning
-                new technical tools. It was learning how to enter unfamiliar
-                systems, find the underlying problem, talk to the people
-                affected by it, and turn that understanding into something
-                another person can actually use.
+                Translating 15 BA interviews and 600+ legacy COBOL files showed me that technical systems succeed when user research directly informs system architecture.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
                 <span className="rounded-full border border-black/5 bg-white px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-[#7c7068]">
-                  systems thinking
+                  systems architecture
                 </span>
                 <span className="rounded-full border border-black/5 bg-white px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-[#7c7068]">
-                  product thinking
+                  product discovery
                 </span>
                 <span className="rounded-full border border-black/5 bg-white px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-[#7c7068]">
                   user research
@@ -957,9 +905,7 @@ export default function BofaPage() {
 
             {/* CONFIDENTIALITY NOTE */}
             <p className="mt-5 text-center text-[0.66rem] uppercase tracking-[0.22em] text-[#a89d96]">
-              Selected visuals are conceptualized for portfolio presentation;
-              internal Bank of America code, systems, and proprietary
-              documentation are not shown.
+              Selected visuals are conceptualized for portfolio presentation; internal Bank of America code, systems, and proprietary documentation are omitted.
             </p>
 
             {/* BOTTOM NAV */}
@@ -976,10 +922,10 @@ export default function BofaPage() {
               </Link>
 
               <Link
-                href="/work/usc-marcomm"
+                href="/work/anqclic"
                 className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]"
               >
-                next: usc marcomm
+                next: anqclic
                 <span className="h-px w-4 bg-[#c8bdb2] transition-all duration-200 group-hover:w-6" />
               </Link>
             </div>

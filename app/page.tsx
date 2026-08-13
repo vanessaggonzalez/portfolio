@@ -1,4 +1,3 @@
-
 /*
 PENDING IDEAS
 
@@ -49,9 +48,6 @@ function useReveal() {
 }
 
 // ─── Scroll parallax: offset is relative to each card's own start position ───
-// Card top positions are measured once (on mount + resize), not on every
-// scroll frame — getBoundingClientRect() forces a layout reflow, and doing
-// that for every .collage-card on every tick was the main lag source.
 function useParallax() {
   useEffect(() => {
     const speeds: Record<string, number> = {
@@ -97,8 +93,7 @@ function useParallax() {
       ticking = true;
     };
 
-    // Re-measure on resize (debounced) since layout/positions can shift
-    let resizeTimer: ReturnType<typeof setTimeout>;
+    let resizeTimer: ReturnType<setTimeout>;
     const onResize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(measure, 150);
@@ -137,7 +132,6 @@ function useAlbumArt(items: ObsessedItem[]) {
             );
             const data = await res.json();
             const artworkUrl = data?.results?.[0]?.artworkUrl100 ?? "";
-            // bump iTunes' 100x100 default up to a sharper size
             const art = artworkUrl ? artworkUrl.replace("100x100", "300x300") : "";
             return { ...item, art };
           } catch {
@@ -176,60 +170,9 @@ export default function Home() {
   ];
 
   const currentThreads = [
-    "fandom + emotional memory",
-    "product taste + storytelling",
-    "elevated + visual mood",
-  ];
-
-  const featuredProjects = [
-    {
-      slug: "audible",
-      number: "01",
-      title: "Audible — Clip & Share",
-      category: "Product strategy / UX / storytelling",
-      blurb:
-        "Co-developed a social sharing feature concept that helps users save and share emotionally resonant audiobook moments across platforms like Instagram and TikTok.",
-      impact:
-        "First-place winning concept for an Amazon-sponsored product case competition.",
-      tags: [
-        "gen z behavior",
-        "feature strategy",
-        "audience research",
-        "social interaction",
-      ],
-    },
-    {
-      slug: "bofa",
-      number: "02",
-      title: "Bank of America — Global Technology",
-      category: "Business analysis / AI systems / enterprise modernization",
-      blurb:
-        "Worked across three AI-focused projects spanning legacy modernization, Business Analyst workflows, and employee onboarding. Built an AI documentation system for a 600+ file COBOL/mainframe codebase and co-developed an AI workflow informed by interviews with 15 Business Analysts.",
-      impact:
-        "600+ files analyzed · 15 BA interviews · internal patent filing · 2 projects transitioned for continued development.",
-      tags: [
-        "AI agents",
-        "systems thinking",
-        "user research",
-        "enterprise AI",
-      ],
-    },
-    {
-      slug: "anqclic",
-      number: "03",
-      title: "Anqclic — Creative Archive",
-      category: "Creative / storytelling / platform growth",
-      blurb:
-        "A decade-long video editing practice that grew from fandom edits into a digital platform with 5,000+ followers, 630K+ views, 116K+ likes, and a brand partnership with Funimate.",
-      impact:
-        "10+ years editing · 630K+ views · 116K+ likes · brand partnership.",
-      tags: [
-        "video editing",
-        "storytelling",
-        "audience strategy",
-        "brand partnership",
-      ],
-    },
+    "fandom + audience psychology",
+    "product strategy + user friction",
+    "visual culture + interface taste",
   ];
 
   const inspirationItems = [
@@ -241,7 +184,6 @@ export default function Home() {
     "beautiful interfaces",
   ];
 
-  // Music rotation — movies/shows already live on /about, so this stays song/album-only.
   const obsessedWith: ObsessedItem[] = [
     { label: "cry baby",        sub: "the neighbourhood" },
     { label: "robbers",         sub: "the 1975" },
@@ -249,8 +191,8 @@ export default function Home() {
     { label: "perfect",         sub: "selena gomez" },
     { label: "ultraviolence",   sub: "lana del rey" },
     { label: "a world alone",   sub: "lorde" },
-    { label: "sometimes",           sub: "ariana grande" },
-    { label: "call it what you want",           sub: "taylor swift" },
+    { label: "sometimes",       sub: "ariana grande" },
+    { label: "call it what you want", sub: "taylor swift" },
   ];
 
   const tools = [
@@ -317,13 +259,11 @@ export default function Home() {
               </p>
 
               <div className="relative mx-auto flex max-w-[1100px] justify-center">
-
-                {/* ── BLACK + PINK POLKA DOT TEXTURE ── */}
+                {/* BLACK + PINK POLKA DOT TEXTURE */}
                 <div
                   aria-hidden="true"
                   className="pointer-events-none absolute inset-0 overflow-hidden rounded-[48px]"
                 >
-                  {/* Black dots layer */}
                   <div
                     className="absolute inset-0"
                     style={{
@@ -332,7 +272,6 @@ export default function Home() {
                       opacity: 0.97,
                     }}
                   />
-                  {/* Pink dots layer — offset by half a cell so they interleave */}
                   <div
                     className="absolute inset-0"
                     style={{
@@ -342,7 +281,6 @@ export default function Home() {
                       opacity: 0.98,
                     }}
                   />
-                  {/* Soft center wash so the signature stays readable */}
                   <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 h-[340px] w-[680px] rounded-full bg-white/85 blur-[80px]" />
                 </div>
 
@@ -355,23 +293,21 @@ export default function Home() {
 
               <div className="mx-auto mt-6 max-w-2xl text-center">
                 <p className="text-[1.02rem] leading-8 text-[#433833] sm:text-[1.12rem]">
-                  A portfolio built like an archive of things I keep coming back
-                  to: edits, details, stories, and products that feel
-                  collectible.
+                  Computer Science + Business Administration senior at USC with a pending full-time technology return offer from Bank of America. LA native building at the intersection of product strategy, user discovery, and creative tech.
                 </p>
 
                 <div className="mt-7 flex flex-wrap justify-center gap-3">
                   <a
-                    href="/work"
+                    href="#work"
                     className="magnetic-btn rounded-full border border-[#201c1a] bg-[#201c1a] px-6 py-3 text-sm text-white transition hover:-translate-y-0.5 hover:shadow-lg"
                   >
-                    View Work
+                    View Selected Work
                   </a>
                   <a
                     href="#about"
                     className="magnetic-btn rounded-full border border-[#201c1a]/20 bg-white/70 px-6 py-3 text-sm text-[#201c1a] transition hover:-translate-y-0.5 hover:bg-white"
                   >
-                    About
+                    About Me
                   </a>
                 </div>
               </div>
@@ -405,16 +341,13 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* COLLAGE */}
-
-              {/* ── MOBILE / TABLET: clean 2-col grid ── */}
+              {/* COLLAGE — MOBILE / TABLET */}
               <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:hidden">
-
                 <div
                   className="collage-card reveal-item col-span-2 sm:col-span-1 group h-[340px] overflow-hidden rounded-[28px] border border-[#201c1a]/6 shadow-[0_18px_50px_rgba(45,29,18,0.08)] transition-shadow duration-300"
                   data-parallax="portrait" data-delay={0}
                 >
-                  <Image src="/images/VanessaG.jpg" alt="Vanessa on the MET steps" fill priority sizes="(max-width: 640px) 100vw, 50vw" className="object-cover object-top" />
+                  <Image src="/images/VanessaG.jpg" alt="Vanessa Gonzalez" fill priority sizes="(max-width: 640px) 100vw, 50vw" className="object-cover object-top" />
                 </div>
 
                 <div
@@ -422,7 +355,7 @@ export default function Home() {
                   data-parallax="note-card" data-delay={80}
                 >
                   <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">a little note</p>
-                  <p className="mt-3 text-[0.95rem] leading-7 text-[#342d29]">I like things that feel edited, emotional, and a little nostalgic; like a page torn from a diary and styled for a gallery wall.</p>
+                  <p className="mt-3 text-[0.95rem] leading-7 text-[#342d29]">I like taking messy problems—whether it's legacy mainframe documentation or Gen Z audio sharing—and designing interfaces and strategies that feel clean, intentional, and obvious.</p>
                   <p className="mt-3 text-[0.65rem] uppercase tracking-[0.28em] text-[#8a7d75]">anqclic / creative archive</p>
                 </div>
 
@@ -490,21 +423,17 @@ export default function Home() {
                 </div>
               </div>
 
-              {/* ── DESKTOP: absolute collage, 3 columns, no overlaps ── */}
+              {/* COLLAGE — DESKTOP */}
               <div className="relative mt-[4.5rem] hidden lg:block" style={{ minHeight: "980px" }}>
-
-                {/* ── LEFT COLUMN ── */}
-
-                {/* MAIN PORTRAIT */}
+                {/* LEFT COLUMN */}
                 <div
                   className="collage-card reveal-item group absolute overflow-hidden rounded-[36px] border border-[#201c1a]/6 shadow-[0_22px_65px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_30px_80px_rgba(45,29,18,0.14)] animate-floatSlow"
                   style={{ left: "0%", top: "0px", width: "32%", height: "620px" }}
                   data-parallax="portrait" data-delay={0}
                 >
-                  <Image src="/images/VanessaG.jpg" alt="Vanessa on the MET steps" fill priority sizes="32vw" className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
+                  <Image src="/images/VanessaG.jpg" alt="Vanessa Gonzalez" fill priority sizes="32vw" className="object-cover object-center transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
                 </div>
 
-                {/* QUOTE CARD */}
                 <div
                   className="collage-card reveal-item absolute rounded-[26px] border border-black/5 bg-white/80 px-7 py-6 shadow-[0_18px_50px_rgba(68,44,29,0.06)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.09)] rotate-[-1.5deg]"
                   style={{ left: "1%", top: "648px", width: "31%" }}
@@ -514,7 +443,6 @@ export default function Home() {
                   <p className="mt-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">ariana grande — sometimes</p>
                 </div>
 
-                {/* ALWAYS OPEN — TOOLS */}
                 <div
                   className="collage-card reveal-item absolute rounded-[26px] border border-black/5 bg-white/75 p-5 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] rotate-[0.5deg]"
                   style={{ left: "1%", top: "840px", width: "31%" }}
@@ -528,9 +456,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* ── CENTRE COLUMN ── */}
-
-                {/* MAGAZINE */}
+                {/* CENTRE COLUMN */}
                 <div
                   className="collage-card reveal-item group absolute overflow-hidden rounded-[28px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatMedium"
                   style={{ left: "34%", top: "40px", width: "24%", height: "320px", rotate: "6deg" }}
@@ -539,7 +465,6 @@ export default function Home() {
                   <Image src="/images/ariana-audrey.jpg" alt="Ariana and Audrey inspiration" fill sizes="24vw" className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
                 </div>
 
-                {/* LACE */}
                 <div
                   className="collage-card reveal-item group absolute overflow-hidden rounded-[28px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatSlow"
                   style={{ left: "36%", top: "400px", width: "22%", height: "250px", rotate: "-5deg" }}
@@ -548,7 +473,6 @@ export default function Home() {
                   <Image src="/images/lace.jpg" alt="Lace detail" fill sizes="22vw" className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
                 </div>
 
-                {/* SAVED FRAGMENTS TAG */}
                 <div
                   className="collage-card reveal-item absolute rounded-full border border-black/5 bg-white/80 px-4 py-2 text-[0.72rem] uppercase tracking-[0.3em] text-[#7c7068] shadow-[0_10px_26px_rgba(68,44,29,0.05)]"
                   style={{ left: "36%", top: "678px" }}
@@ -557,7 +481,6 @@ export default function Home() {
                   saved fragments
                 </div>
 
-                {/* THREADS */}
                 <div
                   className="collage-card reveal-item absolute rounded-[30px] border border-black/5 bg-white/75 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)]"
                   style={{ left: "34%", top: "720px", width: "27%" }}
@@ -571,20 +494,17 @@ export default function Home() {
                   </div>
                 </div>
 
-                {/* ── RIGHT COLUMN ── */}
-
-                {/* LITTLE NOTE */}
+                {/* RIGHT COLUMN */}
                 <div
                   className="collage-card reveal-item absolute rounded-[30px] border border-black/5 bg-white/78 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)]"
                   style={{ right: "0%", top: "0px", width: "37%" }}
                   data-parallax="note-card" data-delay={100}
                 >
                   <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">a little note</p>
-                  <p className="mt-4 text-[1.03rem] leading-8 text-[#342d29] sm:text-[1.08rem]">I like things that feel edited, emotional, and a little nostalgic; like a page torn from a diary and styled for a gallery wall.</p>
+                  <p className="mt-4 text-[1.03rem] leading-8 text-[#342d29] sm:text-[1.08rem]">I like taking messy problems—whether it's legacy mainframe documentation or Gen Z audio sharing—and designing interfaces and strategies that feel clean, intentional, and obvious.</p>
                   <p className="mt-4 text-xs uppercase tracking-[0.28em] text-[#8a7d75]">anqclic / creative archive</p>
                 </div>
 
-                {/* SECOND PHOTO */}
                 <div
                   className="collage-card reveal-item group absolute overflow-hidden rounded-[30px] border border-[#201c1a]/6 shadow-[0_18px_45px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_28px_70px_rgba(45,29,18,0.12)] animate-floatMedium"
                   style={{ right: "4%", top: "230px", width: "30%", height: "300px", rotate: "3deg" }}
@@ -593,7 +513,6 @@ export default function Home() {
                   <Image src="/images/vanessa2.jpg" alt="Vanessa at the Huntington" fill sizes="30vw" className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.03]" />
                 </div>
 
-                {/* CURRENTLY INSPIRING ME */}
                 <div
                   className="collage-card reveal-item absolute rounded-[26px] border border-black/5 bg-white/82 p-7 shadow-[0_18px_45px_rgba(68,44,29,0.05)] backdrop-blur-sm transition-shadow duration-300 hover:shadow-[0_24px_70px_rgba(68,44,29,0.08)] rotate-[1.5deg]"
                   style={{ right: "0%", top: "570px", width: "37%" }}
@@ -604,11 +523,10 @@ export default function Home() {
                     {inspirationItems.map((item) => <p key={item}>• {item}</p>)}
                   </div>
                 </div>
-
               </div>
             </div>
 
-            {/* CURRENTLY OBSESSED WITH — full-width strip, not stacked into a column */}
+            {/* CURRENTLY OBSESSED WITH */}
             <div className="reveal-item mt-8 lg:mt-12" data-delay={320}>
               <div className="flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
                 <span className="h-px w-8 bg-[#c8bdb2]" />
@@ -639,7 +557,7 @@ export default function Home() {
           </div>
         </section>
 
-        {/* WORK */}
+        {/* WORK SECTION */}
         <section
           id="work"
           className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-10"
@@ -691,25 +609,23 @@ export default function Home() {
 
                 <div className="p-7">
                   <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                    Product strategy / UX / storytelling
+                    Product Strategy Lead
                   </p>
 
                   <p className="mt-4 max-w-2xl text-[0.97rem] leading-8 text-[#4d413b]">
-                    Co-developed a social sharing feature concept that helps users save
-                    and share emotionally resonant audiobook moments across platforms
-                    like Instagram and TikTok.
+                    Led product strategy for a 5-person team tackling Audible's Gen Z growth challenge. Designed "Clip & Share"—a low-friction loop letting users pull audiobook moments directly to TikTok or Instagram without cluttering Audible's core app. Defined our proposed North Star metric (Share-to-Play Conversion Rate) and rethought the free-trial onboarding flow around a full first chapter instead of a locked preview.
                   </p>
 
                   <p className="mt-5 text-[0.76rem] uppercase tracking-[0.2em] text-[#8a7d75]">
-                    ✦ First-place winning concept · Amazon-sponsored case competition
+                    ✦ First-place winning concept · Amazon-sponsored product case competition
                   </p>
 
                   <div className="mt-5 flex flex-wrap gap-2">
                     {[
-                      "gen z behavior",
                       "feature strategy",
-                      "audience research",
-                      "social interaction",
+                      "growth loops",
+                      "user discovery",
+                      "onboarding redesign",
                     ].map((tag) => (
                       <span
                         key={tag}
@@ -741,7 +657,7 @@ export default function Home() {
                   </span>
 
                   <p className="pr-12 text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">
-                    Business analysis / AI systems / enterprise modernization
+                    Business Analyst Intern — AI Strategy & Discovery
                   </p>
 
                   <h3 className="mt-3 pr-12 font-serif text-[1.35rem] font-semibold leading-snug text-[#1f1a18]">
@@ -749,8 +665,7 @@ export default function Home() {
                   </h3>
 
                   <p className="mt-4 text-[0.9rem] leading-7 text-[#4d413b]">
-                    Worked across three AI-focused projects spanning legacy
-                    modernization, Business Analyst workflows, and employee onboarding.
+                    Documented a 600+ file COBOL mainframe system with no real active docs beyond a 2010 slide deck, then built an AI agent to explain it file by file—now being generalized across teams. Interviewed 15 Business Analysts to pinpoint where existing AI tools failed, leading to Mosaic (a multi-agent documentation assistant) and an official U.S. Patent filing (Pending).
                   </p>
 
                   <div className="mt-5 rounded-[18px] border border-black/5 bg-[#fffaf6] p-4">
@@ -760,7 +675,7 @@ export default function Home() {
                           600+
                         </p>
                         <p className="mt-1 text-[0.58rem] uppercase tracking-[0.14em] text-[#a89d96]">
-                          files
+                          files analyzed
                         </p>
                       </div>
 
@@ -778,22 +693,22 @@ export default function Home() {
                           01
                         </p>
                         <p className="mt-1 text-[0.58rem] uppercase tracking-[0.14em] text-[#a89d96]">
-                          patent filing
+                          patent pending
                         </p>
                       </div>
                     </div>
                   </div>
 
                   <p className="mt-5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                    ✦ 2 projects transitioned for continued development
+                    ✦ Corporate Technology Return Offer Received
                   </p>
 
                   <div className="mt-5 flex flex-wrap gap-2">
                     {[
                       "AI agents",
-                      "systems thinking",
+                      "product discovery",
                       "user research",
-                      "enterprise AI",
+                      "legacy systems",
                     ].map((tag) => (
                       <span
                         key={tag}
@@ -822,7 +737,7 @@ export default function Home() {
                   </span>
 
                   <p className="pr-12 text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">
-                    Creative / storytelling / platform growth
+                    Creator & Content Strategist
                   </p>
 
                   <h3 className="mt-3 pr-12 font-serif text-[1.3rem] font-semibold leading-snug text-[#1f1a18]">
@@ -830,21 +745,19 @@ export default function Home() {
                   </h3>
 
                   <p className="mt-4 text-[0.9rem] leading-7 text-[#4d413b]">
-                    A decade-long video editing practice that grew from fandom edits
-                    into a digital platform with 5,000+ followers, 630K+ views,
-                    116K+ likes, and a brand partnership with Funimate.
+                    Grew an independent digital video platform to 5,000+ followers and 630K+ organic views using Instagram Business analytics (drop-off timing, demographics) and Close Friends story preview testing to refine pacing and audio trends. Secured a paid commercial sponsorship outreach from Funimate.
                   </p>
 
                   <p className="mt-4 text-[0.72rem] uppercase tracking-[0.2em] text-[#a89d96]">
-                    ✦ 10+ years editing · 630K+ views · 116K+ likes
+                    ✦ 5K+ Followers · 630K+ Views · Brand Sponsored
                   </p>
 
                   <div className="mt-5 flex flex-wrap gap-2">
                     {[
+                      "content strategy",
+                      "audience analytics",
+                      "qualitative testing",
                       "video editing",
-                      "storytelling",
-                      "audience strategy",
-                      "brand partnership",
                     ].map((tag) => (
                       <span
                         key={tag}
@@ -864,9 +777,9 @@ export default function Home() {
           </div>
         </section>
 
-            <MarqueeTicker />
+        <MarqueeTicker />
 
-        {/* ABOUT */}
+        {/* ABOUT SECTION */}
         <section id="about" className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-10">
           <div className="grid gap-4 lg:grid-cols-[1.25fr_0.95fr]">
             <div
@@ -877,33 +790,24 @@ export default function Home() {
                 about
               </p>
               <h2 className="mt-4 max-w-2xl text-2xl leading-tight text-[#1f1a18] sm:text-[1.9rem]">
-                I'm a USC student with a creative brain always drawn to the tiny
-                details that make people care.
+                USC senior combining technical depth in CS with business strategy and a creative background in digital media.
               </h2>
 
               <div className="mt-6 flex flex-wrap gap-2 text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
                 <span className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1">USC CS + Business</span>
-                <span className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1">BofA Intern</span>
-                <span className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1">Product + media</span>
+                <span className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1">Bank of America Return Offer</span>
+                <span className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1">Product & GTM Strategy</span>
               </div>
 
               <div className="mt-5 space-y-4 text-[1rem] leading-8 text-[#4d413b]">
                 <p>
-                  I've been editing video since I was 10, and I still chase that
-                  same feeling — turning fragments into something that hits.
-                  A ship edit, a soundtrack moment, a product detail that
-                  makes something memorable.
+                  I've been editing video since I was 10 years old, growing an independent account to 630K+ views by paying attention to pacing, audience drop-off, and visual trends. That early interest in human behavior eventually led me to study Computer Science and Business Administration at USC.
                 </p>
                 <p>
-                  I'm drawn to why people come back to things — a story,
-                  a product, an experience. I want what I build to feel
-                  thoughtful and emotionally resonant, but also structured
-                  and genuinely useful.
+                  In corporate environments like Bank of America, I focus on user discovery and systems design—translating user research from 15 Business Analysts into multi-agent AI tooling and modernizing 600+ complex legacy mainframe files.
                 </p>
                 <p>
-                  My goal is to keep working where taste meets strategy —
-                  product, business, or software — anywhere I can pair
-                  analytical thinking with visual instinct.
+                  Whether I'm mapping product wireframes, evaluating GTM loops for a case competition, or refining a visual interface, my goal is always the same: make complex systems feel intuitive, personal, and intentional.
                 </p>
               </div>
             </div>
@@ -918,11 +822,11 @@ export default function Home() {
                   what I bring
                 </p>
                 <div className="mt-4 grid gap-3 text-sm leading-7 text-[#4d413b]">
-                  <p>• systems thinking through CS + business</p>
-                  <p>• product and audience strategy</p>
-                  <p>• visual storytelling + editing</p>
-                  <p>• emotionally aware UX thinking</p>
-                  <p>• frontend + creative technology</p>
+                  <p>• Product Strategy & Discovery (User Research, Wireframing)</p>
+                  <p>• Technical Background (CS at USC, Next.js, React, Java)</p>
+                  <p>• Audience Analytics & Quantitative Growth (Drop-off, Retention)</p>
+                  <p>• Enterprise Alignment (BofA Patent Pending, Cross-Functional Alignment)</p>
+                  <p>• Visual Instincts & Content Production (After Effects, Figma)</p>
                 </div>
               </div>
 
@@ -932,12 +836,10 @@ export default function Home() {
                 data-delay={160}
               >
                 <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
-                  current direction
+                  target direction
                 </p>
                 <p className="mt-4 text-sm leading-7 text-[#4d413b]">
-                  I want to keep building in spaces where creativity and structure meet:
-                  product, strategy, media, entertainment, or tools that help people
-                  connect more deeply with the things they love.
+                  Seeking permanent roles in Los Angeles across Product Strategy, Product Operations, GTM Analysis, Product Marketing (PMM), or Creative Tech Analytics.
                 </p>
                 <div className="mt-6 flex flex-col gap-2">
                   <a
@@ -954,7 +856,7 @@ export default function Home() {
                     className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]"
                   >
                     <span className="h-px w-4 bg-[#c8bdb2] transition-all duration-200 group-hover:w-6" />
-                    linkedin
+                    linkedin.com/in/vanessa-g-gonzalez
                   </a>
                 </div>
                 <p className="mt-6 text-xs uppercase tracking-[0.28em] text-[#8a7d75]">
@@ -992,7 +894,7 @@ export default function Home() {
           .animate-floatSlow { animation: floatSlow 8s ease-in-out infinite; }
           .animate-floatMedium { animation: floatMedium 10s ease-in-out infinite; }
 
-          /* ── Staggered reveal ── */
+          /* Staggered reveal */
           .reveal-item {
             opacity: 0;
             transform: translateY(16px);
@@ -1006,12 +908,11 @@ export default function Home() {
             transform: translateY(0);
           }
 
-          /* ── Parallax ── */
+          /* Parallax */
           .collage-card {
             will-change: transform;
           }
 
-          /* Respect reduced motion */
           @media (prefers-reduced-motion: reduce) {
             .collage-card { will-change: auto; }
             .reveal-item {

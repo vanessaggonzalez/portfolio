@@ -27,33 +27,28 @@ function useReveal() {
 const featuredProject = {
   slug: "audible",
   title: "Audible — Clip & Share",
-  category: "Product strategy / UX / storytelling",
+  category: "Product Strategy Lead / UX / Growth",
   image: "/images/clip-and-share.png",
   blurb:
-    "Co-developed a social sharing feature concept designed to help users save and share emotionally resonant audiobook moments across platforms like Instagram and TikTok. Explored how fandom behavior, collectibility, and replayable moments could increase Gen Z engagement on Audible.",
-  impact: "First-place winning concept for an Amazon-sponsored product case competition.",
-  tags: ["gen z behavior", "feature strategy", "audience research", "social interaction", "product thinking"],
+    "Led product strategy for a 5-person team tackling Audible's Gen Z acquisition problem. Designed 'Clip & Share'—a low-friction social loop letting users export key audiobook moments straight to TikTok or Instagram without cluttering Audible's core app. Defined our proposed North Star metric (Share-to-Play Conversion Rate) and rethought the free-trial flow around a full first chapter instead of a locked preview.",
+  impact: "First-place winning concept · Amazon-sponsored product case competition",
+  tags: ["product strategy", "growth loops", "user discovery", "onboarding redesign"],
 };
 
-// In-progress work — text-only, full-width cards (no hero image required).
-// Lives between "featured" and "experience" since these are active, not finished,
-// so they shouldn't compete with the Audible case study for the top slot.
-// Each entry has a `placeholder: true` flag — swap in real specifics as projects
-// wrap, then drop the flag once the copy reflects an actual outcome.
 const spotlightExperience = {
   slug: "bofa",
   title: "Bank of America — Global Technology",
-  org: "Business Analyst Intern",
-  category: "Business analysis / AI systems / enterprise modernization",
+  org: "Business Analyst Intern — AI Strategy & Discovery",
+  category: "AI agents / user research / legacy systems",
   blurb:
-    "Worked across three AI-focused projects spanning legacy modernization, Business Analyst workflows, and employee onboarding. Built an AI documentation system to analyze 600+ files within a legacy COBOL/mainframe application and co-developed an AI-enabled BA workflow informed by interviews with 15 Business Analysts.",
+    "Documented a 600+ file COBOL mainframe system with no real active docs beyond a 2010 slide deck, then built an AI agent to explain it file by file—now being generalized across teams. Interviewed 15 Business Analysts to pinpoint where existing AI tools were failing, leading to Mosaic (a multi-agent documentation system) and an official U.S. Patent filing (Pending).",
   impact:
-    "600+ legacy files analyzed · 15 BA interviews · internal patent filing · 2 projects transitioned for continued development",
+    "600+ files analyzed · 15 BA interviews · patent pending · Corporate Tech return offer",
   tags: [
     "AI agents",
-    "COBOL / mainframe",
+    "product discovery",
     "user research",
-    "Jira",
+    "legacy systems",
     "Copilot Studio",
   ],
 };
@@ -64,67 +59,75 @@ const mainProjects = [
     num: "03",
     title: "USC Marketing Communications",
     org: "University of Southern California",
-    category: "Brand / content / analytics",
+    category: "Brand / digital strategy / web analytics",
     blurb:
-      "Redesigned undergraduate enrollment websites, managed multimedia campaigns, and used analytics + audience behavior to improve messaging and accessibility for 10,000+ weekly users.",
-    impact: "15% increase in weekly traffic across digital campaigns.",
-    tags: ["web", "analytics", "branding", "wordpress"],
+      "Managed WordPress development, email campaign operations (Slate & Campaign Monitor), and web performance reporting across four major USC enrollment portals serving 10,000+ weekly users.",
+    impact: "15% increase in weekly traffic across primary enrollment pages.",
+    tags: ["wordpress", "site migrations", "slate & campaign monitor", "web analytics"],
   },
   {
     slug: "ama",
     num: "04",
     title: "American Marketing Association",
-    org: "VP of Marketing & Project Manager",
-    category: "Leadership / content / strategy",
+    org: "VP of Marketing & Co-Lead",
+    category: "Leadership / division ops / client strategy",
     blurb:
-      "Led a team of 5 to plan and execute marketing initiatives, managed end-to-end content production for Instagram campaigns and event coverage, and coordinated cross-functional workflows.",
-    impact: "Increased community engagement and brand visibility across digital channels.",
-    tags: ["leadership", "content", "campaigns", "operations"],
+      "Co-leading 30 members across internal marketing and client consulting groups. Formerly Internal Marketing PM, managing a 5-person creative team that drove 120K+ organic social views in 60 days.",
+    impact: "30 members managed · 3 project tracks · 120K+ views",
+    tags: ["vp leadership", "30-member org", "client consulting", "brand ops"],
   },
   {
     slug: "anqclic",
     num: "05",
-    title: "Anqclic — Content Creator",
-    org: "Self-employed · 8 years",
-    category: "Creative / storytelling / platform growth",
+    title: "Anqclic — Creator Archive",
+    org: "Creator & Content Strategist",
+    category: "Creative archive / audience growth / video",
     blurb:
-      "Built and scaled a digital content platform to 5,000+ followers, generating 630K+ views and 116K+ likes through iterative content experimentation, A/B testing, and audience behavior analysis. Secured a sponsored brand partnership with Funimate.",
-    impact: "630K+ views · 116K+ likes · brand partnership secured.",
-    tags: ["video editing", "storytelling", "audience strategy", "brand partnership"],
+      "Grew an independent digital video platform to 5,000+ followers and 630K+ organic views using Instagram Business analytics (drop-off timing, demographics) and Close Friends story preview testing to refine pacing and audio trends. Earned a paid commercial sponsorship outreach from Funimate.",
+    impact: "5K+ Followers · 630K+ Views · Brand Sponsored",
+    tags: ["content strategy", "audience analytics", "qualitative testing", "video editing"],
   },
   {
     slug: "wie",
     num: "06",
     title: "USC Women in Engineering",
-    org: "Director of Marketing & Development",
-    category: "Leadership / digital strategy / community",
+    org: "Director of Marketing (2nd Term)",
+    category: "Leadership / digital operations",
     blurb:
-      "Led a 4-person marketing team to develop content strategy for initiatives supporting women in STEM. Managed digital communications across WordPress and Canvas, and established brand guidelines to improve operational efficiency.",
-    impact: "Expanded reach and consistency across all digital communications.",
-    tags: ["leadership", "brand", "communications", "STEM"],
+      "Re-elected for a second consecutive term as Director of Marketing—retaining 100% of Associate Directors, managing cross-department marketing requests, and organizing WordPress content.",
+    impact: "2nd Term Director · 100% Associate Director Retention",
+    tags: ["leadership", "team retention", "cross-team ops", "canva & wordpress"],
   },
 ];
 
+// Additional technical & coursework experiences (rendered as info cards without broken 404 links)
 const additionalProjects = [
   {
-    slug: "techsalerator",
     num: "07",
-    title: "Techsalerator — Data Intelligence",
-    org: "Sales Intern",
-    category: "B2B / research / product positioning",
+    title: "Agile & Product Operations (CS 310)",
+    org: "USC Computer Science",
+    category: "Product Ops / Agile / ADA Accessibility",
     blurb:
-      "Generated and qualified B2B leads through targeted outreach, contributing to partnerships with companies including Uber and Postmates. Conducted market research and documented user engagement patterns.",
-    tags: ["B2B", "market research", "product positioning"],
+      "Executed full-lifecycle software development using Scrum practices—leading daily standups, managing Jira sprint backlogs, and writing Cucumber acceptance criteria. Focused heavily on ADA compliance, ARIA labeling, and accessibility standards.",
+    tags: ["scrum / jira", "acceptance criteria", "ada compliance", "spring boot"],
   },
   {
-    slug: "scope-cais",
     num: "08",
-    title: "Scope + CAIS++",
-    org: "Cohort Member",
-    category: "Engineering / AI / full-stack",
+    title: "CAIS++ — Applied Machine Learning",
+    org: "USC Center for AI in Society",
+    category: "Applied AI / ML / Technical Literacy",
     blurb:
-      "Developed a web application using Next.js at Scope. Selected for USC's competitive AI student organization, gaining exposure to applied machine learning concepts and ML fundamentals.",
-    tags: ["next.js", "react", "AI/ML", "full-stack"],
+      "Completed USC's competitive applied AI curriculum, gaining hands-on Python experience building ML classification models for medical imaging (Alzheimer's detection). Provided the technical foundation for evaluating LLM architectures and AI workflows.",
+    tags: ["python", "applied ml", "llm literacy", "computer vision"],
+  },
+  {
+    num: "09",
+    title: "Techsalerator — Market Intelligence",
+    org: "B2B Sales & Discovery Intern",
+    category: "B2B Outreach / Market Research",
+    blurb:
+      "Conducted B2B market research and qualified enterprise data leads, managing outreach strategy to connect corporate partners (including prospective clients like Uber and Postmates) with global demographic intelligence datasets.",
+    tags: ["b2b research", "lead qualification", "market discovery"],
   },
 ];
 
@@ -158,7 +161,7 @@ export default function WorkPage() {
             {/* NAV */}
             <header className="flex items-center justify-between gap-4 text-sm tracking-[0.22em] uppercase text-[#5f554f]">
               <Link href="/" className="text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068] transition hover:text-[#201c1a]">
-                ← back
+                ← back home
               </Link>
               <nav className="flex flex-wrap justify-end gap-4 sm:gap-6">
                 {navLinks.map((link) => (
@@ -178,12 +181,12 @@ export default function WorkPage() {
                 Selected Work
               </h1>
               <p className="mt-5 text-[1.02rem] leading-8 text-[#4d413b]">
-                I've spent the last few years moving between creative work, product thinking, and marketing strategy, and honestly the through-line is always the same: I'm drawn to the details that make people care. Whether that's a feature concept for a case competition, a campaign that actually moved numbers, or a content platform I've been building since I was 10, I want everything I touch to feel intentional and a little bit collectible.
+                My background spans computer science, product strategy, and visual culture. Across enterprise AI discovery at Bank of America, consumer growth strategy for Audible, and a decade of building an independent digital video account, I focus on breaking down complex problems and designing products, systems, and content that feel intentional and clear.
               </p>
               <div className="mt-5 flex flex-wrap gap-2 text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
                 <span className="rounded-full border border-black/5 bg-white/70 px-3 py-1">USC CS + Business</span>
-                <span className="rounded-full border border-black/5 bg-white/70 px-3 py-1">BofA Intern</span>
-                <span className="rounded-full border border-black/5 bg-white/70 px-3 py-1">Product + creative</span>
+                <span className="rounded-full border border-black/5 bg-white/70 px-3 py-1">Bank of America Return Offer</span>
+                <span className="rounded-full border border-black/5 bg-white/70 px-3 py-1">Product & GTM Strategy</span>
               </div>
             </div>
 
@@ -263,7 +266,7 @@ export default function WorkPage() {
                   </p>
 
                   <span className="rounded-full border border-black/5 bg-[#fffaf6] px-2.5 py-0.5 text-[0.6rem] uppercase tracking-[0.2em] text-[#a89d96]">
-                    summer 2026
+                    summer 2025
                   </span>
                 </div>
 
@@ -335,16 +338,16 @@ export default function WorkPage() {
               ))}
             </div>
 
-            {/* ADDITIONAL PROJECTS */}
+            {/* ADDITIONAL TECHNICAL & COURSEWORK WORK */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              also
+              additional work & technical coursework
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-2">
+            <div className="grid gap-4 sm:grid-cols-3">
               {additionalProjects.map((project, i) => (
-                <Link key={project.slug} href={`/work/${project.slug}`} className="reveal-item block" data-delay={i * 80}>
-                  <article className="group relative h-full overflow-hidden rounded-[28px] border border-black/5 bg-white/55 p-6 shadow-[0_14px_40px_rgba(68,44,29,0.04)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/72 hover:shadow-[0_18px_50px_rgba(68,44,29,0.07)]">
+                <div key={project.num} className="reveal-item block" data-delay={i * 80}>
+                  <article className="relative h-full overflow-hidden rounded-[28px] border border-black/5 bg-white/55 p-6 shadow-[0_14px_40px_rgba(68,44,29,0.04)]">
                     <span className="absolute right-5 top-5 select-none font-serif text-[2rem] font-semibold leading-none text-[#ede5df]">
                       {project.num}
                     </span>
@@ -362,7 +365,7 @@ export default function WorkPage() {
                       ))}
                     </div>
                   </article>
-                </Link>
+                </div>
               ))}
             </div>
 

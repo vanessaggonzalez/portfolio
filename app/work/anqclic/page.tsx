@@ -23,11 +23,9 @@ function useReveal() {
   }, []);
 }
 
-// Load Instagram embed script once
 function useInstagramEmbed() {
   useEffect(() => {
     if (typeof window === "undefined") return;
-    // If already loaded, just re-process
     if ((window as any).instgrm) {
       (window as any).instgrm.Embeds.process();
       return;
@@ -40,99 +38,96 @@ function useInstagramEmbed() {
 }
 
 const tags = [
+  "content strategy",
+  "audience analytics",
   "adobe after effects",
-  "photoshop",
-  "media encoder",
-  "typography",
-  "audio editing",
   "video editing",
-  "storytelling",
-  "brand partnership",
-  "freelance",
+  "trend forecasting",
+  "qualitative testing",
+  "paid sponsorship",
+  "fandom psychology",
 ];
 
 const stats = [
-  { value: "630K+", label: "total views" },
+  { value: "630K+", label: "total organic views" },
   { value: "116K+", label: "total likes" },
-  { value: "5K+", label: "followers" },
-  { value: "10+", label: "years editing" },
+  { value: "5K+", label: "followers (10K+ peak)" },
+  { value: "10+", label: "years content experience" },
 ];
 
 const timeline = [
-  { year: "2015", note: "Downloaded Vine. Saw an edit. Had to make one." },
-  { year: "2016–17", note: "Video Star era; Harry Potter, Selena, Twenty One Pilots, etc." },
-  { year: "2018", note: "Saved up for a MacBook. Begged for After Effects. Everything changed." },
-  { year: "2019", note: "First edit that made it feel real. The hard work actually showed." },
-  { year: "2021", note: "Funimate brand partnership. The account started meaning something." },
-  { year: "2023", note: "Collab era. 3D work. Pushing the craft while managing school." },
-  { year: "2025", note: "Birthday edit!! Last major edit I've made but poured my heart into it." },
+  { year: "2015–16", note: "Started editing short-form video on mobile apps (Video Star) at age 10." },
+  { year: "2018", note: "Launched anqclic on Instagram. Upgraded to After Effects and Photoshop." },
+  { year: "2020–21", note: "Capitalized on viral cultural waves (#DracoTok, trending audios), driving 630K+ views." },
+  { year: "2021", note: "Secured commercial brand ambassador partnership with Funimate at age 15." },
+  { year: "2023–25", note: "Pivoted to 3D typography and complex motion graphics while maintaining core fanbase." },
 ];
 
 const embeds = [
   {
     url: "https://www.instagram.com/p/B3nHVlhHQMb/",
     date: "Oct 2019",
-    note: "One of my first edits where I felt like all the hours actually paid off. The style doesn't match what I make now but the feeling of finishing it does.",
+    note: "Early After Effects milestone—transitioning from basic mobile clips to structured keyframing and custom audio cuts.",
     fandom: "Harry Potter",
   },
   {
     url: "https://www.instagram.com/p/CGsXlUSFgpN/",
     date: "Oct 2020",
-    note: "My most-viewed edit ever — 44K+ views, 10K+ likes. A Harry edit to Trouble by Cage the Elephant. Simple, but it connected with people in a way I didn't expect.",
-    fandom: "Harry Potter · most viewed",
+    note: "Highest-performing single edit—44K+ organic views and 10K+ likes by aligning audio pacing with high-engagement scenes.",
+    fandom: "Harry Potter · 44K+ Views",
   },
   {
     url: "https://www.instagram.com/p/CSXA0UmrxVC/",
     date: "Aug 2021",
-    note: "Ron and Hermione to Cinnamon Girl by Lana Del Rey. I edit them a lot — they're kind of my constant. This one felt pretty and quiet in a way I loved.",
+    note: "Focused on watch-time retention—testing shorter introductory hooks to minimize early drop-off.",
     fandom: "Romione · Lana Del Rey",
   },
   {
     url: "https://www.instagram.com/reel/Cu-GuClhWbZ/",
     date: "Jul 2023",
-    note: "A collab with another editor — she did Hermione, I did Ron. We were both experimenting with 3D. Void by The Neighbourhood. One of my favorite things I've made.",
-    fandom: "Collab · 3D · The Neighbourhood",
+    note: "Collaborative edit utilizing 3D spatial camera movement and custom element tracking.",
+    fandom: "3D Motion · The Neighbourhood",
   },
   {
     url: "https://www.instagram.com/reel/DKAmqBcB6Fn/",
     date: "May 2025",
-    note: "Made this for my boyfriend when I got into USC. Eventually by Tame Impala. Another Romione edit — they just keep showing up in my best ones.",
+    note: "Character narrative edit demonstrating typography, color grading, and precise beat-matching.",
     fandom: "Romione · Tame Impala",
   },
   {
     url: "https://www.instagram.com/reel/DNJOdkuvoSU/",
     date: "Aug 2025",
-    note: "My birthday edit. All the characters that feel like me. Black Beauty by Lana Del Rey. This one is the most me thing I've ever made.",
-    fandom: "Birthday edit · Lana Del Rey",
+    note: "Personal showcase synthesizing 10 years of video editing technique and visual style.",
+    fandom: "Creative Showcase · Lana Del Rey",
   },
 ];
 
 const sections = [
   {
-    label: "the origin",
-    heading: "It started with Vine",
-    pull: "I was 10. I saw a fan edit on Vine and knew immediately I needed to learn how to do that.",
-    body: "I didn't have money for software so I downloaded Video Star because it was free and spent years making the best edits I could with what I had. Harry Potter, Selena Gomez, Twenty One Pilots. The fandoms I lived in.",
-    tags: ["after effects", "photoshop", "storytelling", "fan community"],
+    label: "the core strategy",
+    heading: "10 Years of Consumer Media & Audience Testing",
+    pull: "A decade-long lab in digital content, visual storytelling, and audience psychology.",
+    body: "Started video editing at age 10 in 2015 and built anqclic into an independent platform generating 630K+ views and 116K+ likes. Beyond editing, the account served as a real-world testing ground for understanding what holds consumer attention across shifting social algorithms.",
+    tags: ["content strategy", "audience research", "after effects", "trend analysis"],
   },
   {
-    label: "the turning point",
-    heading: "A MacBook and After Effects",
-    pull: "Growing up without a lot of money, finally having the right tools felt enormous.",
-    body: "In 2018 I saved up for a MacBook Pro and got After Effects. It completely changed what I could make: masking, 3D, motion blur, typographic sequences. I started spending hours on single edits, obsessing over timing, font choices, the way a clip landed on a beat.",
+    label: "analytics & retention",
+    heading: "Data-Informed Content Iteration",
+    pull: "Using creator business analytics to optimize watch time, audio trends, and retention hooks.",
+    body: "Analyzed Instagram Business analytics to study drop-off rates and audience demographics. Discovered that slow intro hooks caused immediate viewer drop-off, prompting tighter pacing. Leveraged qualitative A/B testing by sharing early drafts to Instagram Close Friends stories with trusted editors to refine cuts before posting.",
   },
   {
-    label: "the community",
-    heading: "The people made it real",
-    pull: "A niche shared language: caring deeply about fictional characters and wanting to make something beautiful about them.",
-    body: "Collabs, freelance work, and in 2021 a brand partnership with Funimate — they reached out because of the audience I'd built and the quality of the work. That was the first time someone outside the community treated it like a professional credential.",
+    label: "trend forecasting",
+    heading: "Capitalizing on Cultural Virality",
+    pull: "Leveraging organic fandom momentum—from 19-Year-Later anniversaries to #DracoTok.",
+    body: "Focusing heavily on Harry Potter content was a calculated growth strategy: the franchise experienced constant organic trend revivals (including the viral 2020–2021 TikTok wave). Aligning edits with trending audio clips and high-affinity media consistently drove outsized reach compared to niche content.",
   },
   {
-    label: "what it's taught me",
-    heading: "Everything I know about craft",
-    stat: "10+",
-    statLabel: "years editing",
-    body: "After Effects, Photoshop, audio editing, typography, color grading — all self-taught through iteration. More than the tools, anqclic taught me to care about the details most people won't notice. That sensibility lives in everything I make now, even when it's a campaign brief or a slide deck.",
+    label: "monetization & outcome",
+    heading: "Commercial Brand Partnership",
+    stat: "630K+",
+    statLabel: "organic views",
+    body: "The account's organic reach and editing authority led to direct sponsorship outreach from mobile editing app Funimate, resulting in a paid commercial partnership at age 15. The decade spent building anqclic directly informs my approach to GTM strategy, product marketing, and creative media analytics.",
     stamp: "anqclic · 2015 to present",
   },
 ];
@@ -182,19 +177,19 @@ export default function AnqclicPage() {
             {/* TITLE BLOCK */}
             <div className="reveal-item mt-10 max-w-3xl" data-delay={0}>
               <p className="text-[0.72rem] uppercase tracking-[0.35em] text-[#7c7068]">
-                04 · creative archive · 2015 — present
+                05 · creative archive · 2015 — present
               </p>
               <h1 className="mt-4 font-serif text-[2.4rem] font-semibold leading-tight text-[#1f1a18] sm:text-[3rem]">
-                Anqclic
+                Anqclic — Creator Archive
               </h1>
               <p className="mt-3 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                Creative / storytelling / platform growth
+                Creator & Content Strategist / Audience Analytics / Video Production
               </p>
               <p className="mt-5 max-w-xl text-[1rem] leading-8 text-[#4d413b]">
-                A video editing account I've been building since I was 10. What started as a free app and a lot of love for Harry Potter became a decade-long obsession with craft — and the place where I learned everything I know about making things feel intentional.
+                An independent digital video platform built over a decade—leveraging creator analytics, retention testing, and viral media trends to generate 630K+ organic views and secure a paid brand partnership.
               </p>
               <p className="mt-4 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                ✦ 630K+ views · 116K+ likes · Funimate brand partnership
+                ✦ 630K+ views · 116K+ likes · Funimate commercial sponsorship
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {tags.map((tag) => (
@@ -224,14 +219,14 @@ export default function AnqclicPage() {
             {/* DIVIDER */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              a decade in
+              platform evolution
             </div>
 
             {/* TIMELINE */}
             <div className="reveal-item overflow-hidden rounded-[24px] border border-black/5 bg-white/72 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={80}>
               {timeline.map((item, i) => (
                 <div key={item.year} className={`flex items-start gap-6 px-6 py-4 ${i !== timeline.length - 1 ? "border-b border-black/5" : ""}`}>
-                  <p className="w-16 shrink-0 font-serif text-[0.95rem] font-semibold text-[#1f1a18]">{item.year}</p>
+                  <p className="w-20 shrink-0 font-serif text-[0.95rem] font-semibold text-[#1f1a18]">{item.year}</p>
                   <p className="text-[0.88rem] leading-7 text-[#4d413b]">{item.note}</p>
                 </div>
               ))}
@@ -240,14 +235,13 @@ export default function AnqclicPage() {
             {/* DIVIDER */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              selected edits · 2019 — 2025
+              selected content archive · 2019 — 2025
             </div>
 
-            {/* INSTAGRAM EMBEDS — 2 column grid */}
+            {/* INSTAGRAM EMBEDS */}
             <div className="reveal-item grid gap-8 sm:grid-cols-2 lg:grid-cols-3" data-delay={80}>
               {embeds.map((embed) => (
                 <div key={embed.url} className="flex flex-col gap-3">
-                  {/* Embed */}
                   <div className="overflow-hidden rounded-[20px] border border-black/5 shadow-[0_14px_40px_rgba(68,44,29,0.06)]">
                     <blockquote
                       className="instagram-media !m-0 !w-full !max-w-none !min-w-0 !shadow-none !border-0 !rounded-none"
@@ -256,7 +250,6 @@ export default function AnqclicPage() {
                       data-instgrm-version="14"
                     />
                   </div>
-                  {/* Caption */}
                   <div className="px-1">
                     <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#a89d96]">{embed.date} · {embed.fandom}</p>
                     <p className="mt-1.5 text-[0.85rem] leading-7 text-[#4d413b]">{embed.note}</p>
@@ -284,11 +277,11 @@ export default function AnqclicPage() {
             </div>
 
             {/* WRITTEN SECTIONS */}
-            <div className="grid gap-4 lg:grid-cols-2" style={{ gridTemplateRows: "auto auto auto" }}>
+            <div className="grid gap-4 lg:grid-cols-2">
 
-              {/* TALL LEFT — card 0 */}
+              {/* SECTION 01 */}
               <div
-                className="reveal-item row-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
                 data-delay={0}
               >
                 <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">01</span>
@@ -306,7 +299,7 @@ export default function AnqclicPage() {
                 )}
               </div>
 
-              {/* TOP RIGHT — card 1 */}
+              {/* SECTION 02 */}
               <div
                 className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
                 data-delay={80}
@@ -319,10 +312,10 @@ export default function AnqclicPage() {
                 <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[1].body}</p>
               </div>
 
-              {/* BOTTOM RIGHT — card 2 */}
+              {/* SECTION 03 */}
               <div
                 className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
-                data-delay={160}
+                data-delay={120}
               >
                 <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">03</span>
                 <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[2].label}</p>
@@ -332,22 +325,17 @@ export default function AnqclicPage() {
                 <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[2].body}</p>
               </div>
 
-              {/* FULL WIDTH BOTTOM — card 3 (outcome/final) */}
+              {/* SECTION 04 */}
               <div
-                className="reveal-item lg:col-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col sm:flex-row items-start gap-6"
-                data-delay={240}
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
+                data-delay={160}
               >
-                <div className="shrink-0">
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[3].label}</p>
-                  <p className="mt-2 font-serif text-[2.4rem] font-semibold leading-none text-[#1f1a18]">{sections[3].stat}</p>
-                  <p className="mt-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#a89d96]">{sections[3].statLabel}</p>
-                </div>
-                <div className="hidden sm:block w-px self-stretch bg-black/5" />
-                <div className="flex-1">
-                  <h2 className="font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[3].heading}</h2>
-                  <p className="mt-3 text-[0.88rem] leading-7 text-[#5e5048]">{sections[3].body}</p>
-                  <span className="mt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75]">{sections[3].stamp}</span>
-                </div>
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">04</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[3].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[3].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[3].body}</p>
+                <span className="mt-auto pt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75] self-start">{sections[3].stamp}</span>
               </div>
 
             </div>
@@ -358,8 +346,8 @@ export default function AnqclicPage() {
                 <span className="h-px w-4 bg-[#c8bdb2] transition-all duration-200 group-hover:w-6" />
                 prev: AMA
               </Link>
-              <Link href="/work/wie" className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]">
-                next: USC WIE
+              <Link href="/work" className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]">
+                all work
                 <span className="h-px w-4 bg-[#c8bdb2] transition-all duration-200 group-hover:w-6" />
               </Link>
             </div>
@@ -398,7 +386,6 @@ export default function AnqclicPage() {
             background-size: 280px 280px;
             background-repeat: repeat;
           }
-          /* Override Instagram embed default styles to fit our grid */
           .instagram-media {
             margin: 0 !important;
             min-width: 0 !important;

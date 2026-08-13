@@ -38,40 +38,39 @@ function useInstagramEmbed() {
 }
 
 const tags = [
-  "leadership",
-  "content strategy",
-  "graphic design",
-  "canva",
-  "wordpress",
-  "canvas",
+  "director of marketing",
+  "team retention",
+  "cross-team operations",
+  "canva production",
+  "wordpress / cornerstone",
   "brand guidelines",
   "community building",
   "women in STEM",
 ];
 
 const stats = [
-  { value: "2,295", label: "students reached" },
-  { value: "4", label: "person team led" },
-  { value: "1 yr+", label: "and counting" },
-  { value: "USC Viterbi", label: "school of engineering" },
+  { value: "2nd Term", label: "Director of Marketing" },
+  { value: "100%", label: "Associate Director retention" },
+  { value: "4", label: "person marketing team" },
+  { value: "USC Viterbi", label: "School of Engineering" },
 ];
 
 const whatWeDo = [
   {
-    title: "Events",
-    desc: "From semester launch parties to grad send-offs, we design the graphics and spread the word that gets students in the door.",
+    title: "Events & Outreach",
+    desc: "Partnering with professional development, event, and outreach teams to promote STEM initiatives for students and local youth.",
   },
   {
-    title: "Resources",
-    desc: "WIE connects women in engineering to mentorship, community, and professional opportunities across USC Viterbi.",
+    title: "Resources & Mentorship",
+    desc: "Connecting women in engineering with career resources, faculty mentorship, and peer networks across USC Viterbi.",
   },
   {
-    title: "Community",
-    desc: "Open to all — grad and undergrad, any engineering major. Not a club, but a space where people actually show up for each other.",
+    title: "Community Growth",
+    desc: "Fostering an inclusive space for undergraduate and graduate women across all engineering disciplines.",
   },
   {
-    title: "Digital presence",
-    desc: "Instagram, website, Canvas — our marketing team makes sure the WIE brand is consistent and accessible across every platform.",
+    title: "Cross-Platform Media",
+    desc: "Maintaining brand consistency across Instagram, Canvas, and WordPress web properties.",
   },
 ];
 
@@ -79,46 +78,46 @@ const embeds = [
   {
     url: "https://www.instagram.com/p/DW-G0ChD-mz/",
     label: "May 2025 · Graduate Send-Off",
-    note: "Designed for our Class of 2026 celebration — a send-off event with sunglass decorating and polaroids for graduating engineers. Any engineering major was welcome.",
+    note: "Promotional graphics for the Class of 2026 celebration—featuring customized photo stations and activities for graduating engineers.",
   },
   {
     url: "https://www.instagram.com/p/DWjr7F4lJUp/",
     label: "May 2025 · Meet the Eboard",
-    note: "An appreciation post for our eboard before the semester wrapped — participated in a trending format to show off the team and the people behind WIE.",
+    note: "Eboard spotlight campaign using trending social formats to build transparency and community connection across Viterbi.",
   },
   {
     url: "https://www.instagram.com/p/DTa_4jtkuNm/",
     label: "Jan 2025 · Spring Launch",
-    note: "Kicked off spring semester with a pink-and-girly aesthetic to match the event — hairclip decorating, dinner, and club tabling. This graphic set the visual tone for the whole semester.",
+    note: "Spring launch marketing suite establishing seasonal visual guidelines for tabling, networking, and social content.",
   },
 ];
 
 const sections = [
   {
-    label: "the role",
-    heading: "Marketing Director, not just a marketer",
-    pull: "WIE has no captive audience. Every event we promote has to earn its attendance.",
-    body: "I manage three Associate Directors but I'm also designing the graphics, building the website, and making sure every piece of content reflects what WIE is actually trying to do. It's a resource for any student in USC Viterbi who wants community or mentorship — and if people don't know it exists, it doesn't matter that it does.",
-    tags: ["leadership", "brand guidelines", "community building", "women in STEM"],
+    label: "leadership & retention",
+    heading: "2nd Term Director of Marketing",
+    pull: "Re-elected for a second term, retaining 100% of Associate Directors across consecutive years.",
+    body: "Lead a 4-person marketing team within USC Viterbi's Women in Engineering organization. Returning as Director for a second consecutive term alongside my entire 3-person Associate Director team—a testament to effective leadership, supportive guidance, and clear operational workflows.",
+    tags: ["leadership", "team retention", "brand strategy", "women in STEM"],
   },
   {
-    label: "how we work",
-    heading: "Cross-team, request-driven design",
-    pull: "Every graphic is a translation problem: taking someone else's vision and making it feel cohesive and compelling.",
-    body: "Other WIE departments bring us event requests with deadlines, vibes, sometimes a photo they want included. From there we have creative control. I work primarily in Canva, coordinate with the team on approvals, and incorporate feedback before anything goes live.",
+    label: "cross-team operations",
+    heading: "Request-Driven Marketing Pipeline",
+    pull: "Managing a centralized marketing intake system across events, outreach, and professional development teams.",
+    body: "Oversee an intake system processing promotional requests from outreach, professional development, and event chairs. Direct the creative production of event collateral, short-form reels, and digital assets using Canva and Figma to maintain consistent visual branding across all department initiatives.",
   },
   {
-    label: "the website",
-    heading: "Building within constraints",
-    pull: "Without full admin access, I focused on content architecture and making the structure as navigable as possible.",
-    body: "Working within USC Viterbi's web infrastructure taught me something about doing good work inside systems that aren't built for what you're trying to do. It's not my most polished technical output. But it's honest, and it works for the people using it.",
+    label: "web management",
+    heading: "Navigating Technical & CMS Constraints",
+    pull: "Optimizing content architecture and resource pages within WordPress / Cornerstone infrastructure.",
+    body: "Tasked with populating and organizing the WIE Cornerstone WordPress portal. Worked within restricted administrative permissions to structure resource pages, event archives, and student information cleanly for prospective and current engineering students.",
   },
   {
-    label: "what I'm building",
-    heading: "Brand consistency as infrastructure",
-    stat: "2,295",
-    statLabel: "students reached",
-    body: "When every post looks like it belongs together, when the tone is consistent across Instagram and email, when the website feels like an extension of the same thing — that's when marketing stops being noise and starts being trust. That's what I'm trying to build here.",
+    label: "impact & growth",
+    heading: "Brand Consistency as Community Trust",
+    stat: "100%",
+    statLabel: "team retention",
+    body: "By standardizing graphic templates, intake timelines, and cross-platform publishing across Instagram, Canvas, and web, we created a recognizable digital presence for women in engineering across USC Viterbi.",
     stamp: "USC WIE · Director of Marketing",
   },
 ];
@@ -168,19 +167,19 @@ export default function WIEPage() {
             {/* TITLE BLOCK */}
             <div className="reveal-item mt-10 max-w-3xl" data-delay={0}>
               <p className="text-[0.72rem] uppercase tracking-[0.35em] text-[#7c7068]">
-                05 · leadership · usc viterbi school of engineering
+                06 · leadership · usc viterbi school of engineering
               </p>
               <h1 className="mt-4 font-serif text-[2.4rem] font-semibold leading-tight text-[#1f1a18] sm:text-[3rem]">
                 USC Women in Engineering
               </h1>
               <p className="mt-3 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                Leadership / digital strategy / community
+                Director of Marketing / Team Leadership / Digital Operations
               </p>
               <p className="mt-5 max-w-xl text-[1rem] leading-8 text-[#4d413b]">
-                Director of Marketing and Development for USC Viterbi's WIE program — a resource for women in engineering to find community, mentorship, and support. I lead a 4-person team while designing the graphics, managing the digital presence, and making sure the people WIE is built for actually know it exists.
+                Serving as Director of Marketing for a second consecutive term—managing a 4-person creative team, executing cross-department marketing requests, and managing web content across USC Viterbi platforms.
               </p>
               <p className="mt-4 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                ✦ Expanded reach and brand consistency across all digital communications
+                ✦ 2nd Term Director · 100% Associate Director Retention
               </p>
               <div className="mt-5 flex flex-wrap gap-2">
                 {tags.map((tag) => (
@@ -210,7 +209,7 @@ export default function WIEPage() {
             {/* DIVIDER */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              what wie does
+              department scope
             </div>
 
             {/* WHAT WE DO CARDS */}
@@ -226,7 +225,7 @@ export default function WIEPage() {
             {/* DIVIDER */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              selected graphics · instagram
+              selected campaign collateral
             </div>
 
             {/* INSTAGRAM EMBEDS */}
@@ -276,11 +275,11 @@ export default function WIEPage() {
             </div>
 
             {/* WRITTEN SECTIONS */}
-            <div className="grid gap-4 lg:grid-cols-2" style={{ gridTemplateRows: "auto auto auto" }}>
+            <div className="grid gap-4 lg:grid-cols-2">
 
-              {/* TALL LEFT — card 0 */}
+              {/* SECTION 01 */}
               <div
-                className="reveal-item row-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
                 data-delay={0}
               >
                 <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">01</span>
@@ -298,7 +297,7 @@ export default function WIEPage() {
                 )}
               </div>
 
-              {/* TOP RIGHT — card 1 */}
+              {/* SECTION 02 */}
               <div
                 className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
                 data-delay={80}
@@ -311,10 +310,10 @@ export default function WIEPage() {
                 <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[1].body}</p>
               </div>
 
-              {/* BOTTOM RIGHT — card 2 */}
+              {/* SECTION 03 */}
               <div
                 className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
-                data-delay={160}
+                data-delay={120}
               >
                 <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">03</span>
                 <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[2].label}</p>
@@ -324,22 +323,17 @@ export default function WIEPage() {
                 <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[2].body}</p>
               </div>
 
-              {/* FULL WIDTH BOTTOM — card 3 (outcome/final) */}
+              {/* SECTION 04 */}
               <div
-                className="reveal-item lg:col-span-2 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col sm:flex-row items-start gap-6"
-                data-delay={240}
+                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
+                data-delay={160}
               >
-                <div className="shrink-0">
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[3].label}</p>
-                  <p className="mt-2 font-serif text-[2.4rem] font-semibold leading-none text-[#1f1a18]">{sections[3].stat}</p>
-                  <p className="mt-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#a89d96]">{sections[3].statLabel}</p>
-                </div>
-                <div className="hidden sm:block w-px self-stretch bg-black/5" />
-                <div className="flex-1">
-                  <h2 className="font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[3].heading}</h2>
-                  <p className="mt-3 text-[0.88rem] leading-7 text-[#5e5048]">{sections[3].body}</p>
-                  <span className="mt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75]">{sections[3].stamp}</span>
-                </div>
+                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">04</span>
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[3].label}</p>
+                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[3].heading}</h2>
+                <div className="my-4 h-px bg-black/5" />
+                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[3].body}</p>
+                <span className="mt-auto pt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75] self-start">{sections[3].stamp}</span>
               </div>
 
             </div>
@@ -350,9 +344,10 @@ export default function WIEPage() {
                 <span className="h-px w-4 bg-[#c8bdb2] transition-all duration-200 group-hover:w-6" />
                 prev: anqclic
               </Link>
-              <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                anqclic / creative archive
-              </p>
+              <Link href="/work" className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]">
+                all work
+                <span className="h-px w-4 bg-[#c8bdb2] transition-all duration-200 group-hover:w-6" />
+              </Link>
             </div>
 
           </div>
