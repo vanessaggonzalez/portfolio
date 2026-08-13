@@ -93,7 +93,7 @@ function useParallax() {
       ticking = true;
     };
 
-    let resizeTimer: ReturnType<setTimeout>;
+    let resizeTimer: ReturnType<typeof setTimeout>;
     const onResize = () => {
       clearTimeout(resizeTimer);
       resizeTimer = setTimeout(measure, 150);
