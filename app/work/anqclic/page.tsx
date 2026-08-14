@@ -42,6 +42,7 @@ const tags = [
   "audience analytics",
   "adobe after effects",
   "video editing",
+  "franchise lifecycle",
   "trend forecasting",
   "qualitative testing",
   "paid sponsorship",
@@ -108,7 +109,7 @@ const sections = [
     heading: "10 Years of Consumer Media & Audience Testing",
     pull: "A decade-long lab in digital content, visual storytelling, and audience psychology.",
     body: "Started video editing at age 10 in 2015 and built anqclic into an independent platform generating 630K+ views and 116K+ likes. Beyond editing, the account served as a real-world testing ground for understanding what holds consumer attention across shifting social algorithms.",
-    tags: ["content strategy", "audience research", "after effects", "trend analysis"],
+    tags: ["content strategy", "audience research", "after effects", "trend analysis", "fandom psychology"],
   },
   {
     label: "analytics & retention",
@@ -118,16 +119,16 @@ const sections = [
   },
   {
     label: "trend forecasting",
-    heading: "Capitalizing on Cultural Virality",
-    pull: "Leveraging organic fandom momentum—from 19-Year-Later anniversaries to #DracoTok.",
-    body: "Focusing heavily on Harry Potter content was a calculated growth strategy: the franchise experienced constant organic trend revivals (including the viral 2020–2021 TikTok wave). Aligning edits with trending audio clips and high-affinity media consistently drove outsized reach compared to niche content.",
+    heading: "Reading Franchise & Fandom Cycles",
+    pull: "IP with deep emotional attachment doesn't fade—it resurfaces in predictable waves.",
+    body: "Focusing heavily on Harry Potter was a calculated bet on franchise lifecycle, not just popularity: even decades after release, IP with strong emotional attachment resurges around anniversaries, nostalgia moments, and viral revivals like #DracoTok. Timing content to those cycles—rather than chasing generic trending audio—consistently drove outsized reach against one-off or niche content.",
   },
   {
     label: "monetization & outcome",
     heading: "Commercial Brand Partnership",
     stat: "630K+",
     statLabel: "organic views",
-    body: "The account's organic reach and editing authority led to direct sponsorship outreach from mobile editing app Funimate, resulting in a paid commercial partnership at age 15. The decade spent building anqclic directly informs my approach to GTM strategy, product marketing, and creative media analytics.",
+    body: "The account's organic reach and editing authority led to direct sponsorship outreach from mobile editing app Funimate, resulting in a paid commercial partnership at age 15. The decade spent building anqclic directly informs how I think about GTM strategy, product marketing, and franchise/content strategy in entertainment and media.",
     stamp: "anqclic · 2015 to present",
   },
 ];
@@ -186,7 +187,7 @@ export default function AnqclicPage() {
                 Creator & Content Strategist / Audience Analytics / Video Production
               </p>
               <p className="mt-5 max-w-xl text-[1rem] leading-8 text-[#4d413b]">
-                An independent digital video platform built over a decade—leveraging creator analytics, retention testing, and viral media trends to generate 630K+ organic views and secure a paid brand partnership.
+                An independent digital video platform built over a decade—using audience analytics, retention testing, and franchise-cycle forecasting to grow a fandom-driven audience to 630K+ organic views and a paid brand partnership.
               </p>
               <p className="mt-4 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
                 ✦ 630K+ views · 116K+ likes · Funimate commercial sponsorship
