@@ -77,8 +77,19 @@ const mainProjects = [
     tags: ["vp leadership", "30-member org", "client consulting", "brand ops"],
   },
   {
-    slug: "anqclic",
+    slug: "sharemeal",
     num: "05",
+    title: "ShareMeal",
+    org: "USC Computer Science · CSCI 310",
+    category: "Product Design / Frontend Engineering / Agile",
+    blurb:
+      "Designed the primary UI/UX for ShareMeal, a social meal-planning platform built by a software engineering team across two-week Scrum sprints. Created and continuously iterated the Figma prototype, implemented major frontend experiences including the homepage, login, favorites, and profile, and translated stakeholder requirements into a tested, accessible product.",
+    impact: "Semester-long full-stack build · ~92% final project score",
+    tags: ["figma", "frontend", "scrum / jira", "accessibility"],
+  },
+  {
+    slug: "anqclic",
+    num: "06",
     title: "Anqclic — Creator Archive",
     org: "Creator & Content Strategist",
     category: "Creative archive / audience growth / video",
@@ -89,7 +100,7 @@ const mainProjects = [
   },
   {
     slug: "wie",
-    num: "06",
+    num: "07",
     title: "USC Women in Engineering",
     org: "Director of Marketing (2nd Term)",
     category: "Leadership / digital operations",
@@ -102,15 +113,6 @@ const mainProjects = [
 
 // Additional technical & coursework experiences (rendered as info cards without broken 404 links)
 const additionalProjects = [
-  {
-    num: "07",
-    title: "Agile & Product Operations (CS 310)",
-    org: "USC Computer Science",
-    category: "Product Ops / Agile / ADA Accessibility",
-    blurb:
-      "Executed full-lifecycle software development using Scrum practices—leading daily standups, managing Jira sprint backlogs, and writing Cucumber acceptance criteria. Focused heavily on ADA compliance, ARIA labeling, and accessibility standards.",
-    tags: ["scrum / jira", "acceptance criteria", "ada compliance", "spring boot"],
-  },
   {
     num: "08",
     title: "CAIS++ — Applied Machine Learning",
@@ -344,7 +346,7 @@ export default function WorkPage() {
               additional work & technical coursework
             </div>
 
-            <div className="grid gap-4 sm:grid-cols-3">
+            <div className="grid gap-4 sm:grid-cols-2">
               {additionalProjects.map((project, i) => (
                 <div key={project.num} className="reveal-item block" data-delay={i * 80}>
                   <article className="relative h-full overflow-hidden rounded-[28px] border border-black/5 bg-white/55 p-6 shadow-[0_14px_40px_rgba(68,44,29,0.04)]">
