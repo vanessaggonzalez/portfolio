@@ -235,7 +235,28 @@ export default function IntentLayerPage() {
               the deck
             </div>
 
-            {/* Add the final Figma embed here once the presentation URL is ready. */}
+            <div className="reveal-item" data-delay={80}>
+              <div
+                className="overflow-hidden rounded-[28px] border border-black/8 shadow-[0_24px_70px_rgba(68,44,29,0.08)]"
+                style={{ aspectRatio: "16/9", width: "100%" }}
+              >
+                <iframe
+                  style={{
+                    border: "none",
+                    width: "100%",
+                    height: "100%",
+                    display: "block",
+                  }}
+                  src="https://embed.figma.com/slides/BGXG6RXj7t1dLyxUbmLhve/Intent-Layer?node-id=32-493&embed-host=share"
+                  allowFullScreen
+                  title="Intent Layer — Product Strategy Case Study"
+                />
+              </div>
+
+              <p className="mt-3 text-center text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">
+                product strategy · research · figma presentation
+              </p>
+            </div>
 
             {/* DISCOVERY */}
             <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
