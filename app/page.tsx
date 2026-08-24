@@ -293,7 +293,9 @@ export default function Home() {
 
               <div className="mx-auto mt-6 max-w-2xl text-center">
                 <p className="text-[1.02rem] leading-8 text-[#433833] sm:text-[1.12rem]">
-                  Computer Science + Business Administration senior at USC with a full-time technology return offer from Bank of America. LA native building at the intersection of product strategy, user discovery, and creative tech.
+                  Computer Science + Business Administration senior at USC and Adobe Student
+                  Ambassador. LA native building at the intersection of product strategy, user
+                  discovery, and creative technology.
                 </p>
 
                 <div className="mt-7 flex flex-wrap justify-center gap-3">
