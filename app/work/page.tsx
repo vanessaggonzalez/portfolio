@@ -56,7 +56,7 @@ const featuredProjects = [
     num: "02",
     title: "Intent Layer",
     category: "Original Product / AI / UX / Strategy",
-    image: "/images/intent-layer-placeholder.png",
+    image: null,
     imageAlt: "Intent Layer product mockup placeholder",
     blurb:
       "An original product concept exploring how intent can shape the way people interact with digital systems. Full case study details, product flows, and interface mockups will be added here as the project develops.",
@@ -74,7 +74,7 @@ const spotlightExperience = {
   blurb:
     "Documented a 600+ file COBOL mainframe system with no real active docs beyond a 2010 slide deck, then built an AI agent to explain it file by file—now being generalized across teams. Interviewed 15 Business Analysts to pinpoint where existing AI tools were failing, leading to Mosaic (a multi-agent documentation system) and an official U.S. Patent filing (Pending).",
   impact:
-    "600+ files analyzed · 15 BA interviews · patent pending · Corporate Tech return offer",
+    "600+ files analyzed · 15 BA interviews · U.S. patent filing pending",
   tags: [
     "AI agents",
     "product discovery",
@@ -268,12 +268,76 @@ export default function WorkPage() {
                 </span>
 
                 <span className="rounded-full border border-black/5 bg-white/70 px-3 py-1">
-                  Bank of America Return Offer
+                  Adobe Student Ambassador
                 </span>
 
                 <span className="rounded-full border border-black/5 bg-white/70 px-3 py-1">
                   Product & GTM Strategy
                 </span>
+              </div>
+            </div>
+
+            {/* CURRENTLY */}
+            <div
+              className="reveal-item mt-8"
+              data-delay={80}
+            >
+              <div className="relative overflow-hidden rounded-[30px] border border-[#e8a0b0]/30 bg-gradient-to-br from-[#fff8fa] via-white/75 to-[#f8eee8] p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] sm:p-8">
+                <div
+                  aria-hidden="true"
+                  className="absolute -right-16 -top-20 h-52 w-52 rounded-full bg-[#e8a0b0]/20 blur-[70px]"
+                />
+
+                <div className="relative">
+                  <div className="flex flex-wrap items-center gap-3">
+                    <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a26f7b]">
+                      currently
+                    </p>
+
+                    <span className="rounded-full border border-[#e8a0b0]/25 bg-white/75 px-3 py-1 text-[0.6rem] uppercase tracking-[0.2em] text-[#9b6d78]">
+                      2026 — present
+                    </span>
+                  </div>
+
+                  <h2 className="mt-3 font-serif text-[1.5rem] font-semibold leading-tight text-[#1f1a18] sm:text-[1.75rem]">
+                    Adobe Student Ambassador
+                  </h2>
+
+                  <p className="mt-1 text-[0.7rem] uppercase tracking-[0.2em] text-[#8a7d75]">
+                    University of Southern California
+                  </p>
+
+                  <p className="mt-5 max-w-3xl text-[0.95rem] leading-8 text-[#4d413b]">
+                    Selected to represent Adobe at USC after nearly a decade of using Adobe
+                    tools for video editing and visual storytelling through anqclic.
+                    Currently completing ambassador training in Adobe Express, content
+                    creation, and campus event support, with future projects focused on
+                    helping students explore accessible creative tools.
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {[
+                      "creative technology",
+                      "product education",
+                      "campus engagement",
+                      "content creation",
+                    ].map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-[#e8a0b0]/20 bg-white/75 px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <Link
+                    href="/work/anqclic"
+                    className="mt-6 inline-block text-[0.68rem] uppercase tracking-[0.28em] text-[#b47a87] transition hover:text-[#7c4f59]"
+                  >
+                    explore the creative foundation →
+                  </Link>
+                </div>
               </div>
             </div>
 
@@ -299,6 +363,7 @@ export default function WorkPage() {
                           src={project.image}
                           alt={project.imageAlt}
                           fill
+                          sizes="(max-width: 1024px) 100vw, 55vw"
                           className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                         />
                       ) : (
