@@ -53,15 +53,20 @@ const featuredProjects = [
   },
   {
     slug: "intent-layer",
-    num: "02",
-    title: "Intent Layer",
-    category: "Original Product / AI / UX / Strategy",
-    image: null,
-    imageAlt: "Intent Layer product mockup placeholder",
-    blurb:
-      "An original product concept exploring how intent can shape the way people interact with digital systems. Full case study details, product flows, and interface mockups will be added here as the project develops.",
-    impact: "Original product concept · Case study in progress",
-    tags: ["product thinking", "AI", "UX strategy", "prototyping"],
+      num: "02",
+      title: "Intent Layer",
+      category: "Streaming Product Strategy / Discovery / Personalization",
+      image: null,
+      imageAlt: "Intent Layer streaming discovery product concept",
+      blurb:
+        "A research-backed streaming product concept addressing what recommendation systems miss: why viewers connected with a title. Designed a post-watch intent capture experience and recommendation framework informed by emotional, relational, thematic, and character-level motivations—helping platforms compete with the discovery viewers currently seek through TikTok, Reddit, and fandom communities.",
+      impact:
+        "Original streaming product strategy · Intent framework and prototype in progress",
+      tags: [
+        "streaming strategy",
+        "content discovery",
+        "personalization",
+        "audience insights",
   },
 ];
 
