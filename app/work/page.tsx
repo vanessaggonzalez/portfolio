@@ -67,6 +67,7 @@ const featuredProjects = [
         "content discovery",
         "personalization",
         "audience insights",
+      ],
   },
 ];
 
