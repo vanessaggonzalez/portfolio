@@ -75,12 +75,12 @@ const spotlightExperience = {
   slug: "bofa",
   num: "03",
   title: "Bank of America — Global Technology",
-  org: "Business Analyst Intern — AI Strategy & Discovery",
-  category: "AI agents / user research / legacy systems",
+  org: "Formal title: Business Analyst Intern · Product Discovery & AI Strategy",
+  category: "Product discovery / enterprise AI / legacy modernization",
   blurb:
-    "Documented a 600+ file COBOL mainframe system with no real active docs beyond a 2010 slide deck, then built an AI agent to explain it file by file—now being generalized across teams. Interviewed 15 Business Analysts to pinpoint where existing AI tools were failing, leading to Mosaic (a multi-agent documentation system) and an official U.S. Patent filing (Pending).",
+    "Worked across product discovery, technical analysis, and solution design within a formal Business Analyst internship. Built an AI documentation agent that reviewed 600+ COBOL and VSAM files, then co-conducted 15 user interviews to uncover why existing AI tools failed in Business Analyst workflows. Translated those findings into Mosaic, a context-aware multi-agent system submitted to Bank of America's internal patent-review process.",
   impact:
-    "600+ files analyzed · 15 BA interviews · U.S. patent filing pending",
+    "600+ files analyzed · 15 user interviews · internal patent submission · return offer",
   tags: [
     "AI agents",
     "product discovery",
