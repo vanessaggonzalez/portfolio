@@ -74,7 +74,7 @@ const projects = [
     body:
       "Collaborated with two Business Analyst interns to conduct 15 semi-structured user interviews across BA teams. Synthesized recurring pain points across epic creation, user stories, acceptance criteria, and Jira handoffs to define the problem worth solving.",
     outcome:
-      "Converted that research into the product direction for Mosaic: a context-aware, multi-agent AI system connecting codebase knowledge, story creation, and Jira handoffs. Co-developed the solution and contributed to a pending patent filing for its architecture.",
+      "Converted that research into the product direction for Mosaic: a context-aware, multi-agent AI system connecting codebase knowledge, story creation, and Jira handoffs. Co-developed the solution and contributed to a pending U.S. patent filing for its architecture.",
     tags: ["15 interviews", "user discovery", "multi-agent system", "Jira"],
   },
   {
