@@ -70,11 +70,11 @@ const projects = [
     title: "Mosaic",
     subtitle: "Designing AI workflows around real Business Analyst pain points.",
     pull:
-      "The issue wasn't a lack of AI tools—it was that existing AI lacked the contextual knowledge required for BA workflows.",
+      "We began with user interviews—not a predetermined feature—and discovered that missing workflow context was the real barrier to useful AI output.",
     body:
-      "Collaborated with two Business Analyst interns to conduct 15 semi-structured user research interviews across BA teams. Mapped daily workflows spanning epic creation, user stories, acceptance criteria, and Jira ticket management.",
+      "Collaborated with two Business Analyst interns to conduct 15 semi-structured user interviews across BA teams. Synthesized recurring pain points across epic creation, user stories, acceptance criteria, and Jira handoffs to define the problem worth solving.",
     outcome:
-      "Identified context loss as the primary friction point and co-developed Mosaic: a multi-agent AI system featuring dedicated tools for codebase parsing, story creation, and direct Jira handoffs. Co-filed an internal patent for the architecture.",
+      "Converted that research into the product direction for Mosaic: a context-aware, multi-agent AI system connecting codebase knowledge, story creation, and Jira handoffs. Co-developed the solution and contributed to a pending patent filing for its architecture.",
     tags: ["15 interviews", "user discovery", "multi-agent system", "Jira"],
   },
   {
@@ -189,12 +189,21 @@ export default function BofaPage() {
                 Business Analyst Intern — AI Strategy & Product Discovery
               </p>
 
+              <div className="mt-5 max-w-3xl rounded-[20px] border border-[#d8c9bd] bg-[#fffaf6] px-5 py-4">
+                <p className="text-[0.66rem] uppercase tracking-[0.24em] text-[#9a877a]">
+                  role scope
+                </p>
+                <p className="mt-2 text-[0.88rem] leading-7 text-[#51453f]">
+                  Although my formal internship title was Business Analyst, my primary assignment operated like early-stage product work: I interviewed users, defined the underlying problem, translated those findings into a product direction, and helped design and build the resulting AI solution. My role was not centered on routine requirements documentation or ticket administration.
+                </p>
+              </div>
+
               <p className="mt-5 max-w-2xl text-[1rem] leading-8 text-[#4d413b]">
-                During my Global Technology internship, I led product discovery and technical analysis across three enterprise AI initiatives: legacy mainframe modernization, BA workflow optimization, and internal employee onboarding.
+                During my Global Technology internship, I combined user discovery, product strategy, and technical analysis across three enterprise AI initiatives: legacy mainframe modernization, BA workflow optimization, and internal employee onboarding.
               </p>
 
               <p className="mt-4 max-w-2xl text-[0.95rem] leading-8 text-[#5e5048]">
-                My work connected technical discovery, 15 user research interviews, and multi-agent system design—culminating in an official U.S. Patent filing (Pending) and a full-time Corporate Technology return offer.
+                My work connected technical discovery, 15 user interviews, and multi-agent system design—culminating in a pending U.S. patent filing and a full-time Corporate Technology return offer.
               </p>
 
               <p className="mt-4 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
@@ -529,7 +538,7 @@ export default function BofaPage() {
                     </h2>
 
                     <p className="mt-4 text-[0.9rem] leading-7 text-[#5e5048]">
-                      Collaborated with two BA interns to conduct 15 in-depth user research interviews across cross-functional Business Analyst teams.
+                      Collaborated with two BA interns to conduct 15 semi-structured user interviews across Business Analyst teams, then synthesized repeated workflow pain points into a defined product opportunity.
                     </p>
 
                     <div className="mt-5 flex flex-wrap gap-2">
@@ -551,7 +560,7 @@ export default function BofaPage() {
                         workflow bottlenecks
                       </p>
                       <p className="mt-3 text-[0.82rem] leading-6 text-[#342d29]">
-                        Manual drafting of user stories, epics, acceptance criteria, Jira tracking, and repetitive documentation.
+                        Repetitive drafting across user stories, epics, acceptance criteria, Jira handoffs, and supporting documentation.
                       </p>
                     </div>
 
@@ -585,7 +594,7 @@ export default function BofaPage() {
                 </p>
 
                 <p className="mt-5 max-w-3xl text-[0.92rem] leading-7 text-[#5e5048]">
-                  Instead of building generic standalone AI assistants, we designed a context-aware framework that connects directly into the BA codebase, background documentation, and Jira ticket infrastructure.
+                  That insight changed the product direction. Instead of proposing another generic standalone assistant, we designed a context-aware framework connecting codebase knowledge, background documentation, and Jira workflows.
                 </p>
               </div>
 
@@ -662,7 +671,7 @@ export default function BofaPage() {
                       my ownership
                     </p>
                     <p className="mt-2 text-[0.8rem] leading-6 text-[#342d29]">
-                      Led product discovery and engineered the codebase documentation component using insights from the 5500 project.
+                      Helped lead user discovery, synthesized findings into the product direction, and engineered the codebase-documentation component using insights from the 5500 project.
                     </p>
                   </div>
 
@@ -701,7 +710,7 @@ export default function BofaPage() {
                   </p>
 
                   <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">
-                    Co-filed an internal U.S. patent within Bank of America recognizing the Mosaic architecture and knowledge-centered agent workflow.
+                    Contributed as a co-inventor to a pending U.S. patent filing recognizing Mosaic's architecture and context-centered agent workflow.
                   </p>
                 </div>
 
