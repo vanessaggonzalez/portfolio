@@ -74,7 +74,7 @@ const projects = [
     body:
       "Collaborated with two Business Analyst interns to conduct 15 semi-structured user interviews across BA teams. Synthesized recurring pain points across epic creation, user stories, acceptance criteria, and Jira handoffs to define the problem worth solving.",
     outcome:
-      "Converted that research into the product direction for Mosaic: a context-aware, multi-agent AI system connecting codebase knowledge, story creation, and Jira handoffs. Co-developed the solution and contributed to a pending U.S. patent filing for its architecture.",
+      "Converted that research into the product direction for Mosaic: a context-aware, multi-agent AI system connecting codebase knowledge, story creation, and Jira handoffs. Co-developed the solution and contributed to a pending patent filing for its architecture.",
     tags: ["15 interviews", "user discovery", "multi-agent system", "Jira"],
   },
   {
@@ -203,7 +203,7 @@ export default function BofaPage() {
               </p>
 
               <p className="mt-4 max-w-2xl text-[0.95rem] leading-8 text-[#5e5048]">
-                My work connected technical discovery, 15 user interviews, and multi-agent system design—culminating in a pending U.S. patent filing and a full-time Corporate Technology return offer.
+                My work connected technical discovery, 15 user interviews, and multi-agent system design—culminating in a pending patent filing and a full-time Corporate Technology return offer.
               </p>
 
               <p className="mt-4 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
@@ -706,11 +706,11 @@ export default function BofaPage() {
                   </p>
 
                   <p className="mt-3 font-serif text-[1.45rem] font-semibold leading-snug text-[#1f1a18]">
-                    U.S. Patent Filing (Pending)
+                    Patent Filing (Pending)
                   </p>
 
                   <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">
-                    Contributed as a co-inventor to a pending U.S. patent filing recognizing Mosaic's architecture and context-centered agent workflow.
+                    Contributed as a co-inventor to a pending patent filing recognizing Mosaic's architecture and context-centered agent workflow.
                   </p>
                 </div>
 
