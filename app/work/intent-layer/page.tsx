@@ -26,20 +26,74 @@ function useReveal() {
 
 const tags = [
   "product discovery",
-  "recommendation systems",
-  "audience research",
+  "consumer research",
+  "survey design",
   "intent modeling",
   "UX strategy",
   "personalization",
   "Figma",
-  "product thinking",
+  "streaming strategy",
 ];
 
 const stats = [
-  { value: "01", label: "discovery gap" },
-  { value: "02", label: "ways to capture intent" },
-  { value: "02", label: "MVP phases" },
-  { value: "01", label: "product concept" },
+  { value: "54", label: "survey starts" },
+  { value: "44", label: "eligible viewers" },
+  { value: "27", label: "submitted responses" },
+  { value: "8–10", label: "interviews planned" },
+];
+
+const researchFindings = [
+  {
+    value: "97%",
+    title: "Repeated recommendations",
+    body: "agreed that they frequently see the same titles recommended repeatedly.",
+    sample: "n = 34",
+  },
+  {
+    value: "79%",
+    title: "Browsing friction",
+    body: "agreed that they sometimes spend more time browsing than they would like.",
+    sample: "n = 34",
+  },
+  {
+    value: "62%",
+    title: "Situational decisions",
+    body: "said mood and active-versus-background viewing influenced what they selected.",
+    sample: "n = 37",
+  },
+  {
+    value: "52%",
+    title: "Misunderstood intent",
+    body: "recalled a platform misunderstanding why they watched a particular title.",
+    sample: "n = 33",
+  },
+  {
+    value: "83%",
+    title: "One-title overreaction",
+    body: "had received unwanted recommendations because of one movie or show at least sometimes.",
+    sample: "n = 24",
+  },
+  {
+    value: "62%",
+    title: "Pre-watch preference",
+    body: "preferred clarifying intent before choosing or while browsing.",
+    sample: "n = 24",
+  },
+];
+
+const qualitativeSignals = [
+  {
+    title: "Genre missed the reason",
+    body: "A viewer chose Sinners for its Southern Gothic qualities, then received horror recommendations despite not enjoying horror broadly.",
+  },
+  {
+    title: "A shared account distorted taste",
+    body: "After someone else watched a war movie on one respondent's account, war titles began filling their recommendations.",
+  },
+  {
+    title: "Tone mattered within genre",
+    body: "A respondent described wanting a particular kind of rom-com, while recommendations grouped together titles with very different levels of romance, humor, and sincerity.",
+  },
 ];
 
 const discoveryCards = [
@@ -56,12 +110,12 @@ const discoveryCards = [
   {
     number: "02",
     label: "research",
-    title: "Same genre. Wrong reasons.",
+    title: "General taste is not the same as moment-level intent.",
     pull:
-      "Two viewers can watch the same show for completely different reasons.",
+      "Recommendations can be useful while still missing what a viewer wants right now.",
     body:
-      "The research moves beyond genre labels and surface similarity. Examples like Gossip Girl, The Vampire Diaries, Shameless, and Skins are used to show how one title can satisfy different emotional or situational needs—comfort, relationships, identity, familiar worlds, or simply a specific feeling.",
-    tags: ["qualitative research", "behavioral context", "similarity ≠ intent"],
+      "Among qualified respondents, recommendations were generally considered useful when viewers were undecided. The gap appeared in situational context: mood, attention level, available time, social setting, and the specific quality that made a previous title work.",
+    tags: ["directional research", "viewing context", "similarity ≠ intent"],
   },
   {
     number: "03",
@@ -88,58 +142,77 @@ const discoveryCards = [
 const captureMethods = [
   {
     number: "01",
-    label: "survey prompt",
-    title: "Ask at the moment the signal is fresh.",
+    label: "post-watch learning",
+    title: "Learn what made the experience work.",
     body:
-      "A lightweight post-watch prompt can capture why a viewer chose a title without turning the experience into a long survey. The prompt is designed to make intent explicit while the viewing context is still available.",
+      "An optional, title-specific prompt can ask what kept a viewer engaged—such as a relationship, tone, setting, or narrative dynamic—while that experience is still fresh.",
   },
   {
     number: "02",
-    label: "tag / metadata",
-    title: "Let intent become reusable product data.",
+    label: "pre-watch discovery",
+    title: "Let viewers shape what fits right now.",
     body:
-      "A tag system can translate the viewer's reason into structured metadata that becomes useful across future recommendations. The deck frames this as a way to move from a one-time answer toward a persistent understanding of the viewer.",
+      "Before choosing or while browsing, viewers can combine optional intent tags such as background viewing, dark comedy, or chosen family to create a narrower and more explainable discovery set.",
   },
 ];
 
 const mvpPhases = [
   {
     number: "01",
-    label: "phase 1",
-    title: "Start with the survey.",
+    label: "discovery research",
+    title: "Study the viewing occasion.",
     body:
-      "Introduce a lightweight intent prompt after viewing and use the responses to test whether explicit intent changes recommendation quality or perceived relevance.",
+      "Use an exploratory survey and follow-up interviews to understand when recommendation context breaks down and which intent dimensions recur across viewers.",
   },
   {
     number: "02",
-    label: "phase 2",
-    title: "Build the tag system.",
+    label: "intent taxonomy",
+    title: "Turn recurring motivations into a usable vocabulary.",
     body:
-      "Translate repeated signals into a structured intent vocabulary that can travel across titles, sessions, and recommendation moments.",
+      "Organize recurring signals across mood, attention level, relationship dynamics, tone, familiarity, time, and social context without overwhelming the viewer.",
   },
   {
     number: "03",
-    label: "validate the concept",
-    title: "Test whether intent actually improves the decision.",
+    label: "pre-watch MVP",
+    title: "Prototype the moment of indecision.",
     body:
-      "The immediate goal is not a full recommendation engine. It is proving that knowing why someone watched can produce recommendations that feel more personally relevant.",
+      "Test an optional Help Me Choose flow where viewers select up to three signals, receive an explainable result set, and refine without restarting.",
   },
   {
     number: "04",
-    label: "the full vision",
-    title: "Grow from a prompt into a persistent layer.",
+    label: "learning loop",
+    title: "Connect discovery with lightweight feedback.",
     body:
-      "A mature Intent Layer could connect viewer-supplied signals with content metadata and recommendation logic, making personalization feel more like understanding than prediction.",
+      "Explore whether post-watch clarification improves future relevance, while keeping occasion-level intent temporary unless a viewer chooses to save it.",
   },
 ];
 
 const intentExamples = [
   "chosen family",
-  "deep comfort",
-  "relationship tension",
-  "coming-of-age",
-  "escape",
-  "nostalgia",
+  "background viewing",
+  "dark comedy",
+  "something comforting",
+  "short on time",
+  "something new",
+];
+
+const designPrinciples = [
+  {
+    title: "Optional",
+    body: "A Help Me Choose mode supports moments of indecision without interrupting viewers who already know what they want.",
+  },
+  {
+    title: "Low effort",
+    body: "Viewers select only a few signals, with the ability to skip, remove, or refine without restarting.",
+  },
+  {
+    title: "Compositional",
+    body: "Mood, viewing mode, narrative qualities, time, and social context can be combined for the current occasion.",
+  },
+  {
+    title: "Explainable",
+    body: "Each result shows which selected qualities it matches, making the recommendation easier to evaluate and correct.",
+  },
 ];
 
 export default function IntentLayerPage() {
@@ -198,11 +271,11 @@ export default function IntentLayerPage() {
               </p>
 
               <p className="mt-5 max-w-3xl text-[1rem] leading-8 text-[#4d413b]">
-                Recommendation systems are good at answering what is similar. Intent Layer asks a different question: what was the viewer actually looking for when they pressed play?
+                Recommendation systems can learn what a viewer generally enjoys. Intent Layer asks a more situational question: what does that viewer want from this particular viewing occasion?
               </p>
 
               <p className="mt-4 max-w-3xl text-[0.95rem] leading-8 text-[#5e5048]">
-                The concept grew from a discovery gap in entertainment personalization: two people can watch the same show for completely different reasons, yet a platform can treat those reasons as if they were the same. Intent Layer proposes capturing that missing context and carrying it into what comes next.
+                I developed the concept through an independent exploratory study of streaming behavior. Early findings suggest that existing recommendations remain useful, but often miss mood, attention level, social context, and the specific quality a viewer wants to experience next. Intent Layer explores how optional pre-watch signals could close that gap.
               </p>
 
               <div className="mt-5 flex flex-wrap gap-2">
@@ -217,7 +290,7 @@ export default function IntentLayerPage() {
             {/* BY THE NUMBERS */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              by the framework
+              research snapshot
             </div>
 
             <div className="reveal-item grid grid-cols-2 gap-4 sm:grid-cols-4" data-delay={80}>
@@ -232,7 +305,7 @@ export default function IntentLayerPage() {
             {/* FIGMA DECK */}
             <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              the deck
+              living product deck
             </div>
 
             <div className="reveal-item" data-delay={80}>
@@ -254,8 +327,85 @@ export default function IntentLayerPage() {
               </div>
 
               <p className="mt-3 text-center text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">
-                product strategy · research · figma presentation
+                evolving case study · research complete · prototype in development
               </p>
+            </div>
+
+            {/* RESEARCH METHOD */}
+            <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+              <span className="h-px w-8 bg-[#c8bdb2]" />
+              exploratory research
+            </div>
+
+            <section className="reveal-item rounded-[30px] border border-black/5 bg-[#fffaf6] p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] lg:p-10" data-delay={80}>
+              <div className="grid gap-8 lg:grid-cols-[0.8fr_1.2fr] lg:items-start">
+                <div>
+                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
+                    method · august 2026
+                  </p>
+                  <h2 className="mt-3 font-serif text-[1.65rem] font-semibold leading-tight text-[#1f1a18]">
+                    Directional evidence from real viewing occasions.
+                  </h2>
+                </div>
+
+                <div>
+                  <p className="text-[0.92rem] leading-7 text-[#5e5048]">
+                    I designed and distributed an anonymous survey examining viewing intent, discovery behavior, and perceptions of platform recommendations. The study received 54 starts, including 44 eligible recent streaming viewers. Twenty-seven responses were formally submitted, while valid partial responses were retained at the question level.
+                  </p>
+                  <p className="mt-4 text-[0.82rem] leading-7 text-[#7c7068]">
+                    Question-level sample sizes range from 24–43. Of respondents who reported age, 96% were 18–24; findings are therefore exploratory and primarily reflect Gen Z viewing behavior. Follow-up interviews are the next research phase.
+                  </p>
+                </div>
+              </div>
+            </section>
+
+            {/* RESEARCH FINDINGS */}
+            <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+              <span className="h-px w-8 bg-[#c8bdb2]" />
+              what the survey surfaced
+            </div>
+
+            <div className="grid gap-4 md:grid-cols-2 lg:grid-cols-3">
+              {researchFindings.map((finding, index) => (
+                <section key={finding.title} className="reveal-item rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_16px_45px_rgba(68,44,29,0.05)]" data-delay={index * 60}>
+                  <div className="flex items-start justify-between gap-4">
+                    <p className="font-serif text-[2.15rem] font-semibold leading-none text-[#1f1a18]">
+                      {finding.value}
+                    </p>
+                    <span className="text-[0.6rem] uppercase tracking-[0.2em] text-[#a89d96]">
+                      {finding.sample}
+                    </span>
+                  </div>
+                  <h3 className="mt-4 text-[0.74rem] font-semibold uppercase tracking-[0.19em] text-[#6c5e56]">
+                    {finding.title}
+                  </h3>
+                  <p className="mt-3 text-[0.86rem] leading-7 text-[#5e5048]">
+                    {finding.body}
+                  </p>
+                </section>
+              ))}
+            </div>
+
+            {/* QUALITATIVE SIGNALS */}
+            <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+              <span className="h-px w-8 bg-[#c8bdb2]" />
+              what the numbers looked like in practice
+            </div>
+
+            <div className="grid gap-4 lg:grid-cols-3">
+              {qualitativeSignals.map((signal, index) => (
+                <section key={signal.title} className="reveal-item rounded-[26px] border border-black/5 bg-[#fffaf6] p-6" data-delay={index * 70}>
+                  <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#a89d96]">
+                    anonymized response · 0{index + 1}
+                  </p>
+                  <h3 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">
+                    {signal.title}
+                  </h3>
+                  <p className="mt-3 text-[0.86rem] leading-7 text-[#5e5048]">
+                    {signal.body}
+                  </p>
+                </section>
+              ))}
             </div>
 
             {/* DISCOVERY */}
@@ -308,8 +458,8 @@ export default function IntentLayerPage() {
 
             <section className="reveal-item rounded-[28px] border border-black/5 bg-[#fffaf6] p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] lg:p-10" data-delay={80}>
               <p className="max-w-5xl font-serif text-[1.8rem] font-semibold leading-tight text-[#1f1a18] sm:text-[2.35rem]">
-                Recommendation systems answer “what's similar?”
-                <span className="text-[#8a7d75]"> Viewers are asking “what will make me feel this way again?”</span>
+                Similarity asks what resembles the last title.
+                <span className="text-[#8a7d75]"> Intent asks what fits what the viewer wants right now.</span>
               </p>
 
               <p className="mt-5 max-w-3xl text-[0.92rem] leading-7 text-[#5e5048]">
@@ -331,11 +481,11 @@ export default function IntentLayerPage() {
                   </p>
 
                   <h2 className="mt-3 max-w-xl font-serif text-[1.7rem] font-semibold leading-tight text-[#1f1a18] sm:text-[2rem]">
-                    Capture the reason behind the watch.
+                    Capture what matters for this viewing occasion.
                   </h2>
 
                   <p className="mt-5 max-w-xl text-[0.92rem] leading-7 text-[#5e5048]">
-                    The proposed system starts with a small intervention. Ask the viewer for one piece of context, translate that response into reusable intent data, and use it to make the next recommendation feel less generic.
+                    The proposed system combines two moments: an optional pre-watch experience that captures what fits now, and lightweight post-watch learning that clarifies what specifically worked. Intent supplements existing behavioral and content signals rather than replacing them.
                   </p>
                 </div>
 
@@ -422,6 +572,44 @@ export default function IntentLayerPage() {
               </div>
             </section>
 
+            {/* PROTOTYPE STATUS */}
+            <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+              <span className="h-px w-8 bg-[#c8bdb2]" />
+              prototype in development
+            </div>
+
+            <section className="reveal-item overflow-hidden rounded-[30px] border border-[#d8c9bd] bg-gradient-to-br from-[#fffaf6] via-white/75 to-[#f4e9e0] shadow-[0_24px_70px_rgba(68,44,29,0.07)]" data-delay={100}>
+              <div className="grid gap-8 p-7 lg:grid-cols-[0.8fr_1.2fr] lg:p-10">
+                <div>
+                  <p className="text-[0.66rem] uppercase tracking-[0.26em] text-[#9a877a]">
+                    current build · pre-watch discovery
+                  </p>
+                  <h2 className="mt-3 font-serif text-[1.7rem] font-semibold leading-tight text-[#1f1a18] sm:text-[2rem]">
+                    Designing for the moment of indecision.
+                  </h2>
+                  <p className="mt-5 text-[0.92rem] leading-7 text-[#5e5048]">
+                    I am translating the research into an optional pre-watch flow: enter through Help Me Choose, select a small set of occasion and story signals, then receive a narrower result set that explains why each title fits.
+                  </p>
+                  <p className="mt-4 text-[0.78rem] uppercase tracking-[0.18em] text-[#8a7d75]">
+                    Next: interviews · taxonomy refinement · Figma prototype · usability testing
+                  </p>
+                </div>
+
+                <div className="grid gap-3 sm:grid-cols-2">
+                  {designPrinciples.map((principle) => (
+                    <div key={principle.title} className="rounded-[22px] border border-black/5 bg-white/70 p-5">
+                      <h3 className="font-serif text-[1.08rem] font-semibold text-[#1f1a18]">
+                        {principle.title}
+                      </h3>
+                      <p className="mt-2 text-[0.82rem] leading-6 text-[#5e5048]">
+                        {principle.body}
+                      </p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+            </section>
+
             {/* TAKEAWAY */}
             <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
@@ -430,12 +618,12 @@ export default function IntentLayerPage() {
 
             <section className="reveal-item rounded-[28px] border border-black/5 bg-[#fffaf6] p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] lg:p-10" data-delay={80}>
               <p className="max-w-4xl font-serif text-[1.7rem] font-semibold leading-tight text-[#1f1a18] sm:text-[2.2rem]">
-                The next generation of personalization shouldn't just know what I watched.
-                <span className="text-[#8a7d75]"> It should understand what I was looking for.</span>
+                Watch history explains the past.
+                <span className="text-[#8a7d75]"> Intent can shape what comes next.</span>
               </p>
 
               <p className="mt-5 max-w-3xl text-[0.92rem] leading-7 text-[#5e5048]">
-                Intent Layer started as a recommendation-system critique and became a product concept about context. The opportunity is not to make recommendations noisier or more complicated—it is to give the system one more human signal to work with.
+                Intent Layer began as a question about why technically similar recommendations can still feel wrong. Research reframed that question around context: the opportunity is not to add more recommendation noise, but to let viewers supply a small amount of information that the platform cannot reliably infer on its own.
               </p>
 
               <div className="mt-6 flex flex-wrap gap-2">
