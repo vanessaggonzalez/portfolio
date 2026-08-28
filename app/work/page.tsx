@@ -34,61 +34,69 @@ function useReveal() {
 
 const featuredProjects = [
   {
-    slug: "audible",
+    slug: "bofa",
     num: "01",
+    title: "Bank of America — Mosaic",
+    category: "Product Discovery / AI Strategy / Technical Delivery",
+    image: null,
+    imageAlt: "Mosaic product discovery and AI workflow case study",
+    eyebrow: "featured product experience",
+    placeholderLabel: "Mosaic",
+    blurb:
+      "Conducted 15 interviews across two offices to understand Business Analyst workflows and why existing AI tools failed without project context. Translated those findings into Mosaic, a context-aware AI platform supporting user-story creation, historical matching, documentation, and Jira handoffs, while also building an AI documentation agent that analyzed 600+ legacy files.",
+    impact:
+      "15 user interviews · 600+ files analyzed · internal patent-review submission · return offer",
+    tags: [
+      "user discovery",
+      "product direction",
+      "AI workflows",
+      "cross-functional delivery",
+    ],
+    cta: "explore the work →",
+  },
+  {
+    slug: "intent-layer",
+    num: "02",
+    title: "Intent Layer",
+    category: "Streaming Product Strategy / Discovery / Personalization",
+    image: null,
+    imageAlt: "Intent Layer streaming discovery product concept",
+    eyebrow: "independent product research",
+    placeholderLabel: "Intent Layer",
+    blurb:
+      "An independent streaming-product study exploring what recommendation systems miss: why viewers connected with a title. Currently gathering survey and interview data to develop an intent taxonomy, post-watch capture experience, and intent-informed recommendation framework.",
+    impact:
+      "Original consumer research · Intent framework and prototype in progress",
+    tags: [
+      "streaming strategy",
+      "consumer research",
+      "personalization",
+      "audience insights",
+    ],
+    cta: "explore the research →",
+  },
+  {
+    slug: "audible",
+    num: "03",
     title: "Audible — Clip & Share",
     category: "Product Strategy Lead / UX / Growth",
     image: "/images/clip-and-share.png",
     imageAlt: "Audible Clip & Share product concept",
+    eyebrow: "winning product case study",
+    placeholderLabel: "Audible",
     blurb:
-      "Led product strategy for a 5-person team tackling Audible's Gen Z acquisition problem. Designed 'Clip & Share'—a low-friction social loop letting users export key audiobook moments straight to TikTok or Instagram without cluttering Audible's core app. Defined our proposed North Star metric (Share-to-Play Conversion Rate) and rethought the free-trial flow around a full first chapter instead of a locked preview.",
+      "Led product strategy for a five-person team addressing Audible's engagement and trial-conversion challenge among younger consumers. Developed Clip & Share, a social discovery loop for audiobook moments, and redesigned the trial experience around access to a complete first chapter.",
     impact:
-      "First-place winning concept · Amazon-sponsored product case competition",
+      "First place · Amazon-sponsored product case competition",
     tags: [
       "product strategy",
       "growth loops",
-      "user discovery",
+      "audience research",
       "onboarding redesign",
     ],
-  },
-  {
-    slug: "intent-layer",
-      num: "02",
-      title: "Intent Layer",
-      category: "Streaming Product Strategy / Discovery / Personalization",
-      image: null,
-      imageAlt: "Intent Layer streaming discovery product concept",
-      blurb:
-        "A research-backed streaming product concept addressing what recommendation systems miss: why viewers connected with a title. Designed a post-watch intent capture experience and recommendation framework informed by emotional, relational, thematic, and character-level motivations—helping platforms compete with the discovery viewers currently seek through TikTok, Reddit, and fandom communities.",
-      impact:
-        "Original streaming product strategy · Intent framework and prototype in progress",
-      tags: [
-        "streaming strategy",
-        "content discovery",
-        "personalization",
-        "audience insights",
-      ],
+    cta: "view case study →",
   },
 ];
-
-const spotlightExperience = {
-  slug: "bofa",
-  num: "03",
-  title: "Bank of America — Global Technology",
-  org: "Formal title: Business Analyst Intern · Product Discovery & AI Strategy",
-  category: "Product discovery / enterprise AI / legacy modernization",
-  blurb:
-    "Worked across product discovery, technical analysis, and solution design within a formal Business Analyst internship. Built an AI documentation agent that reviewed 600+ COBOL and VSAM files, then co-conducted 15 user interviews to uncover why existing AI tools failed in Business Analyst workflows. Translated those findings into Mosaic, a context-aware multi-agent system submitted to Bank of America's internal patent-review process.",
-  impact:
-    "600+ files analyzed · 15 user interviews · internal patent submission · return offer",
-  tags: [
-    "AI agents",
-    "product discovery",
-    "user research",
-    "legacy systems",
-    "Copilot Studio",
-  ],
-};
 
 const mainProjects = [
   {
@@ -109,7 +117,7 @@ const mainProjects = [
   },
   {
     slug: "ama",
-    num: "05",
+    num: "06",
     title: "American Marketing Association",
     org: "VP of Marketing & Co-Lead",
     category: "Leadership / division ops / client strategy",
@@ -125,7 +133,7 @@ const mainProjects = [
   },
   {
     slug: "sharemeal",
-    num: "06",
+    num: "07",
     title: "ShareMeal",
     org: "USC Computer Science · CSCI 310",
     category: "Product Design / Frontend Engineering / Agile",
@@ -136,7 +144,7 @@ const mainProjects = [
   },
   {
     slug: "anqclic",
-    num: "07",
+    num: "05",
     title: "Anqclic — Creator Archive",
     org: "Creator & Content Strategist",
     category: "Creative archive / audience growth / video",
@@ -252,7 +260,7 @@ export default function WorkPage() {
             {/* INTRO */}
             <div className="reveal-item mt-10 max-w-2xl" data-delay={0}>
               <p className="text-[0.72rem] uppercase tracking-[0.35em] text-[#7c7068]">
-                selected work / 2021 — present
+                selected work / 2018 — present
               </p>
 
               <h1 className="mt-4 font-serif text-[2.2rem] font-semibold leading-tight text-[#1f1a18] sm:text-[2.8rem]">
@@ -260,12 +268,12 @@ export default function WorkPage() {
               </h1>
 
               <p className="mt-5 text-[1.02rem] leading-8 text-[#4d413b]">
-                My background spans computer science, product strategy, and
-                visual culture. Across enterprise AI discovery at Bank of
-                America, consumer growth strategy for Audible, and a decade of
-                building an independent digital video account, I focus on
-                breaking down complex problems and designing products, systems,
-                and content that feel intentional and clear.
+                I study how people behave, uncover the context behind their
+                needs, and translate those insights into clearer products and
+                growth strategies. My work spans enterprise AI discovery at
+                Bank of America, consumer-product research in streaming,
+                digital analytics, and eight years of building an independent
+                video audience.
               </p>
 
               <div className="mt-5 flex flex-wrap gap-2 text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
@@ -280,70 +288,6 @@ export default function WorkPage() {
                 <span className="rounded-full border border-black/5 bg-white/70 px-3 py-1">
                   Product & GTM Strategy
                 </span>
-              </div>
-            </div>
-
-            {/* CURRENTLY */}
-            <div
-              className="reveal-item mt-8"
-              data-delay={80}
-            >
-              <div className="relative overflow-hidden rounded-[30px] border border-[#e8a0b0]/30 bg-gradient-to-br from-[#fff8fa] via-white/75 to-[#f8eee8] p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] sm:p-8">
-                <div
-                  aria-hidden="true"
-                  className="absolute -right-16 -top-20 h-52 w-52 rounded-full bg-[#e8a0b0]/20 blur-[70px]"
-                />
-
-                <div className="relative">
-                  <div className="flex flex-wrap items-center gap-3">
-                    <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a26f7b]">
-                      currently
-                    </p>
-
-                    <span className="rounded-full border border-[#e8a0b0]/25 bg-white/75 px-3 py-1 text-[0.6rem] uppercase tracking-[0.2em] text-[#9b6d78]">
-                      2026 — present
-                    </span>
-                  </div>
-
-                  <h2 className="mt-3 font-serif text-[1.5rem] font-semibold leading-tight text-[#1f1a18] sm:text-[1.75rem]">
-                    Adobe Student Ambassador
-                  </h2>
-
-                  <p className="mt-1 text-[0.7rem] uppercase tracking-[0.2em] text-[#8a7d75]">
-                    University of Southern California
-                  </p>
-
-                  <p className="mt-5 max-w-3xl text-[0.95rem] leading-8 text-[#4d413b]">
-                    Selected to represent Adobe at USC after nearly a decade of using Adobe
-                    tools for video editing and visual storytelling through anqclic.
-                    Currently completing ambassador training in Adobe Express, content
-                    creation, and campus event support, with future projects focused on
-                    helping students explore accessible creative tools.
-                  </p>
-
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {[
-                      "creative technology",
-                      "product education",
-                      "campus engagement",
-                      "content creation",
-                    ].map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-[#e8a0b0]/20 bg-white/75 px-3 py-1 text-[0.68rem] uppercase tracking-[0.16em] text-[#7c7068]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-
-                  <Link
-                    href="/work/anqclic"
-                    className="mt-6 inline-block text-[0.68rem] uppercase tracking-[0.28em] text-[#b47a87] transition hover:text-[#7c4f59]"
-                  >
-                    explore the creative foundation →
-                  </Link>
-                </div>
               </div>
             </div>
 
@@ -378,10 +322,10 @@ export default function WorkPage() {
                             <div className="flex h-full items-center justify-center px-8 text-center">
                               <div>
                                 <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#9d8f86]">
-                                  mockup placeholder
+                                  case study
                                 </p>
                                 <p className="mt-2 font-serif text-lg text-[#7c7068]">
-                                  Intent Layer
+                                  {project.placeholderLabel}
                                 </p>
                               </div>
                             </div>
@@ -393,9 +337,7 @@ export default function WorkPage() {
 
                       <div className="absolute bottom-5 left-5 lg:hidden">
                         <p className="text-[0.72rem] uppercase tracking-[0.24em] text-white/80">
-                          {project.slug === "audible"
-                            ? "featured case study"
-                            : "original product"}
+                          {project.eyebrow}
                         </p>
                       </div>
                     </div>
@@ -403,10 +345,7 @@ export default function WorkPage() {
                     {/* CONTENT */}
                     <div className="flex flex-col justify-center p-7 lg:p-10">
                       <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                        {project.num} ·{" "}
-                        {project.slug === "audible"
-                          ? "featured case study"
-                          : "original product"}
+                        {project.num} · {project.eyebrow}
                       </p>
 
                       <h2 className="mt-3 font-serif text-[1.6rem] font-semibold leading-tight text-[#1f1a18] sm:text-[1.9rem]">
@@ -437,9 +376,7 @@ export default function WorkPage() {
                       </div>
 
                       <p className="mt-6 text-[0.72rem] uppercase tracking-[0.28em] text-[#c8bdb2] transition-all duration-200 group-hover:text-[#7c7068]">
-                        {project.slug === "audible"
-                          ? "view case study →"
-                          : "explore product →"}
+                        {project.cta}
                       </p>
                     </div>
                   </article>
@@ -447,65 +384,34 @@ export default function WorkPage() {
               ))}
             </div>
 
-            {/* SELECTED EXPERIENCE */}
+            {/* CURRENT ROLE */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              selected experience
+              current role
             </div>
 
-            <Link
-              href={`/work/${spotlightExperience.slug}`}
-              className="reveal-item block"
-              data-delay={180}
+            <div
+              className="reveal-item rounded-[26px] border border-[#e8a0b0]/25 bg-gradient-to-r from-[#fff8fa] to-white/70 px-6 py-5 shadow-[0_14px_40px_rgba(68,44,29,0.04)] sm:flex sm:items-center sm:justify-between sm:gap-8"
+              data-delay={120}
             >
-              <article className="group relative overflow-hidden rounded-[30px] border border-black/5 bg-white/65 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 hover:-translate-y-1 hover:bg-white/80 hover:shadow-[0_26px_70px_rgba(68,44,29,0.09)] lg:p-10">
-                {/* NUMBER */}
-                <span className="absolute right-7 top-6 select-none font-serif text-[3rem] font-semibold leading-none text-[#e8ddd6]">
-                  {spotlightExperience.num}
-                </span>
-
-                <div className="flex flex-wrap items-center gap-2">
-                  <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">
-                    {spotlightExperience.org}
-                  </p>
-
-                  <span className="rounded-full border border-black/5 bg-[#fffaf6] px-2.5 py-0.5 text-[0.6rem] uppercase tracking-[0.2em] text-[#a89d96]">
-                    summer 2025
+              <div>
+                <div className="flex flex-wrap items-center gap-3">
+                  <h2 className="font-serif text-[1.25rem] font-semibold text-[#1f1a18]">
+                    Adobe Student Ambassador
+                  </h2>
+                  <span className="rounded-full border border-[#e8a0b0]/25 bg-white/75 px-3 py-1 text-[0.58rem] uppercase tracking-[0.18em] text-[#9b6d78]">
+                    2026 — present
                   </span>
                 </div>
-
-                <h3 className="mt-3 max-w-2xl pr-12 font-serif text-[1.5rem] font-semibold leading-snug text-[#1f1a18] sm:text-[1.75rem]">
-                  {spotlightExperience.title}
-                </h3>
-
-                <p className="mt-1 text-[0.68rem] uppercase tracking-[0.2em] text-[#8a7d75]">
-                  {spotlightExperience.category}
+                <p className="mt-2 max-w-3xl text-[0.88rem] leading-7 text-[#4d413b]">
+                  Selected to represent Adobe at USC; currently completing Adobe Express
+                  training and developing campus product-education and engagement plans.
                 </p>
-
-                <p className="mt-5 max-w-3xl text-[0.95rem] leading-8 text-[#4d413b]">
-                  {spotlightExperience.blurb}
-                </p>
-
-                <p className="mt-4 text-[0.72rem] uppercase tracking-[0.2em] text-[#8a7d75]">
-                  ✦ {spotlightExperience.impact}
-                </p>
-
-                <div className="mt-5 flex flex-wrap gap-2">
-                  {spotlightExperience.tags.map((tag) => (
-                    <span
-                      key={tag}
-                      className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.72rem] uppercase tracking-[0.18em] text-[#7c7068]"
-                    >
-                      {tag}
-                    </span>
-                  ))}
-                </div>
-
-                <p className="mt-6 text-[0.68rem] uppercase tracking-[0.28em] text-[#c8bdb2] transition-all duration-200 group-hover:text-[#7c7068]">
-                  explore the work →
-                </p>
-              </article>
-            </Link>
+              </div>
+              <p className="mt-4 shrink-0 text-[0.64rem] uppercase tracking-[0.22em] text-[#a26f7b] sm:mt-0">
+                product education · campus GTM
+              </p>
+            </div>
 
             {/* MAIN PROJECTS */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
@@ -514,7 +420,10 @@ export default function WorkPage() {
             </div>
 
             <div className="grid gap-4 sm:grid-cols-2">
-              {mainProjects.map((project, i) => (
+              {mainProjects
+                .slice()
+                .sort((a, b) => Number(a.num) - Number(b.num))
+                .map((project, i) => (
                 <Link
                   key={project.slug}
                   href={`/work/${project.slug}`}
