@@ -32,27 +32,40 @@ function useReveal() {
 }
 
 const tags = [
-  "business analysis",
+  "product discovery",
+  "user research",
+  "product strategy",
+  "workflow design",
   "AI agents",
   "enterprise AI",
-  "COBOL / mainframe",
-  "user research",
+  "cross-functional collaboration",
   "Jira",
-  "Copilot Studio",
-  "process design",
-  "modernization",
+  "technical analysis",
 ];
 
 const stats = [
+  { value: "15", label: "Business Analysts interviewed" },
   { value: "03", label: "AI-focused projects" },
   { value: "600+", label: "legacy files analyzed" },
-  { value: "15", label: "Business Analysts interviewed" },
-  { value: "01", label: "patent pending" },
+  { value: "01", label: "internal patent submission" },
 ];
 
 const projects = [
   {
     number: "01",
+    label: "user research + workflow design",
+    title: "Mosaic",
+    subtitle: "Designing AI workflows around real Business Analyst pain points.",
+    pull:
+      "We began with user interviews—not a predetermined feature—and discovered that missing workflow context was the real barrier to useful AI output.",
+    body:
+      "Collaborated with two Business Analyst interns to conduct 15 semi-structured user interviews across BA teams. Synthesized recurring pain points across epic creation, user stories, acceptance criteria, and Jira handoffs to define the problem worth solving.",
+    outcome:
+      "Converted that research into the product direction for Mosaic: a context-aware, multi-agent AI system connecting codebase knowledge, story creation, and Jira handoffs. Co-developed the solution and contributed to its submission for Bank of America's internal patent review.",
+    tags: ["15 interviews", "user discovery", "multi-agent system", "Jira"],
+  },
+  {
+    number: "02",
     label: "legacy modernization",
     title: "5500 Documentation",
     subtitle: "Automating system discovery across undocumented legacy code.",
@@ -65,19 +78,6 @@ const projects = [
     tags: ["COBOL", "VSAM", "mainframe", "AI documentation"],
   },
   {
-    number: "02",
-    label: "user research + workflow design",
-    title: "Mosaic",
-    subtitle: "Designing AI workflows around real Business Analyst pain points.",
-    pull:
-      "We began with user interviews—not a predetermined feature—and discovered that missing workflow context was the real barrier to useful AI output.",
-    body:
-      "Collaborated with two Business Analyst interns to conduct 15 semi-structured user interviews across BA teams. Synthesized recurring pain points across epic creation, user stories, acceptance criteria, and Jira handoffs to define the problem worth solving.",
-    outcome:
-      "Converted that research into the product direction for Mosaic: a context-aware, multi-agent AI system connecting codebase knowledge, story creation, and Jira handoffs. Co-developed the solution and contributed to a pending patent filing for its architecture.",
-    tags: ["15 interviews", "user discovery", "multi-agent system", "Jira"],
-  },
-  {
     number: "03",
     label: "cross-functional codeathon",
     title: "AI Onboarding Agent",
@@ -87,7 +87,7 @@ const projects = [
     body:
       "Partnered with software engineers, BAs, and finance team members during an internal Codeathon to solve team-level onboarding friction.",
     outcome:
-      "Designed the UX workflow and agent persona for a team-specific Copilot Studio onboarding assistant, reducing repetitive onboarding support requests for senior team members.",
+      "Designed the UX workflow and agent persona for a team-specific Copilot Studio onboarding assistant, intended to reduce repetitive onboarding support requests for senior team members.",
     tags: ["Copilot Studio", "onboarding", "cross-functional", "product design"],
   },
 ];
@@ -95,15 +95,15 @@ const projects = [
 const handoffItems = [
   {
     label: "01",
-    title: "Reusable Documentation Model",
+    title: "Mosaic Handoff & Patent Review",
     body:
-      "Generalized the 5500 documentation approach from a single-codebase fix into a scalable framework for analyzing other legacy COBOL/mainframe applications.",
+      "Prepared full system documentation and workflow architecture for Mosaic, which was submitted to Bank of America's internal patent-review process.",
   },
   {
     label: "02",
-    title: "Mosaic Handoff & Patent",
+    title: "Reusable Documentation Model",
     body:
-      "Prepared full system documentation and workflow architecture for Mosaic, resulting in an official internal patent filing (Pending).",
+      "Generalized the 5500 documentation approach from a single-codebase fix into a scalable framework for analyzing other legacy COBOL/mainframe applications.",
   },
   {
     label: "03",
@@ -199,15 +199,15 @@ export default function BofaPage() {
               </div>
 
               <p className="mt-5 max-w-2xl text-[1rem] leading-8 text-[#4d413b]">
-                During my Global Technology internship, I combined user discovery, product strategy, and technical analysis across three enterprise AI initiatives: legacy mainframe modernization, BA workflow optimization, and internal employee onboarding.
+                During my Global Technology internship, I worked from user problems to product direction across three enterprise AI initiatives. My primary product-discovery work focused on Business Analyst workflows, supported by technical analysis in legacy modernization and cross-functional prototyping for employee onboarding.
               </p>
 
               <p className="mt-4 max-w-2xl text-[0.95rem] leading-8 text-[#5e5048]">
-                My work connected technical discovery, 15 user interviews, and multi-agent system design—culminating in a pending patent filing and a full-time Corporate Technology return offer.
+                My work connected 15 user interviews, product-direction decisions, multi-agent system design, and technical discovery—culminating in an internal patent-review submission and a full-time Corporate Technology return offer.
               </p>
 
               <p className="mt-4 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                ✦ 600+ files analyzed · 15 BA interviews · patent pending · return offer received
+                ✦ 600+ files analyzed · 15 BA interviews · internal patent submission · return offer received
               </p>
 
               <div className="mt-5 flex flex-wrap gap-2">
@@ -302,225 +302,7 @@ export default function BofaPage() {
             >
               <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
                 <span className="h-px w-8 bg-[#c8bdb2]" />
-                01 · legacy modernization
-              </div>
-
-              <div className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
-                <div
-                  className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] lg:p-8"
-                  data-delay={0}
-                >
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                    the problem
-                  </p>
-
-                  <h2 className="mt-3 font-serif text-[1.45rem] font-semibold leading-snug text-[#1f1a18]">
-                    600+ Files. Minimal System Documentation.
-                  </h2>
-
-                  <div className="my-4 h-px bg-black/5" />
-
-                  <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3">
-                    Assigned to analyze a legacy 401(k) system built on COBOL, VSAM files, and mainframe infrastructure—supported only by a single outdated deck from 2010.
-                  </p>
-
-                  <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">
-                    The objective was to decode system logic, map data relationships across files, identify architectural bottlenecks, and establish a clear technical foundation for modernization.
-                  </p>
-
-                  <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">
-                    With no prior COBOL background, the core challenge was creating an automated, structured process to translate raw legacy code into understandable functional requirements.
-                  </p>
-                </div>
-
-                <div
-                  className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] lg:p-8"
-                  data-delay={80}
-                >
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                    what I built
-                  </p>
-
-                  <h2 className="mt-3 font-serif text-[1.45rem] font-semibold leading-snug text-[#1f1a18]">
-                    5500 AI Documentation Agent
-                  </h2>
-
-                  <div className="my-4 h-px bg-black/5" />
-
-                  <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3">
-                    An automated AI documentation agent that ingests legacy files and generates structured system documentation where manual records were missing.
-                  </p>
-
-                  <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">
-                    The system evaluates high-level module architecture down to individual file responsibilities and cross-file dependencies, producing a comprehensive technical system map.
-                  </p>
-
-                  <div className="mt-5 flex flex-wrap gap-2">
-                    {projects[0].tags.map((tag) => (
-                      <span
-                        key={tag}
-                        className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-[#7c7068]"
-                      >
-                        {tag}
-                      </span>
-                    ))}
-                  </div>
-                </div>
-              </div>
-
-              {/* SYSTEM DIAGRAM */}
-              <div
-                className="reveal-item mt-4 overflow-hidden rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] lg:p-8"
-                data-delay={160}
-              >
-                <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
-                  <div>
-                    <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                      the workflow
-                    </p>
-
-                    <h3 className="mt-2 font-serif text-[1.3rem] font-semibold text-[#1f1a18]">
-                      Legacy Analysis Pipeline
-                    </h3>
-                  </div>
-
-                  <p className="max-w-sm text-[0.78rem] leading-6 text-[#8a7d75]">
-                    Simplified for portfolio presentation & confidentiality; proprietary system details omitted.
-                  </p>
-                </div>
-
-                <div className="mt-7 grid gap-3 md:grid-cols-5">
-                  <div className="rounded-[20px] border border-black/5 bg-[#fffaf6] p-5 text-center">
-                    <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#a89d96]">
-                      input
-                    </p>
-                    <p className="mt-3 font-serif text-[1rem] font-semibold text-[#1f1a18]">
-                      600+ Files
-                    </p>
-                    <p className="mt-2 text-[0.75rem] leading-5 text-[#6b5d55]">
-                      COBOL & VSAM codebase
-                    </p>
-                  </div>
-
-                  <div className="hidden items-center justify-center md:flex">
-                    <span className="text-[#c8bdb2]">→</span>
-                  </div>
-
-                  <div className="rounded-[20px] border border-black/5 bg-white p-5 text-center">
-                    <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#a89d96]">
-                      agent
-                    </p>
-                    <p className="mt-3 font-serif text-[1rem] font-semibold text-[#1f1a18]">
-                      5500 Agent
-                    </p>
-                    <p className="mt-2 text-[0.75rem] leading-5 text-[#6b5d55]">
-                      parses & synthesizes logic
-                    </p>
-                  </div>
-
-                  <div className="hidden items-center justify-center md:flex">
-                    <span className="text-[#c8bdb2]">→</span>
-                  </div>
-
-                  <div className="rounded-[20px] border border-black/5 bg-[#fffaf6] p-5 text-center">
-                    <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#a89d96]">
-                      outputs
-                    </p>
-                    <p className="mt-3 font-serif text-[1rem] font-semibold text-[#1f1a18]">
-                      System Map
-                    </p>
-                    <p className="mt-2 text-[0.75rem] leading-5 text-[#6b5d55]">
-                      file relationships & roadmap
-                    </p>
-                  </div>
-
-                  <div className="md:col-span-5 grid gap-3 pt-1 sm:grid-cols-3">
-                    <div className="rounded-[18px] border border-black/5 bg-white p-4">
-                      <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
-                        layer 01
-                      </p>
-                      <p className="mt-2 text-[0.8rem] font-medium text-[#342d29]">
-                        System Overview & Logic
-                      </p>
-                    </div>
-
-                    <div className="rounded-[18px] border border-black/5 bg-white p-4">
-                      <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
-                        layer 02
-                      </p>
-                      <p className="mt-2 text-[0.8rem] font-medium text-[#342d29]">
-                        File-Level Relationships
-                      </p>
-                    </div>
-
-                    <div className="rounded-[18px] border border-black/5 bg-white p-4">
-                      <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
-                        layer 03
-                      </p>
-                      <p className="mt-2 text-[0.8rem] font-medium text-[#342d29]">
-                        Modernization Roadmap
-                      </p>
-                    </div>
-                  </div>
-                </div>
-              </div>
-
-              {/* GENERALIZATION */}
-              <div
-                className="reveal-item mt-4 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] lg:p-8"
-                data-delay={240}
-              >
-                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
-                  scalability & impact
-                </p>
-
-                <h3 className="mt-3 max-w-3xl font-serif text-[1.35rem] font-semibold leading-snug text-[#1f1a18]">
-                  From a single codebase fix to a generalized documentation engine.
-                </h3>
-
-                <p className="mt-4 max-w-3xl text-[0.9rem] leading-7 text-[#5e5048]">
-                  After validating the model on the 5500 system, I generalized the architecture so it could be deployed across other enterprise codebases. The resulting framework turned unstructured legacy systems into searchable, documented assets.
-                </p>
-
-                <div className="mt-6 grid gap-3 sm:grid-cols-3">
-                  <div className="rounded-[18px] border border-black/5 bg-[#fffaf6] p-4">
-                    <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
-                      initial state
-                    </p>
-                    <p className="mt-2 text-[0.8rem] leading-6 text-[#342d29]">
-                      Unmapped 600+ COBOL codebase
-                    </p>
-                  </div>
-
-                  <div className="rounded-[18px] border border-black/5 bg-[#fffaf6] p-4">
-                    <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
-                      innovation
-                    </p>
-                    <p className="mt-2 text-[0.8rem] leading-6 text-[#342d29]">
-                      Systematized AI code-parsing agent
-                    </p>
-                  </div>
-
-                  <div className="rounded-[18px] border border-black/5 bg-[#fffaf6] p-4">
-                    <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
-                      outcome
-                    </p>
-                    <p className="mt-2 text-[0.8rem] leading-6 text-[#342d29]">
-                      Reusable enterprise-wide model
-                    </p>
-                  </div>
-                </div>
-              </div>
-            </section>
-
-            {/* PROJECT 02 */}
-            <section
-              id="project-02"
-              className="scroll-mt-8"
-            >
-              <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
-                <span className="h-px w-8 bg-[#c8bdb2]" />
-                02 · user research + workflow design
+                01 · user research + workflow design
               </div>
 
               <div
@@ -706,11 +488,11 @@ export default function BofaPage() {
                   </p>
 
                   <p className="mt-3 font-serif text-[1.45rem] font-semibold leading-snug text-[#1f1a18]">
-                    Patent Filing (Pending)
+                    Internal Patent Review Submission
                   </p>
 
                   <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">
-                    Contributed as a co-inventor to a pending patent filing recognizing Mosaic's architecture and context-centered agent workflow.
+                    Contributed to Mosaic's architecture and documentation as part of the team's submission to Bank of America's internal patent-review process.
                   </p>
                 </div>
 
@@ -726,6 +508,224 @@ export default function BofaPage() {
                   <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">
                     Hosted weekly office hours to train active Business Analysts on prompt engineering, workflow integration, and tool navigation.
                   </p>
+                </div>
+              </div>
+            </section>
+
+            {/* PROJECT 02 */}
+            <section
+              id="project-02"
+              className="scroll-mt-8"
+            >
+              <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+                <span className="h-px w-8 bg-[#c8bdb2]" />
+                02 · legacy modernization
+              </div>
+
+              <div className="grid gap-4 lg:grid-cols-[1.05fr_0.95fr]">
+                <div
+                  className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] lg:p-8"
+                  data-delay={0}
+                >
+                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
+                    the problem
+                  </p>
+
+                  <h2 className="mt-3 font-serif text-[1.45rem] font-semibold leading-snug text-[#1f1a18]">
+                    600+ Files. Minimal System Documentation.
+                  </h2>
+
+                  <div className="my-4 h-px bg-black/5" />
+
+                  <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3">
+                    Assigned to analyze a legacy 401(k) system built on COBOL, VSAM files, and mainframe infrastructure—supported only by a single outdated deck from 2010.
+                  </p>
+
+                  <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">
+                    The objective was to decode system logic, map data relationships across files, identify architectural bottlenecks, and establish a clear technical foundation for modernization.
+                  </p>
+
+                  <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">
+                    With no prior COBOL background, the core challenge was creating an automated, structured process to translate raw legacy code into understandable functional requirements.
+                  </p>
+                </div>
+
+                <div
+                  className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] lg:p-8"
+                  data-delay={80}
+                >
+                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
+                    what I built
+                  </p>
+
+                  <h2 className="mt-3 font-serif text-[1.45rem] font-semibold leading-snug text-[#1f1a18]">
+                    5500 AI Documentation Agent
+                  </h2>
+
+                  <div className="my-4 h-px bg-black/5" />
+
+                  <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3">
+                    An automated AI documentation agent that ingests legacy files and generates structured system documentation where manual records were missing.
+                  </p>
+
+                  <p className="mt-4 text-[0.88rem] leading-7 text-[#5e5048]">
+                    The system evaluates high-level module architecture down to individual file responsibilities and cross-file dependencies, producing a comprehensive technical system map.
+                  </p>
+
+                  <div className="mt-5 flex flex-wrap gap-2">
+                    {projects[0].tags.map((tag) => (
+                      <span
+                        key={tag}
+                        className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-[#7c7068]"
+                      >
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+
+              {/* SYSTEM DIAGRAM */}
+              <div
+                className="reveal-item mt-4 overflow-hidden rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] lg:p-8"
+                data-delay={160}
+              >
+                <div className="flex flex-col gap-2 sm:flex-row sm:items-end sm:justify-between">
+                  <div>
+                    <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
+                      the workflow
+                    </p>
+
+                    <h3 className="mt-2 font-serif text-[1.3rem] font-semibold text-[#1f1a18]">
+                      Legacy Analysis Pipeline
+                    </h3>
+                  </div>
+
+                  <p className="max-w-sm text-[0.78rem] leading-6 text-[#8a7d75]">
+                    Simplified for portfolio presentation & confidentiality; proprietary system details omitted.
+                  </p>
+                </div>
+
+                <div className="mt-7 grid gap-3 md:grid-cols-5">
+                  <div className="rounded-[20px] border border-black/5 bg-[#fffaf6] p-5 text-center">
+                    <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#a89d96]">
+                      input
+                    </p>
+                    <p className="mt-3 font-serif text-[1rem] font-semibold text-[#1f1a18]">
+                      600+ Files
+                    </p>
+                    <p className="mt-2 text-[0.75rem] leading-5 text-[#6b5d55]">
+                      COBOL & VSAM codebase
+                    </p>
+                  </div>
+
+                  <div className="hidden items-center justify-center md:flex">
+                    <span className="text-[#c8bdb2]">→</span>
+                  </div>
+
+                  <div className="rounded-[20px] border border-black/5 bg-white p-5 text-center">
+                    <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#a89d96]">
+                      agent
+                    </p>
+                    <p className="mt-3 font-serif text-[1rem] font-semibold text-[#1f1a18]">
+                      5500 Agent
+                    </p>
+                    <p className="mt-2 text-[0.75rem] leading-5 text-[#6b5d55]">
+                      parses & synthesizes logic
+                    </p>
+                  </div>
+
+                  <div className="hidden items-center justify-center md:flex">
+                    <span className="text-[#c8bdb2]">→</span>
+                  </div>
+
+                  <div className="rounded-[20px] border border-black/5 bg-[#fffaf6] p-5 text-center">
+                    <p className="text-[0.62rem] uppercase tracking-[0.22em] text-[#a89d96]">
+                      outputs
+                    </p>
+                    <p className="mt-3 font-serif text-[1rem] font-semibold text-[#1f1a18]">
+                      System Map
+                    </p>
+                    <p className="mt-2 text-[0.75rem] leading-5 text-[#6b5d55]">
+                      file relationships & roadmap
+                    </p>
+                  </div>
+
+                  <div className="md:col-span-5 grid gap-3 pt-1 sm:grid-cols-3">
+                    <div className="rounded-[18px] border border-black/5 bg-white p-4">
+                      <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
+                        layer 01
+                      </p>
+                      <p className="mt-2 text-[0.8rem] font-medium text-[#342d29]">
+                        System Overview & Logic
+                      </p>
+                    </div>
+
+                    <div className="rounded-[18px] border border-black/5 bg-white p-4">
+                      <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
+                        layer 02
+                      </p>
+                      <p className="mt-2 text-[0.8rem] font-medium text-[#342d29]">
+                        File-Level Relationships
+                      </p>
+                    </div>
+
+                    <div className="rounded-[18px] border border-black/5 bg-white p-4">
+                      <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
+                        layer 03
+                      </p>
+                      <p className="mt-2 text-[0.8rem] font-medium text-[#342d29]">
+                        Modernization Roadmap
+                      </p>
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              {/* GENERALIZATION */}
+              <div
+                className="reveal-item mt-4 rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] lg:p-8"
+                data-delay={240}
+              >
+                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">
+                  scalability & impact
+                </p>
+
+                <h3 className="mt-3 max-w-3xl font-serif text-[1.35rem] font-semibold leading-snug text-[#1f1a18]">
+                  From a single codebase fix to a generalized documentation engine.
+                </h3>
+
+                <p className="mt-4 max-w-3xl text-[0.9rem] leading-7 text-[#5e5048]">
+                  After validating the model on the 5500 system, I generalized the architecture for reuse across other mainframe and VSAM codebases. The resulting framework was designed to turn undocumented legacy systems into searchable, documented assets.
+                </p>
+
+                <div className="mt-6 grid gap-3 sm:grid-cols-3">
+                  <div className="rounded-[18px] border border-black/5 bg-[#fffaf6] p-4">
+                    <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
+                      initial state
+                    </p>
+                    <p className="mt-2 text-[0.8rem] leading-6 text-[#342d29]">
+                      Unmapped 600+ COBOL codebase
+                    </p>
+                  </div>
+
+                  <div className="rounded-[18px] border border-black/5 bg-[#fffaf6] p-4">
+                    <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
+                      innovation
+                    </p>
+                    <p className="mt-2 text-[0.8rem] leading-6 text-[#342d29]">
+                      Systematized AI code-parsing agent
+                    </p>
+                  </div>
+
+                  <div className="rounded-[18px] border border-black/5 bg-[#fffaf6] p-4">
+                    <p className="text-[0.62rem] uppercase tracking-[0.18em] text-[#a89d96]">
+                      outcome
+                    </p>
+                    <p className="mt-2 text-[0.8rem] leading-6 text-[#342d29]">
+                      Reusable mainframe documentation model
+                    </p>
+                  </div>
                 </div>
               </div>
             </section>
@@ -758,7 +758,7 @@ export default function BofaPage() {
                   </p>
 
                   <p className="mt-4 text-[0.9rem] leading-7 text-[#5e5048]">
-                    Designed a solution focused on delivering team-specific technical context to new hires, reducing repetitive onboarding overhead for managers and senior engineers.
+                    Designed a solution focused on delivering team-specific technical context to new hires, with the intended benefit of reducing repetitive onboarding overhead for managers and senior engineers.
                   </p>
                 </div>
 

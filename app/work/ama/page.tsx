@@ -26,19 +26,19 @@ function useReveal() {
 const tags = [
   "vp of marketing",
   "team leadership",
-  "30-member org",
-  "client consulting",
-  "content strategy",
-  "instagram growth",
-  "brand ops",
-  "recruitment",
+  "client acquisition",
+  "client retention",
+  "consumer strategy",
+  "market research",
+  "campaign planning",
+  "brand operations",
 ];
 
 const stats = [
   { value: "VP", label: "of Marketing & Co-Lead" },
-  { value: "30", label: "active org members" },
-  { value: "03", label: "client & internal tracks" },
-  { value: "120K+", label: "organic views (60 days)" },
+  { value: "30", label: "members co-led" },
+  { value: "02", label: "client engagements" },
+  { value: "120K+", label: "organic views in 60 days" },
 ];
 
 const growth = [
@@ -50,48 +50,53 @@ const growth = [
 
 const teamRoles = [
   {
-    role: "Internal Marketing Track",
-    desc: "Overseeing AMA's primary brand identity, recruitment campaigns, social content, and campus event coverage.",
-    members: "1 Internal PM Team",
+    role: "Internal Marketing",
+    desc: "Overseeing AMA’s chapter brand, recruitment marketing, social strategy, and campus event coverage while supporting the Internal Marketing Project Manager.",
+    members: "Internal Brand Team",
   },
   {
-    role: "Client Consulting Group 01",
-    desc: "Directing student strategy teams on external marketing deliverables and brand partnerships, including client work with butcute.",
-    members: "1 Client Team",
+    role: "But Cute",
+    desc: "Continuing AMA’s relationship with a returning consumer-brand client specializing in plush products, building on the previous semester’s engagement.",
+    members: "Returning Client",
   },
   {
-    role: "Client Consulting Group 02",
-    desc: "Managing client outreach and campaign execution for secondary consumer brand collaborations.",
-    members: "1 Client Team",
+    role: "Live Lagree",
+    desc: "Developing a USC-focused customer-acquisition strategy for a nearby Lagree studio, exploring student partnerships, accessible introductory offers, and convenience-led positioning.",
+    members: "New Client",
   },
 ];
 
 const sections = [
   {
     label: "the evolution",
-    heading: "From Internal PM to VP of Marketing",
-    pull: "Building internal content workflows that drove real growth—then taking the helm to scale the entire marketing division.",
-    body: "Started as Project Manager for Internal Marketing, managing a 5-person team across graphic design, media, and social content. Focused on brand consistency and short-form video. Promoted to VP of Marketing, co-leading a 30-member marketing organization divided into internal branding and two external client consulting groups.",
-    tags: ["leadership", "vp role", "content strategy", "brand ops"],
+    heading: "From Internal Execution to Division Leadership",
+    pull:
+      "Turning hands-on brand and content experience into oversight across internal operations and external client engagements.",
+    body:
+      "Started as Project Manager for Internal Marketing, managing a five-person team across graphic design, media, and social content. After establishing stronger workflows and measurable audience growth, I was promoted to VP of Marketing and now co-lead a 30-member organization spanning internal marketing and two client consulting teams.",
+    tags: ["leadership", "promotion", "brand operations", "client strategy"],
   },
   {
-    label: "internal pm foundation",
-    heading: "Structuring the Content Engine",
-    pull: "Clean handoffs, standardized Figma brand assets, and a consistent weekly content cadence.",
-    body: "As Internal PM, rebuilt the chapter's Figma design kit, streamlined GM event announcements, and established weekly social content workflows. Shifted focus toward community-focused video content, resulting in 120K+ views within 60 days, 14,358 accounts reached, and a 47% increase in overall account engagement.",
+    label: "internal foundation",
+    heading: "Building a Repeatable Content Operation",
+    pull:
+      "Standardized assets, clearer handoffs, and a consistent publishing cadence supported measurable organic growth.",
+    body:
+      "As Internal Marketing Project Manager, I rebuilt AMA’s Figma design kit, streamlined event-promotion workflows, and expanded community-focused short-form content. The team generated 120K+ organic views within 60 days, reached 14,358 accounts, and increased overall account engagement by 47%.",
   },
   {
-    label: "vp leadership",
-    heading: "Scaling Teams & Client Engagements",
-    pull: "Co-leading 30 members, managing recruitment, and directing both internal brand and client strategy teams.",
-    body: "As VP of Marketing, co-manage executive operations for the division—overseeing recruitment, member placement, and strategic direction across three teams: one internal branding group and two external client project teams (including client collaborations with brands like butcute).",
+    label: "current client portfolio",
+    heading: "Overseeing Retention and Market Expansion",
+    pull:
+      "Supporting a returning consumer-brand client while guiding a local fitness business toward the USC student market.",
+    body:
+      "As VP of Marketing, I oversee strategy and delivery across two external engagements: But Cute, a returning plush-products client, and Live Lagree, a nearby fitness studio exploring USC customer acquisition. Current work includes aligning team scopes, developing audience and partnership strategies, and identifying measurable campaign outcomes.",
   },
   {
-    label: "leadership takeaways",
-    heading: "Building Culture & Creative Authority",
-    stat: "30",
-    statLabel: "members co-managed",
-    body: "Leadership in student organizations is about setting clear creative direction and building systems where members can execute confidently. Moving from hands-on PM work to executive division management reinforced how to scale quality without micromanaging.",
+    label: "leadership approach",
+    heading: "Creating Structure Without Micromanaging",
+    body:
+      "Moving from direct project execution into division leadership has required setting strategic direction, placing members according to their strengths, supporting project managers, and creating accountability across simultaneous workstreams. My role is to give each team enough structure to deliver consistently while preserving room for creative ownership.",
     stamp: "AMA USC · Internal PM to VP of Marketing",
   },
 ];
@@ -152,7 +157,10 @@ export default function AMAPage() {
                 VP of Marketing / Team Leadership / Client Strategy
               </p>
               <p className="mt-5 max-w-xl text-[1rem] leading-8 text-[#4d413b]">
-                Co-leading 30 members across internal marketing and client consulting groups. Formerly Internal Marketing PM, overseeing a 5-person team across graphic design, media, and short-form video.
+                Co-leading a 30-member marketing organization across internal brand operations
+                and two client consulting engagements. Overseeing recruitment, client strategy,
+                and team delivery after previously managing AMA’s five-person internal
+                marketing team.
               </p>
               <p className="mt-4 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
                 ✦ Promoted to VP of Marketing
@@ -185,29 +193,7 @@ export default function AMAPage() {
             {/* DIVIDER */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
-              pm content growth track
-            </div>
-
-            {/* GROWTH TABLE */}
-            <div className="reveal-item overflow-hidden rounded-[24px] border border-black/5 bg-white/72 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={80}>
-              <div className="grid grid-cols-3 border-b border-black/5 px-6 py-3">
-                <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">Content type</p>
-                <p className="text-center text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">Fall '25</p>
-                <p className="text-center text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">Spring '26</p>
-              </div>
-              {growth.map((row, i) => (
-                <div key={row.label} className={`grid grid-cols-3 px-6 py-4 ${i !== growth.length - 1 ? "border-b border-black/5" : ""}`}>
-                  <p className="font-serif text-[0.95rem] font-semibold text-[#1f1a18]">{row.label}</p>
-                  <p className="text-center text-[0.9rem] text-[#7c7068]">{row.fall}</p>
-                  <p className="text-center text-[0.9rem] font-medium text-[#4d413b]">{row.spring}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* DIVIDER */}
-            <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
-              <span className="h-px w-8 bg-[#c8bdb2]" />
-              vp division structure
+              current portfolio
             </div>
 
             {/* TEAM ROLES */}
@@ -219,39 +205,6 @@ export default function AMAPage() {
                   <p className="mt-3 text-[0.68rem] uppercase tracking-[0.2em] text-[#a89d96]">✦ {item.members}</p>
                 </div>
               ))}
-            </div>
-
-            {/* DIVIDER */}
-            <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
-              <span className="h-px w-8 bg-[#c8bdb2]" />
-              pm portfolio decks
-            </div>
-
-            {/* SLIDES EMBEDS */}
-            <div className="reveal-item space-y-6" data-delay={80}>
-              <div>
-                <p className="mb-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">Fall 2025 — semester recap</p>
-                <div className="overflow-hidden rounded-[28px] border border-black/8 shadow-[0_24px_70px_rgba(68,44,29,0.08)]" style={{ aspectRatio: "16/9", width: "100%" }}>
-                  <iframe
-                    src={fall2025Embed}
-                    style={{ border: "none", width: "100%", height: "100%", display: "block" }}
-                    allowFullScreen
-                    title="AMA USC — Fall 2025 Semester Recap"
-                  />
-                </div>
-              </div>
-
-              <div>
-                <p className="mb-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">Spring 2026 — end-of-semester portfolio</p>
-                <div className="overflow-hidden rounded-[28px] border border-black/8 shadow-[0_24px_70px_rgba(68,44,29,0.08)]" style={{ aspectRatio: "16/9", width: "100%" }}>
-                  <iframe
-                    src={spring2026Embed}
-                    style={{ border: "none", width: "100%", height: "100%", display: "block" }}
-                    allowFullScreen
-                    title="AMA USC — Spring 2026 End-of-Semester Portfolio"
-                  />
-                </div>
-              </div>
             </div>
 
             {/* DIVIDER */}
@@ -322,6 +275,61 @@ export default function AMAPage() {
                 <span className="mt-auto pt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75] self-start">{sections[3].stamp}</span>
               </div>
 
+            </div>
+
+            {/* DIVIDER */}
+            <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+              <span className="h-px w-8 bg-[#c8bdb2]" />
+              internal marketing results
+            </div>
+
+            {/* GROWTH TABLE */}
+            <div className="reveal-item overflow-hidden rounded-[24px] border border-black/5 bg-white/72 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={80}>
+              <div className="grid grid-cols-3 border-b border-black/5 px-6 py-3">
+                <p className="text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">Content type</p>
+                <p className="text-center text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">Fall '25</p>
+                <p className="text-center text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">Spring '26</p>
+              </div>
+              {growth.map((row, i) => (
+                <div key={row.label} className={`grid grid-cols-3 px-6 py-4 ${i !== growth.length - 1 ? "border-b border-black/5" : ""}`}>
+                  <p className="font-serif text-[0.95rem] font-semibold text-[#1f1a18]">{row.label}</p>
+                  <p className="text-center text-[0.9rem] text-[#7c7068]">{row.fall}</p>
+                  <p className="text-center text-[0.9rem] font-medium text-[#4d413b]">{row.spring}</p>
+                </div>
+              ))}
+            </div>
+
+            {/* DIVIDER */}
+            <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+              <span className="h-px w-8 bg-[#c8bdb2]" />
+              internal marketing archive
+            </div>
+
+            {/* SLIDES EMBEDS */}
+            <div className="reveal-item space-y-6" data-delay={80}>
+              <div>
+                <p className="mb-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">Fall 2025 — semester recap</p>
+                <div className="overflow-hidden rounded-[28px] border border-black/8 shadow-[0_24px_70px_rgba(68,44,29,0.08)]" style={{ aspectRatio: "16/9", width: "100%" }}>
+                  <iframe
+                    src={fall2025Embed}
+                    style={{ border: "none", width: "100%", height: "100%", display: "block" }}
+                    allowFullScreen
+                    title="AMA USC — Fall 2025 Semester Recap"
+                  />
+                </div>
+              </div>
+
+              <div>
+                <p className="mb-3 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">Spring 2026 — end-of-semester portfolio</p>
+                <div className="overflow-hidden rounded-[28px] border border-black/8 shadow-[0_24px_70px_rgba(68,44,29,0.08)]" style={{ aspectRatio: "16/9", width: "100%" }}>
+                  <iframe
+                    src={spring2026Embed}
+                    style={{ border: "none", width: "100%", height: "100%", display: "block" }}
+                    allowFullScreen
+                    title="AMA USC — Spring 2026 End-of-Semester Portfolio"
+                  />
+                </div>
+              </div>
             </div>
 
             {/* BOTTOM NAV */}
