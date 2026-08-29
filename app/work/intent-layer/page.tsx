@@ -320,7 +320,7 @@ export default function IntentLayerPage() {
                     height: "100%",
                     display: "block",
                   }}
-                  src="https://embed.figma.com/slides/BGXG6RXj7t1dLyxUbmLhve/Intent-Layer?node-id=32-493&embed-host=share"
+                  src="https://embed.figma.com/slides/BGXG6RXj7t1dLyxUbmLhve/Intent-Layer?node-id=1-33&embed-host=share"
                   allowFullScreen
                   title="Intent Layer — Product Strategy Case Study"
                 />
