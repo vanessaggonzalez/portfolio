@@ -6,372 +6,120 @@ import { useEffect } from "react";
 function useReveal() {
   useEffect(() => {
     const items = document.querySelectorAll<HTMLElement>(".reveal-item");
-    const observer = new IntersectionObserver(
-      (entries) => {
-        entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const el = entry.target as HTMLElement;
-          const delay = Number(el.dataset.delay ?? 0);
-          setTimeout(() => el.classList.add("revealed"), delay);
-          observer.unobserve(el);
-        });
-      },
-      { threshold: 0.08, rootMargin: "0px 0px -20px 0px" }
-    );
+    const observer = new IntersectionObserver((entries) => entries.forEach((entry) => {
+      if (!entry.isIntersecting) return;
+      const el = entry.target as HTMLElement;
+      setTimeout(() => el.classList.add("revealed"), Number(el.dataset.delay ?? 0));
+      observer.unobserve(el);
+    }), { threshold: 0.08, rootMargin: "0px 0px -24px 0px" });
     items.forEach((el) => observer.observe(el));
     return () => observer.disconnect();
   }, []);
 }
 
-const tags = [
-  "wordpress cms",
-  "web migrations",
-  "email operations",
-  "slate & campaign monitor",
-  "web analytics",
-  "salesforce CRM",
-  "content strategy",
-  "data visualization",
+const portals = [
+  { number: "01", name: "Undergraduate Admissions", href: "https://admission.usc.edu/", role: "Content deployments · layout updates · mobile optimization", signal: "10K+ weekly users" },
+  { number: "02", name: "Graduate Admissions", href: "https://gradadm.usc.edu/", role: "Program requirements · page structure · cross-device QA", signal: "Multi-program hub" },
+  { number: "03", name: "Academic Records & Registrar", href: "https://arr.usc.edu/", role: "Full legacy-site migration · unified enrollment architecture", signal: "Enrollment-critical" },
+  { number: "04", name: "Financial Aid", href: "https://financialaid.usc.edu/", role: "Aid resources · application deadlines · student documentation", signal: "High-traffic resource" },
 ];
 
-const stats = [
-  { value: "4", label: "core web portals" },
-  { value: "10K+", label: "weekly active users" },
-  { value: "15%", label: "homepage traffic growth" },
-  { value: "2 yrs", label: "experience" },
-];
-
-const toolGroups = [
-  {
-    category: "Web & CMS",
-    tools: ["WordPress", "Elementor", "HTML", "CSS", "Site Migrations"],
-  },
-  {
-    category: "Email & CRM",
-    tools: ["Slate", "Campaign Monitor", "Salesforce (In Progress)"],
-  },
-  {
-    category: "Data & Reporting",
-    tools: ["Google Analytics", "Email Telemetry", "Data Visualization", "SEO Tracking"],
-  },
-];
-
-const websites = [
-  {
-    name: "USC Undergraduate Admissions",
-    href: "https://admission.usc.edu/",
-    desc: "Primary prospective student portal—managed routine content deployments, layout updates, and mobile optimization.",
-    stat: "10K+ weekly users",
-  },
-  {
-    name: "USC Graduate Admissions",
-    href: "https://gradadm.usc.edu/",
-    desc: "Updated page structures, program requirements, and cross-device display consistency.",
-    stat: "Multi-program hub",
-  },
-  {
-    name: "USC ARR (Registrar)",
-    href: "https://arr.usc.edu/",
-    desc: "Executed full web migration from legacy site to align with unified USC enrollment site architecture.",
-    stat: "Enrollment-critical",
-  },
-  {
-    name: "USC Financial Aid",
-    href: "https://financialaid.usc.edu/",
-    desc: "Maintained financial resources, application deadlines, and student aid documentation.",
-    stat: "High-traffic resource",
-  },
-];
-
-const sections = [
-  {
-    label: "web operations",
-    heading: "Managing 4 High-Traffic USC Web Portals",
-    pull: "Translating PM requirements into live, accessible web updates across USC's primary enrollment ecosystems.",
-    body: "Work directly with Project Managers to execute site edits, feature updates, and content migrations across four primary web properties: Undergraduate Admissions, Graduate Admissions, Financial Aid, and Academic Records & Registrar (ARR). Recently supported the complete site migration of the new ARR portal to standardize design and navigation with core enrollment sites.",
-    tags: ["wordpress", "site migrations", "html/css", "web maintenance"],
-  },
-  {
-    label: "email & CRM ops",
-    heading: "Email Campaign Dispatch & Tracking",
-    pull: "Executing multi-channel prospective student emails while managing CRM system transitions.",
-    body: "Manage end-to-end email campaign logistics using Slate and Campaign Monitor—formatting communications, auditing mailing lists, and executing student dispatches. Currently assisting with the departmental migration to Salesforce to streamline audience segmentation and email automation.",
-  },
-  {
-    label: "analytics & reporting",
-    heading: "Performance Tracking & Data Visualization",
-    pull: "Turning web telemetry and email delivery metrics into visual dashboards for leadership.",
-    body: "Responsible for aggregating site-wide analytics—tracking search rankings, page visits, and referral channels to build clear visual charts for department heads. Simultaneously track email performance metrics (open rates, bounce rates, and delivery errors) to diagnose delivery issues and improve outreach efficiency.",
-  },
-  {
-    label: "impact & growth",
-    heading: "Data-Informed Content Strategy",
-    stat: "15%",
-    statLabel: "increase in homepage traffic",
-    body: "Combining hands-on web management with consistent analytics reporting helped identify drop-off points, contributing to a 15% increase in weekly traffic across Admissions channels. The role balances technical implementation with direct communication strategy for thousands of prospective students.",
-    stamp: "USC MarComm · 2 yrs",
-  },
+const operatingLoop = [
+  ["01", "Plan", "Translate PM requirements into scoped content and site changes."],
+  ["02", "Publish", "Deploy accessible updates across WordPress, Elementor, HTML, and CSS."],
+  ["03", "Reach", "Format, audit, and dispatch prospective-student communications."],
+  ["04", "Learn", "Report on traffic, referrals, search, delivery, and email performance."],
 ];
 
 export default function USCMarCommPage() {
   useReveal();
 
-  const navLinks = [
-    { label: "Work", href: "/work" },
-    { label: "About", href: "/about" },
-    { label: "Resume", href: "/resume" },
-    { label: "Contact", href: "/contact" },
-    {
-      label: "LinkedIn ↗",
-      href: "https://linkedin.com/in/vanessa-g-gonzalez",
-      external: true,
-    },
-  ];
-
   return (
     <main className="relative min-h-screen overflow-hidden bg-[#f7f1eb] text-[#201c1a]">
-      {/* GRAIN */}
-      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 grain-overlay" />
-      {/* GLOW */}
-      <div aria-hidden="true" className="pointer-events-none fixed left-1/2 top-[-10rem] z-0 h-[32rem] w-[52rem] -translate-x-1/2 rounded-full bg-[#efe1d4]/50 blur-[120px]" />
-      <div aria-hidden="true" className="pointer-events-none fixed right-[-8rem] top-[18rem] z-0 h-[26rem] w-[26rem] rounded-full bg-white/40 blur-[100px]" />
+      <div aria-hidden="true" className="grain-overlay pointer-events-none fixed inset-0 z-0" />
+      <div aria-hidden="true" className="pointer-events-none fixed left-1/2 top-[-12rem] h-[34rem] w-[54rem] -translate-x-1/2 rounded-full bg-[#efe0d4]/65 blur-[120px]" />
 
-      <div className="relative z-10">
-        <div className="px-4 py-4 sm:px-6 lg:px-10">
-          <div className="mx-auto max-w-7xl rounded-[34px] border border-black/5 bg-white/42 px-5 py-5 shadow-[0_30px_120px_rgba(54,36,24,0.06)] backdrop-blur-[2px] sm:px-8 sm:py-8">
+      <div className="relative z-10 px-4 py-4 sm:px-6 lg:px-10">
+        <div className="mx-auto max-w-7xl overflow-hidden rounded-[34px] border border-black/5 bg-white/45 shadow-[0_30px_120px_rgba(54,36,24,0.06)] backdrop-blur-[2px]">
+          <header className="flex items-center justify-between gap-4 px-5 py-5 text-sm uppercase tracking-[0.22em] text-[#5f554f] sm:px-8 sm:py-7">
+            <Link href="/work" className="text-[0.72rem] tracking-[0.28em] text-[#7c7068]">← work</Link>
+            <nav className="flex flex-wrap justify-end gap-4 sm:gap-6">{[["Work", "/work"], ["About", "/about"], ["Resume", "/resume"], ["Contact", "/contact"]].map(([label, href]) => <Link key={label} href={href} className="transition hover:text-[#201c1a]">{label}</Link>)}</nav>
+          </header>
 
-            {/* NAV */}
-            <header className="flex items-center justify-between gap-4 text-sm tracking-[0.22em] uppercase text-[#5f554f]">
-              <Link href="/work" className="text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068] transition hover:text-[#201c1a]">
-                ← work
-              </Link>
-              <nav className="flex flex-wrap justify-end gap-4 sm:gap-6">
-                {navLinks.map((link) => (
-                  <Link key={link.label} href={link.href} className="transition hover:text-[#201c1a]">
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
-            </header>
-
-            {/* TITLE BLOCK */}
-            <div className="reveal-item mt-10 max-w-3xl" data-delay={0}>
-              <p className="text-[0.72rem] uppercase tracking-[0.35em] text-[#7c7068]">
-                03 · experience · university of southern california
-              </p>
-              <h1 className="mt-4 font-serif text-[2.4rem] font-semibold leading-tight text-[#1f1a18] sm:text-[3rem]">
-                USC Marketing Communications
-              </h1>
-              <p className="mt-3 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                Web Operations / CRM & Email / Data Analytics
-              </p>
-              <p className="mt-5 max-w-xl text-[1rem] leading-8 text-[#4d413b]">
-                Managing WordPress development, email campaign operations (Slate & Campaign Monitor), and web performance reporting across four major USC enrollment and registrar portals serving 10,000+ weekly users.
-              </p>
-              <p className="mt-4 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                ✦ 15% increase in weekly traffic across primary enrollment pages
-              </p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {tags.map((tag) => (
-                  <span key={tag} className="rounded-full border border-black/5 bg-white/70 px-3 py-1 text-[0.72rem] uppercase tracking-[0.18em] text-[#7c7068]">
-                    {tag}
-                  </span>
-                ))}
-              </div>
+          {/* HERO */}
+          <section className="grid border-t border-black/5 lg:grid-cols-[0.9fr_1.1fr]">
+            <div className="reveal-item flex flex-col justify-center px-6 py-12 sm:px-10 lg:px-14 lg:py-16" data-delay={0}>
+              <p className="text-[0.62rem] uppercase tracking-[0.32em] text-[#9a8c84]">University of Southern California · 2 years</p>
+              <h1 className="mt-5 font-serif text-[2.7rem] font-semibold leading-[1.04] text-[#1f1a18] sm:text-[3.7rem]">Enrollment communications at digital scale.</h1>
+              <p className="mt-5 text-[0.68rem] uppercase tracking-[0.2em] text-[#8a7d75]">Web Operations · CRM & Email · Analytics</p>
+              <p className="mt-6 max-w-xl text-[1rem] leading-8 text-[#4d413b]">Operating four major USC enrollment and registrar portals while connecting CMS delivery, campaign operations, and performance reporting for prospective and current students.</p>
             </div>
 
-            {/* DIVIDER */}
-            <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
-              <span className="h-px w-8 bg-[#c8bdb2]" />
-              by the numbers
-            </div>
-
-            {/* STATS */}
-            <div className="reveal-item grid grid-cols-2 gap-4 sm:grid-cols-4" data-delay={80}>
-              {stats.map((stat) => (
-                <div key={stat.label} className="rounded-[24px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] text-center">
-                  <p className="font-serif text-[2rem] font-semibold text-[#1f1a18]">{stat.value}</p>
-                  <p className="mt-2 text-[0.68rem] uppercase tracking-[0.2em] text-[#8a7d75]">{stat.label}</p>
-                </div>
-              ))}
-            </div>
-
-            {/* DIVIDER */}
-            <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
-              <span className="h-px w-8 bg-[#c8bdb2]" />
-              managed web portals
-            </div>
-
-            {/* WEBSITE CARDS */}
-            <div className="reveal-item grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-delay={80}>
-              {websites.map((site) => (
-                <a
-                  key={site.name}
-                  href={site.href}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="group rounded-[24px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_60px_rgba(68,44,29,0.08)]"
-                >
-                  <p className="font-serif text-[1rem] font-semibold leading-snug text-[#1f1a18] group-hover:underline">
-                    {site.name}
-                  </p>
-
-                  <p className="mt-3 text-[0.85rem] leading-7 text-[#4d413b]">{site.desc}</p>
-
-                  <p className="mt-3 text-[0.68rem] uppercase tracking-[0.2em] text-[#a89d96]">
-                    ✦ {site.stat}
-                  </p>
-
-                  <div className="mt-5 flex items-center gap-2 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75] transition-all group-hover:text-[#201c1a]">
-                    <span>Visit site</span>
-                    <span className="transition-transform duration-300 group-hover:translate-x-1 group-hover:-translate-y-1">
-                      ↗
-                    </span>
-                  </div>
-                </a>
-              ))}
-            </div>
-
-            {/* DIVIDER */}
-            <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
-              <span className="h-px w-8 bg-[#c8bdb2]" />
-              tools & software
-            </div>
-
-            {/* TOOLS */}
-            <div className="reveal-item grid gap-4 sm:grid-cols-3" data-delay={80}>
-              {toolGroups.map((group) => (
-                <div key={group.category} className="rounded-[24px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]">
-                  <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{group.category}</p>
-                  <div className="mt-4 flex flex-wrap gap-2">
-                    {group.tools.map((tool) => (
-                      <span key={tool} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1.5 text-[0.72rem] uppercase tracking-[0.18em] text-[#7c7068]">
-                        {tool}
-                      </span>
-                    ))}
+            <div className="reveal-item relative min-h-[470px] overflow-hidden bg-gradient-to-br from-[#6f1721] via-[#8b2632] to-[#471016] p-7 sm:p-10" data-delay={80}>
+              <div className="absolute -right-20 -top-20 h-72 w-72 rounded-full bg-[#ffcc00]/15 blur-[70px]" />
+              <div className="relative h-full overflow-hidden rounded-[26px] border border-white/15 bg-[#fffaf6] shadow-[0_25px_65px_rgba(40,5,10,0.25)]">
+                <div className="flex items-center gap-2 border-b border-black/5 bg-white px-4 py-3"><span className="h-2.5 w-2.5 rounded-full bg-[#b74750]" /><span className="h-2.5 w-2.5 rounded-full bg-[#e3b34c]" /><span className="h-2.5 w-2.5 rounded-full bg-[#96ad86]" /><div className="ml-3 h-5 flex-1 rounded-full bg-[#f1ece8]" /></div>
+                <div className="grid h-[calc(100%-45px)] grid-cols-[0.35fr_1.65fr]">
+                  <div className="border-r border-black/5 bg-[#f8f3ef] p-4"><p className="text-[0.5rem] uppercase tracking-[0.2em] text-[#a89d96]">USC enrollment</p><div className="mt-5 space-y-3">{["Admissions", "Graduate", "Registrar", "Financial Aid"].map((item, i) => <div key={item} className={`rounded-[9px] px-3 py-2 text-[0.58rem] ${i === 0 ? "bg-[#7d202b] text-white" : "text-[#7c7068]"}`}>{item}</div>)}</div></div>
+                  <div className="p-5"><div className="flex items-end justify-between"><div><p className="text-[0.5rem] uppercase tracking-[0.2em] text-[#a89d96]">weekly performance</p><p className="mt-2 font-serif text-xl text-[#342d29]">Enrollment ecosystem</p></div><span className="rounded-full bg-[#fff1c2] px-3 py-1 text-[0.52rem] text-[#7d6316]">+15% traffic</span></div>
+                    <div className="relative mt-8 h-32 border-b border-l border-black/5"><svg viewBox="0 0 500 130" className="absolute inset-0 h-full w-full" preserveAspectRatio="none"><defs><linearGradient id="chartFill" x1="0" y1="0" x2="0" y2="1"><stop offset="0%" stopColor="#8b2632" stopOpacity=".25" /><stop offset="100%" stopColor="#8b2632" stopOpacity="0" /></linearGradient></defs><path d="M0,105 C60,100 82,88 125,91 C170,95 190,68 235,73 C285,79 308,50 350,57 C400,63 430,25 500,18 L500,130 L0,130 Z" fill="url(#chartFill)" /><path d="M0,105 C60,100 82,88 125,91 C170,95 190,68 235,73 C285,79 308,50 350,57 C400,63 430,25 500,18" fill="none" stroke="#8b2632" strokeWidth="4" /></svg></div>
+                    <div className="mt-6 grid grid-cols-3 gap-3">{[["10K+", "weekly users"], ["04", "portals"], ["02", "years"]].map(([value, label]) => <div key={label}><p className="font-serif text-lg text-[#342d29]">{value}</p><p className="text-[0.48rem] uppercase tracking-[0.14em] text-[#a89d96]">{label}</p></div>)}</div>
                   </div>
                 </div>
-              ))}
-            </div>
-
-            {/* DIVIDER */}
-            <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
-              <span className="h-px w-8 bg-[#c8bdb2]" />
-              responsibilities & breakdown
-            </div>
-
-            {/* WRITTEN SECTIONS */}
-            <div className="grid gap-4 lg:grid-cols-2">
-
-              {/* SECTION 01: WEB OPS */}
-              <div
-                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
-                data-delay={0}
-              >
-                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">01</span>
-                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[0].label}</p>
-                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[0].heading}</h2>
-                <div className="my-4 h-px bg-black/5" />
-                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">{sections[0].pull}</p>
-                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[0].body}</p>
-                {sections[0].tags && (
-                  <div className="mt-auto pt-5 flex flex-wrap gap-2">
-                    {sections[0].tags.map((tag: string) => (
-                      <span key={tag} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-[#7c7068]">{tag}</span>
-                    ))}
-                  </div>
-                )}
               </div>
-
-              {/* SECTION 02: EMAIL & CRM */}
-              <div
-                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
-                data-delay={80}
-              >
-                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">02</span>
-                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[1].label}</p>
-                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[1].heading}</h2>
-                <div className="my-4 h-px bg-black/5" />
-                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-3">{sections[1].pull}</p>
-                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[1].body}</p>
-              </div>
-
-              {/* SECTION 03: ANALYTICS */}
-              <div
-                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
-                data-delay={120}
-              >
-                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">03</span>
-                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[2].label}</p>
-                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[2].heading}</h2>
-                <div className="my-4 h-px bg-black/5" />
-                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-3">{sections[2].pull}</p>
-                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[2].body}</p>
-              </div>
-
-              {/* SECTION 04: OUTCOME */}
-              <div
-                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
-                data-delay={160}
-              >
-                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">04</span>
-                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[3].label}</p>
-                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[3].heading}</h2>
-                <div className="my-4 h-px bg-black/5" />
-                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[3].body}</p>
-                <span className="mt-auto pt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75] self-start">{sections[3].stamp}</span>
-              </div>
-
             </div>
+          </section>
 
-            {/* BOTTOM NAV */}
-            <div className="reveal-item mt-10 flex items-center justify-between border-t border-black/5 pt-8" data-delay={0}>
-              <Link href="/work/bofa" className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]">
-                <span className="h-px w-4 bg-[#c8bdb2] transition-all duration-200 group-hover:w-6" />
-                prev: bank of america
-              </Link>
-              <Link href="/work/anqclic" className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]">
-                next: anqclic
-                <span className="h-px w-4 bg-[#c8bdb2] transition-all duration-200 group-hover:w-6" />
-              </Link>
+          {/* METRICS */}
+          <section className="grid grid-cols-2 border-y border-black/5 bg-[#fffaf6]/75 sm:grid-cols-4">{[["4", "core portals"], ["10K+", "weekly users"], ["15%", "traffic growth"], ["2 yrs", "experience"]].map(([value, label], i) => <div key={label} className={`p-6 text-center sm:p-8 ${i > 0 ? "sm:border-l sm:border-black/5" : ""} ${i > 1 ? "border-t border-black/5 sm:border-t-0" : ""}`}><p className="font-serif text-[2rem] font-semibold text-[#791f29]">{value}</p><p className="mt-2 text-[0.58rem] uppercase tracking-[0.2em] text-[#9a8c84]">{label}</p></div>)}</section>
+
+          {/* OPERATING LOOP */}
+          <section className="px-6 py-14 sm:px-10 lg:px-14 lg:py-16">
+            <div className="reveal-item grid gap-8 lg:grid-cols-[0.42fr_1.58fr]" data-delay={0}><div><p className="text-[0.62rem] uppercase tracking-[0.28em] text-[#a89d96]">the operating model</p><p className="mt-3 text-[0.78rem] leading-6 text-[#7c7068]">From requirement to live experience to measurable signal.</p></div><h2 className="font-serif text-[2rem] leading-[1.25] text-[#342d29] sm:text-[2.5rem]">The work connected implementation, communication, and learning—not three isolated responsibilities.</h2></div>
+            <div className="reveal-item relative mt-12 grid gap-5 sm:grid-cols-4" data-delay={80}><div aria-hidden="true" className="absolute left-8 right-8 top-4 hidden border-t border-dashed border-[#d3c3b8] sm:block" />{operatingLoop.map(([num, title, body]) => <div key={num} className="relative"><span className="relative z-10 inline-grid h-8 w-8 place-items-center rounded-full bg-[#7d202b] font-serif text-xs text-white">{num}</span><p className="mt-5 font-serif text-lg text-[#342d29]">{title}</p><p className="mt-2 text-[0.78rem] leading-6 text-[#5e5048]">{body}</p></div>)}</div>
+          </section>
+
+          {/* PORTAL DIRECTORY */}
+          <section className="border-t border-black/5 bg-[#fffaf6]/55 px-6 py-14 sm:px-10 lg:px-14 lg:py-16">
+            <div className="reveal-item mb-8 flex flex-wrap items-end justify-between gap-4" data-delay={0}><div><p className="text-[0.62rem] uppercase tracking-[0.28em] text-[#a89d96]">managed web portals</p><h2 className="mt-3 font-serif text-[2rem] text-[#342d29]">One enrollment ecosystem, four public doors.</h2></div><p className="text-[0.6rem] uppercase tracking-[0.18em] text-[#9a8c84]">live external sites ↗</p></div>
+            <div className="reveal-item divide-y divide-black/5 border-y border-black/5" data-delay={80}>{portals.map((portal) => <a key={portal.number} href={portal.href} target="_blank" rel="noopener noreferrer" className="group grid gap-3 py-6 transition hover:bg-white/65 sm:grid-cols-[3rem_1fr_1.25fr_auto] sm:items-center sm:px-4"><span className="font-serif text-xl text-[#c79b62]">{portal.number}</span><p className="font-serif text-lg text-[#342d29] group-hover:text-[#7d202b]">{portal.name}</p><p className="text-[0.75rem] leading-6 text-[#6b5d55]">{portal.role}</p><span className="text-[0.55rem] uppercase tracking-[0.17em] text-[#a89d96]">{portal.signal} ↗</span></a>)}</div>
+          </section>
+
+          {/* MIGRATION SPOTLIGHT */}
+          <section className="px-6 py-14 sm:px-10 lg:px-14 lg:py-16">
+            <div className="reveal-item grid gap-10 lg:grid-cols-[0.82fr_1.18fr] lg:items-center" data-delay={0}>
+              <div><p className="text-[0.62rem] uppercase tracking-[0.28em] text-[#a89d96]">project spotlight · ARR</p><h2 className="mt-3 font-serif text-[2rem] font-semibold leading-tight text-[#342d29]">Moving a legacy registrar site into a unified enrollment architecture.</h2><p className="mt-5 text-[0.9rem] leading-7 text-[#5e5048]">I supported the complete migration of the Academic Records & Registrar portal, translating project requirements into page structures, content deployment, navigation updates, and cross-device quality checks.</p></div>
+              <div className="overflow-hidden rounded-[30px] border border-black/5 bg-[#2b2523] p-7 text-white shadow-[0_24px_60px_rgba(43,37,35,0.15)]">
+                <div className="grid gap-4 sm:grid-cols-[1fr_auto_1fr] sm:items-center"><div className="rounded-[18px] border border-white/10 bg-white/[0.05] p-5"><p className="text-[0.52rem] uppercase tracking-[0.2em] text-white/35">before</p><p className="mt-3 font-serif text-lg text-white/75">Legacy structure</p><div className="mt-4 space-y-2">{[80, 55, 70, 45].map((w, i) => <div key={i} className="h-2 rounded-full bg-white/10" style={{ width: `${w}%` }} />)}</div></div><span className="hidden text-[#e7c56f] sm:block">→</span><div className="rounded-[18px] border border-[#e7c56f]/20 bg-[#7d202b]/35 p-5"><p className="text-[0.52rem] uppercase tracking-[0.2em] text-[#e7c56f]">after</p><p className="mt-3 font-serif text-lg text-white/90">Unified experience</p><div className="mt-4 grid grid-cols-2 gap-2">{["records", "registration", "calendar", "support"].map((x) => <span key={x} className="rounded-[8px] bg-white/10 px-2 py-2 text-[0.55rem] text-white/60">{x}</span>)}</div></div></div>
+                <p className="mt-6 border-t border-white/10 pt-5 text-[0.65rem] uppercase tracking-[0.18em] text-white/40">standardized design · clearer navigation · mobile consistency</p>
+              </div>
             </div>
+          </section>
 
-          </div>
+          {/* CHANNELS */}
+          <section className="grid border-t border-black/5 lg:grid-cols-2">
+            <div className="reveal-item px-6 py-14 sm:px-10 lg:border-r lg:px-14" data-delay={0}><p className="text-[0.62rem] uppercase tracking-[0.28em] text-[#a89d96]">email + CRM operations</p><h2 className="mt-3 font-serif text-[1.8rem] text-[#342d29]">From audience list to prospective-student inbox.</h2><p className="mt-5 text-[0.88rem] leading-7 text-[#5e5048]">Managed campaign logistics in Slate and Campaign Monitor: formatting communications, auditing lists, dispatching student emails, and monitoring delivery errors. I also supported the department’s transition toward Salesforce-based segmentation and automation.</p><div className="mt-6 flex flex-wrap gap-2">{["Slate", "Campaign Monitor", "Salesforce transition", "delivery QA"].map((x) => <span key={x} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.58rem] uppercase tracking-[0.15em] text-[#7c7068]">{x}</span>)}</div></div>
+            <div className="reveal-item bg-[#fffaf6]/65 px-6 py-14 sm:px-10 lg:px-14" data-delay={80}><p className="text-[0.62rem] uppercase tracking-[0.28em] text-[#a89d96]">analytics + reporting</p><h2 className="mt-3 font-serif text-[1.8rem] text-[#342d29]">Turn telemetry into a story leadership can use.</h2><p className="mt-5 text-[0.88rem] leading-7 text-[#5e5048]">Aggregated traffic, search, page, referral, open-rate, bounce, and delivery data into visual reporting for department leaders—surfacing performance patterns and diagnosing outreach issues.</p><div className="mt-7 grid grid-cols-4 items-end gap-2 border-b border-black/5 pb-1">{[38, 54, 45, 67, 72, 63, 88, 95].map((h, i) => <div key={i} className={`rounded-t-[5px] ${i > 5 ? "bg-[#7d202b]" : "bg-[#d9c9bf]"}`} style={{ height: `${h}px` }} />)}</div></div>
+          </section>
+
+          {/* TOOLS + IMPACT */}
+          <section className="bg-[#741c26] px-6 py-14 text-white sm:px-10 lg:px-14 lg:py-16">
+            <div className="reveal-item grid gap-12 lg:grid-cols-[0.75fr_1.25fr]" data-delay={0}>
+              <div><p className="text-[0.6rem] uppercase tracking-[0.28em] text-white/45">impact</p><p className="mt-4 font-serif text-[4rem] font-semibold leading-none text-[#f0c85b]">15%</p><p className="mt-3 text-[0.65rem] uppercase tracking-[0.2em] text-white/60">increase in weekly traffic across primary enrollment pages</p><p className="mt-6 text-[0.85rem] leading-7 text-white/60">Consistent site operations and performance reporting helped identify opportunities across high-traffic enrollment experiences.</p></div>
+              <div><p className="text-[0.6rem] uppercase tracking-[0.28em] text-white/45">working toolkit</p><div className="mt-5 space-y-5">{[["Web + CMS", "WordPress · Elementor · HTML · CSS · migrations"], ["Email + CRM", "Slate · Campaign Monitor · Salesforce transition"], ["Data + reporting", "Google Analytics · email telemetry · SEO · visualization"]].map(([category, tools]) => <div key={category} className="border-t border-white/15 pt-4 sm:grid sm:grid-cols-[9rem_1fr]"><p className="text-[0.58rem] uppercase tracking-[0.18em] text-[#f0c85b]">{category}</p><p className="mt-2 text-[0.8rem] leading-6 text-white/65 sm:mt-0">{tools}</p></div>)}</div></div>
+            </div>
+          </section>
+
+          <div className="flex flex-col items-center gap-4 px-6 py-10 sm:flex-row sm:justify-between sm:px-10 lg:px-14"><Link href="/work/bofa" className="text-[0.65rem] uppercase tracking-[0.24em] text-[#7c7068]">← Bank of America</Link><Link href="/work/anqclic" className="rounded-full bg-[#201c1a] px-5 py-3 text-[0.65rem] uppercase tracking-[0.22em] text-white transition hover:-translate-y-0.5">next: Anqclic →</Link></div>
         </div>
-
-        {/* FOOTER */}
-        <footer className="mx-auto max-w-7xl px-4 pb-8 pt-4 sm:px-6 lg:px-10">
-          <div className="flex items-center justify-between border-t border-black/5 pt-6 text-[0.68rem] uppercase tracking-[0.3em] text-[#a89d96]">
-            <span>Vanessa Gonzalez</span>
-            <span>anqclic / creative archive</span>
-            <span>© {new Date().getFullYear()}</span>
-          </div>
-        </footer>
-
-        <style>{`
-          .reveal-item {
-            opacity: 0;
-            transform: translateY(16px);
-            transition:
-              opacity  700ms cubic-bezier(0.22, 1, 0.36, 1),
-              transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
-          }
-          .reveal-item.revealed {
-            opacity: 1;
-            transform: translateY(0);
-          }
-          @media (prefers-reduced-motion: reduce) {
-            .reveal-item { opacity: 1; transform: none; transition: none; }
-          }
-          .grain-overlay {
-            opacity: 0.06;
-            mix-blend-mode: multiply;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-            background-size: 280px 280px;
-            background-repeat: repeat;
-          }
-        `}</style>
       </div>
+
+      <style>{`
+        .reveal-item { opacity: 0; transform: translateY(16px); transition: opacity 700ms cubic-bezier(.22,1,.36,1), transform 700ms cubic-bezier(.22,1,.36,1); }
+        .reveal-item.revealed { opacity: 1; transform: translateY(0); }
+        .grain-overlay { opacity: .055; mix-blend-mode: multiply; background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E"); background-size: 280px 280px; }
+        @media (prefers-reduced-motion: reduce) { .reveal-item { opacity: 1; transform: none; transition: none; } }
+      `}</style>
     </main>
   );
 }

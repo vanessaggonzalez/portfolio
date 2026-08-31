@@ -5,396 +5,584 @@ import { useEffect } from "react";
 
 function useReveal() {
   useEffect(() => {
-    const items = document.querySelectorAll<HTMLElement>(".reveal-item");
+    const elements = document.querySelectorAll("[data-reveal]");
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (!entry.isIntersecting) return;
-          const el = entry.target as HTMLElement;
-          const delay = Number(el.dataset.delay ?? 0);
-          setTimeout(() => el.classList.add("revealed"), delay);
-          observer.unobserve(el);
+          if (entry.isIntersecting) entry.target.classList.add("is-visible");
         });
       },
-      { threshold: 0.08, rootMargin: "0px 0px -20px 0px" }
+      { threshold: 0.12 }
     );
-    items.forEach((el) => observer.observe(el));
+    elements.forEach((element) => observer.observe(element));
     return () => observer.disconnect();
   }, []);
 }
 
 function useInstagramEmbed() {
   useEffect(() => {
-    if (typeof window === "undefined") return;
-    if ((window as any).instgrm) {
-      (window as any).instgrm.Embeds.process();
+    const win = window as typeof window & {
+      instgrm?: { Embeds?: { process: () => void } };
+    };
+
+    if (win.instgrm?.Embeds) {
+      win.instgrm.Embeds.process();
       return;
     }
+
+    const existing = document.querySelector(
+      'script[src="https://www.instagram.com/embed.js"]'
+    );
+    if (existing) return;
+
     const script = document.createElement("script");
-    script.src = "https://www.instagram.com/embed.js";
     script.async = true;
+    script.src = "https://www.instagram.com/embed.js";
     document.body.appendChild(script);
   }, []);
 }
 
-const tags = [
-  "director of marketing",
-  "team retention",
-  "cross-team operations",
-  "canva production",
-  "wordpress / cornerstone",
-  "brand guidelines",
-  "community building",
-  "women in STEM",
-];
-
-const stats = [
-  { value: "2nd Term", label: "Director of Marketing" },
-  { value: "100%", label: "Associate Director retention" },
-  { value: "4", label: "person marketing team" },
-  { value: "USC Viterbi", label: "School of Engineering" },
-];
-
-const whatWeDo = [
-  {
-    title: "Events & Outreach",
-    desc: "Partnering with professional development, event, and outreach teams to promote STEM initiatives for students and local youth.",
-  },
-  {
-    title: "Resources & Mentorship",
-    desc: "Connecting women in engineering with career resources, faculty mentorship, and peer networks across USC Viterbi.",
-  },
-  {
-    title: "Community Growth",
-    desc: "Fostering an inclusive space for undergraduate and graduate women across all engineering disciplines.",
-  },
-  {
-    title: "Cross-Platform Media",
-    desc: "Maintaining brand consistency across Instagram, Canvas, and WordPress web properties.",
-  },
-];
-
-const embeds = [
+const campaigns = [
   {
     url: "https://www.instagram.com/p/DW-G0ChD-mz/",
-    label: "May 2025 · Graduate Send-Off",
-    note: "Promotional graphics for the Class of 2026 celebration—featuring customized photo stations and activities for graduating engineers.",
+    eyebrow: "May 2025",
+    title: "Graduate Send-Off",
+    note: "Class of 2026 celebration collateral",
   },
   {
     url: "https://www.instagram.com/p/DWjr7F4lJUp/",
-    label: "May 2025 · Meet the Eboard",
-    note: "Eboard spotlight campaign using trending social formats to build transparency and community connection across Viterbi.",
+    eyebrow: "Community",
+    title: "Meet the Eboard",
+    note: "Putting people at the center of the organization",
   },
   {
     url: "https://www.instagram.com/p/DTa_4jtkuNm/",
-    label: "Jan 2025 · Spring Launch",
-    note: "Spring launch marketing suite establishing seasonal visual guidelines for tabling, networking, and social content.",
+    eyebrow: "January 2025",
+    title: "Spring Launch",
+    note: "A clear visual reset for a new semester",
   },
 ];
 
-const sections = [
-  {
-    label: "leadership & retention",
-    heading: "2nd Term Director of Marketing",
-    pull: "Re-elected for a second term, retaining 100% of Associate Directors across consecutive years.",
-    body: "Lead a 4-person marketing team within USC Viterbi's Women in Engineering organization. Returning as Director for a second consecutive term alongside my entire 3-person Associate Director team—a testament to effective leadership, supportive guidance, and clear operational workflows.",
-    tags: ["leadership", "team retention", "brand strategy", "women in STEM"],
-  },
-  {
-    label: "cross-team operations",
-    heading: "Request-Driven Marketing Pipeline",
-    pull: "Managing a centralized marketing intake system across events, outreach, and professional development teams.",
-    body: "Oversee an intake system processing promotional requests from outreach, professional development, and event chairs. Direct the creative production of event collateral, short-form reels, and digital assets using Canva and Figma to maintain consistent visual branding across all department initiatives.",
-  },
-  {
-    label: "web management",
-    heading: "Navigating Technical & CMS Constraints",
-    pull: "Optimizing content architecture and resource pages within WordPress / Cornerstone infrastructure.",
-    body: "Tasked with populating and organizing the WIE Cornerstone WordPress portal. Worked within restricted administrative permissions to structure resource pages, event archives, and student information cleanly for prospective and current engineering students.",
-  },
-  {
-    label: "impact & growth",
-    heading: "Brand Consistency as Community Trust",
-    stat: "100%",
-    statLabel: "team retention",
-    body: "By standardizing graphic templates, intake timelines, and cross-platform publishing across Instagram, Canvas, and web, we created a recognizable digital presence for women in engineering across USC Viterbi.",
-    stamp: "USC WIE · Director of Marketing",
-  },
-];
-
-export default function WIEPage() {
+export default function WIECaseStudy() {
   useReveal();
   useInstagramEmbed();
 
-  const navLinks = [
-    { label: "Work", href: "/work" },
-    { label: "About", href: "/about" },
-    { label: "Resume", href: "/resume" },
-    { label: "Contact", href: "/contact" },
-    {
-      label: "LinkedIn ↗",
-      href: "https://linkedin.com/in/vanessa-g-gonzalez",
-      external: true,
-    },
-  ];
-
   return (
-    <main className="relative min-h-screen overflow-hidden bg-[#f7f1eb] text-[#201c1a]">
-      {/* GRAIN */}
-      <div aria-hidden="true" className="pointer-events-none fixed inset-0 z-0 grain-overlay" />
-      {/* GLOW */}
-      <div aria-hidden="true" className="pointer-events-none fixed left-1/2 top-[-10rem] z-0 h-[32rem] w-[52rem] -translate-x-1/2 rounded-full bg-[#efe1d4]/50 blur-[120px]" />
-      <div aria-hidden="true" className="pointer-events-none fixed right-[-8rem] top-[18rem] z-0 h-[26rem] w-[26rem] rounded-full bg-white/40 blur-[100px]" />
+    <main className="wie-page">
+      <style jsx global>{`
+        :root {
+          --wie-ink: #142c35;
+          --wie-muted: #62747a;
+          --wie-paper: #f8f5ef;
+          --wie-blue: #bfe4e8;
+          --wie-deep: #173f49;
+          --wie-coral: #ed806f;
+          --wie-yellow: #f3c969;
+          --wie-line: rgba(20, 44, 53, 0.14);
+        }
 
-      <div className="relative z-10">
-        <div className="px-4 py-4 sm:px-6 lg:px-10">
-          <div className="mx-auto max-w-7xl rounded-[34px] border border-black/5 bg-white/42 px-5 py-5 shadow-[0_30px_120px_rgba(54,36,24,0.06)] backdrop-blur-[2px] sm:px-8 sm:py-8">
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        body { margin: 0; background: var(--wie-paper); color: var(--wie-ink); }
 
-            {/* NAV */}
-            <header className="flex items-center justify-between gap-4 text-sm tracking-[0.22em] uppercase text-[#5f554f]">
-              <Link href="/work" className="text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068] transition hover:text-[#201c1a]">
-                ← work
-              </Link>
-              <nav className="flex flex-wrap justify-end gap-4 sm:gap-6">
-                {navLinks.map((link) => (
-                  <Link key={link.label} href={link.href} className="transition hover:text-[#201c1a]">
-                    {link.label}
-                  </Link>
-                ))}
-              </nav>
-            </header>
+        .wie-page {
+          min-height: 100vh;
+          overflow: hidden;
+          background:
+            radial-gradient(circle at 9% 15%, rgba(191, 228, 232, 0.5), transparent 24rem),
+            radial-gradient(circle at 92% 42%, rgba(237, 128, 111, 0.12), transparent 28rem),
+            var(--wie-paper);
+          font-family: Arial, Helvetica, sans-serif;
+        }
 
-            {/* TITLE BLOCK */}
-            <div className="reveal-item mt-10 max-w-3xl" data-delay={0}>
-              <p className="text-[0.72rem] uppercase tracking-[0.35em] text-[#7c7068]">
-                06 · leadership · usc viterbi school of engineering
-              </p>
-              <h1 className="mt-4 font-serif text-[2.4rem] font-semibold leading-tight text-[#1f1a18] sm:text-[3rem]">
-                USC Women in Engineering
-              </h1>
-              <p className="mt-3 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                Director of Marketing / Team Leadership / Digital Operations
-              </p>
-              <p className="mt-5 max-w-xl text-[1rem] leading-8 text-[#4d413b]">
-                Serving as Director of Marketing for a second consecutive term—managing a 4-person creative team, executing cross-department marketing requests, and managing web content across USC Viterbi platforms.
-              </p>
-              <p className="mt-4 text-[0.82rem] uppercase tracking-[0.22em] text-[#8a7d75]">
-                ✦ 2nd Term Director · 100% Associate Director Retention
-              </p>
-              <div className="mt-5 flex flex-wrap gap-2">
-                {tags.map((tag) => (
-                  <span key={tag} className="rounded-full border border-black/5 bg-white/70 px-3 py-1 text-[0.72rem] uppercase tracking-[0.18em] text-[#7c7068]">
-                    {tag}
-                  </span>
-                ))}
-              </div>
-            </div>
+        .wie-outer { position: relative; z-index: 1; padding: 16px 40px; }
+        .wie-frame {
+          width: min(1280px, 100%);
+          margin: 0 auto;
+          overflow: hidden;
+          border: 1px solid rgba(0,0,0,.05);
+          border-radius: 34px;
+          background: rgba(255,255,255,.45);
+          box-shadow: 0 30px 120px rgba(54,36,24,.06);
+          backdrop-filter: blur(2px);
+        }
 
-            {/* DIVIDER */}
-            <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
-              <span className="h-px w-8 bg-[#c8bdb2]" />
-              by the numbers
-            </div>
+        .wie-shell { width: min(1120px, calc(100% - 56px)); margin: 0 auto; }
+        .wie-serif { font-family: Georgia, "Times New Roman", serif; }
+        .wie-kicker {
+          margin: 0 0 18px;
+          font-size: 11px;
+          letter-spacing: 0.24em;
+          text-transform: uppercase;
+          color: var(--wie-muted);
+        }
 
-            {/* STATS */}
-            <div className="reveal-item grid grid-cols-2 gap-4 sm:grid-cols-4" data-delay={80}>
-              {stats.map((stat) => (
-                <div key={stat.label} className="rounded-[24px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] text-center">
-                  <p className="font-serif text-[1.7rem] font-semibold text-[#1f1a18] leading-tight">{stat.value}</p>
-                  <p className="mt-2 text-[0.68rem] uppercase tracking-[0.2em] text-[#8a7d75]">{stat.label}</p>
-                </div>
-              ))}
-            </div>
+        [data-reveal] { opacity: 0; transform: translateY(24px); transition: opacity .75s ease, transform .75s ease; }
+        [data-reveal].is-visible { opacity: 1; transform: translateY(0); }
 
-            {/* DIVIDER */}
-            <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
-              <span className="h-px w-8 bg-[#c8bdb2]" />
-              department scope
-            </div>
+        .wie-topbar {
+          display: flex;
+          justify-content: space-between;
+          align-items: center;
+          padding: 26px 0;
+          font-size: 11px;
+          letter-spacing: .18em;
+          text-transform: uppercase;
+        }
+        .wie-topbar a { color: inherit; text-decoration: none; }
+        .wie-topbar a:hover { opacity: .6; }
 
-            {/* WHAT WE DO CARDS */}
-            <div className="reveal-item grid gap-4 sm:grid-cols-2 lg:grid-cols-4" data-delay={80}>
-              {whatWeDo.map((item) => (
-                <div key={item.title} className="rounded-[24px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]">
-                  <p className="font-serif text-[1rem] font-semibold leading-snug text-[#1f1a18]">{item.title}</p>
-                  <p className="mt-3 text-[0.85rem] leading-7 text-[#4d413b]">{item.desc}</p>
-                </div>
-              ))}
-            </div>
+        .wie-hero {
+          display: grid;
+          grid-template-columns: minmax(0, 1.02fr) minmax(380px, .98fr);
+          min-height: 470px;
+          border-top: 1px solid var(--wie-line);
+          border-bottom: 1px solid var(--wie-line);
+        }
+        .wie-hero-copy { padding: 64px 54px; }
+        .wie-hero-copy h1 {
+          max-width: 720px;
+          margin: 0;
+          font: 600 clamp(43px, 4.8vw, 68px)/1.04 Georgia, "Times New Roman", serif;
+          letter-spacing: -.045em;
+        }
+        .wie-hero-copy h1 em { display: block; color: var(--wie-coral); font-weight: 400; }
+        .wie-hero-copy .lead {
+          max-width: 560px;
+          margin: 26px 0 0;
+          font-size: 16px;
+          line-height: 1.75;
+          color: #40545a;
+        }
+        .wie-role {
+          display: flex;
+          flex-wrap: wrap;
+          gap: 8px 20px;
+          margin-top: 30px;
+          font-size: 10px;
+          letter-spacing: .16em;
+          text-transform: uppercase;
+          color: var(--wie-muted);
+        }
 
-            {/* DIVIDER */}
-            <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
-              <span className="h-px w-8 bg-[#c8bdb2]" />
-              selected campaign collateral
-            </div>
+        .wie-network {
+          position: relative;
+          display: grid;
+          place-items: center;
+          min-height: 470px;
+          background: var(--wie-deep);
+          overflow: hidden;
+        }
+        .wie-network::before,
+        .wie-network::after {
+          content: "";
+          position: absolute;
+          width: 330px;
+          height: 330px;
+          border: 1px solid rgba(255,255,255,.15);
+          border-radius: 50%;
+        }
+        .wie-network::after { width: 470px; height: 470px; border-color: rgba(255,255,255,.08); }
+        .wie-center {
+          position: relative;
+          z-index: 2;
+          display: grid;
+          place-items: center;
+          width: 160px;
+          height: 160px;
+          padding: 28px;
+          border-radius: 50%;
+          background: var(--wie-yellow);
+          text-align: center;
+          box-shadow: 0 24px 70px rgba(0,0,0,.2);
+        }
+        .wie-center strong { font: 400 29px/1 Georgia, serif; }
+        .wie-center span { margin-top: 10px; font-size: 9px; letter-spacing: .18em; text-transform: uppercase; }
+        .wie-orbit {
+          position: absolute;
+          z-index: 3;
+          display: grid;
+          place-items: center;
+          width: 88px;
+          height: 88px;
+          padding: 14px;
+          border-radius: 50%;
+          background: #fffdf8;
+          color: var(--wie-ink);
+          text-align: center;
+          font-size: 8px;
+          line-height: 1.35;
+          letter-spacing: .1em;
+          text-transform: uppercase;
+          box-shadow: 0 16px 40px rgba(0,0,0,.18);
+        }
+        .wie-orbit.one { top: 15%; left: 17%; }
+        .wie-orbit.two { top: 19%; right: 13%; }
+        .wie-orbit.three { bottom: 13%; left: 17%; }
+        .wie-orbit.four { right: 14%; bottom: 17%; }
+        .wie-network-note {
+          position: absolute;
+          right: 24px;
+          bottom: 20px;
+          color: rgba(255,255,255,.55);
+          font-size: 9px;
+          letter-spacing: .17em;
+          text-transform: uppercase;
+        }
 
-            {/* INSTAGRAM EMBEDS */}
-            <div className="reveal-item grid gap-8 sm:grid-cols-2 lg:grid-cols-3" data-delay={80}>
-              {embeds.map((embed) => (
-                <div key={embed.url} className="flex flex-col gap-3">
-                  <div className="overflow-hidden rounded-[20px] border border-black/5 shadow-[0_14px_40px_rgba(68,44,29,0.06)]">
-                    <blockquote
-                      className="instagram-media !m-0 !w-full !max-w-none !min-w-0 !shadow-none !border-0 !rounded-none"
-                      data-instgrm-captioned
-                      data-instgrm-permalink={`${embed.url}?utm_source=ig_embed&utm_campaign=loading`}
-                      data-instgrm-version="14"
-                    />
-                  </div>
-                  <div className="px-1">
-                    <p className="text-[0.68rem] uppercase tracking-[0.22em] text-[#a89d96]">{embed.label}</p>
-                    <p className="mt-1.5 text-[0.85rem] leading-7 text-[#4d413b]">{embed.note}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+        .wie-metrics {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          border-bottom: 1px solid var(--wie-line);
+        }
+        .wie-metric { padding: 32px 24px; border-right: 1px solid var(--wie-line); }
+        .wie-metric:last-child { border-right: 0; }
+        .wie-metric strong { display: block; font: 400 34px/1 Georgia, serif; }
+        .wie-metric span { display: block; margin-top: 10px; font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--wie-muted); }
 
-            {/* INSTAGRAM + WEBSITE LINKS */}
-            <div className="reveal-item mt-6 flex flex-wrap justify-center gap-3" data-delay={80}>
-              <a
-                href="https://www.instagram.com/usc.viterbi.wie/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-black/8 bg-white/72 px-6 py-3 text-[0.75rem] uppercase tracking-[0.22em] text-[#5f554f] shadow-[0_8px_24px_rgba(68,44,29,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(68,44,29,0.10)] hover:text-[#201c1a]"
-              >
-                see the full feed on instagram →
-              </a>
-              <a
-                href="https://viterbiundergrad.usc.edu/wie-website/"
-                target="_blank"
-                rel="noopener noreferrer"
-                className="rounded-full border border-black/8 bg-white/72 px-6 py-3 text-[0.75rem] uppercase tracking-[0.22em] text-[#5f554f] shadow-[0_8px_24px_rgba(68,44,29,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_12px_32px_rgba(68,44,29,0.10)] hover:text-[#201c1a]"
-              >
-                visit the wie website →
-              </a>
-            </div>
+        .wie-thesis {
+          display: grid;
+          grid-template-columns: .58fr 1.42fr;
+          gap: 70px;
+          padding: 72px 0;
+          border-bottom: 1px solid var(--wie-line);
+        }
+        .wie-thesis blockquote { margin: 0; font: 400 clamp(27px, 3vw, 38px)/1.32 Georgia, serif; letter-spacing: -.025em; }
+        .wie-thesis blockquote em { color: var(--wie-coral); font-weight: 400; }
+        .wie-thesis-body { max-width: 720px; }
+        .wie-thesis-body p { margin: 0 0 22px; font-size: 17px; line-height: 1.78; color: #40545a; }
 
-            {/* DIVIDER */}
-            <div className="my-10 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
-              <span className="h-px w-8 bg-[#c8bdb2]" />
-              the story
-            </div>
+        .wie-retention { padding: 72px 0; }
+        .wie-section-head { display: flex; justify-content: space-between; align-items: end; gap: 30px; margin-bottom: 55px; }
+        .wie-section-head h2 { max-width: 780px; margin: 0; font: 600 clamp(31px, 3.5vw, 44px)/1.08 Georgia, serif; letter-spacing: -.035em; }
+        .wie-section-head p { max-width: 350px; margin: 0; line-height: 1.65; color: var(--wie-muted); }
+        .wie-team-stage {
+          display: grid;
+          grid-template-columns: repeat(4, 1fr);
+          gap: 2px;
+          background: var(--wie-line);
+          border: 1px solid var(--wie-line);
+        }
+        .wie-person { position: relative; min-height: 305px; padding: 30px; background: #fffdf9; }
+        .wie-person::before {
+          content: "";
+          display: block;
+          width: 76px;
+          height: 76px;
+          margin: 38px auto 24px;
+          border-radius: 50%;
+          background: var(--tone, var(--wie-blue));
+        }
+        .wie-person::after {
+          content: "";
+          display: block;
+          width: 126px;
+          height: 64px;
+          margin: -8px auto 24px;
+          border-radius: 70px 70px 8px 8px;
+          background: var(--tone, var(--wie-blue));
+        }
+        .wie-person:nth-child(2) { --tone: #f0cbd0; }
+        .wie-person:nth-child(3) { --tone: #f3d797; }
+        .wie-person:nth-child(4) { --tone: #c9d8ef; }
+        .wie-person small { position: absolute; top: 24px; left: 26px; font-size: 9px; letter-spacing: .17em; text-transform: uppercase; color: var(--wie-muted); }
+        .wie-person strong { display: block; text-align: center; font: 400 19px Georgia, serif; }
+        .wie-returned { margin: 34px 0 0; font: 400 clamp(24px, 2.8vw, 42px)/1.25 Georgia, serif; text-align: center; }
+        .wie-returned em { color: var(--wie-coral); font-weight: 400; }
 
-            {/* WRITTEN SECTIONS */}
-            <div className="grid gap-4 lg:grid-cols-2">
+        .wie-pipeline-wrap { padding: 72px 0; background: #e7f1f0; }
+        .wie-pipeline { display: grid; grid-template-columns: repeat(4, 1fr); margin-top: 50px; }
+        .wie-step { position: relative; padding: 32px 34px 40px; border-top: 1px solid rgba(20,44,53,.22); }
+        .wie-step:not(:last-child)::after { content: "→"; position: absolute; top: 30px; right: -7px; z-index: 2; font-size: 20px; color: var(--wie-coral); }
+        .wie-step span { font: 400 50px/1 Georgia, serif; color: rgba(20,44,53,.18); }
+        .wie-step h3 { margin: 30px 0 12px; font: 400 24px Georgia, serif; }
+        .wie-step p { margin: 0; line-height: 1.65; color: var(--wie-muted); }
 
-              {/* SECTION 01 */}
-              <div
-                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
-                data-delay={0}
-              >
-                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">01</span>
-                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[0].label}</p>
-                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[0].heading}</h2>
-                <div className="my-4 h-px bg-black/5" />
-                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-4">{sections[0].pull}</p>
-                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[0].body}</p>
-                {sections[0].tags && (
-                  <div className="mt-auto pt-5 flex flex-wrap gap-2">
-                    {sections[0].tags.map((tag: string) => (
-                      <span key={tag} className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1 text-[0.68rem] uppercase tracking-[0.18em] text-[#7c7068]">{tag}</span>
-                    ))}
-                  </div>
-                )}
-              </div>
+        .wie-scope { display: grid; grid-template-columns: .85fr 1.15fr; gap: 70px; padding: 72px 0; }
+        .wie-scope h2 { margin: 0; font: 600 clamp(31px, 3.5vw, 44px)/1.08 Georgia, serif; letter-spacing: -.035em; }
+        .wie-scope-list { border-top: 1px solid var(--wie-line); }
+        .wie-scope-row { display: grid; grid-template-columns: 180px 1fr; gap: 28px; padding: 27px 0; border-bottom: 1px solid var(--wie-line); }
+        .wie-scope-row strong { font: 400 18px Georgia, serif; }
+        .wie-scope-row p { margin: 0; line-height: 1.65; color: var(--wie-muted); }
 
-              {/* SECTION 02 */}
-              <div
-                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
-                data-delay={80}
-              >
-                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">02</span>
-                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[1].label}</p>
-                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[1].heading}</h2>
-                <div className="my-4 h-px bg-black/5" />
-                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-3">{sections[1].pull}</p>
-                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[1].body}</p>
-              </div>
+        .wie-web { padding: 72px 0; color: #f8f5ef; background: var(--wie-deep); }
+        .wie-web-grid { display: grid; grid-template-columns: .8fr 1.2fr; gap: 80px; align-items: center; }
+        .wie-web-copy h2 { margin: 0 0 28px; font: 600 clamp(31px, 3.5vw, 44px)/1.08 Georgia, serif; letter-spacing: -.035em; }
+        .wie-web-copy p { font-size: 17px; line-height: 1.75; color: rgba(255,255,255,.7); }
+        .wie-browser { transform: rotate(1.2deg); border-radius: 16px; overflow: hidden; background: #fff; box-shadow: 0 35px 80px rgba(0,0,0,.28); color: var(--wie-ink); }
+        .wie-browser-bar { display: flex; gap: 7px; align-items: center; padding: 14px 18px; background: #e8e5df; }
+        .wie-browser-bar i { width: 9px; height: 9px; border-radius: 50%; background: #aeb8ba; }
+        .wie-browser-body { display: grid; grid-template-columns: 150px 1fr; min-height: 330px; }
+        .wie-browser-nav { padding: 25px 18px; background: #f2f5f5; font-size: 10px; letter-spacing: .11em; line-height: 3; text-transform: uppercase; }
+        .wie-browser-content { padding: 34px; }
+        .wie-browser-content h3 { margin: 0 0 14px; font: 400 30px Georgia, serif; }
+        .wie-browser-content p { max-width: 460px; line-height: 1.6; color: var(--wie-muted); }
+        .wie-content-lines { display: grid; gap: 12px; margin-top: 30px; }
+        .wie-content-lines span { height: 12px; border-radius: 20px; background: #d7e8e8; }
+        .wie-content-lines span:nth-child(2) { width: 82%; }
+        .wie-content-lines span:nth-child(3) { width: 63%; background: #f2d0c9; }
 
-              {/* SECTION 03 */}
-              <div
-                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden"
-                data-delay={120}
-              >
-                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">03</span>
-                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[2].label}</p>
-                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[2].heading}</h2>
-                <div className="my-4 h-px bg-black/5" />
-                <p className="text-[0.92rem] font-medium leading-7 text-[#342d29] border-l-2 border-black/10 pl-3 mb-3">{sections[2].pull}</p>
-                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[2].body}</p>
-              </div>
+        .wie-campaigns { padding: 72px 0; }
+        .wie-reel { display: grid; grid-template-columns: repeat(3, 1fr); gap: 22px; }
+        .wie-post { min-width: 0; }
+        .wie-post-frame { height: 500px; overflow: hidden; border: 1px solid var(--wie-line); border-radius: 18px; background: #fff; }
+        .wie-post-frame blockquote { min-width: 100% !important; width: 100% !important; margin: 0 !important; }
+        .wie-post-meta { padding: 18px 4px 0; }
+        .wie-post-meta small { font-size: 9px; letter-spacing: .16em; text-transform: uppercase; color: var(--wie-coral); }
+        .wie-post-meta h3 { margin: 9px 0 5px; font: 400 22px Georgia, serif; }
+        .wie-post-meta p { margin: 0; font-size: 13px; color: var(--wie-muted); }
+        .wie-external { display: inline-block; margin-top: 36px; color: inherit; font-size: 10px; letter-spacing: .18em; text-transform: uppercase; text-decoration: none; border-bottom: 1px solid currentColor; padding-bottom: 6px; }
 
-              {/* SECTION 04 */}
-              <div
-                className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] flex flex-col relative overflow-hidden"
-                data-delay={160}
-              >
-                <span className="pointer-events-none select-none absolute right-5 bottom-3 font-serif text-[4rem] font-semibold leading-none text-black/[0.03]">04</span>
-                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">{sections[3].label}</p>
-                <h2 className="mt-3 font-serif text-[1.18rem] font-semibold leading-snug text-[#1f1a18]">{sections[3].heading}</h2>
-                <div className="my-4 h-px bg-black/5" />
-                <p className="text-[0.88rem] leading-7 text-[#5e5048]">{sections[3].body}</p>
-                <span className="mt-auto pt-4 inline-block rounded-full border border-black/5 bg-[#fffaf6] px-4 py-1.5 text-[0.68rem] uppercase tracking-[0.22em] text-[#8a7d75] self-start">{sections[3].stamp}</span>
-              </div>
+        .wie-outcome { padding: 78px 0; text-align: center; background: var(--wie-yellow); }
+        .wie-outcome .wie-kicker { color: rgba(20,44,53,.65); }
+        .wie-outcome h2 { max-width: 900px; margin: 0 auto; font: 600 clamp(34px, 4vw, 52px)/1.08 Georgia, serif; letter-spacing: -.04em; }
+        .wie-outcome p { max-width: 650px; margin: 34px auto 0; font-size: 17px; line-height: 1.7; }
 
-            </div>
+        .wie-next { display: grid; grid-template-columns: 1fr 1fr; }
+        .wie-next a { padding: 60px max(24px, calc((100vw - 1180px) / 2)); color: inherit; text-decoration: none; border-right: 1px solid var(--wie-line); }
+        .wie-next a:last-child { border-right: 0; text-align: right; }
+        .wie-next small { font-size: 9px; letter-spacing: .18em; text-transform: uppercase; color: var(--wie-muted); }
+        .wie-next strong { display: block; margin-top: 10px; font: 400 26px Georgia, serif; }
 
-            {/* BOTTOM NAV */}
-            <div className="reveal-item mt-10 flex items-center justify-between border-t border-black/5 pt-8" data-delay={0}>
-              <Link href="/work/anqclic" className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]">
-                <span className="h-px w-4 bg-[#c8bdb2] transition-all duration-200 group-hover:w-6" />
-                prev: anqclic
-              </Link>
-              <Link href="/work" className="group flex items-center gap-2 text-[0.78rem] uppercase tracking-[0.22em] text-[#7c7068] transition hover:text-[#201c1a]">
-                all work
-                <span className="h-px w-4 bg-[#c8bdb2] transition-all duration-200 group-hover:w-6" />
-              </Link>
-            </div>
+        @media (max-width: 900px) {
+          .wie-outer { padding: 16px 24px; }
+          .wie-hero { grid-template-columns: 1fr; }
+          .wie-hero-copy { padding: 70px 24px; }
+          .wie-network { min-height: 520px; }
+          .wie-metrics { grid-template-columns: 1fr 1fr; }
+          .wie-metric:nth-child(2) { border-right: 0; }
+          .wie-metric:nth-child(-n+2) { border-bottom: 1px solid var(--wie-line); }
+          .wie-thesis, .wie-scope, .wie-web-grid { grid-template-columns: 1fr; gap: 45px; }
+          .wie-team-stage { grid-template-columns: 1fr 1fr; }
+          .wie-pipeline { grid-template-columns: 1fr 1fr; }
+          .wie-step:nth-child(2)::after { display: none; }
+          .wie-reel { grid-template-columns: 1fr; }
+          .wie-post-frame { height: 650px; }
+        }
 
+        @media (max-width: 600px) {
+          .wie-outer { padding: 10px; }
+          .wie-frame { border-radius: 24px; }
+          .wie-shell { width: min(100% - 28px, 1180px); }
+          .wie-topbar { padding: 22px 0; }
+          .wie-hero-copy h1 { font-size: 43px; }
+          .wie-network { min-height: 440px; }
+          .wie-center { width: 155px; height: 155px; }
+          .wie-center strong { font-size: 27px; }
+          .wie-orbit { width: 82px; height: 82px; font-size: 8px; }
+          .wie-orbit.one, .wie-orbit.three { left: 7%; }
+          .wie-orbit.two, .wie-orbit.four { right: 7%; }
+          .wie-thesis, .wie-retention, .wie-scope, .wie-campaigns { padding: 82px 0; }
+          .wie-section-head { display: block; }
+          .wie-section-head p { margin-top: 22px; }
+          .wie-team-stage { grid-template-columns: 1fr 1fr; }
+          .wie-person { min-height: 245px; padding: 18px; }
+          .wie-person::before { width: 55px; height: 55px; }
+          .wie-person::after { width: 88px; height: 48px; }
+          .wie-pipeline { grid-template-columns: 1fr; }
+          .wie-step::after { display: none; }
+          .wie-scope-row { grid-template-columns: 1fr; gap: 9px; }
+          .wie-browser-body { grid-template-columns: 92px 1fr; }
+          .wie-browser-content { padding: 24px 18px; }
+          .wie-post-frame { height: 510px; }
+          .wie-next a { padding: 42px 20px; }
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+          [data-reveal] { opacity: 1; transform: none; transition: none; }
+        }
+      `}</style>
+
+      <div className="wie-outer"><div className="wie-frame">
+      <nav className="wie-topbar wie-shell" aria-label="Case study navigation">
+        <Link href="/work">← Selected work</Link>
+        <span>USC Viterbi · Women in Engineering</span>
+      </nav>
+
+      <header className="wie-hero">
+        <div className="wie-hero-copy" data-reveal>
+          <p className="wie-kicker">Director of Marketing · Second Consecutive Term</p>
+          <h1>
+            Building the systems
+            <em>behind belonging.</em>
+          </h1>
+          <p className="lead">
+            I lead marketing for USC Viterbi Women in Engineering—turning a busy
+            calendar of programs, resources, and student stories into one clear,
+            recognizable community presence.
+          </p>
+          <div className="wie-role">
+            <span>Team Leadership</span><span>Digital Operations</span>
+            <span>Community Brand</span><span>Web Management</span>
           </div>
         </div>
 
-        {/* FOOTER */}
-        <footer className="mx-auto max-w-7xl px-4 pb-8 pt-4 sm:px-6 lg:px-10">
-          <div className="flex items-center justify-between border-t border-black/5 pt-6 text-[0.68rem] uppercase tracking-[0.3em] text-[#a89d96]">
-            <span>Vanessa Gonzalez</span>
-            <span>anqclic / creative archive</span>
-            <span>© {new Date().getFullYear()}</span>
+        <div className="wie-network" aria-label="Women in Engineering community network visual">
+          <div className="wie-center">
+            <strong>WIE</strong>
+            <span>One connected community</span>
           </div>
-        </footer>
+          <div className="wie-orbit one">Events + Outreach</div>
+          <div className="wie-orbit two">Resources + Mentorship</div>
+          <div className="wie-orbit three">Student Community</div>
+          <div className="wie-orbit four">Cross-platform Media</div>
+          <span className="wie-network-note">Marketing connects the system</span>
+        </div>
+      </header>
 
-        <style>{`
-          .reveal-item {
-            opacity: 0;
-            transform: translateY(16px);
-            transition:
-              opacity  700ms cubic-bezier(0.22, 1, 0.36, 1),
-              transform 700ms cubic-bezier(0.22, 1, 0.36, 1);
-          }
-          .reveal-item.revealed {
-            opacity: 1;
-            transform: translateY(0);
-          }
-          @media (prefers-reduced-motion: reduce) {
-            .reveal-item { opacity: 1; transform: none; transition: none; }
-          }
-          .grain-overlay {
-            opacity: 0.06;
-            mix-blend-mode: multiply;
-            background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 400 400'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='400' height='400' filter='url(%23n)' opacity='.35'/%3E%3C/svg%3E");
-            background-size: 280px 280px;
-            background-repeat: repeat;
-          }
-          .instagram-media {
-            margin: 0 !important;
-            min-width: 0 !important;
-            width: 100% !important;
-            max-width: 100% !important;
-            box-shadow: none !important;
-            border: none !important;
-            border-radius: 0 !important;
-          }
-        `}</style>
-      </div>
+      <section className="wie-metrics">
+        <div className="wie-metric"><strong>02</strong><span>Consecutive terms</span></div>
+        <div className="wie-metric"><strong>100%</strong><span>Associate director retention</span></div>
+        <div className="wie-metric"><strong>04</strong><span>People on marketing</span></div>
+        <div className="wie-metric"><strong>04</strong><span>Connected media channels</span></div>
+      </section>
+
+      <section className="wie-thesis wie-shell" data-reveal>
+        <p className="wie-kicker">The assignment</p>
+        <div className="wie-thesis-body">
+          <blockquote>
+            Brand consistency is not only visual. In a student organization, it is a form of <em>community trust.</em>
+          </blockquote>
+          <p>
+            WIE supports undergraduate and graduate women across engineering through
+            outreach, professional development, mentorship, and shared resources. My
+            job is to make that work easy to find, understand, and feel part of.
+          </p>
+          <p>
+            That meant treating marketing as infrastructure: a dependable intake
+            process for internal teams, a repeatable publishing rhythm, and a visual
+            language that could hold many programs without becoming fragmented.
+          </p>
+        </div>
+      </section>
+
+      <section className="wie-retention wie-shell" data-reveal>
+        <div className="wie-section-head">
+          <div>
+            <p className="wie-kicker">01 · Leadership & retention</p>
+            <h2>A team people chose to return to.</h2>
+          </div>
+          <p>
+            Clear ownership, useful systems, and room to contribute turned a group of
+            individual creatives into a steady marketing function.
+          </p>
+        </div>
+        <div className="wie-team-stage">
+          <div className="wie-person"><small>Director</small><strong>Marketing lead</strong></div>
+          <div className="wie-person"><small>Returned</small><strong>Associate Director</strong></div>
+          <div className="wie-person"><small>Returned</small><strong>Associate Director</strong></div>
+          <div className="wie-person"><small>Returned</small><strong>Associate Director</strong></div>
+        </div>
+        <p className="wie-returned">
+          My entire three-person associate director team returned for a second term—<em>100% retention.</em>
+        </p>
+      </section>
+
+      <section className="wie-pipeline-wrap" data-reveal>
+        <div className="wie-shell">
+          <p className="wie-kicker">02 · Cross-team operations</p>
+          <div className="wie-section-head">
+            <h2>One path from request to community.</h2>
+            <p>
+              A centralized workflow helped events, outreach, and professional
+              development teams get the right asset to the right channel.
+            </p>
+          </div>
+          <div className="wie-pipeline">
+            <div className="wie-step"><span>01</span><h3>Request</h3><p>Bring collateral, reel, or digital asset needs into one shared intake.</p></div>
+            <div className="wie-step"><span>02</span><h3>Prioritize</h3><p>Clarify audience, deadline, channel, and what success should look like.</p></div>
+            <div className="wie-step"><span>03</span><h3>Produce</h3><p>Build within a consistent visual system using Canva and Figma.</p></div>
+            <div className="wie-step"><span>04</span><h3>Publish</h3><p>Coordinate Instagram, Canvas, and WordPress so the message travels.</p></div>
+          </div>
+        </div>
+      </section>
+
+      <section className="wie-scope wie-shell" data-reveal>
+        <div>
+          <p className="wie-kicker">What the system supports</p>
+          <h2>Different needs. One community voice.</h2>
+        </div>
+        <div className="wie-scope-list">
+          <div className="wie-scope-row"><strong>Events & outreach</strong><p>Promoting STEM initiatives for USC students and local youth.</p></div>
+          <div className="wie-scope-row"><strong>Resources & mentorship</strong><p>Connecting women in engineering with career resources, faculty mentorship, and peer networks.</p></div>
+          <div className="wie-scope-row"><strong>Community growth</strong><p>Creating an inclusive shared space for undergraduate and graduate women across engineering disciplines.</p></div>
+          <div className="wie-scope-row"><strong>Cross-platform media</strong><p>Carrying the same message across Instagram, Canvas, and the WIE website.</p></div>
+        </div>
+      </section>
+
+      <section className="wie-web" data-reveal>
+        <div className="wie-shell wie-web-grid">
+          <div className="wie-web-copy">
+            <p className="wie-kicker">03 · Web management</p>
+            <h2>Designing clearly inside real constraints.</h2>
+            <p>
+              With restricted administrative permissions in USC&apos;s Cornerstone
+              WordPress environment, I focused on the layer I could shape: content
+              hierarchy, organization, and maintenance.
+            </p>
+            <p>
+              Resource pages, event archives, and student information became easier to
+              navigate—without pretending the platform constraints did not exist.
+            </p>
+            <a className="wie-external" href="https://viterbiundergrad.usc.edu/wie-website/" target="_blank" rel="noreferrer">Visit the WIE website ↗</a>
+          </div>
+          <div className="wie-browser" aria-label="Abstract website content management interface">
+            <div className="wie-browser-bar"><i /><i /><i /></div>
+            <div className="wie-browser-body">
+              <div className="wie-browser-nav">Home<br />Resources<br />Mentorship<br />Events<br />Archive</div>
+              <div className="wie-browser-content">
+                <p className="wie-kicker">Women in Engineering</p>
+                <h3>Find what you need.</h3>
+                <p>A clearer content hierarchy for programs, opportunities, and community information.</p>
+                <div className="wie-content-lines"><span /><span /><span /></div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <section className="wie-campaigns wie-shell" data-reveal>
+        <div className="wie-section-head">
+          <div>
+            <p className="wie-kicker">04 · In the feed</p>
+            <h2>Campaign moments from the community.</h2>
+          </div>
+          <p>Not isolated posts—a living archive of milestones, people, and semester rhythms.</p>
+        </div>
+        <div className="wie-reel">
+          {campaigns.map((campaign) => (
+            <article className="wie-post" key={campaign.url}>
+              <div className="wie-post-frame">
+                <blockquote className="instagram-media" data-instgrm-permalink={campaign.url} data-instgrm-version="14" />
+              </div>
+              <div className="wie-post-meta">
+                <small>{campaign.eyebrow}</small>
+                <h3>{campaign.title}</h3>
+                <p>{campaign.note}</p>
+              </div>
+            </article>
+          ))}
+        </div>
+        <a className="wie-external" href="https://www.instagram.com/usc.viterbi.wie/" target="_blank" rel="noreferrer">Explore @usc.viterbi.wie ↗</a>
+      </section>
+
+      <section className="wie-outcome" data-reveal>
+        <div className="wie-shell">
+          <p className="wie-kicker">The result</p>
+          <h2>A recognizable presence built to make people feel included.</h2>
+          <p>
+            Standardized templates, clearer intake timelines, and coordinated publishing
+            gave WIE a more dependable voice—while a returning team kept the system and
+            its relationships growing from one term to the next.
+          </p>
+        </div>
+      </section>
+
+      <footer className="wie-next">
+        <Link href="/work/sharemeal"><small>Previous project</small><strong>← ShareMeal</strong></Link>
+        <Link href="/work"><small>End of the collection</small><strong>All selected work →</strong></Link>
+      </footer>
+      </div></div>
     </main>
   );
 }
