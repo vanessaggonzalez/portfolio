@@ -313,7 +313,7 @@ const originTimeline = [
     tone: "from-[#e9e2dc] to-[#faf6f2]",
   },
   {
-    year: "2022–26",
+    year: "2023–27",
     label: "building",
     title: "USC CS + Business",
     text: "I found the bridge between technical systems, human behavior, creative technology, and product strategy.",
