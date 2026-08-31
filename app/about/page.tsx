@@ -23,9 +23,9 @@ function useReveal() {
   }, []);
 }
 
-const LASTFM_API_KEY = "c23c1a26f6c242882d28b082dfa38a24";
+const LASTFM_API_KEY = process.env.NEXT_PUBLIC_LASTFM_API_KEY ?? "";
 const LASTFM_USER = "malfcytrash";
-const TMDB_KEY = "e08466a6e15057915ef671c8d3314b76";
+const TMDB_KEY = process.env.NEXT_PUBLIC_TMDB_KEY ?? "";
 
 type Track = {
   name: string;
@@ -41,6 +41,7 @@ function useLastFm() {
 
   useEffect(() => {
     async function fetchRecent() {
+      if (!LASTFM_API_KEY) return;
       try {
         const res = await fetch(
           `https://ws.audioscrobbler.com/2.0/?method=user.getrecenttracks&user=${LASTFM_USER}&api_key=${LASTFM_API_KEY}&format=json&limit=5`
@@ -64,6 +65,7 @@ function useLastFm() {
       }
     }
     async function fetchTopArtist() {
+      if (!LASTFM_API_KEY) return;
       try {
         const res = await fetch(
           `https://ws.audioscrobbler.com/2.0/?method=user.gettopartists&user=${LASTFM_USER}&api_key=${LASTFM_API_KEY}&format=json&limit=1&period=7day`
@@ -285,6 +287,45 @@ const coreArtists = [
 const makingItems = [
   { title: "personal archive", note: "turning this site into a scrapbook" },
   { title: "this website", note: "built with next.js + react" },
+  { title: "Intent Layer", note: "researching why viewers connect" },
+];
+
+const originTimeline = [
+  {
+    year: "2015",
+    label: "the spark",
+    title: "A Harry Potter edit on Vine",
+    text: "I was 10, saw a fan edit, and immediately needed to know how it was made.",
+    tone: "from-[#eadde7] to-[#f8eff4]",
+  },
+  {
+    year: "2015–17",
+    label: "first tool",
+    title: "Video Star, because it was free",
+    text: "Editing taught me pacing, emotional payoff, and how tiny visual choices change what people feel.",
+    tone: "from-[#e2e8f1] to-[#f4f6fa]",
+  },
+  {
+    year: "2018",
+    label: "leveling up",
+    title: "Saved for a MacBook + After Effects",
+    text: "Anqclic grew into a 630K-view creative archive shaped by analytics, experimentation, and fandom.",
+    tone: "from-[#e9e2dc] to-[#faf6f2]",
+  },
+  {
+    year: "2022–26",
+    label: "building",
+    title: "USC CS + Business",
+    text: "I found the bridge between technical systems, human behavior, creative technology, and product strategy.",
+    tone: "from-[#f2e2e1] to-[#fff7f6]",
+  },
+  {
+    year: "now",
+    label: "direction",
+    title: "Products people connect with",
+    text: "I want to build where entertainment, fandom, discovery, and thoughtful interfaces meet.",
+    tone: "from-[#e6dfd8] to-[#fbf8f4]",
+  },
 ];
 
 const smallFacts = [
@@ -314,14 +355,27 @@ const shipPalettes: [string, string][] = [
 
 function ShipCard({ ship, index }: { ship: typeof ships[0]; index: number }) {
   const [current, setCurrent] = useState(0);
+  const [paused, setPaused] = useState(false);
   const total = ship.images.length;
   const [palette] = useState(shipPalettes[index % shipPalettes.length]);
 
   const prev = () => setCurrent((c) => (c - 1 + total) % total);
   const next = () => setCurrent((c) => (c + 1) % total);
 
+  useEffect(() => {
+    if (paused || total < 2) return;
+    const timer = setInterval(() => setCurrent((c) => (c + 1) % total), 4200 + index * 240);
+    return () => clearInterval(timer);
+  }, [index, paused, total]);
+
   return (
-    <div className="flex flex-col gap-2">
+    <div
+      className={`flex flex-col gap-2 transition-transform duration-500 ${
+        index % 3 === 0 ? "sm:-rotate-1" : index % 3 === 1 ? "sm:translate-y-3 sm:rotate-1" : "sm:-translate-y-1 sm:rotate-[0.5deg]"
+      } hover:z-10 hover:!translate-y-[-8px] hover:!rotate-0`}
+      onMouseEnter={() => setPaused(true)}
+      onMouseLeave={() => setPaused(false)}
+    >
       <div
         className="group relative overflow-hidden rounded-[14px] border border-black/5 shadow-[0_10px_28px_rgba(68,44,29,0.07)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(68,44,29,0.12)]"
         style={{ aspectRatio: "2/3", background: `linear-gradient(160deg, ${palette[0]}, ${palette[1]})` }}
@@ -411,9 +465,11 @@ function PosterCard({
   const bg = posterFallbacks[index % posterFallbacks.length];
 
   return (
-    <div className="flex flex-col gap-2">
+    <div className={`group flex flex-col gap-2 transition-transform duration-500 ${
+      index % 4 === 0 ? "sm:-rotate-1" : index % 4 === 1 ? "sm:translate-y-3 sm:rotate-1" : index % 4 === 2 ? "sm:-translate-y-1 sm:rotate-[0.5deg]" : "sm:translate-y-2 sm:-rotate-[0.7deg]"
+    } hover:z-10 hover:!translate-y-[-8px] hover:!rotate-0`}>
       <div
-        className="relative overflow-hidden rounded-[14px] border border-black/5 shadow-[0_10px_28px_rgba(68,44,29,0.07)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_16px_36px_rgba(68,44,29,0.12)]"
+        className="relative overflow-hidden rounded-[14px] border border-black/5 shadow-[0_10px_28px_rgba(68,44,29,0.07)] transition-all duration-500 group-hover:scale-[1.025] group-hover:shadow-[0_20px_42px_rgba(68,44,29,0.15)]"
         style={{ background: bg, aspectRatio: "2/3" }}
       >
         {poster ? (
@@ -440,8 +496,11 @@ function PosterCard({
 function MemoryCard({ item }: { item: typeof memoryLog[0] }) {
   return (
     <div
-      className="flex w-[230px] shrink-0 flex-col gap-2 rounded-[20px] border border-black/5 bg-white/80 p-5 shadow-[0_14px_36px_rgba(68,44,29,0.06)] transition-all duration-200 hover:-translate-y-1 hover:shadow-[0_20px_46px_rgba(68,44,29,0.10)]"
+      className="group relative flex w-[250px] shrink-0 flex-col gap-2 overflow-hidden rounded-[18px] border border-black/5 bg-[#fffaf6] p-5 shadow-[0_14px_36px_rgba(68,44,29,0.06)] transition-all duration-300 odd:-rotate-[0.6deg] even:rotate-[0.7deg] hover:z-10 hover:-translate-y-2 hover:rotate-0 hover:shadow-[0_22px_50px_rgba(68,44,29,0.12)]"
     >
+      <div aria-hidden="true" className="absolute -left-2 top-1/2 h-4 w-4 -translate-y-1/2 rounded-full border border-black/5 bg-[#f7f1eb]" />
+      <div aria-hidden="true" className="absolute -right-2 top-1/2 h-4 w-4 -translate-y-1/2 rounded-full border border-black/5 bg-[#f7f1eb]" />
+      <div aria-hidden="true" className="absolute bottom-0 left-5 right-5 border-t border-dashed border-black/10" />
       <div className="flex items-center gap-2 flex-wrap">
         {item.upcoming ? (
           <span className="rounded-full bg-[#342d29] px-2 py-0.5 text-[0.55rem] uppercase tracking-[0.16em] text-white/85">upcoming</span>
@@ -453,6 +512,7 @@ function MemoryCard({ item }: { item: typeof memoryLog[0] }) {
       {item.subtitle && <p className="text-[0.68rem] text-[#5e5048]">{item.subtitle}</p>}
       <p className="text-[0.62rem] uppercase tracking-[0.14em] text-[#a89d96]">{item.date}</p>
       {item.note && <p className="text-[0.7rem] italic leading-snug text-[#7c7068]">{item.note}</p>}
+      <p className="mt-auto pt-3 text-[0.52rem] uppercase tracking-[0.24em] text-[#c8bdb2]">admit one · archive copy</p>
     </div>
   );
 }
@@ -496,14 +556,15 @@ export default function AboutPage() {
             </header>
 
             {/* HERO + PHOTOS */}
-            <div className="reveal-item mt-10 grid gap-6 lg:grid-cols-[1fr_auto]" data-delay={0}>
+            <div className="reveal-item relative mt-10 overflow-hidden rounded-[34px] border border-black/5 bg-gradient-to-br from-white/70 via-[#fffaf6]/60 to-[#f6e8e9]/45 p-6 shadow-[0_24px_70px_rgba(68,44,29,0.06)] sm:p-9 lg:grid lg:grid-cols-[1fr_auto] lg:gap-10" data-delay={0}>
+              <div aria-hidden="true" className="absolute -left-10 top-10 h-28 w-44 rotate-[-8deg] rounded-full bg-[#e8a0b0]/10 blur-[45px]" />
               <div>
                 <p className="text-[0.72rem] uppercase tracking-[0.35em] text-[#7c7068]">about / vanessa gonzalez</p>
                 <h1 className="mt-5 max-w-2xl font-serif text-[2.4rem] font-semibold leading-[1.15] text-[#1f1a18] sm:text-[3.2rem]">
                   built from edits, ships, and things that feel collectible.
                 </h1>
                 <p className="mt-6 max-w-lg text-[1.02rem] leading-8 text-[#4d413b]">
-                  I'm Vanessa, an LA native and USC senior studying Computer Science and Business Administration with a pending full-time return offer from Bank of America Global Technology. I'm fascinated by consumer behavior, digital fandom, and why people build emotional connections to products, stories, and visual media.
+                  I'm Vanessa, an LA native and USC senior studying Computer Science and Business Administration with a full-time return offer from Bank of America Global Technology. I'm fascinated by consumer behavior, digital fandom, and why people build emotional connections to products, stories, and visual media.
                 </p>
                 <div className="mt-6 flex flex-wrap gap-2 text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
                   {["USC CS + Business", "626 → LA", "BofA Return Offer", "Editor Since 2015", "Product & GTM"].map((tag) => (
@@ -511,7 +572,8 @@ export default function AboutPage() {
                   ))}
                 </div>
               </div>
-              <div className="relative hidden lg:flex shrink-0 items-end" style={{ width: "280px", height: "340px" }}>
+              <div className="relative mt-8 hidden lg:flex shrink-0 items-end lg:mt-0" style={{ width: "300px", height: "350px" }}>
+                <div aria-hidden="true" className="absolute left-7 top-[-9px] z-10 h-7 w-20 rotate-[-7deg] border-x border-white/40 bg-[#ead8c8]/80 shadow-sm" />
                 {myPhotos.slice(0, 2).map((photo, i) => (
                   <div
                     key={photo.src}
@@ -531,6 +593,7 @@ export default function AboutPage() {
                     </div>
                   </div>
                 ))}
+                <p className="absolute -bottom-1 right-0 z-10 rotate-[-3deg] font-serif text-sm italic text-[#9b7580]">from the 626, always in LA ♡</p>
               </div>
             </div>
 
@@ -549,6 +612,52 @@ export default function AboutPage() {
               <span className="h-px w-8 bg-[#c8bdb2]" />
               how i got here
             </div>
+
+            {/* SCRAPBOOK ORIGIN TIMELINE */}
+            <div className="reveal-item relative overflow-hidden rounded-[32px] border border-black/5 bg-white/50 p-5 shadow-[0_20px_60px_rgba(68,44,29,0.05)] sm:p-8" data-delay={0}>
+              <div aria-hidden="true" className="absolute bottom-9 left-8 right-8 hidden border-t border-dashed border-[#cdbfb5] sm:block" />
+              <div className="relative grid gap-4 sm:grid-cols-5">
+                {originTimeline.map((chapter, index) => (
+                  <article
+                    key={chapter.year}
+                    className={`group relative rounded-[20px] border border-black/5 bg-gradient-to-br ${chapter.tone} p-5 shadow-[0_12px_32px_rgba(68,44,29,0.05)] transition-all duration-300 ${
+                      index % 2 === 0 ? "sm:-rotate-[0.7deg]" : "sm:translate-y-5 sm:rotate-[0.8deg]"
+                    } hover:z-10 hover:!-translate-y-2 hover:!rotate-0 hover:shadow-[0_20px_46px_rgba(68,44,29,0.12)]`}
+                  >
+                    <span className="font-serif text-[1.35rem] font-semibold text-[#b7808c]">{chapter.year}</span>
+                    <p className="mt-3 text-[0.56rem] uppercase tracking-[0.22em] text-[#a89d96]">{chapter.label}</p>
+                    <h2 className="mt-2 font-serif text-[1rem] font-semibold leading-snug text-[#1f1a18]">{chapter.title}</h2>
+                    <p className="mt-3 text-[0.76rem] leading-6 text-[#5e5048]">{chapter.text}</p>
+                    <span aria-hidden="true" className="absolute -bottom-[2.35rem] left-1/2 hidden h-3 w-3 -translate-x-1/2 rounded-full border-[3px] border-[#f7f1eb] bg-[#b98c96] shadow-sm sm:block" />
+                  </article>
+                ))}
+              </div>
+              <div className="mt-10 flex flex-wrap items-center justify-between gap-4 border-t border-black/5 pt-5">
+                <p className="max-w-2xl text-[0.82rem] leading-7 text-[#5e5048]">
+                  The tools changed, but the instinct stayed the same: notice what makes people care, then build around it.
+                </p>
+                <a
+                  href="https://studio.code.org/projects/applab/UjzuxRowfB3RcT0DDziGpsX4uci2CGe7ZdsjWtmwuvY"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="rounded-full border border-black/10 bg-white/75 px-4 py-2 text-[0.62rem] uppercase tracking-[0.18em] text-[#5f554f] transition hover:-translate-y-0.5 hover:bg-white"
+                >
+                  my first Taylor Swift quiz ↗
+                </a>
+              </div>
+              <div className="mt-5 grid gap-5 border-t border-black/5 pt-6 sm:grid-cols-2">
+                <div className="border-l-2 border-[#d7aeb7] pl-4">
+                  <p className="text-[0.58rem] uppercase tracking-[0.22em] text-[#a89d96]">why entertainment tech</p>
+                  <p className="mt-2 text-[0.82rem] leading-7 text-[#5e5048]">Entertainment is more than content—it is how communities form identity. I want to build products and campaigns that deepen that connection.</p>
+                </div>
+                <div className="border-l-2 border-[#d8c8bc] pl-4">
+                  <p className="text-[0.58rem] uppercase tracking-[0.22em] text-[#a89d96]">my visual language</p>
+                  <p className="mt-2 text-[0.82rem] leading-7 text-[#5e5048]">Editorial campaigns, thoughtful typography, lace details, cinematic color, and interfaces that make complex work feel obvious and collectible.</p>
+                </div>
+              </div>
+            </div>
+
+            {false && (<>
 
             {/* ORIGIN */}
             <div className="reveal-item rounded-[28px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] relative overflow-hidden" data-delay={0}>
@@ -646,6 +755,8 @@ export default function AboutPage() {
               </div>
             </div>
 
+            </>)}
+
             {/* FAVORITE FILMS */}
             <div className="my-8 flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
               <span className="h-px w-8 bg-[#c8bdb2]" />
@@ -687,13 +798,16 @@ export default function AboutPage() {
               currently
             </div>
 
-            <div className="grid gap-4 lg:grid-cols-3">
+            <div className="grid items-start gap-4 lg:grid-cols-2">
 
               {/* WATCHING */}
-              <div className="reveal-item rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={0}>
+              <div className="reveal-item relative overflow-hidden rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={0}>
+                <div aria-hidden="true" className="absolute left-12 top-[4.35rem] z-10 h-5 w-16 -rotate-6 bg-[#ead8c8]/75 shadow-sm" />
+                <div aria-hidden="true" className="absolute left-1/2 top-[4.2rem] z-10 h-5 w-16 -translate-x-1/2 rotate-3 bg-[#ead8c8]/75 shadow-sm" />
+                <div aria-hidden="true" className="absolute right-12 top-[4.5rem] z-10 h-5 w-16 rotate-6 bg-[#ead8c8]/75 shadow-sm" />
                 <p className="mb-5 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">watching</p>
-                <div className="grid grid-cols-2 gap-3 mb-4">
-                  {showPosters.slice(0, 2).map((show, i) => (
+                <div className="mb-5 grid grid-cols-3 gap-3">
+                  {showPosters.slice(0, 3).map((show, i) => (
                     <PosterCard key={show.title} title={show.title} note="" poster={show.poster} index={i} />
                   ))}
                 </div>
@@ -711,7 +825,8 @@ export default function AboutPage() {
               </div>
 
               {/* LISTENING */}
-              <div className="reveal-item rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={80}>
+              <div className="reveal-item relative overflow-hidden rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={80}>
+                <div aria-hidden="true" className="absolute -right-12 -top-12 h-40 w-40 rounded-full border-[20px] border-[#342d29]/[0.035]" />
                 <div className="mb-4 flex items-center justify-between">
                   <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">on rotation</p>
                   {tracks.length > 0 && tracks[0].isNowPlaying && (
@@ -769,13 +884,19 @@ export default function AboutPage() {
               </div>
 
               {/* MAKING */}
-              <div className="reveal-item rounded-[26px] border border-black/5 bg-white/72 p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)]" data-delay={160}>
-                <p className="mb-5 text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">making</p>
-                <div className="flex flex-col gap-3">
+              <div className="reveal-item relative overflow-hidden rounded-[26px] border border-[#e8a0b0]/15 bg-gradient-to-r from-[#fff8fa] via-white/75 to-[#fffaf6] p-6 shadow-[0_18px_50px_rgba(68,44,29,0.05)] lg:col-span-2" data-delay={160}>
+                <div className="mb-5 flex flex-wrap items-end justify-between gap-3">
+                  <div>
+                    <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">making / open tabs</p>
+                    <p className="mt-2 font-serif text-lg italic text-[#4d413b]">things taking shape lately</p>
+                  </div>
+                  <span className="text-[0.58rem] uppercase tracking-[0.2em] text-[#c8bdb2]">03 works in progress</span>
+                </div>
+                <div className="grid gap-3 sm:grid-cols-3">
                   {makingItems.map((item, i) => (
-                    <div key={item.title} className="flex items-center gap-3 rounded-[16px] border border-black/5 bg-white/60 p-3 shadow-[0_8px_24px_rgba(68,44,29,0.04)]">
+                    <div key={item.title} className={`group flex items-center gap-3 rounded-[16px] border border-black/5 bg-white/70 p-4 shadow-[0_8px_24px_rgba(68,44,29,0.04)] transition-all duration-300 hover:-translate-y-1 hover:bg-white hover:shadow-[0_14px_32px_rgba(68,44,29,0.09)] ${i === 1 ? "sm:translate-y-2" : ""}`}>
                       <div className="h-10 w-10 shrink-0 overflow-hidden rounded-[10px] bg-[#ede5dc] flex items-center justify-center">
-                        <span className="text-[0.62rem] uppercase tracking-[0.1em] text-[#8a7d75]">{i === 0 ? "edit" : "web"}</span>
+                        <span className="text-[0.62rem] uppercase tracking-[0.1em] text-[#8a7d75]">{i === 0 ? "edit" : i === 1 ? "web" : "lab"}</span>
                       </div>
                       <div className="min-w-0">
                         <p className="truncate text-[0.82rem] font-medium text-[#1f1a18]">{item.title}</p>
@@ -821,7 +942,15 @@ export default function AboutPage() {
                 {smallFacts.map((fact, i) => (
                   <span
                     key={fact}
-                    className={`rounded-full border border-black/10 bg-white/70 px-4 py-2 text-sm text-[#5f554f] tracking-[0.03em] shadow-sm backdrop-blur-sm transition-all duration-200 hover:-translate-y-0.5 hover:bg-white hover:shadow-md ${i % 3 === 0 ? "-rotate-1" : i % 3 === 1 ? "rotate-1" : "rotate-0"}`}
+                    className={`border border-black/10 px-4 py-2 text-sm text-[#5f554f] tracking-[0.03em] shadow-sm backdrop-blur-sm transition-all duration-300 hover:z-10 hover:-translate-y-1 hover:rotate-0 hover:bg-white hover:shadow-md ${
+                      i % 4 === 0
+                        ? "-rotate-1 rounded-[4px] bg-[#fff5f7]"
+                        : i % 4 === 1
+                          ? "rotate-1 rounded-full bg-white/75"
+                          : i % 4 === 2
+                            ? "-rotate-[0.5deg] rounded-[12px] bg-[#fffaf0]"
+                            : "rotate-[0.7deg] rounded-[3px] bg-[#f4f0eb]"
+                    }`}
                   >
                     {fact}
                   </span>
@@ -830,12 +959,13 @@ export default function AboutPage() {
             </div>
 
             {/* DAD NOTE */}
-            <div className="reveal-item mt-10 overflow-hidden rounded-[28px] border border-black/5 bg-white/72 p-8 shadow-[0_18px_50px_rgba(68,44,29,0.06)] rotate-[0.3deg]" data-delay={60}>
+            <div className="reveal-item relative mt-12 overflow-hidden border-y border-black/5 px-4 py-12 sm:px-10" data-delay={60}>
+              <div aria-hidden="true" className="absolute left-0 top-1/2 h-40 w-40 -translate-y-1/2 rounded-full bg-[#e8a0b0]/10 blur-[55px]" />
               <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#a89d96]">a little note</p>
-              <p className="mt-4 max-w-2xl text-[1rem] leading-8 text-[#4d413b]">
+              <p className="relative mt-5 max-w-3xl font-serif text-[1.15rem] leading-9 text-[#4d413b] sm:text-[1.3rem]">
                 I grew up all around the 626, but my dad worked across Los Angeles, so the city always felt like mine too. He passed in December. A lot of what drives me—the desire to build things with intention and leave something meaningful behind—comes from him.
               </p>
-              <p className="mt-4 text-xs uppercase tracking-[0.28em] text-[#a89d96]">anqclic / creative archive</p>
+              <p className="mt-6 text-xs uppercase tracking-[0.28em] text-[#a89d96]">for my dad · anqclic / creative archive</p>
             </div>
 
             {/* BOTTOM CTA */}
