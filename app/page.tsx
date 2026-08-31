@@ -51,32 +51,29 @@ function useReveal() {
 function useParallax() {
   useEffect(() => {
     const speeds: Record<string, number> = {
-      portrait:        0.04,
-      magazine:        0.09,
-      lace:            0.12,
-      "quote-card":    0.06,
-      "tools-card":    0.07,
-      "note-card":     0.05,
-      "inspire-card":  0.10,
-      obsessed:        0.03,
-      threads:         0.08,
-      "second-photo":  0.06,
-      "fragments-tag": 0.04,
+      portrait: 0.018,
+      magazine: 0.026,
+      lace: 0.032,
+      "second-photo": 0.022,
     };
 
-    let cards: { el: HTMLElement; speed: number; baseTop: number }[] = [];
+    let cards: { el: HTMLElement; speed: number; center: number }[] = [];
     let ticking = false;
 
     const measure = () => {
       const scrollY = window.scrollY;
       cards = Array.from(
-        document.querySelectorAll<HTMLElement>(".collage-card")
-      ).map((el) => {
+        document.querySelectorAll<HTMLElement>(".collage-card[data-parallax]")
+      ).flatMap((el) => {
         const key = el.dataset.parallax ?? "";
-        const speed = speeds[key] ?? 0.06;
+        const speed = speeds[key];
+        if (!speed) {
+          el.style.removeProperty("transform");
+          return [];
+        }
         const rect = el.getBoundingClientRect();
-        const baseTop = rect.top + scrollY;
-        return { el, speed, baseTop };
+        const center = rect.top + scrollY + rect.height / 2;
+        return [{ el, speed, center }];
       });
     };
 
@@ -84,8 +81,10 @@ function useParallax() {
       if (ticking) return;
       requestAnimationFrame(() => {
         const scrollY = window.scrollY;
-        for (const { el, speed, baseTop } of cards) {
-          const offset = (scrollY - baseTop) * speed;
+        const viewportCenter = scrollY + window.innerHeight / 2;
+        for (const { el, speed, center } of cards) {
+          const rawOffset = (viewportCenter - center) * speed;
+          const offset = Math.max(-14, Math.min(14, rawOffset));
           el.style.transform = `translateY(${offset}px)`;
         }
         ticking = false;
@@ -100,6 +99,7 @@ function useParallax() {
     };
 
     measure();
+    onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     window.addEventListener("resize", onResize);
     return () => {
@@ -426,7 +426,7 @@ export default function Home() {
               </div>
 
               {/* COLLAGE — DESKTOP */}
-              <div className="relative mt-[4.5rem] hidden lg:block" style={{ minHeight: "980px" }}>
+              <div className="relative mt-[4.5rem] hidden lg:block" style={{ minHeight: "1000px" }}>
                 {/* LEFT COLUMN */}
                 <div
                   className="collage-card reveal-item group absolute overflow-hidden rounded-[36px] border border-[#201c1a]/6 shadow-[0_22px_65px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_30px_80px_rgba(45,29,18,0.14)] animate-floatSlow"
@@ -534,10 +534,21 @@ export default function Home() {
                 <span className="h-px w-8 bg-[#c8bdb2]" />
                 currently obsessed with
               </div>
-              <div className="mt-5 grid grid-cols-4 gap-3 sm:grid-cols-8">
-                {obsessedWithArt.map((item) => (
-                  <div key={item.label} className="flex flex-col gap-1.5">
-                    <div className="relative aspect-square w-full overflow-hidden rounded-[12px] border border-black/5 bg-[#ede5dc] shadow-[0_10px_26px_rgba(68,44,29,0.06)] transition-all duration-200 hover:-translate-y-0.5 hover:shadow-[0_14px_34px_rgba(68,44,29,0.10)]">
+              <div className="mt-6 grid grid-cols-4 items-start gap-3 sm:grid-cols-8">
+                {obsessedWithArt.map((item, index) => (
+                  <div
+                    key={item.label}
+                    className={`album-tile group flex flex-col gap-1.5 transition-transform duration-500 ease-out ${
+                      index % 4 === 0
+                        ? "sm:translate-y-2 sm:-rotate-1"
+                        : index % 4 === 1
+                          ? "sm:-translate-y-1 sm:rotate-[0.8deg]"
+                          : index % 4 === 2
+                            ? "sm:translate-y-3 sm:rotate-[1.2deg]"
+                            : "sm:translate-y-0 sm:-rotate-[0.6deg]"
+                    } hover:z-10 hover:!-translate-y-3 hover:!rotate-0`}
+                  >
+                    <div className="relative aspect-square w-full overflow-hidden rounded-[14px] border border-black/5 bg-[#ede5dc] shadow-[0_10px_26px_rgba(68,44,29,0.06)] transition-all duration-500 ease-out group-hover:scale-[1.045] group-hover:shadow-[0_20px_44px_rgba(68,44,29,0.16)]">
                       {item.art && (
                         <Image
                           src={item.art}
@@ -548,6 +559,10 @@ export default function Home() {
                           unoptimized
                         />
                       )}
+                      <div className="pointer-events-none absolute inset-0 bg-gradient-to-br from-white/18 via-transparent to-black/10 opacity-0 transition-opacity duration-300 group-hover:opacity-100" />
+                      <span className="absolute right-2 top-2 grid h-6 w-6 place-items-center rounded-full border border-white/30 bg-black/35 text-[0.55rem] text-white/90 opacity-0 backdrop-blur-sm transition-all duration-300 group-hover:opacity-100">
+                        {String(index + 1).padStart(2, "0")}
+                      </span>
                     </div>
                     <span className="text-[0.7rem] leading-tight text-[#342d29]">{item.label}</span>
                     <span className="text-[0.58rem] uppercase tracking-[0.14em] text-[#a89d96]">{item.sub}</span>
@@ -581,15 +596,15 @@ export default function Home() {
             </a>
           </div>
 
-          <div className="grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
+          <div className="space-y-4">
             {/* AUDIBLE */}
             <a
               href="/work/audible"
               className="reveal-item group block"
               data-delay={0}
             >
-              <article className="h-full overflow-hidden rounded-[34px] border border-black/5 bg-white/72 shadow-[0_24px_70px_rgba(68,44,29,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_85px_rgba(68,44,29,0.10)]">
-                <div className="relative h-[260px] overflow-hidden border-b border-black/5">
+              <article className="overflow-hidden rounded-[34px] border border-black/5 bg-white/72 shadow-[0_24px_70px_rgba(68,44,29,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_30px_85px_rgba(68,44,29,0.10)] lg:grid lg:grid-cols-[1.05fr_0.95fr]">
+                <div className="relative h-[300px] overflow-hidden border-b border-black/5 lg:h-auto lg:min-h-[520px] lg:border-b-0 lg:border-r">
                   <Image
                     src="/images/clip-and-share.png"
                     alt="Audible Clip and Share case study"
@@ -609,7 +624,7 @@ export default function Home() {
                   </div>
                 </div>
 
-                <div className="p-7">
+                <div className="flex flex-col justify-center p-7 lg:p-10">
                   <p className="text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
                     Product Strategy Lead
                   </p>
@@ -621,6 +636,24 @@ export default function Home() {
                   <p className="mt-5 text-[0.76rem] uppercase tracking-[0.2em] text-[#8a7d75]">
                     ✦ First-place winning concept · Amazon-sponsored product case competition
                   </p>
+
+                  <div className="mt-6 grid grid-cols-2 overflow-hidden rounded-[20px] border border-black/5 bg-[#fffaf6] sm:grid-cols-4">
+                    {[
+                      ["01", "friction", "Gen Z discovery"],
+                      ["02", "product loop", "Clip & Share"],
+                      ["03", "north star", "Share-to-Play"],
+                      ["04", "result", "First place"],
+                    ].map(([num, label, value], index) => (
+                      <div
+                        key={label}
+                        className={`p-4 ${index > 0 ? "sm:border-l sm:border-black/5" : ""} ${index > 1 ? "border-t border-black/5 sm:border-t-0" : ""}`}
+                      >
+                        <p className="font-serif text-sm text-[#c69aa5]">{num}</p>
+                        <p className="mt-2 text-[0.56rem] uppercase tracking-[0.18em] text-[#a89d96]">{label}</p>
+                        <p className="mt-1 text-[0.76rem] leading-5 text-[#342d29]">{value}</p>
+                      </div>
+                    ))}
+                  </div>
 
                   <div className="mt-5 flex flex-wrap gap-2">
                     {[
@@ -645,8 +678,8 @@ export default function Home() {
               </article>
             </a>
 
-            {/* RIGHT COLUMN */}
-            <div className="grid gap-4">
+            {/* SUPPORTING PROJECTS */}
+            <div className="grid gap-4 lg:grid-cols-2">
               {/* BOFA */}
               <a
                 href="/work/bofa"
@@ -667,7 +700,7 @@ export default function Home() {
                   </h3>
 
                   <p className="mt-4 text-[0.9rem] leading-7 text-[#4d413b]">
-                    Documented a 600+ file COBOL mainframe system with no real active docs beyond a 2010 slide deck, then built an AI agent to explain it file by file—now being generalized across teams. Interviewed 15 Business Analysts to pinpoint where existing AI tools failed, leading to Mosaic (a multi-agent documentation assistant) and an official U.S. Patent filing (Pending).
+                    Documented a 600+ file COBOL mainframe system with no real active docs beyond a 2010 slide deck, then built an AI agent to explain it file by file—now being generalized across teams. Interviewed 15 Business Analysts to pinpoint where existing AI tools failed, leading to Mosaic, a context-aware AI platform submitted for internal patent review.
                   </p>
 
                   <div className="mt-5 rounded-[18px] border border-black/5 bg-[#fffaf6] p-4">
@@ -695,7 +728,7 @@ export default function Home() {
                           01
                         </p>
                         <p className="mt-1 text-[0.58rem] uppercase tracking-[0.14em] text-[#a89d96]">
-                          patent pending
+                          internal review
                         </p>
                       </div>
                     </div>
@@ -727,9 +760,9 @@ export default function Home() {
                 </article>
               </a>
 
-              {/* ANQCLIC */}
+              {/* INTENT LAYER */}
               <a
-                href="/work/anqclic"
+                href="/work/intent-layer"
                 className="reveal-item group block"
                 data-delay={200}
               >
@@ -739,27 +772,27 @@ export default function Home() {
                   </span>
 
                   <p className="pr-12 text-[0.68rem] uppercase tracking-[0.24em] text-[#a89d96]">
-                    Creator & Content Strategist
+                    Independent Product Research
                   </p>
 
                   <h3 className="mt-3 pr-12 font-serif text-[1.3rem] font-semibold leading-snug text-[#1f1a18]">
-                    Anqclic — Creative Archive
+                    Intent Layer
                   </h3>
 
                   <p className="mt-4 text-[0.9rem] leading-7 text-[#4d413b]">
-                    Grew an independent digital video platform to 5,000+ followers and 630K+ organic views using Instagram Business analytics (drop-off timing, demographics) and Close Friends story preview testing to refine pacing and audio trends. Secured a paid commercial sponsorship outreach from Funimate.
+                    Exploring what streaming recommendations miss: why a viewer connected with a title. Currently gathering survey and interview data to build an intent taxonomy, post-watch capture experience, and intent-informed recommendation framework.
                   </p>
 
                   <p className="mt-4 text-[0.72rem] uppercase tracking-[0.2em] text-[#a89d96]">
-                    ✦ 5K+ Followers · 630K+ Views · Brand Sponsored
+                    ✦ Original consumer research · Framework and prototype in progress
                   </p>
 
                   <div className="mt-5 flex flex-wrap gap-2">
                     {[
-                      "content strategy",
-                      "audience analytics",
-                      "qualitative testing",
-                      "video editing",
+                      "streaming strategy",
+                      "consumer research",
+                      "personalization",
+                      "audience insights",
                     ].map((tag) => (
                       <span
                         key={tag}
@@ -771,7 +804,7 @@ export default function Home() {
                   </div>
 
                   <p className="mt-5 text-[0.68rem] uppercase tracking-[0.28em] text-[#c8bdb2] transition group-hover:text-[#7c7068]">
-                    view archive →
+                    explore the research →
                   </p>
                 </article>
               </a>
@@ -782,18 +815,27 @@ export default function Home() {
         <MarqueeTicker />
 
         {/* ABOUT SECTION */}
-        <section id="about" className="mx-auto max-w-7xl px-4 pb-12 sm:px-6 lg:px-10">
-          <div className="grid gap-4 lg:grid-cols-[1.25fr_0.95fr]">
+        <section id="about" className="mx-auto max-w-7xl px-4 pb-12 pt-4 sm:px-6 lg:px-10">
+          <div className="relative overflow-hidden rounded-[36px] border border-black/5 bg-white/55 p-5 shadow-[0_24px_80px_rgba(68,44,29,0.05)] sm:p-8 lg:p-10">
+            <div aria-hidden="true" className="absolute -right-20 -top-24 h-72 w-72 rounded-full bg-[#e8a0b0]/10 blur-[80px]" />
+            <div className="relative mb-8 grid gap-6 border-b border-black/5 pb-8 lg:grid-cols-[0.35fr_1.65fr] lg:items-start">
+              <p className="text-[0.68rem] uppercase tracking-[0.32em] text-[#9a8c84]">
+                about / approach
+              </p>
+              <h2 className="max-w-4xl font-serif text-[2rem] font-semibold leading-[1.12] text-[#1f1a18] sm:text-[2.8rem] lg:text-[3.4rem]">
+                I turn messy systems and human behavior into products that feel
+                <span className="italic text-[#a66f7c]"> intuitive, personal, and intentional.</span>
+              </h2>
+            </div>
+
+            <div className="relative grid gap-4 lg:grid-cols-[1.2fr_0.8fr]">
             <div
-              className="reveal-item rounded-[30px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]"
+              className="reveal-item p-2 sm:p-4"
               data-delay={0}
             >
-              <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
-                about
-              </p>
-              <h2 className="mt-4 max-w-2xl text-2xl leading-tight text-[#1f1a18] sm:text-[1.9rem]">
+              <p className="max-w-2xl text-lg leading-8 text-[#342d29] sm:text-xl sm:leading-9">
                 USC senior combining technical depth in CS with business strategy and a creative background in digital media.
-              </h2>
+              </p>
 
               <div className="mt-6 flex flex-wrap gap-2 text-[0.72rem] uppercase tracking-[0.22em] text-[#8a7d75]">
                 <span className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1">USC CS + Business</span>
@@ -801,7 +843,7 @@ export default function Home() {
                 <span className="rounded-full border border-black/5 bg-[#fffaf6] px-3 py-1">Product & GTM Strategy</span>
               </div>
 
-              <div className="mt-5 space-y-4 text-[1rem] leading-8 text-[#4d413b]">
+              <div className="mt-7 max-w-2xl space-y-4 text-[0.96rem] leading-8 text-[#4d413b]">
                 <p>
                   I've been editing video since I was 10 years old, growing an independent account to 630K+ views by paying attention to pacing, audience drop-off, and visual trends. That early interest in human behavior eventually led me to study Computer Science and Business Administration at USC.
                 </p>
@@ -809,7 +851,7 @@ export default function Home() {
                   In corporate environments like Bank of America, I focus on user discovery and systems design—translating user research from 15 Business Analysts into multi-agent AI tooling and modernizing 600+ complex legacy mainframe files.
                 </p>
                 <p>
-                  Whether I'm mapping product wireframes, evaluating GTM loops for a case competition, or refining a visual interface, my goal is always the same: make complex systems feel intuitive, personal, and intentional.
+                  Whether I'm mapping product wireframes, evaluating GTM loops, or refining a visual interface, I bring the same mix of curiosity, structure, and visual instinct.
                 </p>
               </div>
             </div>
@@ -817,24 +859,34 @@ export default function Home() {
             <div className="grid gap-4">
               <div
                 id="resume"
-                className="reveal-item rounded-[30px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]"
+                className="reveal-item rounded-[28px] border border-black/5 bg-[#fffaf6]/85 p-7 shadow-[0_14px_40px_rgba(68,44,29,0.04)]"
                 data-delay={80}
               >
                 <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
                   what I bring
                 </p>
-                <div className="mt-4 grid gap-3 text-sm leading-7 text-[#4d413b]">
-                  <p>• Product Strategy & Discovery (User Research, Wireframing)</p>
-                  <p>• Technical Background (CS at USC, Next.js, React, Java)</p>
-                  <p>• Audience Analytics & Quantitative Growth (Drop-off, Retention)</p>
-                  <p>• Enterprise Alignment (BofA Patent Pending, Cross-Functional Alignment)</p>
-                  <p>• Visual Instincts & Content Production (After Effects, Figma)</p>
+                <div className="mt-5 grid gap-2">
+                  {[
+                    ["01", "Product strategy", "Discovery · research · wireframing"],
+                    ["02", "Technical fluency", "CS · Next.js · React · Java"],
+                    ["03", "Audience instinct", "Behavior · drop-off · retention"],
+                    ["04", "Enterprise delivery", "AI workflows · cross-functional alignment"],
+                    ["05", "Visual storytelling", "After Effects · Figma · editorial systems"],
+                  ].map(([num, title, detail]) => (
+                    <div key={num} className="grid grid-cols-[2rem_1fr] gap-3 border-t border-black/5 py-3 first:border-t-0">
+                      <span className="font-serif text-sm text-[#c69aa5]">{num}</span>
+                      <div>
+                        <p className="text-sm text-[#342d29]">{title}</p>
+                        <p className="mt-1 text-[0.62rem] uppercase tracking-[0.16em] text-[#a89d96]">{detail}</p>
+                      </div>
+                    </div>
+                  ))}
                 </div>
               </div>
 
               <div
                 id="contact"
-                className="reveal-item rounded-[30px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)]"
+                className="reveal-item relative overflow-hidden rounded-[28px] border border-[#e8a0b0]/20 bg-gradient-to-br from-[#f8e8ec] via-[#fff8fa] to-white/80 p-7 shadow-[0_14px_40px_rgba(68,44,29,0.05)]"
                 data-delay={160}
               >
                 <p className="font-serif font-semibold text-sm uppercase tracking-[0.24em] text-[#7c7068]">
@@ -861,10 +913,12 @@ export default function Home() {
                     linkedin.com/in/vanessa-g-gonzalez
                   </a>
                 </div>
-                <p className="mt-6 text-xs uppercase tracking-[0.28em] text-[#8a7d75]">
-                  anqclic / creative archive
-                </p>
+                <div className="mt-7 flex items-end justify-between gap-4">
+                  <p className="text-xs uppercase tracking-[0.28em] text-[#8a7d75]">anqclic / creative archive</p>
+                  <span className="font-serif text-3xl italic text-[#c996a2]">VG</span>
+                </div>
               </div>
+            </div>
             </div>
           </div>
         </section>
