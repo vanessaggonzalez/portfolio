@@ -198,6 +198,71 @@ const additionalProjects = [
   },
 ];
 
+function ProjectVisual({ slug }: { slug: string }) {
+  if (slug === "bofa") {
+    return (
+      <div className="absolute inset-0 overflow-hidden bg-gradient-to-br from-[#e8ddd5] via-[#f4ece6] to-[#e6d8cf] p-6 sm:p-9">
+        <div className="absolute -right-12 -top-12 h-52 w-52 rounded-full bg-white/45 blur-[45px]" />
+        <div className="relative flex h-full flex-col justify-between rounded-[26px] border border-white/60 bg-[#fffaf6]/70 p-5 shadow-[0_22px_55px_rgba(68,44,29,0.10)] backdrop-blur-sm">
+          <div className="flex items-center justify-between">
+            <div>
+              <p className="text-[0.56rem] uppercase tracking-[0.25em] text-[#9a8c84]">Mosaic / context engine</p>
+              <p className="mt-2 font-serif text-lg text-[#342d29]">From fragmented work to shared context</p>
+            </div>
+            <span className="rounded-full border border-black/5 bg-white/75 px-3 py-1 text-[0.52rem] uppercase tracking-[0.16em] text-[#9a8c84]">AI workflow</span>
+          </div>
+          <div className="relative my-5 grid grid-cols-[1fr_auto_1fr] items-center gap-3">
+            <div className="space-y-2">
+              {["Legacy files", "BA interviews", "Jira history"].map((item, i) => (
+                <div key={item} className={`rounded-[12px] border border-black/5 bg-white/80 px-3 py-2 text-[0.62rem] text-[#5e5048] ${i === 1 ? "translate-x-2" : ""}`}>{item}</div>
+              ))}
+            </div>
+            <div className="flex items-center gap-1 text-[#b98c96]"><span className="h-px w-5 bg-current" />→</div>
+            <div className="rounded-[18px] border border-[#c796a1]/25 bg-[#f7e9ed] p-4 shadow-[0_12px_28px_rgba(80,45,55,0.08)]">
+              <p className="text-[0.55rem] uppercase tracking-[0.2em] text-[#a26f7b]">Mosaic</p>
+              <div className="mt-3 space-y-2">
+                {["match", "document", "handoff"].map((item) => <div key={item} className="rounded-full bg-white/75 px-3 py-1 text-[0.55rem] text-[#7c5962]">{item}</div>)}
+              </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-2 border-t border-black/5 pt-4 text-center">
+            {[["15", "interviews"], ["600+", "files"], ["01", "review"]].map(([value, label]) => (
+              <div key={label}><p className="font-serif text-lg text-[#342d29]">{value}</p><p className="text-[0.5rem] uppercase tracking-[0.14em] text-[#a89d96]">{label}</p></div>
+            ))}
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  return (
+    <div className="absolute inset-0 overflow-hidden bg-gradient-to-br from-[#30292b] via-[#4a383d] to-[#281f22] p-6 sm:p-9">
+      <div className="absolute left-10 top-10 h-44 w-44 rounded-full bg-[#d3a0ad]/20 blur-[50px]" />
+      <div className="relative flex h-full flex-col justify-between">
+        <div>
+          <p className="text-[0.56rem] uppercase tracking-[0.28em] text-white/45">Intent Layer / streaming discovery</p>
+          <p className="mt-3 max-w-sm font-serif text-xl leading-snug text-white/90">Recommendations know what you watched. What if they understood why?</p>
+        </div>
+        <div className="relative mx-auto my-5 h-44 w-full max-w-sm">
+          {[
+            ["I wanted to feel understood", "left-0 top-10 -rotate-3"],
+            ["I needed an escape", "left-1/2 top-0 -translate-x-1/2 rotate-1"],
+            ["I loved the dynamic", "right-0 top-14 rotate-3"],
+          ].map(([copy, position], i) => (
+            <div key={copy} className={`absolute ${position} w-[46%] rounded-[16px] border border-white/10 bg-white/10 p-4 shadow-[0_18px_35px_rgba(0,0,0,0.18)] backdrop-blur-md`}>
+              <span className="text-[0.52rem] uppercase tracking-[0.18em] text-[#e4b7c1]">intent 0{i + 1}</span>
+              <p className="mt-2 font-serif text-sm italic leading-5 text-white/85">“{copy}”</p>
+            </div>
+          ))}
+        </div>
+        <div className="flex flex-wrap gap-2">
+          {["post-watch capture", "intent taxonomy", "better discovery"].map((item) => <span key={item} className="rounded-full border border-white/10 bg-white/5 px-3 py-1 text-[0.52rem] uppercase tracking-[0.15em] text-white/55">{item}</span>)}
+        </div>
+      </div>
+    </div>
+  );
+}
+
 export default function WorkPage() {
   useReveal();
 
@@ -258,7 +323,8 @@ export default function WorkPage() {
             </header>
 
             {/* INTRO */}
-            <div className="reveal-item mt-10 max-w-2xl" data-delay={0}>
+            <div className="reveal-item mt-10 grid gap-8 lg:grid-cols-[1.15fr_0.85fr] lg:items-end" data-delay={0}>
+              <div className="max-w-2xl">
               <p className="text-[0.72rem] uppercase tracking-[0.35em] text-[#7c7068]">
                 selected work / 2018 — present
               </p>
@@ -289,6 +355,16 @@ export default function WorkPage() {
                   Product & GTM Strategy
                 </span>
               </div>
+              </div>
+
+              <div className="grid grid-cols-3 overflow-hidden rounded-[22px] border border-black/5 bg-[#fffaf6]/70 shadow-[0_14px_38px_rgba(68,44,29,0.04)]">
+                {featuredProjects.map((project) => (
+                  <a key={project.slug} href={`#${project.slug}`} className="group border-l border-black/5 p-4 first:border-l-0 sm:p-5">
+                    <p className="font-serif text-xl text-[#d0a0aa]">{project.num}</p>
+                    <p className="mt-2 text-[0.58rem] uppercase tracking-[0.18em] text-[#9a8c84] transition group-hover:text-[#342d29]">{project.slug === "bofa" ? "enterprise AI" : project.slug === "intent-layer" ? "streaming" : "growth"}</p>
+                  </a>
+                ))}
+              </div>
             </div>
 
             {/* PRODUCT WORK */}
@@ -302,12 +378,13 @@ export default function WorkPage() {
                 <Link
                   key={project.slug}
                   href={`/work/${project.slug}`}
+                  id={project.slug}
                   className="reveal-item block"
                   data-delay={80 + index * 80}
                 >
                   <article className="group overflow-hidden rounded-[34px] border border-black/5 bg-white/72 shadow-[0_24px_70px_rgba(68,44,29,0.06)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_32px_90px_rgba(68,44,29,0.10)] lg:grid lg:grid-cols-[1.1fr_0.9fr]">
                     {/* IMAGE */}
-                    <div className="relative h-[280px] overflow-hidden border-b border-black/5 lg:h-full lg:min-h-[420px] lg:border-b-0 lg:border-r">
+                    <div className={`relative h-[300px] overflow-hidden border-b border-black/5 lg:h-full lg:min-h-[440px] lg:border-b-0 ${index % 2 === 1 ? "lg:order-2 lg:border-l" : "lg:border-r"}`}>
                       {project.image ? (
                         <Image
                           src={project.image}
@@ -316,26 +393,11 @@ export default function WorkPage() {
                           sizes="(max-width: 1024px) 100vw, 55vw"
                           className="object-cover transition-transform duration-500 ease-out group-hover:scale-[1.02]"
                         />
-                      ) : (
-                        <div className="absolute inset-0 bg-[#eee3da]">
-                          <div className="absolute inset-6 rounded-[24px] border border-dashed border-[#cdbfb5]">
-                            <div className="flex h-full items-center justify-center px-8 text-center">
-                              <div>
-                                <p className="text-[0.68rem] uppercase tracking-[0.28em] text-[#9d8f86]">
-                                  case study
-                                </p>
-                                <p className="mt-2 font-serif text-lg text-[#7c7068]">
-                                  {project.placeholderLabel}
-                                </p>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                      )}
+                      ) : <ProjectVisual slug={project.slug} />}
 
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent lg:bg-gradient-to-r" />
+                      {project.image && <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-black/5 to-transparent lg:bg-gradient-to-r" />}
 
-                      <div className="absolute bottom-5 left-5 lg:hidden">
+                      <div className={`absolute bottom-5 left-5 ${project.image ? "" : "hidden"} lg:hidden`}>
                         <p className="text-[0.72rem] uppercase tracking-[0.24em] text-white/80">
                           {project.eyebrow}
                         </p>
@@ -430,7 +492,9 @@ export default function WorkPage() {
                   className="reveal-item block"
                   data-delay={i * 80}
                 >
-                  <article className="group relative h-full overflow-hidden rounded-[30px] border border-black/5 bg-white/72 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.09)]">
+                  <article className={`group relative h-full overflow-hidden rounded-[30px] border border-black/5 p-7 shadow-[0_18px_50px_rgba(68,44,29,0.05)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_24px_70px_rgba(68,44,29,0.09)] ${
+                    i % 3 === 0 ? "bg-white/72" : i % 3 === 1 ? "bg-[#fffaf6]/80" : "bg-[#fff7f9]/65"
+                  }`}>
                     <span className="absolute right-6 top-6 select-none font-serif text-[2.4rem] font-semibold leading-none text-[#e8ddd6]">
                       {project.num}
                     </span>
