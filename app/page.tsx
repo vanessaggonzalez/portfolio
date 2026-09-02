@@ -17,7 +17,7 @@ PENDING IDEAS
 "use client";
 
 import Image from "next/image";
-import { useEffect, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import Signature from "@/components/Signature";
 import NowPlaying from "@/components/NowPlaying";
 import MarqueeTicker from "@/components/MarqueeTicker";
@@ -184,7 +184,7 @@ export default function Home() {
     "beautiful interfaces",
   ];
 
-  const obsessedWith: ObsessedItem[] = [
+  const obsessedWith = useMemo<ObsessedItem[]>(() => [
     { label: "cry baby",        sub: "the neighbourhood" },
     { label: "robbers",         sub: "the 1975" },
     { label: "hometown",        sub: "twenty one pilots" },
@@ -193,7 +193,7 @@ export default function Home() {
     { label: "a world alone",   sub: "lorde" },
     { label: "sometimes",       sub: "ariana grande" },
     { label: "call it what you want", sub: "taylor swift" },
-  ];
+  ], []);
 
   const tools = [
     "after effects",
@@ -319,17 +319,72 @@ export default function Home() {
                 <NowPlaying />
               </div>
 
-              <div className="mt-6 rounded-[28px] border border-black/5 bg-white/45 p-4 shadow-[0_16px_40px_rgba(68,44,29,0.04)] backdrop-blur-sm">
+              {/* CURATED SCRAPBOOK — a compact, clickable visual index */}
+              <div className="reveal-item relative mx-auto mt-12 max-w-[1120px] lg:mt-14" data-delay={80}>
+                <div className="mb-5 flex items-center justify-between gap-4">
+                  <div className="flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
+                    <span className="h-px w-8 bg-[#c8bdb2]" />
+                    a few things I keep returning to
+                  </div>
+                  <span className="hidden font-serif text-[0.78rem] italic text-[#a89d96] sm:block">click a fragment to wander ↘</span>
+                </div>
+
+                <div className="scrapbook-grid relative grid gap-3 sm:grid-cols-2 lg:grid-cols-12 lg:grid-rows-[210px_210px_170px] lg:gap-4">
+                  <a href="/about" className="group relative min-h-[390px] overflow-hidden rounded-[30px] border border-black/5 shadow-[0_20px_55px_rgba(68,44,29,.09)] sm:col-span-1 lg:col-span-4 lg:row-span-3 lg:min-h-0">
+                    <Image src="/images/VanessaG.jpg" alt="Vanessa Gonzalez" fill priority sizes="(max-width: 1024px) 50vw, 32vw" className="object-cover object-center transition duration-700 group-hover:scale-[1.025]" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/40 via-transparent to-transparent" />
+                    <div aria-hidden="true" className="absolute left-1/2 top-[-8px] h-8 w-24 -translate-x-1/2 -rotate-2 bg-[#e7d6c8]/80 shadow-sm" />
+                    <div className="absolute bottom-5 left-5 text-white"><p className="font-serif text-xl italic">vanessa, lately</p><p className="mt-1 text-[0.52rem] uppercase tracking-[0.2em] text-white/65">open the personal archive →</p></div>
+                  </a>
+
+                  <a href="/about" className="group relative min-h-[250px] overflow-hidden rounded-[27px] border border-black/5 shadow-[0_18px_48px_rgba(68,44,29,.08)] sm:col-span-1 lg:col-span-4 lg:min-h-0 lg:-rotate-[1deg]">
+                    <Image src="/images/ariana-audrey.jpg" alt="Ariana Grande and Audrey Hepburn editorial inspiration" fill sizes="(max-width: 1024px) 50vw, 28vw" className="object-cover transition duration-700 group-hover:scale-[1.035]" />
+                    <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/45 to-transparent px-5 pb-4 pt-12"><p className="text-[0.52rem] uppercase tracking-[0.2em] text-white/80">visual culture / old icons, new language</p></div>
+                  </a>
+
+                  <a href="/work" className="relative flex min-h-[250px] flex-col justify-between rounded-[27px] border border-black/5 bg-[#fffdf9] p-6 shadow-[0_18px_48px_rgba(68,44,29,.07)] sm:col-span-2 lg:col-span-4 lg:min-h-0 lg:rotate-[.7deg]">
+                    <div aria-hidden="true" className="absolute right-7 top-[-9px] h-7 w-20 rotate-3 bg-[#e5d2c2]/75 shadow-sm" />
+                    <div><p className="text-[0.55rem] uppercase tracking-[0.24em] text-[#a89d96]">a little field note</p><p className="mt-4 font-serif text-[1.35rem] leading-7 text-[#342d29]">I like turning messy systems into experiences that feel clean, intentional, and obvious.</p></div>
+                    <p className="mt-5 text-[0.54rem] uppercase tracking-[0.2em] text-[#8d796c]">see how I think →</p>
+                  </a>
+
+                  <a href="/about" className="group relative min-h-[230px] overflow-hidden rounded-[27px] border border-black/5 shadow-[0_18px_48px_rgba(68,44,29,.08)] sm:col-span-1 lg:col-span-3 lg:min-h-0 lg:-rotate-[.8deg]">
+                    <Image src="/images/lace.jpg" alt="Lace textile detail" fill sizes="(max-width: 1024px) 50vw, 22vw" className="object-cover transition duration-700 group-hover:scale-[1.04]" />
+                    <div className="absolute inset-0 bg-[#6d5545]/5" />
+                    <p className="absolute bottom-4 left-4 rounded-full bg-white/80 px-3 py-1.5 text-[0.48rem] uppercase tracking-[0.18em] text-[#75665e] backdrop-blur-sm">texture matters</p>
+                  </a>
+
+                  <a href="/about" className="relative flex min-h-[230px] flex-col justify-center rounded-[27px] border border-black/5 bg-[#f5ebe5] p-6 shadow-[0_18px_48px_rgba(68,44,29,.06)] sm:col-span-1 lg:col-span-5 lg:min-h-0">
+                    <p className="font-serif text-[1.45rem] italic leading-8 text-[#342d29]">“collecting moments, tattoos on my mind”</p>
+                    <p className="mt-4 text-[0.54rem] uppercase tracking-[0.22em] text-[#a18779]">Ariana Grande · Sometimes</p>
+                    <span aria-hidden="true" className="absolute right-6 top-5 text-[#d5b9ad]">✦</span>
+                  </a>
+
+                  <a href="/about" className="group relative min-h-[250px] overflow-hidden rounded-[27px] border border-black/5 shadow-[0_18px_48px_rgba(68,44,29,.08)] sm:col-span-1 lg:col-span-4 lg:min-h-0 lg:rotate-[1deg]">
+                    <Image src="/images/vanessa2.jpg" alt="Vanessa at the Huntington" fill sizes="(max-width: 1024px) 50vw, 28vw" className="object-cover object-top transition duration-700 group-hover:scale-[1.03]" />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/30 via-transparent to-transparent" />
+                    <p className="absolute bottom-4 left-4 text-[0.5rem] uppercase tracking-[0.2em] text-white/80">Los Angeles / saved afternoon</p>
+                  </a>
+
+                  <a href="/about" className="relative min-h-[250px] rounded-[27px] border border-black/5 bg-white/80 p-6 shadow-[0_18px_48px_rgba(68,44,29,.06)] sm:col-span-1 lg:col-span-4 lg:min-h-0">
+                    <p className="text-[0.55rem] uppercase tracking-[0.24em] text-[#a89d96]">current threads</p>
+                    <div className="mt-5 space-y-3 font-serif text-[1rem] text-[#342d29]"><p>fandom + audience psychology</p><p>product strategy + user friction</p><p>visual culture + interface taste</p></div>
+                    <p className="absolute bottom-5 right-5 text-[0.5rem] uppercase tracking-[0.18em] text-[#aa9588]">more about me →</p>
+                  </a>
+                </div>
+              </div>
+
+              <div className="mt-7 px-1">
                 <div className="flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
                   <span className="h-px w-8 bg-[#c8bdb2]" />
                   selected fragments
                 </div>
 
-                <div className="mt-4 flex flex-wrap gap-3 text-sm text-[#5f554f]">
+                <div className="mt-4 flex flex-wrap gap-2.5 text-sm text-[#5f554f]">
                   {fragments.map((item, index) => (
                     <span
                       key={item}
-                      className={`rounded-full border border-black/10 bg-white/70 px-4 py-2 tracking-[0.04em] shadow-sm backdrop-blur-sm transition-all duration-200 ease-out hover:-translate-y-0.5 hover:bg-white hover:shadow-md ${
+                      className={`rounded-full border border-black/10 bg-[#fffaf6]/85 px-4 py-2 tracking-[0.04em] shadow-[0_7px_18px_rgba(68,44,29,.045)] backdrop-blur-sm transition-all duration-200 ease-out hover:-translate-y-1 hover:bg-white hover:shadow-md ${
                         index % 3 === 0
                           ? "-rotate-1"
                           : index % 3 === 1
@@ -344,7 +399,7 @@ export default function Home() {
               </div>
 
               {/* COLLAGE — MOBILE / TABLET */}
-              <div className="mt-10 grid grid-cols-2 gap-3 sm:gap-4 lg:hidden">
+              <div className="hidden mt-10 grid-cols-2 gap-3 sm:gap-4">
                 <div
                   className="collage-card reveal-item col-span-2 sm:col-span-1 group h-[340px] overflow-hidden rounded-[28px] border border-[#201c1a]/6 shadow-[0_18px_50px_rgba(45,29,18,0.08)] transition-shadow duration-300"
                   data-parallax="portrait" data-delay={0}
@@ -426,7 +481,7 @@ export default function Home() {
               </div>
 
               {/* COLLAGE — DESKTOP */}
-              <div className="relative mt-[4.5rem] hidden lg:block" style={{ minHeight: "1000px" }}>
+              <div className="relative mt-[4.5rem] !hidden" style={{ minHeight: "1000px" }}>
                 {/* LEFT COLUMN */}
                 <div
                   className="collage-card reveal-item group absolute overflow-hidden rounded-[36px] border border-[#201c1a]/6 shadow-[0_22px_65px_rgba(45,29,18,0.08)] transition-shadow duration-300 hover:shadow-[0_30px_80px_rgba(45,29,18,0.14)] animate-floatSlow"
@@ -529,10 +584,16 @@ export default function Home() {
             </div>
 
             {/* CURRENTLY OBSESSED WITH */}
-            <div className="reveal-item mt-8 lg:mt-12" data-delay={320}>
-              <div className="flex items-center gap-3 text-[0.72rem] uppercase tracking-[0.28em] text-[#7c7068]">
-                <span className="h-px w-8 bg-[#c8bdb2]" />
-                currently obsessed with
+            <div className="reveal-item mt-8 lg:mt-10" data-delay={320}>
+              <div className="flex flex-wrap items-end justify-between gap-4">
+                <div>
+                  <div className="flex items-center gap-3 text-[0.58rem] uppercase tracking-[0.28em] text-[#a89d96]">
+                    <span className="h-px w-8 bg-[#c8bdb2]" />
+                    currently obsessed with
+                  </div>
+                  <p className="mt-2 font-serif text-[1.45rem] italic text-[#342d29]">soundtrack to the archive</p>
+                </div>
+                <p className="-rotate-1 font-serif text-[0.74rem] italic text-[#9a8c84]">yes, the same songs stay here forever ♡</p>
               </div>
               <div className="mt-6 grid grid-cols-4 items-start gap-3 sm:grid-cols-8">
                 {obsessedWithArt.map((item, index) => (
@@ -568,6 +629,15 @@ export default function Home() {
                     <span className="text-[0.58rem] uppercase tracking-[0.14em] text-[#a89d96]">{item.sub}</span>
                   </div>
                 ))}
+              </div>
+
+              <div aria-hidden="true" className="mt-7 flex items-center gap-3 px-1">
+                <span className="text-[0.46rem] uppercase tracking-[0.18em] text-[#b8aaa1]">side a</span>
+                <div className="relative h-px flex-1 bg-[#d9cec7]">
+                  <span className="absolute left-0 top-1/2 h-2 w-2 -translate-y-1/2 rounded-full bg-[#8c776b] shadow-[0_0_0_4px_rgba(140,119,107,.08)]" />
+                  {["12.5%", "25%", "37.5%", "50%", "62.5%", "75%", "87.5%"].map((left) => <span key={left} className="absolute top-1/2 h-1.5 w-px -translate-y-1/2 bg-[#c8bdb2]" style={{ left }} />)}
+                </div>
+                <span className="text-[0.46rem] uppercase tracking-[0.18em] text-[#b8aaa1]">08 tracks</span>
               </div>
             </div>
 
