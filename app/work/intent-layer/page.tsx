@@ -18,12 +18,12 @@ function useReveal() {
 }
 
 const findings = [
-  { value: 97, title: "Repeated recommendations", body: "frequently saw the same titles repeatedly", sample: "n=34" },
-  { value: 83, title: "One-title overreaction", body: "received unwanted recs after one title", sample: "n=24" },
-  { value: 79, title: "Browsing friction", body: "sometimes browsed longer than they wanted", sample: "n=34" },
-  { value: 62, title: "Situational choice", body: "said mood or viewing mode shaped selection", sample: "n=37" },
-  { value: 62, title: "Pre-watch preference", body: "preferred clarifying intent while browsing", sample: "n=24" },
-  { value: 52, title: "Misunderstood intent", body: "recalled a platform misreading why they watched", sample: "n=33" },
+  { value: 98, title: "Repeated recommendations", body: "frequently saw the same titles repeatedly", sample: "n=40" },
+  { value: 86, title: "One-title overreaction", body: "received unwanted recs after one title", sample: "n=29" },
+  { value: 83, title: "Browsing friction", body: "sometimes browsed longer than they wanted", sample: "n=40" },
+  { value: 86, title: "Situational choice", body: "said mood or viewing mode shaped selection", sample: "n=43" },
+  { value: 55, title: "Pre-watch preference", body: "preferred clarifying intent before choosing", sample: "n=29" },
+  { value: 49, title: "Misunderstood intent", body: "recalled a platform misreading why they watched", sample: "n=39" },
 ];
 
 const respondentSignals = [
@@ -89,13 +89,13 @@ export default function IntentLayerPage() {
 
           {/* RESEARCH SNAPSHOT */}
           <section className="grid grid-cols-2 border-b border-black/5 bg-[#fffaf6]/75 sm:grid-cols-4">
-            {[["54", "survey starts"], ["44", "eligible viewers"], ["27", "submitted responses"], ["8–10", "interviews planned"]].map(([value, label], i) => <div key={label} className={`p-6 text-center sm:p-8 ${i > 0 ? "sm:border-l sm:border-black/5" : ""} ${i > 1 ? "border-t border-black/5 sm:border-t-0" : ""}`}><p className="font-serif text-[2rem] font-semibold text-[#342d29]">{value}</p><p className="mt-2 text-[0.58rem] uppercase tracking-[0.2em] text-[#9a8c84]">{label}</p></div>)}
+            {[["61", "survey starts"], ["52", "eligible viewers"], ["28", "eligible completions"], ["8–10", "interviews planned"]].map(([value, label], i) => <div key={label} className={`p-6 text-center sm:p-8 ${i > 0 ? "sm:border-l sm:border-black/5" : ""} ${i > 1 ? "border-t border-black/5 sm:border-t-0" : ""}`}><p className="font-serif text-[2rem] font-semibold text-[#342d29]">{value}</p><p className="mt-2 text-[0.58rem] uppercase tracking-[0.2em] text-[#9a8c84]">{label}</p></div>)}
           </section>
 
           {/* METHOD */}
           <section className="reveal-item grid gap-8 px-6 py-12 sm:px-10 lg:grid-cols-[0.38fr_1.62fr] lg:px-14" data-delay={0}>
-            <div><p className="text-[0.62rem] uppercase tracking-[0.27em] text-[#a89d96]">method · August 2026</p><p className="mt-2 text-[0.65rem] leading-5 text-[#a89d96]">Exploratory, directional evidence</p></div>
-            <div><p className="max-w-4xl font-serif text-[1.6rem] leading-[1.42] text-[#342d29] sm:text-[1.9rem]">I designed an anonymous survey around real viewing occasions—not general taste—to examine where recommendation context breaks down.</p><p className="mt-5 max-w-3xl text-[0.82rem] leading-7 text-[#6b5d55]">Question-level sample sizes range from 24–43 because valid partial responses were retained. Of respondents reporting age, 96% were 18–24, so these findings primarily reflect Gen Z behavior and should be treated as exploratory.</p></div>
+            <div><p className="text-[0.62rem] uppercase tracking-[0.27em] text-[#a89d96]">method · August–September 2026</p><p className="mt-2 text-[0.65rem] leading-5 text-[#a89d96]">Exploratory, directional evidence</p></div>
+            <div><p className="max-w-4xl font-serif text-[1.6rem] leading-[1.42] text-[#342d29] sm:text-[1.9rem]">I designed an anonymous survey around real viewing occasions—not general taste—to examine where recommendation context breaks down.</p><p className="mt-5 max-w-3xl text-[0.82rem] leading-7 text-[#6b5d55]">Question-level sample sizes range from 29–51 because valid partial responses were retained. Of respondents reporting age, 97% were 18–24, so these findings primarily reflect Gen Z behavior and should be treated as exploratory.</p></div>
           </section>
 
           {/* FINDINGS DASHBOARD */}
